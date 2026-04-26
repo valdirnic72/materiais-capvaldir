@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-l:#43A047;--verde-bg:#E8F5E9;--verde-xbg:#F1F8F1;
+  --ouro:#B8860B;--ouro-l:#D4A017;--ouro-bg:#FFF9E6;
+  --laranja:#BF4A00;--laranja-l:#F57F17;--laranja-bg:#FFF3E0;
+  --azul:#0D47A1;--azul-l:#1565C0;--azul-bg:#E3F2FD;
+  --verm:#B71C1C;--verm-l:#C62828;--verm-bg:#FFEBEE;
+  --cinza:#37474F;--cinza-l:#546E7A;--cinza-bg:#ECEFF1;
+  --roxo:#4A148C;--roxo-l:#6A1B9A;--roxo-bg:#F3E5F5;
+  --teal:#004D40;--teal-l:#00695C;--teal-bg:#E0F2F1;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:15px;background:#111C24;color:var(--texto);display:flex;flex-direction:column;}
+.deck{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .32s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+.nav{background:#0D1820;padding:7px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--verde-l);}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;padding:5px 14px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);}
+.nbtn:disabled{opacity:.22;cursor:default;}
+.pw{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--verde-l);border-radius:2px;transition:width .32s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.65);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap;}
+/* TOPBAR */
+.topbar{background:var(--verde);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:3px solid var(--verde-l);position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:160px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;}
+.topbar.azul{background:var(--azul);border-color:#42A5F5;}
+.topbar.verm{background:var(--verm);border-color:#EF9A9A;}
+.topbar.cinza{background:var(--cinza);border-color:#90A4AE;}
+.topbar.roxo{background:var(--roxo);border-color:#CE93D8;}
+.topbar.laranja{background:var(--laranja);border-color:#FF9955;}
+.topbar.teal{background:var(--teal);border-color:#4DB6AC;}
+.topbar.ouro{background:#6B4400;border-color:var(--ouro-l);}
+.topbar-left{display:flex;flex-direction:column;gap:1px;}
+.topbar-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(15px,2.2vw,22px);font-weight:800;color:white;line-height:1.1;}
+.topbar-sub{font-size:12px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:rgba(255,255,255,.15);flex-shrink:0;line-height:1;}
+/* SCROLL BODY */
+.sb{flex:1;overflow-y:auto;padding:16px 22px 52px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+/* FOOTER */
+.slide-footer{position:absolute;bottom:0;left:0;right:0;height:33px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;backdrop-filter:blur(4px);z-index:10;}
+.slide-footer-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--verde);padding:3px 10px;border-radius:5px;transition:all .2s;}
+.slide-footer-btn:hover{background:var(--verde-bg);}
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+/* CARDS */
+.card{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid var(--borda);}
+.card-head.verde{background:var(--verde-bg);border-color:#A5D6A7;}
+.card-head.azul{background:var(--azul-bg);border-color:#90CAF9;}
+.card-head.verm{background:var(--verm-bg);border-color:#EF9A9A;}
+.card-head.ouro{background:var(--ouro-bg);border-color:#F9D878;}
+.card-head.cinza{background:var(--cinza-bg);border-color:#B0BEC5;}
+.card-head.laranja{background:var(--laranja-bg);border-color:#FFCC80;}
+.card-head.roxo{background:var(--roxo-bg);border-color:#CE93D8;}
+.card-head.teal{background:var(--teal-bg);border-color:#80CBC4;}
+.card-head-icon{font-size:18px;flex-shrink:0;}
+.card-head-title{font-size:14px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:13px 15px;font-size:14px;line-height:1.7;color:var(--texto);}
+/* ALERTAS */
+.alerta{border-radius:8px;padding:11px 14px;margin-bottom:11px;display:flex;gap:10px;align-items:flex-start;}
+.alerta.verde{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.alerta.verm{background:var(--verm-bg);border-left:4px solid var(--verm-l);}
+.alerta.azul{background:var(--azul-bg);border-left:4px solid var(--azul-l);}
+.alerta.ouro{background:var(--ouro-bg);border-left:4px solid var(--ouro-l);}
+.alerta.cinza{background:var(--cinza-bg);border-left:4px solid var(--cinza-l);}
+.alerta.laranja{background:var(--laranja-bg);border-left:4px solid var(--laranja-l);}
+.alerta.roxo{background:var(--roxo-bg);border-left:4px solid var(--roxo-l);}
+.alerta.teal{background:var(--teal-bg);border-left:4px solid var(--teal-l);}
+.alerta-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.alerta.verde .alerta-title{color:var(--verde);}
+.alerta.verm  .alerta-title{color:var(--verm-l);}
+.alerta.azul  .alerta-title{color:var(--azul-l);}
+.alerta.ouro  .alerta-title{color:var(--ouro);}
+.alerta.cinza .alerta-title{color:var(--cinza);}
+.alerta.laranja .alerta-title{color:var(--laranja);}
+.alerta.roxo  .alerta-title{color:var(--roxo-l);}
+.alerta.teal  .alerta-title{color:var(--teal-l);}
+.alerta-text{font-size:14px;line-height:1.68;color:var(--texto);}
+.alerta-text b{font-weight:700;}
+/* ITEMS */
+.item{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:14px;flex-shrink:0;margin-top:1px;line-height:1.6;}
+.it{font-size:14px;line-height:1.68;color:var(--texto);}
+.it b{font-weight:700;}
+.it .ko{color:var(--verm-l);font-weight:700;}
+.it .ok{color:var(--verde-m);font-weight:700;}
+/* MAPA MENTAL */
+.mapa{background:white;border:2px solid var(--borda);border-radius:12px;padding:16px;margin-bottom:13px;}
+.mapa-centro{background:var(--verde);color:white;border-radius:50px;padding:9px 22px;text-align:center;font-size:16px;font-weight:800;margin:0 auto 14px;display:table;letter-spacing:.02em;}
+.mapa-ramos{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+.ramo{border-radius:9px;padding:11px 14px;flex:1;min-width:145px;max-width:230px;}
+.ramo-titulo{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;}
+.ramo-item{font-size:13px;line-height:1.65;display:flex;gap:6px;align-items:flex-start;margin-bottom:4px;}
+.ramo-item:last-child{margin-bottom:0;}
+.ramo-dot{flex-shrink:0;margin-top:2px;font-size:11px;}
+/* ESQUEMA */
+.esquema{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;margin-bottom:13px;}
+.esquema-head{padding:9px 14px;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:white;display:flex;align-items:center;gap:8px;}
+.esquema-body{padding:13px 15px;}
+.regra{background:var(--fundo);border-radius:7px;padding:10px 13px;margin-bottom:9px;border-left:4px solid var(--verde-l);}
+.regra:last-child{margin-bottom:0;}
+.regra.verm{border-color:var(--verm-l);}
+.regra.azul{border-color:var(--azul-l);}
+.regra.ouro{border-color:var(--ouro-l);}
+.regra.laranja{border-color:var(--laranja-l);}
+.regra.roxo{border-color:var(--roxo-l);}
+.regra.teal{border-color:var(--teal-l);}
+.regra.cinza{border-color:var(--cinza-l);}
+.regra-titulo{font-size:13px;font-weight:800;color:var(--texto);margin-bottom:5px;}
+.regra-corpo{font-size:13.5px;line-height:1.7;color:var(--cinza);}
+.regra-corpo b{color:var(--texto);font-weight:700;}
+.ex{background:white;border:1px solid var(--borda);border-radius:5px;padding:4px 10px;display:block;font-style:italic;font-size:13px;margin-top:5px;color:var(--cinza);line-height:1.6;}
+.ex b{font-style:normal;color:var(--texto);}
+.ex .ok{color:var(--verde-m);font-weight:700;font-style:normal;}
+.ex .ko{color:var(--verm-l);font-weight:700;font-style:normal;}
+/* TABELA */
+.tabela{width:100%;border-collapse:collapse;margin-bottom:13px;font-size:13.5px;}
+.tabela th{background:var(--verde);color:white;padding:9px 12px;text-align:left;font-weight:700;font-size:12.5px;}
+.tabela td{padding:8px 12px;border-bottom:1px solid var(--borda);line-height:1.6;}
+.tabela tr:nth-child(even) td{background:var(--fundo);}
+.tabela tr:hover td{background:var(--verde-xbg);}
+/* GATILHO */
+.gatilho{display:inline-flex;align-items:center;gap:5px;background:var(--verm-bg);border:1.5px solid #EF9A9A;border-radius:6px;padding:5px 11px;font-size:13px;font-weight:700;color:var(--verm-l);margin:3px 3px 3px 0;}
+.gatilho.ok{background:var(--verde-bg);border-color:#A5D6A7;color:var(--verde-m);}
+.gatilho.laranja{background:var(--laranja-bg);border-color:#FFCC80;color:var(--laranja);}
+/* SUMÁRIO */
+.sum-item{display:flex;align-items:center;gap:10px;padding:9px 13px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:5px;}
+.sum-item:hover{border-color:var(--verde-l);background:var(--verde-xbg);transform:translateX(3px);}
+.sum-item-num{font-size:14px;font-weight:800;min-width:34px;}
+.sum-item-txt{flex:1;}
+.sum-item-nome{font-size:14px;font-weight:700;color:var(--texto);}
+.sum-item-desc{font-size:12px;color:var(--sub);margin-top:1px;}
+.sum-titulo{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--verde);padding:7px 13px;background:var(--verde-bg);border-left:4px solid var(--verde-l);border-radius:0 7px 7px 0;margin-bottom:8px;}
+/* CAPA */
+.capa-slide{flex:1;background:linear-gradient(160deg,#0B1A0D 0%,#1B5E20 38%,#0A2E10 72%,#040C05 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;gap:11px;overflow-y:auto;position:relative;}
+.capa-slide::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 55px,rgba(255,255,255,.012) 55px,rgba(255,255,255,.012) 56px);pointer-events:none;}
+/* BADGE */
+.badge-tele{display:inline-flex;align-items:center;gap:5px;border-radius:20px;padding:4px 13px;font-size:12px;font-weight:700;border:1.5px solid;}
+.badge-tele.alta{background:var(--verm-bg);border-color:#EF9A9A;color:var(--verm-l);}
+.badge-tele.media{background:var(--ouro-bg);border-color:#F9D878;color:var(--ouro);}
+.badge-tele.baixa{background:var(--verde-bg);border-color:#A5D6A7;color:var(--verde-m);}
+/* DICA */
+.dica{background:linear-gradient(135deg,#FFF9E6,#FFFDE7);border:1.5px dashed var(--ouro-l);border-radius:8px;padding:10px 13px;display:flex;gap:8px;align-items:flex-start;margin-top:10px;}
+.dica-icon{font-size:17px;flex-shrink:0;}
+.dica-txt{font-size:13.5px;line-height:1.65;color:var(--cinza);font-style:italic;}
+/* PERSONAGEM CARD */
+.personagem{background:white;border:2px solid var(--borda);border-radius:11px;padding:14px 16px;margin-bottom:11px;position:relative;overflow:hidden;}
+.personagem::before{content:'';position:absolute;top:0;left:0;bottom:0;width:6px;}
+.personagem.mafalda::before{background:#B71C1C;}
+.personagem.hagar::before{background:#0D47A1;}
+.personagem.niquel::before{background:#1B5E20;}
+.personagem.calvin::before{background:#4A148C;}
+.personagem.recruta::before{background:#E65100;}
+.personagem-header{display:flex;align-items:center;gap:11px;margin-bottom:10px;}
+.personagem-icon{font-size:26px;}
+.personagem-nome{font-size:16px;font-weight:800;color:var(--texto);}
+.personagem-sub{font-size:12px;color:var(--sub);margin-top:1px;}
+.personagem-body{font-size:13.5px;line-height:1.7;color:var(--texto);}
+.mecanismo{background:var(--fundo);border-radius:7px;padding:8px 12px;margin-top:8px;font-size:13.5px;line-height:1.65;}
+/* CONECTIVO BOX */
+.conect-box{background:white;border:1.5px solid var(--borda);border-radius:8px;padding:12px 14px;margin-bottom:9px;}
+.conect-box-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;}
+.conect-lista{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px;}
+.conect-chip{background:var(--fundo);border:1px solid var(--borda);border-radius:5px;padding:3px 10px;font-size:13px;font-weight:600;color:var(--texto);}
+.conect-ex{font-size:13px;font-style:italic;color:var(--cinza);line-height:1.6;border-top:1px solid var(--borda);padding-top:6px;margin-top:2px;}
+.conect-ex b{font-style:normal;color:var(--texto);font-weight:700;}
+
+.capa-modulo{flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;}
+
+
+/* ════════════════════════════════════════════════════════════════════════════
+   RESPONSIVIDADE TOTAL — CAPITÃO VALDIR · VOLUME I
+   Criado para desktop → tablet → mobile sem zoom horizontal
+   Breakpoints: ≤900px, ≤768px, ≤540px, ≤400px
+════════════════════════════════════════════════════════════════════════════ */
+
+/* ─── RESET & SAFETY ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+img, video, iframe, embed, object, svg {
+  max-width: 100%;
+  height: auto;
+}
+html, body {
+  max-width: 100vw;
+}
+
+/* ─── TABLE SCROLL WRAPPER ─── */
+.tbl-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 13px;
+  border-radius: 4px;
+}
+.tbl-scroll .tabela {
+  margin-bottom: 0;
+  min-width: 480px;
+}
+
+/* ─── RAMOS DO MAPA MENTAL — mobile stack ─── */
+@media (max-width: 540px) {
+  .ramo {
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+/* ════════════════════════════════════
+   TABLET LARGE  ≤ 900px
+════════════════════════════════════ */
+@media (max-width: 900px) {
+  .g3 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .g4 { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .mapa-ramos { gap: 8px; }
+  .ramo { min-width: 130px; }
+
+  .personagem { padding: 12px 14px; }
+}
+
+/* ════════════════════════════════════
+   TABLET / MOBILE  ≤ 768px
+════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* BODY */
+  body { font-size: 14px; }
+
+  /* GRIDS → single column */
+  .g2 { grid-template-columns: 1fr !important; gap: 10px; }
+  .g3 { grid-template-columns: 1fr !important; gap: 10px; }
+  .g4 { grid-template-columns: 1fr !important; gap: 10px; }
+
+  /* OVERFLOW PROTECTION */
+  .slide { overflow-x: hidden; }
+  .sb    { overflow-x: hidden; padding: 13px 14px 50px; }
+
+  /* NAV */
+  .nav { padding: 6px 12px; gap: 8px; }
+  .nbtn { font-size: 10.5px; padding: 5px 11px; }
+  .ntitle { max-width: 180px; font-size: 10.5px; }
+  .ncnt { font-size: 9.5px; }
+
+  /* TOPBAR */
+  .topbar { padding: 9px 14px; }
+  .topbar-title { font-size: clamp(13px, 3.8vw, 20px); }
+  .topbar-sub { font-size: 11px; }
+  .topbar-right { font-size: 24px; }
+
+  /* CARDS */
+  .card-head { padding: 9px 12px; gap: 7px; }
+  .card-head-icon { font-size: 16px; }
+  .card-head-title { font-size: 13px; }
+  .card-body { padding: 11px 13px; font-size: 13.5px; }
+
+  /* ALERTAS */
+  .alerta { padding: 9px 12px; gap: 8px; }
+  .alerta-icon { font-size: 16px; }
+  .alerta-title { font-size: 10px; }
+  .alerta-text { font-size: 13.5px; }
+
+  /* ITEMS */
+  .item { gap: 7px; margin-bottom: 7px; }
+  .it { font-size: 13.5px; }
+  .dot { font-size: 13px; }
+
+  /* MAPA MENTAL */
+  .mapa { padding: 13px 12px; }
+  .mapa-centro { font-size: 14px; padding: 8px 16px; }
+  .ramo { min-width: 120px; padding: 9px 11px; }
+  .ramo-titulo { font-size: 11.5px; }
+  .ramo-item { font-size: 12px; }
+
+  /* ESQUEMA */
+  .esquema { margin-bottom: 11px; }
+  .esquema-head { padding: 8px 12px; font-size: 12px; }
+  .esquema-body { padding: 11px 13px; }
+  .regra { padding: 9px 11px; margin-bottom: 8px; }
+  .regra-titulo { font-size: 12.5px; }
+  .regra-corpo { font-size: 13px; }
+  .ex { font-size: 12px; padding: 4px 9px; }
+
+  /* TABELAS */
+  .tabela th { padding: 8px 10px; font-size: 12px; }
+  .tabela td { padding: 7px 10px; font-size: 12.5px; line-height: 1.55; }
+
+  /* SUMÁRIO */
+  .sum-item { padding: 8px 11px; gap: 8px; }
+  .sum-item-num { font-size: 13px; min-width: 30px; }
+  .sum-item-nome { font-size: 13px; }
+  .sum-item-desc { font-size: 11px; }
+  .sum-titulo { font-size: 11.5px; padding: 6px 12px; }
+
+  /* GATILHO CHIPS */
+  .gatilho { font-size: 12px; padding: 4px 9px; }
+
+  /* DICA */
+  .dica { padding: 9px 12px; gap: 7px; }
+  .dica-icon { font-size: 15px; }
+  .dica-txt { font-size: 13px; }
+
+  /* PERSONAGEM */
+  .personagem { padding: 12px 14px; margin-bottom: 9px; }
+  .personagem-header { gap: 9px; margin-bottom: 8px; }
+  .personagem-icon { font-size: 22px; }
+  .personagem-nome { font-size: 14px; }
+  .personagem-sub { font-size: 11px; }
+  .personagem-body { font-size: 13px; }
+  .mecanismo { padding: 7px 11px; font-size: 13px; margin-top: 5px; }
+
+  /* CONECTIVOS */
+  .conect-box { padding: 10px 12px; margin-bottom: 8px; }
+  .conect-box-label { font-size: 10.5px; }
+  .conect-chip { font-size: 12px; padding: 2px 8px; }
+  .conect-ex { font-size: 12.5px; }
+
+  /* BADGE TELEMETRIA */
+  .badge-tele { font-size: 11.5px; padding: 3px 11px; }
+
+  /* FOOTER SLIDE */
+  .slide-footer { height: 34px; }
+  .slide-footer-btn { font-size: 10.5px; padding: 3px 9px; }
+  .slide-footer-btn:hover { background: var(--verde-bg); }
+
+  /* CAPA SLIDE */
+  .capa-slide { padding: 22px 16px; gap: 10px; }
+  .capa-modulo > div { padding: 24px 18px !important; }
+}
+
+/* ════════════════════════════════════
+   SMARTPHONE  ≤ 540px
+════════════════════════════════════ */
+@media (max-width: 540px) {
+
+  /* NAV — compact */
+  .nav { padding: 5px 10px; gap: 6px; }
+  .nbtn { font-size: 10px; padding: 5px 9px; letter-spacing: 0; }
+  .ntitle { max-width: 120px; font-size: 10px; }
+  .ncnt { font-size: 9px; }
+  /* hide keyboard hint span */
+  .nav > span:last-of-type { display: none; }
+  .kbd-hint { display: none; }
+
+  /* TOPBAR */
+  .topbar { padding: 8px 12px; }
+  .topbar-title { font-size: clamp(12px, 4vw, 18px); }
+  .topbar-sub { display: none; }
+  .topbar-right { display: none; }
+  .topbar-tag { font-size: 8.5px; letter-spacing: .08em; }
+
+  /* SLIDE BODY */
+  .sb { padding: 11px 11px 50px; }
+
+  /* CARDS */
+  .card-head-title { font-size: 12.5px; }
+  .card-body { padding: 10px 11px; font-size: 13px; line-height: 1.65; }
+
+  /* ALERTAS */
+  .alerta { padding: 8px 11px; gap: 7px; }
+  .alerta-title { font-size: 9.5px; }
+  .alerta-text { font-size: 13px; }
+
+  /* ITEMS */
+  .it { font-size: 13px; line-height: 1.65; }
+
+  /* MAPA */
+  .mapa-centro { font-size: 13px; padding: 7px 14px; }
+  .ramo { padding: 8px 10px; }
+  .ramo-titulo { font-size: 11px; }
+  .ramo-item { font-size: 11.5px; }
+
+  /* ESQUEMA */
+  .esquema-head { font-size: 11px; padding: 7px 10px; }
+  .regra-titulo { font-size: 12px; }
+  .regra-corpo { font-size: 12.5px; line-height: 1.62; }
+  .ex { font-size: 11.5px; }
+
+  /* TABELAS */
+  .tabela th { padding: 7px 9px; font-size: 11.5px; }
+  .tabela td { padding: 6px 9px; font-size: 12px; }
+
+  /* SUMÁRIO */
+  .sum-item { padding: 7px 10px; }
+  .sum-item-nome { font-size: 12.5px; }
+  .sum-item-desc { display: none; }
+
+  /* CONECTIVOS */
+  .conect-chip { font-size: 11.5px; padding: 2px 7px; }
+  .conect-ex { font-size: 12px; }
+
+  /* PERSONAGEM */
+  .personagem-nome { font-size: 13px; }
+  .personagem-body { font-size: 12.5px; }
+  .mecanismo { font-size: 12.5px; padding: 6px 10px; }
+
+  /* FOOTER */
+  .slide-footer { height: 32px; }
+  .slide-footer-btn { font-size: 10px; }
+
+  /* BADGE */
+  .badge-tele { font-size: 11px; }
+  .badge-tele.alta, .badge-tele.media, .badge-tele.baixa {
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* GATILHO CHIPS wrap nicely */
+  .gatilho { font-size: 11.5px; padding: 3px 8px; margin: 2px; }
+
+  /* CAPA SLIDE adjustments */
+  .capa-slide { padding: 18px 12px; gap: 9px; }
+  .capa-modulo > div { padding: 20px 14px !important; gap: 12px !important; }
+}
+
+/* ════════════════════════════════════
+   SMALL PHONE  ≤ 400px
+════════════════════════════════════ */
+@media (max-width: 400px) {
+  .nbtn { padding: 5px 7px; font-size: 9.5px; }
+  .ntitle { max-width: 90px; }
+  .topbar { padding: 7px 10px; }
+  .sb { padding: 10px 10px 48px; }
+  .card-body { font-size: 12.5px; }
+  .it { font-size: 12.5px; }
+  .alerta-text { font-size: 12.5px; }
+  .regra-corpo { font-size: 12px; }
+  .tabela th { font-size: 11px; padding: 6px 8px; }
+  .tabela td { font-size: 11.5px; padding: 5px 8px; }
+  .sum-item-nome { font-size: 12px; }
+  .gatilho { font-size: 11px; padding: 3px 7px; }
+}
+
+/* ─── TOUCH TARGETS (minimum 44px) ─── */
+@media (max-width: 768px) {
+  .nbtn,
+  .slide-footer-btn,
+  .sum-item,
+  button { min-height: 38px; }
+}
+
+/* ─── INLINE FLEX ROWS → stack on mobile ─── */
+/* The hero banner on Apresentação slide */
+@media (max-width: 600px) {
+  .slide[data-title*="Apresentação"] .sb > div[style*="display:flex"][style*="gap:20px"],
+  .slide[data-title*="Apresentação"] .sb > div[style*="flex"][style*="align-items:center"][style*="gap:20px"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+}
+
+/* ─── CAPA MODULE inline flex stacking ─── */
+@media (max-width: 540px) {
+  .capa-modulo div[style*="display:flex"][style*="gap:10px"][style*="flex-wrap"] {
+    gap: 7px !important;
+  }
+}
+
+/* ─── DICA INLINE elements ─── */
+@media (max-width: 540px) {
+  .dica-txt { font-size: 12.5px; line-height: 1.6; }
+}
+
+/* ─── PREVENT ANY OVERFLOW ─── */
+.deck, .slide, .sb, .card, .alerta, .mapa, .esquema,
+.personagem, .conect-box, .regra, .sum-item {
+  max-width: 100%;
+}
+
+/* ─── SCROLLBAR MOBILE ─── */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar { width: 3px; }
+}
+
+
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<div class="slide active" data-title="Capa" id="slide-0">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(212,160,23,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#D4A017;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(212,160,23,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">RESUMOS ESQUEMÁTICOS
+e MAPAS MENTAIS</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA DE SAÚDE E FORMAÇÃO COMPLEMENTAR DO EXÉRCITO</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.2vw,13px);font-weight:700;color:rgba(212,160,23,.6);letter-spacing:.1em;text-transform:uppercase;">QCO - QCM · VOLUME I</div>
+</div>
+</div>
+<div class="slide" data-title="Apresentação — Capitão Valdir" id="slide-1">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · Volume I · ESFCEx 2026</span>
+<span class="topbar-title">APRESENTAÇÃO — O CAPITÃO VALDIR</span>
+<span class="topbar-sub">Quem é · Formação · Experiência · Por que confiar</span>
+</div>
+<div class="topbar-right">01</div>
+</div>
+<div class="sb">
+<div style="background:linear-gradient(135deg,#0A2E10,#1B5E20,#2E7D32);border-radius:12px;padding:20px 24px;margin-bottom:14px;display:flex;gap:20px;align-items:center;position:relative;overflow:hidden;">
+<div style="position:absolute;right:0;top:0;bottom:0;width:100px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;"></div>
+<div style="flex-shrink:0;width:92px;height:92px;background:rgba(255,255,255,.13);border-radius:50%;border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:42px;">🎖️</div>
+<div style="flex:1;">
+<div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;">SEU PROFESSOR</div>
+<div style="font-size:28px;font-weight:800;color:white;line-height:1;margin-bottom:4px;">Capitão Valdir</div>
+<div style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:9px;">Capitão da Reserva do Exército Brasileiro · Quadro Complementar de Oficiais (QCO)</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap;">
+<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:700;color:rgba(255,255,255,.9);">🎓 Letras — UNICAMP</span>
+<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:700;color:rgba(255,255,255,.9);">⭐ Formado pela EsAEx/ESFCEx</span>
+<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:700;color:rgba(255,255,255,.9);">📜 Pós-grad. Magistério Português</span>
+<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:700;color:rgba(255,255,255,.9);">🏆 20+ anos formando ALUNOS</span>
+</div>
+</div>
+</div>
+<div class="g2" style="margin-bottom:13px;">
+<div class="card">
+<div class="card-head verde"><div class="card-head-icon">📋</div><div class="card-head-title">Formação Acadêmica e Militar</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">🎓</span><div class="it">Licenciado em <b>Letras pela UNICAMP</b> — Universidade Estadual de Campinas</div></div>
+<div class="item"><span class="dot">⭐</span><div class="it"><b>Formou-se Oficial de carreira</b> pela Escola de Administração do Exército (EsAEx), atual Escola de Saúde e Formação Complementar do Exército (ESFCEx)</div></div>
+<div class="item"><span class="dot">📜</span><div class="it"><b>Pós-graduado pela ESFCEx</b> — Magistério em Língua Portuguesa</div></div>
+<div class="item"><span class="dot">🏆</span><div class="it"><b>Especialista em Ensino Militar</b> — 20+ anos formando e aprovando ALUNOS</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-head azul"><div class="card-head-icon">🏫</div><div class="card-head-title">Onde o Capitão Valdir já Lecionou</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Colégio Militar de Fortaleza</b></div></div>
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Colégio Militar de Manaus</b></div></div>
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Escola de Aperfeiçoamento de Sargentos das Armas (EASA)</b></div></div>
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Centro de Instrução de Aviação do Exército (CIAvEx)</b></div></div>
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Cursos Preparatórios para Concursos Militares e Pré-Vestibulares</b></div></div>
+</div>
+</div>
+</div>
+<div class="alerta azul" style="margin-bottom:12px;">
+<div class="alerta-icon">💬</div>
+<div class="alerta-content">
+<div class="alerta-title">Por que o Capitão Valdir é diferente</div>
+<div class="alerta-text">O Capitão Valdir não é apenas professor de Língua Portuguesa — ele <b>viveu o concurso da ESFCEx por dentro</b>. Formou-se na mesma instituição pela qual você concorre, conhece a cultura militar, domina o padrão da banca VUNESP e sabe exatamente <b>o que cai, como cai e por que cai</b>. Há mais de 20 anos, ensina, forma, especializa e prepara <b>ALUNOS</b> com excelência!</div>
+</div>
+</div>
+<div style="background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:9px;padding:14px 18px;text-align:center;">
+<div style="font-size:15px;font-weight:600;font-style:italic;color:white;line-height:1.65;">"O conhecimento é a arma mais poderosa que existe. Prepare-se com método, disciplina e estratégia."</div>
+<div style="font-size:13px;color:rgba(255,255,255,.65);margin-top:7px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;">— Capitão Valdir · QCO · EsAEx/ESFCEx · Especialista em Ensino</div>
+</div>
+<div style="text-align:center;margin-top:13px;"><button onclick="next()" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;padding:10px 30px;border-radius:8px;cursor:pointer;">Continuar →</button></div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Início</button></div>
+</div>
+<div class="slide" data-title="Apresentação — Como Usar" id="slide-2">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · Resumos e Mapas Mentais</span>
+<span class="topbar-title">MÉTODO · PRIORIDADES · COMO USAR</span>
+<span class="topbar-sub">Os dois e-books · Estudo tático + telemetria · Prioridades</span>
+</div>
+<div class="topbar-right">01</div>
+</div>
+<div class="sb">
+<div style="background:linear-gradient(135deg,#0A2E10,#1B5E20);border-radius:11px;padding:16px 22px;margin-bottom:13px;color:white;">
+<div style="font-size:17px;font-weight:800;margin-bottom:5px;">📚 Três e-books que trabalham juntos</div>
+<div style="font-size:14px;color:rgba(255,255,255,.82);line-height:1.7;"><b>Volume I — Resumos e Mapas Mentais (este):</b> sistematiza o conhecimento em esquemas visuais para memorização rápida na reta final.<br/><b>Volume II — Questões Comentadas:</b> 116 questões resolvidas com gabarito, análise de todas as alternativas e estratégia.<br/><b>Volume III — Foco no que Mais Cai e Dicas de Ouro:</b> telemetria avançada, dicas estratégicas e o que não pode faltar na prova.</div>
+</div>
+<div class="g2" style="margin-bottom:13px;">
+<div class="card" style="margin-bottom:13px;"><div class="card-head laranja"><div class="card-head-icon">⚠️</div><div class="card-head-title">Como usar este Volume I</div></div><div class="card-body"><div class="item"><span class="dot">📌</span><div class="it">Para maximizar sua aprendizagem, adote o <b>estudo ativo</b>: primeiro, estude os conceitos essenciais pelos resumos e mapas mentais do <b>Volume I</b>. Em seguida, teste seu conhecimento resolvendo as questões do <b>Volume II</b>. Por fim, consolide o aprendizado refinando seus conhecimentos com o "Foco no que mais cai" e as "Dicas de Ouro" do <b>Volume III</b>. Esse ciclo garante que você entenda, aplique e memorize o conteúdo.</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Dedique mais tempo para os módulos <b>🔴 Alta Prioridade</b> (VI, IX, X, XI, XII, XV)</div></div><div class="item"><span class="dot">📌</span><div class="it">Use os <b>gatilhos de eliminação</b> como checklist mental na hora da prova</div></div><div class="item"><span class="dot">📌</span><div class="it">Releia o <b>Painel Estratégico Final</b> (último slide) na véspera</div></div><div class="item"><span class="dot">📌</span><div class="it">Use <b>← →</b> no teclado ou swipe para navegar · Clique no Sumário para saltar direto</div></div></div></div>
+<div class="card" style="margin-bottom:13px;"><div class="card-head teal"><div class="card-head-icon">🗺️</div><div class="card-head-title">Os 4 pilares deste material</div></div><div class="card-body"><div class="item"><span class="dot">🗺️</span><div class="it"><b>Mapas mentais:</b> organização visual hierárquica de cada módulo — ideal para revisão rápida</div></div><div class="item"><span class="dot">📋</span><div class="it"><b>Resumos esquemáticos:</b> regras em blocos coloridos com exemplos reais das provas ESFCEx</div></div><div class="item"><span class="dot">⚡</span><div class="it"><b>Gatilhos de eliminação:</b> o que eliminar ANTES de ler o contexto — economiza tempo na prova</div></div><div class="item"><span class="dot">📡</span><div class="it"><b>Telemetria VUNESP:</b> dados históricos 2020–2025 com projeção de frequência para 2026</div></div></div></div>
+</div>
+<div class="g3">
+<div style="background:#FFEBEE;border:2px solid #EF9A9A;border-radius:9px;padding:13px;text-align:center;">
+<div style="font-size:22px;margin-bottom:5px;">🔴</div>
+<div style="font-size:13px;font-weight:800;color:#B71C1C;margin-bottom:6px;">ALTA PRIORIDADE</div>
+<div style="font-size:13px;color:#37474F;line-height:1.6;">100% das provas<br/>Módulos II, VI, VII, IX, X, XI, XII, XV</div>
+</div>
+<div style="background:#FFF8E1;border:2px solid #FFD54F;border-radius:9px;padding:13px;text-align:center;">
+<div style="font-size:22px;margin-bottom:5px;">🟡</div>
+<div style="font-size:13px;font-weight:800;color:#E65100;margin-bottom:6px;">MÉDIA PRIORIDADE</div>
+<div style="font-size:13px;color:#37474F;line-height:1.6;">60–90% das provas<br/>Módulos III, IV, V, VIII, XIII, XIV</div>
+</div>
+<div style="background:#E8F5E9;border:2px solid #A5D6A7;border-radius:9px;padding:13px;text-align:center;">
+<div style="font-size:22px;margin-bottom:5px;">🟢</div>
+<div style="font-size:13px;font-weight:800;color:#1B5E20;margin-bottom:6px;">BAIXA PRIORIDADE</div>
+<div style="font-size:13px;color:#37474F;line-height:1.6;">&lt;60% das provas<br/>Módulos I, XVI</div>
+</div>
+</div>
+<div style="text-align:center;margin-top:13px;"><button onclick="goTo(3)" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;padding:10px 30px;border-radius:8px;cursor:pointer;">Ver Sumário →</button></div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Início</button></div>
+</div>
+<div class="slide" data-title="Sumário" id="slide-3">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · Volume I · ESFCEx 2026</span>
+<span class="topbar-title">SUMÁRIO</span>
+<span class="topbar-sub">Clique em qualquer módulo para ir diretamente ao conteúdo</span>
+</div>
+<div class="topbar-right">02</div>
+</div>
+<div class="sb">
+<div class="alerta azul" style="margin-bottom:12px;">
+<div class="alerta-icon">🖱️</div>
+<div class="alerta-content">
+<div class="alerta-title">Navegação rápida — clique no módulo desejado</div>
+<div class="alerta-text">Clique em qualquer módulo para ir direto à sua capa. Use ← → no teclado ou swipe no celular. <b>🔴 Alta · 🟡 Média · 🟢 Baixa</b> prioridade para o ESFCEx 2026.</div>
+</div>
+</div>
+<div class="g2">
+<div>
+<div class="sum-titulo">📖 Introdução</div>
+<div class="sum-item" onclick="goTo(1)" style="margin-bottom:5px;"><div class="sum-item-num" style="color:var(--verde);">01</div><div class="sum-item-txt"><div class="sum-item-nome">Apresentação — Capitão Valdir</div><div class="sum-item-desc">Biografia e experiência</div></div><div>→</div></div>
+<div class="sum-item" onclick="goTo(2)" style="margin-bottom:5px;"><div class="sum-item-num" style="color:var(--verde);">01</div><div class="sum-item-txt"><div class="sum-item-nome">Método, Prioridades e Como Usar</div><div class="sum-item-desc">Volume I × Volume II · Roteiro</div></div><div>→</div></div>
+<div class="sum-item" onclick="goTo(4)" style="border-color:var(--laranja-l);background:var(--laranja-bg);margin-bottom:5px;"><div class="sum-item-num" style="color:var(--laranja);">📡</div><div class="sum-item-txt"><div class="sum-item-nome">Telemetria — Frequência Histórica</div><div class="sum-item-desc">Frequência 2020–2025 + projeção 2026</div></div><div style="color:var(--laranja);">→</div></div>
+<div class="sum-item" onclick="goTo(5)" style="border-color:var(--laranja-l);background:var(--laranja-bg);margin-bottom:10px;"><div class="sum-item-num" style="color:var(--laranja);">📡</div><div class="sum-item-txt"><div class="sum-item-nome">Plano Estratégico de Estudo</div><div class="sum-item-desc">Como usar os dois volumes juntos</div></div><div style="color:var(--laranja);">→</div></div>
+<div class="sum-titulo">📚 Módulos — 1ª metade</div>
+<div class="sum-item" onclick="goTo(6)" style="border-left:4px solid #1B5E20;background:#E8F5E9;margin-bottom:5px;"><div class="sum-item-num" style="color:#1B5E20;">I</div><div class="sum-item-txt"><div class="sum-item-nome">🟢 Reconhecimento de Tipos e Gêneros Textuais</div></div><div style="color:#1B5E20;">→</div></div>
+<div class="sum-item" onclick="goTo(10)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:5px;"><div class="sum-item-num" style="color:#B71C1C;">II</div><div class="sum-item-txt"><div class="sum-item-nome">🔴 Compreensão e Interpretação de Textos</div></div><div style="color:#B71C1C;">→</div></div>
+<div class="sum-item" onclick="goTo(15)" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:5px;"><div class="sum-item-num" style="color:#E65100;">III</div><div class="sum-item-txt"><div class="sum-item-nome">🟡 Níveis de Significação</div></div><div style="color:#E65100;">→</div></div>
+<div class="sum-item" onclick="goTo(18)" style="border-left:4px solid #4A148C;background:#FFF8E1;margin-bottom:5px;"><div class="sum-item-num" style="color:#4A148C;">IV</div><div class="sum-item-txt"><div class="sum-item-nome">🟡 Estilística da Palavra e da Frase</div></div><div style="color:#4A148C;">→</div></div>
+<div class="sum-item" onclick="goTo(22)" style="border-left:4px solid #004D40;background:#FFF8E1;margin-bottom:5px;"><div class="sum-item-num" style="color:#004D40;">V</div><div class="sum-item-txt"><div class="sum-item-nome">🟡 Coerência Textual: Fatores</div></div><div style="color:#004D40;">→</div></div>
+<div class="sum-item" onclick="goTo(26)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:5px;"><div class="sum-item-num" style="color:#B71C1C;">VI</div><div class="sum-item-txt"><div class="sum-item-nome">🔴 Coesão Textual: Referenciação e Sequenciação</div></div><div style="color:#B71C1C;">→</div></div>
+<div class="sum-item" onclick="goTo(31)" style="border-left:4px solid #37474F;background:#FFEBEE;margin-bottom:5px;"><div class="sum-item-num" style="color:#37474F;">VII</div><div class="sum-item-txt"><div class="sum-item-nome">🔴 Estrutura Morfossintática do Período Simples</div></div><div style="color:#37474F;">→</div></div>
+<div class="sum-item" onclick="goTo(34)" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:5px;"><div class="sum-item-num" style="color:#E65100;">VIII</div><div class="sum-item-txt"><div class="sum-item-nome">🟡 Relações de Coordenação</div></div><div style="color:#E65100;">→</div></div>
+</div>
+<div>
+<div class="sum-titulo" style="opacity:0;pointer-events:none;"> </div>
+<div class="sum-item" onclick="goTo(37)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:5px;"><div class="sum-item-num" style="color:#B71C1C;">IX</div><div class="sum-item-txt"><div class="sum-item-nome">🔴 Relações de Subordinação</div></div><div style="color:#B71C1C;">→</div></div>
+<div class="sum-item" onclick="goTo(40)" style="border-left:4px solid #BF4A00;background:#FFEBEE;margin-bottom:5px;"><div class="sum-item-num" style="color:#BF4A00;">X</div><div class="sum-item-txt"><div class="sum-item-nome">🔴 Emprego/Correlação de Tempos e Modos Verbais</div></div><div style="color:#BF4A00;">→</div></div>
+<div class="sum-item" onclick="goTo(44)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:5px;"><div class="sum-item-num" style="color:#B71C1C;">XI</div><div class="sum-item-txt"><div class="sum-item-nome">🔴 Concordância Nominal e Verbal</div></div><div style="color:#B71C1C;">→</div></div>
+<div class="sum-item" onclick="goTo(47)" style="border-left:4px solid #4A148C;background:#FFEBEE;margin-bottom:5px;"><div class="sum-item-num" style="color:#4A148C;">XII</div><div class="sum-item-txt"><div class="sum-item-nome">🔴 Colocação dos Pronomes Átonos</div></div><div style="color:#4A148C;">→</div></div>
+<div class="sum-item" onclick="goTo(50)" style="border-left:4px solid #37474F;background:#FFF8E1;margin-bottom:5px;"><div class="sum-item-num" style="color:#37474F;">XIII</div><div class="sum-item-txt"><div class="sum-item-nome">🟡 Acentuação Gráfica</div></div><div style="color:#37474F;">→</div></div>
+<div class="sum-item" onclick="goTo(52)" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:5px;"><div class="sum-item-num" style="color:#E65100;">XIV</div><div class="sum-item-txt"><div class="sum-item-nome">🟡 Sinais de Pontuação</div></div><div style="color:#E65100;">→</div></div>
+<div class="sum-item" onclick="goTo(54)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:5px;"><div class="sum-item-num" style="color:#B71C1C;">XV</div><div class="sum-item-txt"><div class="sum-item-nome">🔴 Sinal Indicativo de Crase</div></div><div style="color:#B71C1C;">→</div></div>
+<div class="sum-item" onclick="goTo(57)" style="border-left:4px solid #1B5E20;background:#E8F5E9;margin-bottom:5px;"><div class="sum-item-num" style="color:#1B5E20;">XVI</div><div class="sum-item-txt"><div class="sum-item-nome">🟢 Ortografia Oficial</div></div><div style="color:#1B5E20;">→</div></div>
+<div class="sum-titulo" style="margin-top:10px;">📊 Encerramento</div>
+<div class="sum-item" onclick="goTo(59)" style="border-color:var(--laranja-l);background:var(--laranja-bg);margin-bottom:5px;"><div class="sum-item-num" style="color:var(--laranja);">★</div><div class="sum-item-txt"><div class="sum-item-nome">Painel Estratégico Final</div><div class="sum-item-desc">Gatilhos · Telemetria · Dicas finais</div></div><div style="color:var(--laranja);">→</div></div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Início</button></div>
+</div>
+<div class="slide" data-title="Telemetria VUNESP/ESFCEx — Frequência" id="slide-4"><div class="topbar laranja"><div class="topbar-left"><span class="topbar-tag">Capitão Valdir · Telemetria · ESFCEx 2020–2025</span><span class="topbar-title">📡 TELEMETRIA — TABELA DE FREQUÊNCIA</span><span class="topbar-sub">Presença de cada módulo nas provas 2020–2025 + projeção 2026</span></div><div class="topbar-right">📡</div></div><div class="sb">
+<div class="alerta laranja" style="margin-bottom:11px;"><div class="alerta-icon">📡</div><div class="alerta-content"><div class="alerta-title">O que é Estudo por Telemetria — e por que funciona na ESFCEx</div><div class="alerta-text">Telemetria é o estudo baseado em <b>dados históricos das provas</b> para identificar padrões e prever com alta probabilidade o que cairá na próxima edição. A VUNESP, banca da ESFCEx, é reconhecida por sua <b>alta consistência</b>: repete os mesmos tipos de questão, usa as mesmas referências bibliográficas (Bechara, Marcuschi, Luft) e mantém um padrão de cobrança estável há anos. Isso torna a telemetria <b>especialmente poderosa</b> na ESFCEx.</div></div></div>
+<div class="tbl-scroll"><table class="tabela"><thead><tr><th style="background:#BF4A00;">Módulo</th><th style="background:#BF4A00;">Assunto</th><th style="background:#BF4A00;">2020</th><th style="background:#BF4A00;">2021</th><th style="background:#BF4A00;">2022</th><th style="background:#BF4A00;">2023</th><th style="background:#BF4A00;">2024</th><th style="background:#BF4A00;">2025</th><th style="background:#BF4A00;">Freq.</th><th style="background:#BF4A00;">2026</th></tr></thead><tbody><tr><td>II</td><td>Interpretação tiras</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>100%</td><td>🔴</td></tr><tr><td>XI</td><td>Concordância/HAVER</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>100%</td><td>🔴</td></tr><tr><td>XII</td><td>Colocação pronominal</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>100%</td><td>🔴</td></tr><tr><td>X</td><td>Verbos irregulares</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>100%</td><td>🔴</td></tr><tr><td>XV</td><td>Crase — proibições</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>100%</td><td>🔴</td></tr><tr><td>IX</td><td>Subordinação</td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>✅</td><td>✅</td><td>83%</td><td>🔴</td></tr><tr><td>VI</td><td>Coesão referencial</td><td>✅</td><td>—</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>83%</td><td>🔴</td></tr><tr><td>XIV</td><td>Vírgula/pontuação</td><td>✅</td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>✅</td><td>83%</td><td>🟡</td></tr><tr><td>VII</td><td>Morfossintaxe</td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>✅</td><td>—</td><td>67%</td><td>🟡</td></tr><tr><td>XIII</td><td>Acentuação</td><td>✅</td><td>✅</td><td>✅</td><td>—</td><td>✅</td><td>—</td><td>67%</td><td>🟡</td></tr><tr><td>I</td><td>Gêneros textuais</td><td>✅</td><td>—</td><td>✅</td><td>✅</td><td>✅</td><td>—</td><td>67%</td><td>🟢</td></tr><tr><td>XVI</td><td>Ortografia</td><td>✅</td><td>—</td><td>—</td><td>—</td><td>✅</td><td>—</td><td>33%</td><td>🟢</td></tr></tbody></table></div>
+</div><div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Início</button></div></div>
+<div class="slide" data-title="Telemetria — Plano Estratégico de Estudo" id="slide-tele2">
+<div class="topbar laranja">
+<div class="topbar-left">
+<span class="topbar-tag">Capitão Valdir · Telemetria · ESFCEx 2026 · Volume I</span>
+<span class="topbar-title">📡 TELEMETRIA — ESTRATÉGIA DE ESTUDO</span>
+<span class="topbar-sub">Como usar os dados de frequência para maximizar seu rendimento</span>
+</div>
+<div class="topbar-right">📡</div>
+</div>
+<div class="sb">
+<div style="background:linear-gradient(135deg,#BF4A00,#F57F17);border-radius:12px;padding:18px 22px;margin-bottom:14px;color:white;">
+<div style="font-size:19px;font-weight:800;margin-bottom:7px;">📋 Plano Estratégico de Estudo — ESFCEx 2026</div>
+<div style="font-size:14px;color:rgba(255,255,255,.88);line-height:1.7;">Para maximizar seu rendimento nos estudos, você deverá seguir rigorosamente o cronograma definido no:<br/><b style="font-size:16px;">📌 PLANO ESTRATÉGICO DE ESTUDO — ESFCEx 2026 — VOLUME ÚNICO</b></div>
+</div>
+<div class="alerta laranja" style="margin-bottom:13px;">
+<div class="alerta-icon">⚠️</div>
+<div class="alerta-content">
+<div class="alerta-title">Por que seguir o plano rigorosamente?</div>
+<div class="alerta-text">Os dados de telemetria mostram que os módulos <b>🔴 de alta prioridade</b> aparecem em <b>100% das provas</b> da ESFCEx entre 2020 e 2025. O Plano Estratégico de Estudo foi construído com base nesses dados e distribui as horas de estudo de forma <b>proporcional à frequência de cobrança</b> de cada módulo, garantindo o máximo retorno no menor tempo possível.</div>
+</div>
+</div>
+<div class="g2" style="margin-bottom:13px;">
+<div class="card">
+<div class="card-head laranja"><div class="card-head-icon">📡</div><div class="card-head-title">O que o Plano Estratégico contempla</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">📌</span><div class="it">Distribuição semanal de horas por módulo, baseada na <b>frequência histórica</b> 2020–2025</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Sequência de estudo dos módulos: dos <b>🔴 Alta</b> aos <b>🟢 Baixa</b> prioridade</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Integração dos três volumes: <b>Volume I</b> (Resumos) → <b>Volume II</b> (Questões Comentadas) → <b>Volume III</b> (Foco e Dicas)</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Revisões programadas e simulados com provas anteriores da ESFCEx</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Reta final: revisão de <b>gatilhos de eliminação</b> e pontos críticos da banca VUNESP</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-head verde"><div class="card-head-icon">📚</div><div class="card-head-title">Os três volumes e como usá-los juntos</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">📋</span><div class="it"><b>Volume I — Resumos e Mapas Mentais:</b> use para compreensão das regras e memorização rápida dos conceitos</div></div>
+<div class="item"><span class="dot">📝</span><div class="it"><b>Volume II — Questões Comentadas:</b> use para praticar, aplicar os conceitos e dominar o padrão de cobrança da VUNESP</div></div>
+<div class="item"><span class="dot">📝</span><div class="it"><b>Volume III — Foco no que Mais Cai e Dicas de Ouro:</b> use para ver o que mais cai e as dicas de ouro para a prova</div></div>
+<div class="item"><span class="dot">🎯</span><div class="it"><b>Sequência ideal:</b> para cada módulo, primeiro estude o resumo (Vol. I), depois resolva as questões (Vol. II) e consolide o aprendizado (Vol. III)</div></div>
+<div class="item"><span class="dot">⚡</span><div class="it"><b>Véspera da prova:</b> releia apenas as Dicas de Ouro, Painel Estratégico Final e os Gatilhos de Eliminação</div></div>
+</div>
+</div>
+</div>
+<div style="background:linear-gradient(135deg,#0A2E10,#1B5E20);border-radius:10px;padding:16px 20px;text-align:center;">
+<div style="font-size:16px;font-weight:800;color:white;margin-bottom:6px;">📌 Lembre-se</div>
+<div style="font-size:14px;color:rgba(255,255,255,.85);line-height:1.7;">O Plano Estratégico de Estudo — Volume Único está disponível separadamente e deve ser o seu <b>guia mestre de preparação</b>. Este e-book (Volume I) e os Volumes II e III são os instrumentos de estudo que o Plano vai direcionar.</div>
+</div>
+<div style="text-align:center;margin-top:13px;">
+<button onclick="goTo(3)" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;padding:10px 30px;border-radius:8px;cursor:pointer;margin-right:8px;">⬅ Ver Sumário</button>
+<button onclick="goTo(6)" style="background:var(--laranja);color:white;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;padding:10px 30px;border-radius:8px;cursor:pointer;">Começar Módulo I →</button>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Início</button></div>
+</div>
+<div class="slide" data-title="Módulo I — Reconhecimento de Tipos e Gêneros Textuais" id="slide-modcapa-i">
+<div class="capa-modulo" style="background:linear-gradient(160deg,#1B5E20ee,#1B5E20aa,#1B5E20dd);">
+<div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);pointer-events:none;"></div>
+<div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 28px;">
+<div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);">GUIA CAPITÃO VALDIR · ESFCEx 2026 · VOLUME I</div>
+<div style="font-size:58px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">📝</div>
+<div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);">MÓDULO I</div>
+<div style="font-family:'Sora',sans-serif;font-size:clamp(20px,3.5vw,32px);font-weight:800;color:white;text-align:center;line-height:1.15;text-transform:uppercase;max-width:min(520px,100%);">Reconhecimento de Tipos e Gêneros Textuais</div>
+<div style="width:60px;height:3px;background:rgba(255,255,255,.4);border-radius:2px;"></div>
+<div style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 20px;text-align:center;max-width:min(500px,100%);">
+<div style="font-size:13px;color:rgba(255,255,255,.85);line-height:1.65;">Tipologia textual · Gêneros textuais · Par tipo × gênero</div>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+<span style="background:#E8F5E9;border:2px solid #A5D6A7;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:800;color:#1B5E20;">🟢 Baixa Prioridade</span>
+<span style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.85);">📅 ESFCEx 2020–2025</span>
+<span style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.85);">📋 3 resumo(s)</span>
+</div>
+<button onclick="goTo(7)" style="background:rgba(255,255,255,.95);color:#1B5E20;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:11px 36px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 4px 18px rgba(0,0,0,.25);">Ver Resumo →</button>
+<button onclick="goTo(3)" style="background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.25);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:6px 20px;border-radius:6px;cursor:pointer;">⬆ Voltar ao Sumário</button>
+</div>
+</div>
+</div>
+<div class="slide" data-title="Módulo I — Tipologia Textual Explicada" id="slide-6"><div class="topbar azul"><div class="topbar-left"><span class="topbar-tag">Módulo I · 🟢 Baixa Prioridade · ESFCEx 2020–2025</span><span class="topbar-title">MÓDULO I — TIPOLOGIAS TEXTUAIS</span><span class="topbar-sub">Narrativa · Argumentativa · Expositiva · Injuntiva · Descritiva + Exemplos</span></div><div class="topbar-right">I</div></div><div class="sb">
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+<span class="badge-tele baixa">🟢 Baixa Prioridade · Presente em ~67% das provas</span>
+</div>
+<div class="alerta azul" style="margin-bottom:11px;"><div class="alerta-icon">📌</div><div class="alerta-content"><div class="alerta-title">O que é o Par Tipologia × Gênero — e por que é a maior pegadinha do Módulo I</div><div class="alerta-text">A VUNESP sempre pede o <b>par</b>: tipologia textual (narrativa, argumentativa, expositiva, injuntiva, descritiva) + gênero textual (crônica, editorial, artigo, reportagem, notícia). <b>Acertar apenas um dos dois = alternativa errada.</b> Você precisa dos dois simultaneamente.</div></div></div>
+<div class="esquema" style="margin-bottom:13px;"><div class="esquema-head" style="background:#0D47A1;">📋 TIPOLOGIA TEXTUAL — O QUE É E COMO IDENTIFICAR</div><div class="esquema-body"><div class="regra azul"><div class="regra-titulo">Tipologia = COMO o texto se organiza estruturalmente</div><div class="regra-corpo">A tipologia é o modo como o discurso se estrutura. Não é o tema, mas a <b>forma de organização</b> do conteúdo.</div></div>
+<div class="regra verde"><div class="regra-titulo">Narrativa: narrador + personagens + tempo + sequência de eventos</div><div class="regra-corpo">Texto conta uma história com antes, durante e depois.<div class="ex"><b>Ex. do texto:</b> 'Houve uma vez um Raio que caiu duas vezes no mesmo lugar; porém achou que na primeira tinha feito estrago suficiente.' — narrador, personagem (Raio), ação, sequência temporal. → Tipologia NARRATIVA.</div></div></div>
+<div class="regra azul"><div class="regra-titulo">Argumentativa: tese + argumentos + conclusão/posicionamento</div><div class="regra-corpo">O autor defende um ponto de vista usando argumentos para convencer.<div class="ex"><b>Ex. do texto:</b> 'A solidariedade, embora louvável e necessária, não é suficiente. Está na hora de lutar, para que a sociedade se transforme.' → Tipologia ARGUMENTATIVA.</div></div></div>
+<div class="regra ouro"><div class="regra-titulo">Expositiva: informa sem posicionamento — linguagem neutra</div><div class="regra-corpo">Explica, define, apresenta dados, sem tomar partido.<div class="ex"><b>Ex. do texto:</b> 'O ChatGPT sugeriu a ela algumas opções nas quais ela poderia deslocar-se de trem.' — informa uma situação de forma neutra. → Tipologia EXPOSITIVA.</div></div></div>
+<div class="regra laranja"><div class="regra-titulo">Injuntiva: instrui, orienta, ordena — usa imperativo ou infinitivo</div><div class="regra-corpo">Diz ao leitor o que fazer.<div class="ex"><b>Ex. do texto:</b> 'Lembre-se da dor. A dor sempre tem seu lado positivo.' — imperativo que instrui o leitor. → Tipologia INJUNTIVA.</div></div></div>
+<div class="regra cinza"><div class="regra-titulo">Descritiva: pinta um quadro estático — características, atributos</div><div class="regra-corpo">Apresenta como algo é, sem movimento ou argumentação.<div class="ex"><b>Ex. do texto:</b> 'Suínos têm a parte central do corpo e os órgãos vitais nela contidos de tamanhos comparáveis [aos humanos].' → Tipologia DESCRITIVA (características do animal).</div></div></div>
+</div></div>
+</div><div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Início</button></div></div>
+<div class="slide" data-title="Módulo I — Gêneros Textuais Explicados" id="slide-7"><div class="topbar azul"><div class="topbar-left"><span class="topbar-tag">Módulo I · 🟢 Baixa Prioridade</span><span class="topbar-title">MÓDULO I — GÊNEROS TEXTUAIS</span><span class="topbar-sub">Artigo · Crônica · Editorial · Reportagem + Como identificar cada um</span></div><div class="topbar-right">I</div></div><div class="sb">
+<div class="esquema" style="margin-bottom:13px;"><div class="esquema-head" style="background:#0D47A1;">📋 GÊNERO TEXTUAL — O QUE É E COMO IDENTIFICAR</div><div class="esquema-body"><div class="regra azul"><div class="regra-titulo">Gênero = a FORMA SOCIAL do texto — como ele circula e para que serve</div><div class="regra-corpo">O gênero é determinado pelo contexto social de produção (onde foi publicado, quem escreveu, para que serve).</div></div>
+<div class="regra verde"><div class="regra-titulo">Artigo: autor identificado + dados + opinião + publicado em veículo</div><div class="regra-corpo">O artigo é assinado por um autor identificado, que apresenta dados e emite opiniões. É o gênero mais cobrado na ESFCEx como gabarito "positivo".<div class="ex"><b>Marcadores:</b> 'Rafael Delsin. Os homens maus estão chegando. BE — Revista Bem-Estar' → autor + veículo + dados + opinião = ARTIGO.<br/><b>Não confundir com:</b> editorial (sem assinatura pessoal) e reportagem (apuração jornalística neutra).</div></div></div>
+<div class="regra azul"><div class="regra-titulo">Crônica: narrador em 1ª pessoa + cotidiano + reflexão íntima + publicada em jornal/revista</div><div class="regra-corpo">A crônica mescla narração e reflexão subjetiva sobre fatos do cotidiano. Rubem Alves é o grande exemplo da ESFCEx.<div class="ex"><b>Marcadores:</b> 'Eu gosto muito de música clássica. Comecei a ouvir antes de nascer [...] A música se misturou com minha carne e meu sangue.' → 1ª pessoa + cotidiano + reflexão = CRÔNICA.<br/><b>Não confundir com:</b> conto (ficção) e depoimento (testemunho formal).</div></div></div>
+<div class="regra verm"><div class="regra-titulo">Editorial: posição institucional do veículo + sem assinatura pessoal</div><div class="regra-corpo">O editorial representa a voz do jornal/revista, não de um autor individual.<div class="ex"><b>Marcadores:</b> 'Editorial. Folha de S.Paulo, 22.03.2024.' — sem nome de autor → editorial.<br/><b>Não confundir com:</b> artigo (tem autor identificado).</div></div></div>
+<div class="regra ouro"><div class="regra-titulo">Reportagem: apuração jornalística + fontes diversas + narrativa de fato de interesse público</div><div class="regra-corpo">A reportagem apura, ouve fontes, investiga.<div class="ex"><b>Marcadores:</b> Várias fontes citadas, fatos verificáveis, publicado em seção de notícias → REPORTAGEM.</div></div></div>
+</div></div>
+<div class="dica"><div class="dica-icon">💡</div><div class="dica-txt"><b>Regra de ouro para o Par Tipo × Gênero:</b> Leia o texto e pergunte (1) COMO está organizado? → tipologia. (2) PARA QUE serve e ONDE circula? → gênero. Depois elimine as alternativas com erro em qualquer um dos dois.</div></div>
+</div><div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Início</button></div></div>
+<div class="slide" data-title="Módulo I — Par Tipologia × Gênero" id="slide-8"><div class="topbar azul"><div class="topbar-left"><span class="topbar-tag">Módulo I · 🟢 Baixa Prioridade</span><span class="topbar-title">MÓDULO I — PAR TIPOLOGIA × GÊNERO</span><span class="topbar-sub">Tabela de combinações cobradas + armadilhas da VUNESP</span></div><div class="topbar-right">I</div></div><div class="sb">
+<div class="esquema" style="margin-bottom:13px;"><div class="esquema-head" style="background:#B71C1C;">🎯 PAR TIPOLOGIA × GÊNERO — TABELA DE COMBINAÇÕES COBRADAS NA ESFCEX</div><div class="esquema-body"><div class="tbl-scroll"><table class="tabela"><thead><tr><th style="background:#B71C1C;">Gênero</th><th style="background:#B71C1C;">Tipologia predominante</th><th style="background:#B71C1C;">Marcadores-chave</th><th style="background:#B71C1C;">Armadilha da VUNESP</th></tr></thead><tbody><tr><td>Artigo</td><td>Argumentativa</td><td>Autor + dados + opinião + posicionamento</td><td>Confundir com editorial (editorial = sem assinatura)</td></tr><tr><td>Editorial</td><td>Argumentativa</td><td>Posição do veículo + sem assinatura pessoal</td><td>Confundir com artigo (artigo tem autor identificado)</td></tr><tr><td>Crônica</td><td>Narrativa com reflexão</td><td>1ª pessoa + cotidiano + subjetividade</td><td>Confundir com conto (conto = ficção pura)</td></tr><tr><td>Reportagem</td><td>Expositiva/narrativa</td><td>Fontes + apuração + fato jornalístico</td><td>Confundir com notícia (notícia é mais curta e objetiva)</td></tr><tr><td>Notícia</td><td>Expositiva</td><td>Pirâmide invertida + impessoalidade</td><td>Confundir com reportagem (reportagem é mais extensa)</td></tr><tr><td>Conto/fábula</td><td>Narrativa</td><td>Narrador + personagens + conflito + desfecho</td><td>Confundir com crônica (crônica = fato real/cotidiano)</td></tr><tr><td>Depoimento</td><td>Narrativa (1ª pessoa)</td><td>Testemunho pessoal + vivência + narrador envolvido</td><td>Confundir com crônica (depoimento = vivência formal)</td></tr><tr><td>Resenha</td><td>Argumentativa</td><td>Avaliação crítica de obra + posicionamento</td><td>Confundir com resumo (resumo não avalia)</td></tr></tbody></table></div></div></div>
+<div class="alerta verm" style="margin-bottom:11px;"><div class="alerta-icon">⚡</div><div class="alerta-content"><div class="alerta-title">Pegadinha frequente na ESFCEx</div><div class="alerta-text">A questão pede: 'a tipologia predominante no texto é a... <b>pois se trata de um [gênero]</b>...'. Muitas alternativas erram o gênero, mesmo com a tipologia correta — ou vice-versa. <b>Elimine qualquer alternativa com erro em tipologia OU em gênero.</b></div></div></div>
+</div><div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Início</button></div></div>
+<div class="slide" data-title="Acesso Completo" id="slide-cta">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px 24px;text-align:center;height:100%;background:linear-gradient(135deg,#0A1C12 0%,#0d2016 100%);">
+  <div style="font-size:40px;">🔒</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#ffffff;">Conteúdo Completo</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#D4A017;">Módulos Seguintes</div>
+  <div style="font-size:clamp(13px,1.8vw,15px);color:rgba(255,255,255,.65);line-height:1.7;max-width:480px;">Para ter acesso ao material completo, entre em contato com o Guia Preparatório Capitão Valdir.</div>
+  <a href="mailto:guiaprepcapvaldir@gmail.com" style="display:inline-block;background:#D4A017;color:#0A1C12;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;padding:14px 32px;border-radius:8px;text-decoration:none;margin-top:8px;">📧 Quero Acesso ao Material Completo</a>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;">guiaprepcapvaldir@gmail.com</div>
+</div>
+</div>
+</div>
+<div class="nav" id="nav">
+<button class="nbtn" disabled="" id="btn-prev" onclick="prev()">← Ant.</button>
+<div class="pw"><div class="pb" id="pb"></div></div>
+<span class="ntitle" id="ntitle">Capa</span>
+<span class="ncnt" id="ncnt">1 / 11</span>
+<span class="kbd-hint" style="font-size:10px;color:rgba(255,255,255,.2);">← →</span>
+<button class="nbtn" id="btn-next" onclick="next()">Próx. →</button>
+</div>
+<script>
+
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let cur = 0;
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  const pc = cur;
+  setTimeout(() => { if(slides[pc]) slides[pc].classList.remove('out'); }, 360);
+  cur = n;
+  slides[cur].classList.remove('out');
+  slides[cur].classList.add('active');
+  const sb = slides[cur].querySelector('.sb');
+  if (sb) sb.scrollTop = 0;
+  document.getElementById('ntitle').textContent = slides[cur].dataset.title || '';
+  document.getElementById('ncnt').textContent = (cur+1) + ' / ' + total;
+  document.getElementById('pb').style.width = ((cur+1)/total*100)+'%';
+  document.getElementById('btn-prev').disabled = cur===0;
+  document.getElementById('btn-next').disabled = cur===total-1;
+}
+function next() { goTo(cur+1); }
+function prev() { goTo(cur-1); }
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' '){e.preventDefault();next();}
+  if (e.key==='ArrowLeft'){e.preventDefault();prev();}
+  if (e.key==='Home'){e.preventDefault();goTo(0);}
+  if (e.key==='End'){e.preventDefault();goTo(total-1);}
+});
+let tx=0;
+const deck=document.querySelector('.deck');
+if(deck){
+  deck.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+  deck.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(dx<-50)next();if(dx>50)prev();
+  },{passive:true});
+}
+goTo(0);
+
+// ─── MOBILE ENHANCEMENTS ───────────────────────────────────────────────────
+(function() {
+  // Detect mobile
+  const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+
+  // On mobile: scroll sb to top whenever slide changes
+  // (already done in goTo via sb.scrollTop=0 — just ensuring it)
+
+  // Prevent horizontal scroll on body from any overflow
+  document.body.style.overflowX = 'hidden';
+  document.documentElement.style.overflowX = 'hidden';
+
+  // Update count display correctly
+  const ncnt = document.getElementById('ncnt');
+  if (ncnt) ncnt.textContent = '1 / ' + total;
+
+  // Make all buttons have minimum touch target
+  if (isMobile) {
+    document.querySelectorAll('button').forEach(btn => {
+      if (btn.offsetHeight < 38) {
+        btn.style.minHeight = '38px';
+      }
+    });
+  }
+})();
+
+
+</script>
+</body>
+</html>

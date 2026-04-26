@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Barlow+Condensed:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-l:#43A047;
+  --verde-bg:#E8F5E9;--verde-xbg:#F1F8F1;
+  --ouro:#B8860B;--ouro-l:#D4A017;--ouro-bg:#FFF9E6;
+  --amarelo:#F57F17;--amar-bg:#FFF8E1;
+  --azul:#0D47A1;--azul-l:#1565C0;--azul-bg:#E3F2FD;
+  --verm:#B71C1C;--verm-l:#C62828;--verm-bg:#FFEBEE;
+  --cinza:#37474F;--cinza-l:#546E7A;--cinza-bg:#ECEFF1;
+  --roxo:#4A148C;--roxo-l:#6A1B9A;--roxo-bg:#F3E5F5;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:15px;background:#1A2530;color:var(--texto);display:flex;flex-direction:column;}
+
+/* ── DECK ── */
+.deck{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+
+/* ── NAV BAR ── */
+.nav{background:#111C24;padding:7px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--verde-l);}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;padding:5px 14px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);}
+.nbtn:disabled{opacity:.25;cursor:default;}
+.pw{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--verde-l);border-radius:2px;transition:width .35s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.7);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.38);white-space:nowrap;}
+.khint{font-size:10px;color:rgba(255,255,255,.22);white-space:nowrap;}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--verde);padding:11px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:3px solid var(--verde-l);position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:180px;background:linear-gradient(to right,transparent,rgba(0,0,0,.18));pointer-events:none;}
+.topbar.ouro{background:#BF4A00;border-color:#FF9955;}
+.topbar.azul{background:var(--azul);border-color:#42A5F5;}
+.topbar.verm{background:var(--verm);border-color:#EF9A9A;}
+.topbar.cinza{background:var(--cinza);border-color:#90A4AE;}
+.topbar.roxo{background:var(--roxo);border-color:#CE93D8;}
+.topbar-left{display:flex;flex-direction:column;gap:1px;}
+.topbar-tag{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(16px,2.4vw,24px);font-weight:800;color:white;line-height:1.1;letter-spacing:.01em;}
+.topbar-sub{font-size:12px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:36px;font-weight:800;color:rgba(255,255,255,.18);flex-shrink:0;line-height:1;}
+
+/* ── SCROLL BODY ── */
+.sb{flex:1;overflow-y:auto;padding:16px 22px 56px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+
+/* ── BACK TO TOP ── */
+.back-top{position:fixed;bottom:52px;right:18px;background:var(--verde);color:white;border:none;border-radius:50%;width:38px;height:38px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 12px rgba(0,0,0,.3);transition:all .2s;z-index:100;opacity:0;pointer-events:none;}
+.back-top.show{opacity:1;pointer-events:all;}
+.back-top:hover{background:var(--verde-m);transform:translateY(-2px);}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;}
+.s2{grid-column:span 2;}
+
+/* ── CARD ── */
+.card{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:10px 14px;display:flex;align-items:center;gap:9px;border-bottom:1.5px solid var(--borda);}
+.card-head.verde{background:var(--verde-bg);border-color:#A5D6A7;}
+.card-head.ouro{background:var(--ouro-bg);border-color:#F9D878;}
+.card-head.azul{background:var(--azul-bg);border-color:#90CAF9;}
+.card-head.verm{background:var(--verm-bg);border-color:#EF9A9A;}
+.card-head.cinza{background:var(--cinza-bg);border-color:#B0BEC5;}
+.card-head.roxo{background:var(--roxo-bg);border-color:#CE93D8;}
+.card-head-icon{font-size:18px;flex-shrink:0;}
+.card-head-title{font-size:13.5px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:12px 14px;flex:1;}
+
+/* ── ITEM ── */
+.item{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:14px;flex-shrink:0;margin-top:1px;line-height:1.55;}
+.it{font-size:13.5px;line-height:1.62;color:var(--texto);}
+.it b{font-weight:700;color:var(--verde);}
+.it .ko{color:var(--verm-l);font-weight:700;}
+.it .ok{color:var(--verde-m);font-weight:700;}
+
+/* ── ALERTA ── */
+.alerta{border-radius:9px;padding:10px 14px;margin-bottom:11px;display:flex;gap:10px;align-items:flex-start;}
+.alerta:last-child{margin-bottom:0;}
+.alerta.verde{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.alerta.ouro{background:var(--ouro-bg);border-left:4px solid var(--ouro-l);}
+.alerta.verm{background:var(--verm-bg);border-left:4px solid var(--verm-l);}
+.alerta.azul{background:var(--azul-bg);border-left:4px solid var(--azul-l);}
+.alerta.cinza{background:var(--cinza-bg);border-left:4px solid var(--cinza-l);}
+.alerta.roxo{background:var(--roxo-bg);border-left:4px solid var(--roxo-l);}
+.alerta-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.alerta.verde .alerta-title{color:var(--verde);}
+.alerta.ouro  .alerta-title{color:var(--ouro);}
+.alerta.verm  .alerta-title{color:var(--verm-l);}
+.alerta.azul  .alerta-title{color:var(--azul-l);}
+.alerta.cinza .alerta-title{color:var(--cinza);}
+.alerta.roxo  .alerta-title{color:var(--roxo-l);}
+.alerta-text{font-size:13.5px;line-height:1.62;color:var(--texto);}
+.alerta-text b{font-weight:700;}
+
+/* ── ANALOGIA ── */
+.ana{background:var(--ouro-bg);border:1.5px dashed var(--ouro-l);border-radius:7px;padding:8px 12px;margin-top:8px;display:flex;gap:7px;align-items:flex-start;}
+.ana-icon{font-size:15px;flex-shrink:0;}
+.ana-text{font-size:13px;line-height:1.55;color:var(--cinza);font-style:italic;}
+
+/* ── VS BOXES ── */
+.vs-wrap{display:flex;gap:7px;align-items:stretch;margin-bottom:6px;}
+.vs-e{flex:1;background:var(--verm-bg);border:1.5px solid #EF9A9A;border-radius:7px;padding:8px 12px;}
+.vs-c{flex:1;background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:7px;padding:8px 12px;}
+.vs-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.vs-e .vs-lbl{color:var(--verm-l);}
+.vs-c .vs-lbl{color:var(--verde-m);}
+.vs-txt{font-size:14px;line-height:1.5;color:var(--texto);}
+.vs-arrow{display:flex;align-items:center;font-size:15px;color:var(--cinza-l);flex-shrink:0;}
+.vs-why{font-size:12.5px;color:var(--sub);line-height:1.5;padding:3px 2px 7px;}
+.vs-why b{color:var(--texto);font-weight:600;}
+
+/* ── MAPA DE QUESTÕES ── */
+.qmap{display:flex;flex-direction:column;gap:7px;}
+.qrow{background:white;border:1.5px solid var(--borda);border-radius:9px;display:flex;align-items:stretch;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.qrow-num{width:50px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:white;}
+.qrow-info{flex:1;padding:8px 13px;}
+.qrow-title{font-size:13.5px;font-weight:700;color:var(--texto);margin-bottom:2px;}
+.qrow-desc{font-size:12px;line-height:1.5;color:var(--sub);}
+.qrow-badge{padding:7px 13px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:85px;background:rgba(0,0,0,.02);border-left:1px solid var(--borda);}
+.qrow-badge-pct{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;line-height:1;}
+.qrow-badge-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);margin-top:2px;white-space:nowrap;}
+.qrow-badge-bar{width:65px;height:3px;background:rgba(0,0,0,.08);border-radius:2px;margin-top:4px;}
+.qrow-badge-fill{height:100%;border-radius:2px;}
+
+/* ── TIRA CARDS ── */
+.tira-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:12px;}
+.tira-card{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;}
+.tira-head{padding:8px 12px;color:white;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;letter-spacing:.02em;}
+.tira-body{padding:10px 12px;}
+.tira-mec{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-bottom:5px;}
+.tira-txt{font-size:12.5px;line-height:1.55;color:var(--texto);margin-bottom:7px;}
+.tira-dica{font-size:11.5px;line-height:1.5;color:#E65100;background:var(--amar-bg);border-radius:6px;padding:7px 10px;}
+
+/* ── SE CARDS ── */
+.se-card{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;}
+.se-head{padding:10px 13px;display:flex;align-items:center;gap:9px;border-bottom:1.5px solid var(--borda);}
+.se-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:13px;flex-shrink:0;}
+.se-label{font-size:13.5px;font-weight:700;color:var(--texto);}
+.se-body{padding:11px 13px;}
+.se-txt{font-size:13px;line-height:1.6;color:var(--texto);margin-bottom:7px;}
+.se-regra{background:var(--cinza-bg);border-radius:7px;padding:7px 11px;font-size:12.5px;line-height:1.55;color:var(--cinza);margin-top:7px;}
+
+/* ── QUESTÕES SIMULADO ── */
+.qbloco{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;}
+.qbloco-head{padding:10px 15px;display:flex;align-items:center;gap:11px;border-bottom:3px solid;background:var(--fundo);}
+.qbloco-num{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;line-height:1;color:var(--verde);flex-shrink:0;}
+.qbloco-info{flex:1;}
+.qbloco-title{font-size:14px;font-weight:700;color:var(--texto);}
+.qbloco-sub{font-size:11.5px;color:var(--sub);margin-top:1px;}
+.nivel-chip{font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.qbloco-body{padding:15px;}
+.passagem{background:var(--fundo);border:1.5px solid var(--borda);border-radius:8px;padding:12px 15px;font-size:13.5px;line-height:1.72;color:var(--texto);margin-bottom:13px;font-style:italic;}
+.passagem-fonte{font-size:10.5px;font-weight:600;color:var(--sub);margin-top:7px;font-style:normal;}
+.qenunciado{font-size:14px;font-weight:600;line-height:1.6;color:var(--texto);margin-bottom:11px;}
+.alternativas{display:flex;flex-direction:column;gap:7px;margin-bottom:13px;}
+.alt{display:flex;align-items:flex-start;gap:10px;padding:9px 13px;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .18s;background:white;}
+.alt:hover{border-color:var(--verde-l);background:var(--verde-xbg);}
+.alt.certa{border-color:var(--verde-m);background:var(--verde-bg);}
+.alt.errada{border-color:#EF9A9A;background:var(--verm-bg);}
+.alt-letra{font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:var(--verde);flex-shrink:0;width:18px;}
+.alt-texto{font-size:13.5px;line-height:1.6;color:var(--texto);}
+.btn-gab{background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13.5px;font-weight:700;padding:8px 18px;border-radius:7px;cursor:pointer;transition:all .2s;width:100%;margin-bottom:11px;}
+.btn-gab:hover{background:var(--verde-m);}
+.gabarito-area{display:none;}
+.gabarito-area.show{display:block;}
+.gabarito-box{background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:9px;padding:13px 15px;}
+.gabarito-title{font-size:13.5px;font-weight:800;color:var(--verde);margin-bottom:9px;}
+.gabarito-texto{font-size:13px;line-height:1.7;color:var(--texto);}
+.gabarito-ana{display:flex;gap:8px;background:var(--ouro-bg);border:1px dashed var(--ouro-l);border-radius:7px;padding:8px 12px;margin-top:10px;align-items:flex-start;}
+.gabarito-ana-texto{font-size:12.5px;line-height:1.55;color:var(--cinza);font-style:italic;}
+
+/* ── DICAS DE OURO ── */
+.ouro-section-header{background:linear-gradient(135deg,#BF4A00 0%,#F57F17 50%,#BF4A00 100%);border-radius:10px;padding:13px 18px;margin-bottom:13px;display:flex;align-items:center;gap:13px;color:white;box-shadow:0 4px 18px rgba(245,127,23,.45);}
+.ouro-medal{font-size:34px;flex-shrink:0;}
+.ouro-header-text h2{font-family:'Sora',sans-serif;font-size:18px;font-weight:800;letter-spacing:.01em;}
+.ouro-header-text p{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:2px;}
+
+.dica-ouro{background:white;border:2px solid #F57F17;border-radius:10px;margin-bottom:11px;overflow:hidden;box-shadow:0 2px 10px rgba(245,127,23,.15);}
+.dica-ouro:last-child{margin-bottom:0;}
+.dica-ouro-head{background:linear-gradient(90deg,#D4580A,#F57F17);padding:7px 14px;display:flex;align-items:center;gap:9px;}
+.dica-ouro-num{background:rgba(255,255,255,.22);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:12px;font-weight:800;color:white;flex-shrink:0;}
+.dica-ouro-titulo{font-family:'Sora',sans-serif;font-size:13.5px;font-weight:800;color:white;letter-spacing:.01em;flex:1;}
+.dica-ouro-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:rgba(255,255,255,.18);color:white;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.dica-ouro-body{padding:12px 15px;}
+.dica-ouro-txt{font-size:13.5px;line-height:1.65;color:var(--texto);margin-bottom:8px;}
+.dica-ouro-txt b{color:var(--ouro);}
+.dica-ouro-exemplo{background:var(--ouro-bg);border-left:3px solid var(--ouro-l);border-radius:0 7px 7px 0;padding:8px 13px;font-size:13px;line-height:1.6;color:var(--cinza);margin-top:8px;}
+
+/* ── TABELA REFERÊNCIA ── */
+.tabela-ref{width:100%;border-collapse:collapse;font-size:13px;}
+.tabela-ref th{background:var(--verde);color:white;padding:7px 11px;text-align:left;font-family:'Sora',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.02em;}
+.tabela-ref td{padding:6px 11px;border-bottom:1px solid var(--borda);vertical-align:top;}
+.tabela-ref tr:last-child td{border-bottom:none;}
+.tabela-ref tr:nth-child(even) td{background:var(--fundo);}
+.tabela-ref .ok{color:var(--verde-m);font-weight:700;}
+.tabela-ref .ko{color:var(--verm-l);font-weight:700;}
+
+/* ── CAPA ── */
+.capa-slide{flex:1;background:linear-gradient(160deg,#0B1A0D 0%,#1B5E20 38%,#0A2E10 72%,#040C05 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;gap:12px;overflow-y:auto;position:relative;}
+.capa-slide::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 55px,rgba(255,255,255,.012) 55px,rgba(255,255,255,.012) 56px);pointer-events:none;}
+.capa-badge{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);border-radius:25px;padding:3px 15px;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.capa-logo{font-size:52px;line-height:1;}
+.capa-titulo{font-family:'Sora',sans-serif;font-size:clamp(24px,4.5vw,44px);font-weight:800;color:white;text-align:center;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;}
+.capa-subtitulo{font-family:'Sora',sans-serif;font-size:clamp(13px,2vw,18px);font-weight:600;color:rgba(255,255,255,.62);text-align:center;letter-spacing:.04em;text-transform:uppercase;}
+.capa-linha{width:75px;height:3px;background:var(--ouro-l);border-radius:2px;}
+.capa-lp-badge{background:linear-gradient(135deg,rgba(184,134,11,.3),rgba(184,134,11,.12));border:1.5px solid rgba(212,160,23,.38);border-radius:10px;padding:9px 20px;text-align:center;max-width:100%;max-width:500px;}
+.capa-lp-badge-titulo{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:#F9D878;letter-spacing:.04em;text-transform:uppercase;}
+.capa-lp-badge-sub{font-size:12.5px;color:rgba(255,255,255,.6);margin-top:3px;}
+.capa-autor{font-size:13px;color:rgba(255,255,255,.72);text-align:center;line-height:1.7;}
+.capa-autor b{color:white;font-weight:800;}
+.capa-stats{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin:4px 0;}
+.capa-stat{text-align:center;}
+.capa-stat-n{font-family:'Sora',sans-serif;font-size:30px;font-weight:800;color:var(--ouro-l);display:block;line-height:1;}
+.capa-stat-l{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.42);display:block;margin-top:2px;}
+.capa-aviso{background:rgba(183,28,28,.18);border:1px solid rgba(239,154,154,.28);border-radius:8px;padding:8px 15px;font-size:12px;color:rgba(255,255,255,.65);max-width:100%;max-width:460px;text-align:center;line-height:1.5;}
+.capa-aviso b{color:#FFCDD2;}
+.capa-btn{background:linear-gradient(135deg,#B8860B,#D4A017);color:#3B2500;border:none;font-family:'Sora',sans-serif;font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:11px 40px;border-radius:8px;cursor:pointer;transition:all .2s;box-shadow:0 5px 18px rgba(184,134,11,.5);}
+.capa-btn:hover{transform:scale(1.04);box-shadow:0 8px 26px rgba(184,134,11,.65);}
+
+/* ── APRESENTAÇÃO ── */
+.apres-capa{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:12px;padding:22px 24px;margin-bottom:16px;color:white;position:relative;overflow:hidden;}
+.apres-capa::before{content:'';position:absolute;right:-30px;top:-30px;width:150px;height:150px;background:rgba(255,255,255,.05);border-radius:50%;}
+.apres-titulo{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;letter-spacing:.01em;margin-bottom:6px;}
+.apres-sub{font-size:13.5px;color:rgba(255,255,255,.78);line-height:1.6;}
+
+.metodo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:16px;}
+.metodo-step{background:white;border-radius:10px;padding:14px;text-align:center;border:2px solid var(--borda);box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.metodo-step:nth-child(1){border-top:4px solid var(--azul-l);}
+.metodo-step:nth-child(2){border-top:4px solid var(--verde-l);}
+.metodo-step:nth-child(3){border-top:4px solid var(--ouro-l);}
+.metodo-step:nth-child(4){border-top:4px solid var(--verm-l);}
+.metodo-icon{font-size:28px;margin-bottom:7px;}
+.metodo-num{font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--sub);margin-bottom:4px;text-transform:uppercase;}
+.metodo-nome{font-family:'Sora',sans-serif;font-size:17px;font-weight:800;letter-spacing:.01em;color:var(--texto);}
+.metodo-desc{font-size:12px;line-height:1.5;color:var(--sub);margin-top:5px;}
+
+.bio-card{background:white;border:1.5px solid var(--borda);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.bio-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:12px;border-bottom:1.5px solid var(--borda);}
+.bio-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#1B5E20,#2E7D32);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:3px solid var(--ouro-l);}
+.bio-name{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;color:var(--verde);letter-spacing:.01em;}
+.bio-cargo{font-size:12.5px;color:var(--sub);margin-top:2px;}
+.bio-formacao{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.bio-item{display:flex;gap:9px;align-items:flex-start;}
+.bio-item-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.bio-item-txt{font-size:13px;line-height:1.55;color:var(--texto);}
+.bio-item-txt b{font-weight:700;color:var(--verde);}
+.bio-exp{background:var(--verde-bg);border-radius:8px;padding:11px 14px;}
+.bio-exp-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--verde);margin-bottom:8px;}
+.bio-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.bio-exp-item{display:flex;gap:7px;align-items:flex-start;background:white;border-radius:7px;padding:7px 10px;border:1px solid #A5D6A7;}
+.bio-exp-item-icon{font-size:14px;flex-shrink:0;}
+.bio-exp-item-txt{font-size:12.5px;line-height:1.45;color:var(--texto);}
+
+.citacao-final{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:10px;padding:16px 20px;margin-top:14px;text-align:center;position:relative;overflow:hidden;}
+.citacao-final::before{content:'"';font-family:'Sora',sans-serif;font-size:100px;color:rgba(255,255,255,.06);position:absolute;top:-20px;left:10px;line-height:1;}
+.citacao-txt{font-family:'Sora',sans-serif;font-size:15px;font-weight:600;font-style:italic;color:white;line-height:1.6;position:relative;}
+.citacao-autor{font-size:13px;color:rgba(255,255,255,.65);margin-top:8px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+
+/* ── SUMÁRIO ── */
+.sumario-section{margin-bottom:16px;}
+.sumario-section-titulo{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--verde);padding:8px 14px;background:var(--verde-bg);border-left:4px solid var(--verde-l);border-radius:0 7px 7px 0;margin-bottom:8px;}
+.sumario-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:5px;text-decoration:none;color:inherit;}
+.sumario-item:hover{border-color:var(--verde-l);background:var(--verde-xbg);transform:translateX(3px);}
+.sumario-item-num{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:var(--verde);flex-shrink:0;min-width:30px;}
+.sumario-item-txt{flex:1;}
+.sumario-item-nome{font-size:13.5px;font-weight:700;color:var(--texto);}
+.sumario-item-desc{font-size:11.5px;color:var(--sub);}
+.sumario-item-arrow{font-size:16px;color:var(--verde-l);}
+.sumario-ouro{border-color:var(--ouro-l) !important;background:var(--ouro-bg) !important;}
+.sumario-ouro .sumario-item-num{color:var(--ouro);}
+.sumario-ouro:hover{background:#FFF3CC !important;}
+
+/* ── CRASE / VERBOS / COESÃO ── */
+.regra-box{background:white;border:1.5px solid var(--borda);border-radius:9px;padding:13px 15px;margin-bottom:10px;}
+.regra-titulo{font-family:'Sora',sans-serif;font-size:14px;font-weight:800;letter-spacing:.01em;color:var(--verde);margin-bottom:9px;}
+.regra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.regra-sim{background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:7px;padding:9px 12px;}
+.regra-nao{background:var(--verm-bg);border:1.5px solid #EF9A9A;border-radius:7px;padding:9px 12px;}
+.regra-duvida{background:var(--ouro-bg);border:1.5px solid #F9D878;border-radius:7px;padding:9px 12px;}
+.regra-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.regra-sim .regra-label{color:var(--verde-m);}
+.regra-nao .regra-label{color:var(--verm-l);}
+.regra-duvida .regra-label{color:var(--ouro);}
+.regra-items{font-size:12.5px;line-height:1.75;color:var(--texto);}
+
+/* ── FOOTER VOLTAR ── */
+.slide-footer{position:absolute;bottom:0;left:0;right:0;height:36px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;backdrop-filter:blur(4px);}
+.slide-footer-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--verde);letter-spacing:.04em;padding:3px 10px;border-radius:5px;transition:all .2s;}
+.slide-footer-btn:hover{background:var(--verde-bg);}
+
+/* ── SECTION COVERS ── */
+.sec-cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;gap:18px;position:relative;overflow:hidden;}
+.sec-cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 55px,rgba(255,255,255,.012) 55px,rgba(255,255,255,.012) 56px);pointer-events:none;}
+.sec-cover-badge{font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:4px 18px;border-radius:20px;border:1.5px solid;opacity:.8;}
+.sec-cover-icon{font-size:62px;line-height:1;}
+.sec-cover-num{font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,20px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.55;}
+.sec-cover-title{font-family:'Sora',sans-serif;font-size:clamp(26px,4.5vw,46px);font-weight:800;text-align:center;letter-spacing:.02em;line-height:1.1;text-transform:uppercase;}
+.sec-cover-sub{font-family:'Sora',sans-serif;font-size:clamp(13px,1.8vw,18px);font-weight:500;text-align:center;opacity:.65;letter-spacing:.03em;}
+.sec-cover-line{width:70px;height:3px;border-radius:2px;}
+.sec-cover-desc{font-size:clamp(12px,1.4vw,15px);text-align:center;opacity:.7;line-height:1.7;max-width:100%;max-width:520px;}
+.sec-cover-btn{font-family:'Sora',sans-serif;font-size:14px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:11px 38px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;margin-top:8px;}
+.sec-cover-btn:hover{transform:scale(1.04);}
+
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVIDADE MOBILE — CAPITÃO VALDIR E-BOOK
+   Breakpoints: ≤768px (tablet/mobile) e ≤480px (smartphone)
+════════════════════════════════════════════════════════ */
+
+/* Tabelas com scroll horizontal */
+.tabela-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tabela-ref { min-width: 320px; }
+
+/* Imagens e mídia sempre responsivas */
+img, video, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── TOPBAR ── */
+@media (max-width: 768px) {
+  .topbar { padding: 8px 14px; }
+  .topbar-right { font-size: 22px; }
+  .topbar-sub { display: none; }
+  .topbar-tag { font-size: 8.5px; letter-spacing: .08em; }
+}
+
+@media (max-width: 480px) {
+  .topbar { padding: 7px 12px; }
+  .topbar-title { font-size: 14px !important; }
+  .topbar-right { display: none; }
+}
+
+/* ── NAV BAR ── */
+@media (max-width: 768px) {
+  .nav { padding: 5px 10px; gap: 7px; }
+  .nbtn { font-size: 10px; padding: 5px 10px; }
+  .ntitle { font-size: 10px; max-width: 140px; }
+  .ncnt { font-size: 9px; }
+  .khint { display: none; }
+}
+
+@media (max-width: 480px) {
+  .nav { padding: 5px 8px; gap: 5px; }
+  .nbtn { font-size: 9px; padding: 5px 8px; letter-spacing: 0; }
+  .ntitle { display: none; }
+  .ncnt { font-size: 8.5px; }
+}
+
+/* ── SCROLL BODY ── */
+@media (max-width: 768px) {
+  .sb { padding: 12px 14px 60px; }
+}
+
+@media (max-width: 480px) {
+  .sb { padding: 10px 11px 60px; }
+}
+
+/* ── GRIDS → COLUNA ÚNICA ── */
+@media (max-width: 768px) {
+  .g2, .g3, .g4 {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+  .s2 { grid-column: span 1 !important; }
+  .metodo-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 9px;
+  }
+  .tira-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 9px;
+  }
+  .bio-formacao {
+    grid-template-columns: 1fr !important;
+  }
+  .bio-exp-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .regra-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .g2, .g3, .g4,
+  .metodo-grid, .tira-grid,
+  .bio-formacao, .bio-exp-grid,
+  .regra-grid {
+    grid-template-columns: 1fr !important;
+    gap: 8px;
+  }
+}
+
+/* ── CARDS ── */
+@media (max-width: 768px) {
+  .card-body { padding: 10px 12px; }
+  .card-head { padding: 8px 12px; }
+  .card-head-title { font-size: 12.5px; }
+}
+
+/* ── ITENS ── */
+@media (max-width: 480px) {
+  .it { font-size: 13px; }
+  .dot { font-size: 13px; }
+}
+
+/* ── ALERTAS ── */
+@media (max-width: 480px) {
+  .alerta { padding: 8px 11px; gap: 8px; }
+  .alerta-icon { font-size: 16px; }
+  .alerta-text { font-size: 13px; }
+  .alerta-title { font-size: 10px; }
+}
+
+/* ── VS BOXES ── */
+@media (max-width: 480px) {
+  .vs-wrap:not([style*="flex-direction:column"]) {
+    flex-direction: column !important;
+  }
+  .vs-arrow { transform: rotate(90deg); align-self: center; }
+  .vs-txt { font-size: 13px; }
+}
+
+/* ── QMAP (mapa de questões) ── */
+@media (max-width: 768px) {
+  .qrow { flex-direction: column; }
+  .qrow-num {
+    width: 100%;
+    height: 36px;
+    font-size: 14px;
+  }
+  .qrow-badge {
+    border-left: none;
+    border-top: 1px solid var(--borda);
+    flex-direction: row;
+    min-width: auto;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 6px 13px;
+  }
+  .qrow-badge-bar { width: 80px; }
+}
+
+/* ── TIRA CARDS ── */
+@media (max-width: 480px) {
+  .tira-head { font-size: 12px; padding: 7px 10px; }
+  .tira-txt { font-size: 12px; }
+  .tira-dica { font-size: 11px; }
+  .tira-mec { font-size: 9px; }
+}
+
+/* ── SE CARDS ── */
+@media (max-width: 480px) {
+  .se-txt { font-size: 12.5px; }
+  .se-regra { font-size: 12px; }
+}
+
+/* ── QUESTÕES SIMULADO ── */
+@media (max-width: 768px) {
+  .qbloco-head { flex-wrap: wrap; gap: 7px; }
+  .nivel-chip { order: 3; }
+  .qbloco-num { font-size: 22px; }
+  .qbloco-body { padding: 12px; }
+  .passagem { padding: 10px 12px; font-size: 13px; }
+  .qenunciado { font-size: 13.5px; }
+  .alt { padding: 8px 11px; gap: 8px; }
+  .alt-texto { font-size: 13px; }
+  .alt-letra { font-size: 13px; }
+  .btn-gab { font-size: 13px; padding: 9px 14px; }
+  .gabarito-texto { font-size: 12.5px; }
+  .gabarito-title { font-size: 13px; }
+}
+
+@media (max-width: 480px) {
+  .qbloco-title { font-size: 13px; }
+  .qbloco-sub { font-size: 11px; }
+  .passagem { font-size: 12.5px; line-height: 1.65; }
+  .qenunciado { font-size: 13px; }
+  .alt-texto { font-size: 12.5px; }
+}
+
+/* ── DICAS DE OURO ── */
+@media (max-width: 768px) {
+  .ouro-section-header { padding: 11px 14px; gap: 10px; }
+  .ouro-medal { font-size: 28px; }
+  .ouro-header-text h2 { font-size: 15px; }
+  .ouro-header-text p { font-size: 11.5px; }
+  .dica-ouro-head { padding: 7px 12px; gap: 7px; flex-wrap: wrap; }
+  .dica-ouro-tag { order: 3; margin-top: 2px; }
+  .dica-ouro-titulo { font-size: 12.5px; }
+  .dica-ouro-body { padding: 10px 12px; }
+  .dica-ouro-txt { font-size: 13px; }
+  .dica-ouro-exemplo { font-size: 12.5px; padding: 7px 11px; }
+}
+
+@media (max-width: 480px) {
+  .dica-ouro-titulo { font-size: 12px; }
+  .dica-ouro-txt { font-size: 12.5px; }
+  .dica-ouro-tag { display: none; }
+}
+
+/* ── CAPA ── */
+@media (max-width: 768px) {
+  .capa-slide { padding: 20px 16px; gap: 10px; }
+  .capa-logo { font-size: 42px; }
+  .capa-stats { gap: 12px; }
+  .capa-stat-n { font-size: 24px; }
+  .capa-btn { font-size: 14px; padding: 10px 30px; }
+  .capa-lp-badge { padding: 8px 14px; }
+  .capa-lp-badge-titulo { font-size: 13.5px; }
+}
+
+@media (max-width: 480px) {
+  .capa-slide { padding: 16px 12px; gap: 9px; }
+  .capa-logo { font-size: 36px; }
+  .capa-titulo { font-size: 22px !important; }
+  .capa-subtitulo { font-size: 12px !important; }
+  .capa-stats { gap: 10px; }
+  .capa-stat-n { font-size: 20px; }
+  .capa-stat-l { font-size: 8.5px; }
+  .capa-btn { font-size: 13px; padding: 10px 24px; width: 100%; max-width: 320px; }
+  .capa-aviso { font-size: 11.5px; }
+  .capa-autor { font-size: 12px; }
+}
+
+/* ── APRESENTAÇÃO ── */
+@media (max-width: 768px) {
+  .apres-titulo { font-size: 18px; }
+  .apres-sub { font-size: 13px; }
+  .apres-capa { padding: 16px 18px; }
+  .bio-name { font-size: 17px; }
+  .bio-cargo { font-size: 12px; }
+  .bio-item-txt { font-size: 12.5px; }
+}
+
+@media (max-width: 480px) {
+  .apres-titulo { font-size: 16px; }
+  .apres-sub { font-size: 12.5px; }
+  .metodo-nome { font-size: 15px; }
+  .metodo-desc { font-size: 11.5px; }
+  .bio-avatar { width: 50px; height: 50px; font-size: 22px; }
+  .bio-name { font-size: 16px; }
+}
+
+/* ── SUMÁRIO ── */
+@media (max-width: 768px) {
+  .sumario-item-nome { font-size: 13px; }
+  .sumario-item-desc { font-size: 11px; }
+  .sumario-section-titulo { font-size: 12px; padding: 7px 12px; }
+}
+
+@media (max-width: 480px) {
+  .sumario-item { padding: 7px 10px; gap: 8px; }
+  .sumario-item-num { font-size: 13px; min-width: 26px; }
+  .sumario-item-nome { font-size: 12.5px; }
+  .sumario-item-desc { display: none; }
+}
+
+/* ── CAPAS DE SEÇÃO ── */
+@media (max-width: 768px) {
+  .sec-cover { padding: 24px 20px; gap: 13px; }
+  .sec-cover-icon { font-size: 48px; }
+  .sec-cover-title { font-size: clamp(22px, 6vw, 36px) !important; }
+  .sec-cover-sub { font-size: clamp(12px, 2.5vw, 15px) !important; }
+  .sec-cover-desc { font-size: clamp(12px, 2vw, 14px) !important; }
+  .sec-cover-btn { font-size: 13px; padding: 10px 28px; }
+}
+
+@media (max-width: 480px) {
+  .sec-cover { padding: 20px 14px; gap: 11px; }
+  .sec-cover-icon { font-size: 40px; }
+  .sec-cover-btn { width: 100%; max-width: 300px; }
+}
+
+/* ── SLIDE FOOTER ── */
+@media (max-width: 480px) {
+  .slide-footer { height: 38px; }
+  .slide-footer-btn { font-size: 10px; padding: 3px 8px; }
+}
+
+/* ── GRIDS INLINE (style="display:grid...") ── */
+/* Regras para grids escritos inline nos slides */
+@media (max-width: 768px) {
+  /* Slide 03 — Prova em Números: alertas lado a lado */
+  #slide-3 .sb > div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Slide 06 — 3 passos */
+  .card-body > div[style*="grid-template-columns:1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Slide 04 — prioridades */
+  .sb > div[style*="grid-template-columns:1fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Slide 13 — crase teste */
+  .card-body > div[style*="grid-template-columns:1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Slide final — gabarito geral */
+  div[style*="grid-template-columns:repeat(4,1fr)"] {
+    grid-template-columns: repeat(4,1fr) !important;
+  }
+  /* Slide final — stats */
+  div[style*="display:grid;grid-template-columns:repeat(4,1fr)"] {
+    grid-template-columns: repeat(2,1fr) !important;
+    gap: 6px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Slide 03 — 4 cards g4 */
+  div[style*="grid-template-columns:repeat(4,1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+  /* Slide final — gabarito vira 4 colunas sempre */
+  .capa-slide div[style*="grid-template-columns:repeat(4,1fr)"] {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 5px !important;
+  }
+}
+
+/* ── PILLS / CHIPS / BADGES COM TEXTO LONGO ── */
+@media (max-width: 480px) {
+  .capa-badge {
+    font-size: 8.5px;
+    letter-spacing: .08em;
+    text-align: center;
+    white-space: normal;
+  }
+}
+
+/* ── ANA (analogia) ── */
+@media (max-width: 480px) {
+  .ana { padding: 7px 10px; }
+  .ana-text { font-size: 12px; }
+}
+
+/* ── TABELA REFERÊNCIA ── */
+@media (max-width: 480px) {
+  .card-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tabela-ref { font-size: 12px; }
+  .tabela-ref th, .tabela-ref td { padding: 5px 8px; }
+}
+
+/* ── CITAÇÃO FINAL ── */
+@media (max-width: 480px) {
+  .citacao-txt { font-size: 13.5px; }
+  .citacao-autor { font-size: 12px; }
+}
+
+/* ── REGRA BOX ── */
+@media (max-width: 480px) {
+  .regra-titulo { font-size: 13px; }
+  .regra-items { font-size: 12px; }
+  .regra-sim, .regra-nao, .regra-duvida { padding: 8px 10px; }
+}
+
+/* ── PREVENT OVERFLOW ── */
+* {
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+pre, code {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* ── TOUCH TARGETS ── */
+@media (max-width: 768px) {
+  .alt, .sumario-item, .nbtn, .capa-btn, .btn-gab, .sec-cover-btn {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .alt { flex-direction: row; }
+  .sumario-item { flex-direction: row; }
+}
+
+
+/* ── OVERFLOW CONTROL ── */
+@media (max-width: 768px) {
+  html, body {
+    /* Mantemos overflow hidden para preservar o comportamento de slides */
+    overflow: hidden;
+    /* Mas garantimos que não haja scroll horizontal */
+    max-width: 100vw;
+  }
+  .deck {
+    overflow: hidden;
+    max-width: 100%;
+  }
+  /* Impede que qualquer elemento cause overflow horizontal */
+  .slide {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  .sb {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<div class="slide active" data-title="Capa" id="slide-0">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(212,160,23,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#D4A017;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(212,160,23,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">FOCO NO QUE MAIS CAI
+e DICAS DE OURO</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA DE SAÚDE E FORMAÇÃO COMPLEMENTAR DO EXÉRCITO</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.2vw,13px);font-weight:700;color:rgba(212,160,23,.6);letter-spacing:.1em;text-transform:uppercase;">QCO - QCM · VOLUME III</div>
+</div>
+</div>
+<div class="slide" data-title="Apresentação" id="slide-1">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · ESFCEx 2026</span>
+<span class="topbar-title">APRESENTAÇÃO</span>
+<span class="topbar-sub">Quem sou, qual é o método e por que ele funciona</span>
+</div>
+<div class="topbar-right">01</div>
+</div>
+<div class="sb" id="sb-1">
+<div class="apres-capa" style="margin-bottom:14px;">
+<div class="apres-titulo">Bem-vindo ao Guia que vai mudar seu desempenho</div>
+<div class="apres-sub">Este não é mais um material de Língua Portuguesa. É o resultado de anos ensinando candidatos que passaram pela mesma prova que eu — e que, com método certo, foram aprovados. O caminho existe. Está aqui. Agora é com você.</div>
+</div>
+<div class="metodo-grid">
+<div class="metodo-step">
+<div class="metodo-icon">📖</div>
+<div class="metodo-num">PASSO 1</div>
+<div class="metodo-nome">ENTENDER</div>
+<div class="metodo-desc">Cada conceito explicado de forma clara, sem enrolação, com exemplos reais da prova.</div>
+</div>
+<div class="metodo-step">
+<div class="metodo-icon">✏️</div>
+<div class="metodo-num">PASSO 2</div>
+<div class="metodo-nome">PRATICAR</div>
+<div class="metodo-desc">8 questões no padrão VUNESP com gabarito comentado alternativa por alternativa.</div>
+</div>
+<div class="metodo-step">
+<div class="metodo-icon">🔄</div>
+<div class="metodo-num">PASSO 3</div>
+<div class="metodo-nome">REVISAR</div>
+<div class="metodo-desc">Dicas de Ouro e tabelas de referência rápida para a véspera da prova.</div>
+</div>
+<div class="metodo-step">
+<div class="metodo-icon">🎯</div>
+<div class="metodo-num">PASSO 4</div>
+<div class="metodo-nome">ACERTAR</div>
+<div class="metodo-desc">Estratégias de eliminação que funcionam mesmo quando você não tem certeza.</div>
+</div>
+</div>
+<div class="alerta verde" style="margin-bottom:14px;">
+<div class="alerta-icon">💬</div>
+<div class="alerta-content">
+<div class="alerta-title">Mensagem do Capitão Valdir</div>
+<div class="alerta-text">O método aplicado neste material é simples, comprovado e eficaz: <b>Entender → Praticar → Revisar → Acertar</b>. Cada seção foi pensada para economizar o seu tempo e maximizar o seu desempenho. Se além de estudar você busca ser aprovado, este guia foi feito para você. <b>Bons estudos! E te vejo na lista de aprovados...</b></div>
+</div>
+</div>
+<div class="bio-card">
+<div class="bio-header">
+<div class="bio-avatar">🎖️</div>
+<div>
+<div class="bio-name">CAPITÃO VALDIR</div>
+<div class="bio-cargo">Capitão da Reserva · Quadro Complementar de Oficiais (QCO) · Exército Brasileiro</div>
+</div>
+</div>
+<div class="bio-formacao">
+<div class="bio-item">
+<div class="bio-item-icon">🎓</div>
+<div class="bio-item-txt"><b>Licenciado em Letras</b><br/>Universidade Estadual de Campinas — UNICAMP</div>
+</div>
+<div class="bio-item">
+<div class="bio-item-icon">⭐</div>
+<div class="bio-item-txt"><b>Formado e Pós-graduado pela EsAEx (atual ESFCEx)</b><br/>Área: Magistério — Português</div>
+</div>
+<div class="bio-item">
+<div class="bio-item-icon">📋</div>
+<div class="bio-item-txt"><b>Aprovado na ESFCEx</b><br/>Fez a prova. Passou. Formou-se Oficial de carreira. Sabe o que cai.</div>
+</div>
+<div class="bio-item">
+<div class="bio-item-icon">📚</div>
+<div class="bio-item-txt"><b>Especialista em Ensino</b><br/>Há duas décadas ensinando, formando, especializando e preparando alunos com excelência!</div>
+</div>
+</div>
+<div class="bio-exp">
+<div class="bio-exp-title">▸ Experiência Docente no Exército Brasileiro</div>
+<div class="bio-exp-grid">
+<div class="bio-exp-item"><div class="bio-exp-item-icon">🏫</div><div class="bio-exp-item-txt"><b>Colégio Militar de Fortaleza</b></div></div>
+<div class="bio-exp-item"><div class="bio-exp-item-icon">🏫</div><div class="bio-exp-item-txt"><b>Colégio Militar de Manaus</b></div></div>
+<div class="bio-exp-item"><div class="bio-exp-item-icon">⚔️</div><div class="bio-exp-item-txt"><b>Esc. de Aperfeiçoamento de Sargentos das Armas</b></div></div>
+<div class="bio-exp-item"><div class="bio-exp-item-icon">✈️</div><div class="bio-exp-item-txt"><b>Centro de Instrução de Aviação do Exército</b></div></div>
+</div>
+</div>
+</div>
+<div class="citacao-final">
+<div class="citacao-txt">"O conhecimento é a arma mais poderosa que existe. Prepare-se com método, disciplina e estratégia."</div>
+<div class="citacao-autor">— Capitão Valdir</div>
+</div>
+</div>
+<div class="slide-footer">
+<button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button>
+<span style="color:var(--borda);font-size:12px;">|</span>
+<button class="slide-footer-btn" onclick="goTo(2)">Próximo: Sumário →</button>
+</div>
+</div>
+<div class="slide" data-title="Sumário" id="slide-2">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · ESFCEx 2026</span>
+<span class="topbar-title">SUMÁRIO</span>
+<span class="topbar-sub">Clique em qualquer seção para ir diretamente ao conteúdo</span>
+</div>
+<div class="topbar-right">02</div>
+</div>
+<div class="sb" id="sb-2">
+<div class="alerta azul" style="margin-bottom:14px;">
+<div class="alerta-icon">🖱️</div>
+<div class="alerta-content">
+<div class="alerta-title">Navegação rápida</div>
+<div class="alerta-text">Clique em qualquer item abaixo para ir direto àquela seção. Use as setas ← → no teclado ou os botões da barra inferior para navegar entre os slides.</div>
+</div>
+</div>
+<div class="g2">
+<div>
+<div class="sumario-section">
+<div class="sumario-section-titulo" onclick="goTo(3)" style="cursor:pointer;" title="Ir para seção">📋 Estrutura da Prova</div>
+<div class="sumario-item" onclick="goTo(4)"><div class="sumario-item-num">03</div><div class="sumario-item-txt"><div class="sumario-item-nome">A Prova em Números</div><div class="sumario-item-desc">Estrutura, metas e gestão do tempo</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(5)"><div class="sumario-item-num">04</div><div class="sumario-item-txt"><div class="sumario-item-nome">Os 16 Tópicos do Edital</div><div class="sumario-item-desc">O que o Exército exige — prioridades</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(6)"><div class="sumario-item-num">05</div><div class="sumario-item-txt"><div class="sumario-item-nome">As 8 Questões que Tendem a Cair</div><div class="sumario-item-desc">Mapa de probabilidade 2026</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+<div class="sumario-section">
+<div class="sumario-section-titulo" onclick="goTo(7)" style="cursor:pointer;" title="Ir para seção">📖 Interpretação e Texto</div>
+<div class="sumario-item" onclick="goTo(8)"><div class="sumario-item-num">06</div><div class="sumario-item-txt"><div class="sumario-item-nome">Como Ler uma Tira (Q1)</div><div class="sumario-item-desc">Mafalda, Hagar, Calvin, Níquel Náusea</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(9)"><div class="sumario-item-num">07</div><div class="sumario-item-txt"><div class="sumario-item-nome">Texto Jornalístico (Q2)</div><div class="sumario-item-desc">Artigo, editorial, tese, fato × opinião</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(10)"><div class="sumario-item-num">08</div><div class="sumario-item-txt"><div class="sumario-item-nome">Coesão Textual (Q3)</div><div class="sumario-item-desc">Referenciação e conectivos</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+<div class="sumario-section">
+<div class="sumario-section-titulo" onclick="goTo(11)" style="cursor:pointer;" title="Ir para seção">⚡ Gramática — Os que mais caem</div>
+<div class="sumario-item" onclick="goTo(12)"><div class="sumario-item-num">09</div><div class="sumario-item-txt"><div class="sumario-item-nome">Concordância Verbal (Q4)</div><div class="sumario-item-desc">Haver, passiva com SE, sujeito composto</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(13)"><div class="sumario-item-num">10</div><div class="sumario-item-txt"><div class="sumario-item-nome">As 3 Funções do SE (Q5 — novidade)</div><div class="sumario-item-desc">Reflexivo, apassivador, indeterminação</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(14)"><div class="sumario-item-num">11</div><div class="sumario-item-txt"><div class="sumario-item-nome">Colocação Pronominal (Q5)</div><div class="sumario-item-desc">Próclise, ênclise e mesóclise</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(15)"><div class="sumario-item-num">12</div><div class="sumario-item-txt"><div class="sumario-item-nome">Tempos e Modos Verbais (Q6)</div><div class="sumario-item-desc">Condicionais, VER × VIR, irregulares</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(16)"><div class="sumario-item-num">13</div><div class="sumario-item-txt"><div class="sumario-item-nome">Crase (Q7)</div><div class="sumario-item-desc">Quando usar, quando não usar, teste</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+</div>
+<div>
+<div class="sumario-section">
+<div class="sumario-section-titulo" onclick="goTo(17)" style="cursor:pointer;" title="Ir para seção">🏅 Dicas de Ouro do Capitão Valdir</div>
+<div class="sumario-item sumario-ouro" onclick="goTo(18)"><div class="sumario-item-num">14</div><div class="sumario-item-txt"><div class="sumario-item-nome">🥇 Dicas de Ouro — Interpretação</div><div class="sumario-item-desc">10 regras que resolvem Q1 e Q2 sempre</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item sumario-ouro" onclick="goTo(19)"><div class="sumario-item-num">15</div><div class="sumario-item-txt"><div class="sumario-item-nome">🥇 Dicas de Ouro — Gramática</div><div class="sumario-item-desc">Os atalhos que ninguém te conta</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item sumario-ouro" onclick="goTo(20)"><div class="sumario-item-num">16</div><div class="sumario-item-txt"><div class="sumario-item-nome">🥇 Dicas de Ouro — Na Hora da Prova</div><div class="sumario-item-desc">Estratégia, gestão e eliminação</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+<div class="sumario-section">
+<div class="sumario-section-titulo" onclick="goTo(21)" style="cursor:pointer;" title="Ir para seção">✏️ Simulado Padrão ESFCEx/VUNESP</div>
+<div class="sumario-item" onclick="goTo(22)"><div class="sumario-item-num">Q1</div><div class="sumario-item-txt"><div class="sumario-item-nome">Tira Humorística — Interpretação</div><div class="sumario-item-desc">Com gabarito comentado alternativa a alternativa</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(23)"><div class="sumario-item-num">Q2</div><div class="sumario-item-txt"><div class="sumario-item-nome">Texto Jornalístico — Fato × Opinião</div><div class="sumario-item-desc">Com gabarito comentado</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(24)"><div class="sumario-item-num">Q3</div><div class="sumario-item-txt"><div class="sumario-item-nome">Coesão — Referenciação</div><div class="sumario-item-desc">Com gabarito comentado</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(25)"><div class="sumario-item-num">Q4</div><div class="sumario-item-txt"><div class="sumario-item-nome">Concordância Verbal</div><div class="sumario-item-desc">Com gabarito comentado</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(26)"><div class="sumario-item-num">Q5</div><div class="sumario-item-txt"><div class="sumario-item-nome">Funções do SE</div><div class="sumario-item-desc">Com gabarito comentado</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(27)"><div class="sumario-item-num">Q6</div><div class="sumario-item-txt"><div class="sumario-item-nome">Tempos Verbais</div><div class="sumario-item-desc">Com gabarito comentado</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(28)"><div class="sumario-item-num">Q7</div><div class="sumario-item-txt"><div class="sumario-item-nome">Crase — Lacunas múltiplas</div><div class="sumario-item-desc">Com gabarito comentado</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(29)"><div class="sumario-item-num">Q8</div><div class="sumario-item-txt"><div class="sumario-item-nome">Gêneros Textuais — Rotativa</div><div class="sumario-item-desc">Com gabarito comentado</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+<div class="sumario-section">
+<div class="sumario-section-titulo">🏁 Encerramento</div>
+<div class="sumario-item" onclick="goTo(30)"><div class="sumario-item-num">FIM</div><div class="sumario-item-txt"><div class="sumario-item-nome">Gabarito Geral + Próximos passos</div><div class="sumario-item-desc">Resultado e orientações finais</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Seção: Estrutura da Prova" id="sec-estrutura">
+<div class="sec-cover" style="background:linear-gradient(155deg,#0D3B1A 0%,#1B5E20 45%,#0A2E10 100%);">
+<div class="sec-cover-badge" style="background:rgba(67,160,71,.35);border-color:rgba(67,160,71,.55);color:rgba(255,255,255,.75);">Exército Brasileiro · ESFCEx · VUNESP · 2026</div>
+<div class="sec-cover-icon">📋</div>
+<div class="sec-cover-num" style="color:white;">SEÇÃO 1</div>
+<div class="sec-cover-title" style="color:white;">Estrutura da Prova</div>
+<div class="sec-cover-line" style="background:#43A047;"></div>
+<div class="sec-cover-sub" style="color:white;">A Prova em Números · Os 16 Tópicos do Edital · O que Mais Cai</div>
+<div class="sec-cover-desc" style="color:white;">Entenda o formato da prova, as regras do jogo e os tópicos obrigatórios definidos pelo Exército Brasileiro.</div>
+<button class="sec-cover-btn" onclick="next()" style="background:linear-gradient(135deg,#2E7D32,#43A047);color:white;box-shadow:0 5px 18px rgba(0,0,0,.35);">Começar esta seção →</button>
+</div>
+</div>
+<div class="slide" data-title="A Prova em Números" id="slide-3">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · ESFCEx 2026</span>
+<span class="topbar-title">A PROVA EM NÚMEROS</span>
+<span class="topbar-sub">Eliminatória E classificatória — entenda as duas regras do jogo</span>
+</div>
+<div class="topbar-right">03</div>
+</div>
+<div class="sb" id="sb-3">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:13px;">
+<div class="alerta verm">
+<div class="alerta-icon">🚫</div>
+<div class="alerta-content">
+<div class="alerta-title">Prova Eliminatória — Regra 1</div>
+<div class="alerta-text">Você precisa acertar pelo menos <b>50% de cada parte</b> da prova. Em Língua Portuguesa: mínimo de <b>4 das 8 questões</b>. Quem não atingir esse mínimo é <b>eliminado imediatamente</b>, independentemente de como foi nas outras disciplinas. Não há recurso.</div>
+</div>
+</div>
+<div class="alerta azul">
+<div class="alerta-icon">🏆</div>
+<div class="alerta-content">
+<div class="alerta-title">Prova Classificatória — Regra 2</div>
+<div class="alerta-text">Passar do mínimo não basta — o concurso é por <b>classificação geral</b>. Quanto mais questões você acertar em LP e nas demais disciplinas, <b>maior sua posição no ranking</b>. Candidatos empatados são separados pela nota em LP. Cada acerto adicional pode salvar (ou destruir) sua classificação.</div>
+</div>
+</div>
+</div>
+<div class="g4">
+<div class="card">
+<div class="card-head verde"><div class="card-head-icon">📋</div><div class="card-head-title">Estrutura completa</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">📌</span><div class="it"><b>50 questões</b> objetivas no total</div></div>
+<div class="item"><span class="dot">📌</span><div class="it"><b>20 Conhecimentos Gerais:</b> 8 LP + 6 História + 6 Geografia</div></div>
+<div class="item"><span class="dot">📌</span><div class="it"><b>30 Conhecimentos Específicos:</b> Enfermagem, Direito, Magistério…</div></div>
+<div class="ana"><div class="ana-icon">💡</div><div class="ana-text">Missão com dois objetivos: não ser eliminado E classificar alto.</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-head ouro"><div class="card-head-icon">🎯</div><div class="card-head-title">Sua meta real em LP</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Sobrevivência:</b> ≥ 4 de 8 (50% mínimo)</div></div>
+<div class="item"><span class="dot">⭐</span><div class="it"><b>Meta ideal:</b> 6 a 8 acertos para classificar bem</div></div>
+<div class="item"><span class="dot">🔴</span><div class="it">0 acertos em LP = eliminado. Sem exceção.</div></div>
+<div class="ana"><div class="ana-icon">💡</div><div class="ana-text">No futebol militar: você precisa não levar gol E marcar para vencer.</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-head verde"><div class="card-head-icon">⏱️</div><div class="card-head-title">Gestão do tempo</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">📌</span><div class="it">4 horas para 50 questões = 4,8 min/questão</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">LP vem primeiro. Use <b>no máximo 3 min</b> por questão</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Se travar: marque a melhor opção e avance</div></div>
+<div class="ana"><div class="ana-icon">💡</div><div class="ana-text">Quem trava em LP chega cansado nas questões específicas.</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-head verm"><div class="card-head-icon">⚡</div><div class="card-head-title">Armadilha nº 1 — VUNESP</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">⚠️</span><div class="it">A VUNESP adora questões <b>negativas</b></div></div>
+<div class="item"><span class="dot">⚠️</span><div class="it">"Assinale o que <span class="ko">NÃO está correto</span>"</div></div>
+<div class="item"><span class="dot">✅</span><div class="it"><b>Sublinhe o NÃO</b> antes de ler as alternativas</div></div>
+<div class="ana"><div class="ana-icon">💡</div><div class="ana-text">Ordem invertida. Quem não lê com atenção executa o oposto.</div></div>
+</div>
+</div>
+</div>
+<div class="alerta verde" style="margin-top:12px;">
+<div class="alerta-icon">🔑</div>
+<div class="alerta-content">
+<div class="alerta-title">O contrato Exército × VUNESP — como isso te ajuda</div>
+<div class="alerta-text">O Exército define os <b>16 tópicos obrigatórios</b>, a bibliografia (Bechara, Luft, Marcuschi) e o formato. A VUNESP escolhe os textos e elabora as questões. Resultado: <b>padrão estável e previsível desde 2019</b>. Quem estuda esse padrão leva vantagem enorme — e esse é exatamente o propósito deste guia.</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Os 16 Tópicos do Edital">
+<div class="topbar ouro">
+<div class="topbar-left">
+<span class="topbar-tag">Relação oficial de assuntos · ESFCEx 2026</span>
+<span class="topbar-title">OS 16 TÓPICOS DO EDITAL</span>
+<span class="topbar-sub">O Exército decide o que cai — a VUNESP decide como perguntar</span>
+</div>
+<div class="topbar-right">04</div>
+</div>
+<div class="sb">
+<div class="alerta ouro" style="margin-bottom:11px;">
+<div class="alerta-icon">📋</div>
+<div class="alerta-content">
+<div class="alerta-title">Como usar este mapa de prioridades</div>
+<div class="alerta-text">Esses 16 tópicos são o que o Exército exige. As 8 questões de LP saem daqui. Use as cores abaixo para guiar seus estudos — mas <b>nenhum tópico pode ser totalmente ignorado</b>.</div>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:13px;">
+<div style="background:#FFEBEE;border:1.5px solid #EF9A9A;border-left:4px solid #C62828;border-radius:9px;padding:10px 13px;display:flex;gap:9px;align-items:flex-start;">
+<div style="font-size:17px;flex-shrink:0;">🔴</div>
+<div>
+<div style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#C62828;margin-bottom:3px;">Alta Prioridade</div>
+<div style="font-size:12.5px;line-height:1.55;color:var(--texto);">Presente em <b>100% das provas</b> de 2019–2025. Estude com profundidade — quase certeza de aparecer. Não pode errar.</div>
+</div>
+</div>
+<div style="background:#FFF8E1;border:1.5px solid #FFE082;border-left:4px solid #F57F17;border-radius:9px;padding:10px 13px;display:flex;gap:9px;align-items:flex-start;">
+<div style="font-size:17px;flex-shrink:0;">🟡</div>
+<div>
+<div style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#E65100;margin-bottom:3px;">Média Prioridade</div>
+<div style="font-size:12.5px;line-height:1.55;color:var(--texto);">Aparece em <b>60–90% das provas</b>. Muito provável de cair. Estude bem após dominar os de alta prioridade.</div>
+</div>
+</div>
+<div style="background:#E8F5E9;border:1.5px solid #A5D6A7;border-left:4px solid #43A047;border-radius:9px;padding:10px 13px;display:flex;gap:9px;align-items:flex-start;">
+<div style="font-size:17px;flex-shrink:0;">🟢</div>
+<div>
+<div style="font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#2E7D32;margin-bottom:3px;">Baixa Prioridade</div>
+<div style="font-size:12.5px;line-height:1.55;color:var(--texto);">Apareceu em <b>menos de 60% das provas</b>. Menos frequente, mas está no edital. Revise se tiver tempo.</div>
+</div>
+</div>
+</div>
+<div class="g2">
+<div>
+<div class="card" style="margin-bottom:12px;">
+<div class="card-head verde"><div class="card-head-icon">📖</div><div class="card-head-title">Interpretação e Texto — Peso máximo</div></div>
+<div class="card-body">
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>1.</b> Compreensão e interpretação de textos de gêneros variados</div></div>
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>2.</b> Níveis de significação: pressupostos, subentendidos e implícitos</div></div>
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>3.</b> Reconhecimento de tipos e gêneros textuais</div></div>
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>6.</b> Coesão textual: referenciação e sequenciação</div></div>
+<div class="item"><span style="font-size:13px">🟡</span><div class="it"><b>7.</b> Coerência textual: fatores</div></div>
+<div class="item"><span style="font-size:13px">🟡</span><div class="it"><b>16.</b> Estilística da palavra e da frase</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-head cinza"><div class="card-head-icon">✏️</div><div class="card-head-title">Ortografia e Acentuação</div></div>
+<div class="card-body">
+<div class="item"><span style="font-size:13px">🟡</span><div class="it"><b>4.</b> Ortografia oficial (Novo Acordo 2009)</div></div>
+<div class="item"><span style="font-size:13px">🟡</span><div class="it"><b>5.</b> Emprego da acentuação gráfica</div></div>
+</div>
+</div>
+</div>
+<div>
+<div class="card" style="margin-bottom:12px;">
+<div class="card-head verm"><div class="card-head-icon">⚡</div><div class="card-head-title">Gramática — Os que mais caem</div></div>
+<div class="card-body">
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>8.</b> Emprego e correlação de tempos e modos verbais</div></div>
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>9.</b> Estrutura morfossintática do período simples <span style="font-size:11px;color:var(--ouro);font-weight:700;">★ NOVIDADE 2026</span></div></div>
+<div class="item"><span style="font-size:13px">🟡</span><div class="it"><b>10.</b> Relações de coordenação entre orações</div></div>
+<div class="item"><span style="font-size:13px">🟡</span><div class="it"><b>11.</b> Relações de subordinação entre orações</div></div>
+<div class="item"><span style="font-size:13px">🟡</span><div class="it"><b>12.</b> Emprego dos sinais de pontuação</div></div>
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>13.</b> Concordância verbal e nominal</div></div>
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>14.</b> Emprego do sinal indicativo de crase</div></div>
+<div class="item"><span style="font-size:13px">🔴</span><div class="it"><b>15.</b> Colocação dos pronomes átonos</div></div>
+</div>
+</div>
+<div class="alerta roxo">
+<div class="alerta-icon">⭐</div>
+<div class="alerta-content">
+<div class="alerta-title">Novidade 2026 — Tópico 9</div>
+<div class="alerta-text">A prova de 2025 cobrou <b>funções morfossintáticas do SE</b> (reflexivo, apassivador, índice de indeterminação) com destaque. A VUNESP tende a repetir. Slide específico mais à frente.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="As 8 Questões que Tendem a Cair em 2026">
+<div class="topbar ouro">
+<div class="topbar-left">
+<span class="topbar-tag">Análise: edital + provas 2020–2025 + padrão VUNESP · Inscrições: 04/04 a 20/06/2026</span>
+<span class="topbar-title">AS 8 QUESTÕES QUE TENDEM A CAIR EM 2026</span>
+<span class="topbar-sub">Estudo de probabilidade — baseado no histórico das provas anteriores</span>
+</div>
+<div class="topbar-right">05</div>
+</div>
+<div class="sb">
+<div class="alerta ouro" style="margin-bottom:12px;">
+<div class="alerta-icon">⚠️</div>
+<div class="alerta-content">
+<div class="alerta-title">Importante — Use com responsabilidade</div>
+<div class="alerta-text">Este mapa é baseado no <b>histórico das provas ESFCEx de 2019 a 2025</b> e no padrão identificado da VUNESP. As porcentagens indicam <b>probabilidade histórica</b>, não garantia. Estude todos os tópicos do edital — este guia ajuda a priorizar, não a ignorar.</div>
+</div>
+</div>
+<div class="qmap">
+<div class="qrow" style="border-left:5px solid #1565C0;">
+<div class="qrow-num" style="background:#1565C0;">Q1</div>
+<div class="qrow-info"><div class="qrow-title">Interpretação — Tira Humorística</div><div class="qrow-desc">Mafalda, Calvin, Hagar ou Níquel Náusea. Provavelmente irá pedir o mecanismo do humor ou o efeito de sentido. Cobrada em todas as provas desde 2019.</div></div>
+<div class="qrow-badge"><div class="qrow-badge-pct" style="color:#1565C0">100%</div><div class="qrow-badge-label">Histórico</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:#1565C0"></div></div></div>
+</div>
+<div class="qrow" style="border-left:5px solid #2E7D32;">
+<div class="qrow-num" style="background:#2E7D32;">Q2</div>
+<div class="qrow-info"><div class="qrow-title">Interpretação — Editorial ou Artigo Jornalístico</div><div class="qrow-desc">Tende a pedir a tese do autor, função de parágrafo ou fato × opinião. Texto atual (saúde, tecnologia, meio ambiente). Presente em todas as provas.</div></div>
+<div class="qrow-badge"><div class="qrow-badge-pct" style="color:#2E7D32">100%</div><div class="qrow-badge-label">Histórico</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:#2E7D32"></div></div></div>
+</div>
+<div class="qrow" style="border-left:5px solid #F57F17;">
+<div class="qrow-num" style="background:#F57F17;">Q3</div>
+<div class="qrow-info"><div class="qrow-title">Coesão Textual — Referenciação ou Conectivos</div><div class="qrow-desc">Provavelmente irá perguntar sobre pronome que retoma palavra anterior, ou que relação lógica um conectivo estabelece ("Além disso", "Portanto", "Embora").</div></div>
+<div class="qrow-badge"><div class="qrow-badge-pct" style="color:#F57F17">90%</div><div class="qrow-badge-label">Muito provável</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:90%;background:#F57F17"></div></div></div>
+</div>
+<div class="qrow" style="border-left:5px solid #B71C1C;">
+<div class="qrow-num" style="background:#B71C1C;">Q4</div>
+<div class="qrow-info"><div class="qrow-title">Concordância Verbal — Haver, Passiva com SE, Sujeito composto</div><div class="qrow-desc">Tende a apresentar 5 frases e pedir qual está certa. Os erros clássicos que provavelmente aparecerão: "haviam", "tratam-se de" ou verbo que não concorda com o sujeito.</div></div>
+<div class="qrow-badge"><div class="qrow-badge-pct" style="color:#B71C1C">100%</div><div class="qrow-badge-label">Histórico</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:#B71C1C"></div></div></div>
+</div>
+<div class="qrow" style="border-left:5px solid #6A1B9A;">
+<div class="qrow-num" style="background:#6A1B9A;">Q5</div>
+<div class="qrow-info"><div class="qrow-title">⭐ Provável novidade 2026 — Funções do SE ou Colocação Pronominal</div><div class="qrow-desc">Em 2025 trouxe funções do SE pela 1ª vez com destaque. Alta chance de repetição ou variação. Ou: próclise/ênclise. Estude os dois.</div></div>
+<div class="qrow-badge"><div class="qrow-badge-pct" style="color:#6A1B9A">90%</div><div class="qrow-badge-label">Muito provável</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:90%;background:#6A1B9A"></div></div></div>
+</div>
+<div class="qrow" style="border-left:5px solid #E65100;">
+<div class="qrow-num" style="background:#E65100;">Q6</div>
+<div class="qrow-info"><div class="qrow-title">Tempos e Modos Verbais — Condicionais e Irregulares</div><div class="qrow-desc">Tende a cobrar "Se + futuro do subjuntivo", VER × VIR e verbos difíceis: intervir, prover, convir. O módulo historicamente mais difícil da prova.</div></div>
+<div class="qrow-badge"><div class="qrow-badge-pct" style="color:#E65100">90%</div><div class="qrow-badge-label">Muito provável</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:90%;background:#E65100"></div></div></div>
+</div>
+<div class="qrow" style="border-left:5px solid #F57F17;">
+<div class="qrow-num" style="background:#F57F17;">Q7</div>
+<div class="qrow-info"><div class="qrow-title">Crase — Preenchimento de Lacunas Múltiplas</div><div class="qrow-desc">Provavelmente 3 a 5 lacunas, pedindo qual sequência está certa. Os erros que tendem a aparecer: "à ela", "à todos", crase antes de verbo.</div></div>
+<div class="qrow-badge"><div class="qrow-badge-pct" style="color:#F57F17">90%</div><div class="qrow-badge-label">Muito provável</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:90%;background:#F57F17"></div></div></div>
+</div>
+<div class="qrow" style="border-left:5px solid #2E7D32;">
+<div class="qrow-num" style="background:#2E7D32;">Q8</div>
+<div class="qrow-info"><div class="qrow-title">Rotativa — Gêneros OU Pontuação OU Estilística</div><div class="qrow-desc">A VUNESP alterna entre esses 3. Com base no histórico: Gêneros (2020, 2022, 2025) · Pontuação (2021, 2024) · Estilística pode estrear em 2026. Prepare os três.</div></div>
+<div class="qrow-badge"><div class="qrow-badge-pct" style="color:#2E7D32;font-size:11px">1 das 3</div><div class="qrow-badge-label">Garantida</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:#2E7D32"></div></div></div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Acesso Completo" id="slide-cta">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px 24px;text-align:center;height:100%;background:linear-gradient(135deg,#0A1C12 0%,#0d2016 100%);">
+  <div style="font-size:40px;">🔒</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#ffffff;">Conteúdo Completo</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#D4A017;">Módulos Seguintes</div>
+  <div style="font-size:clamp(13px,1.8vw,15px);color:rgba(255,255,255,.65);line-height:1.7;max-width:480px;">Para ter acesso ao material completo, entre em contato com o Guia Preparatório Capitão Valdir.</div>
+  <a href="mailto:guiaprepcapvaldir@gmail.com" style="display:inline-block;background:#D4A017;color:#0A1C12;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;padding:14px 32px;border-radius:8px;text-decoration:none;margin-top:8px;">📧 Quero Acesso ao Material Completo</a>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;">guiaprepcapvaldir@gmail.com</div>
+</div>
+</div>
+</div>
+<div class="nav">
+<button class="nbtn" disabled="" id="btn-prev" onclick="prev()">← Anterior</button>
+<div class="pw"><div class="pb" id="prog"></div></div>
+<div class="ntitle" id="ntitle">Início</div>
+<div class="ncnt" id="ncnt">1 / 26</div>
+<button class="nbtn" id="btn-next" onclick="next()">Próximo →</button>
+<div class="khint" id="khint">← → teclado · swipe celular</div>
+</div>
+<script>
+
+const slides = document.querySelectorAll('.slide');
+let cur = 0;
+const total = slides.length;
+
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  const prev2 = cur; cur = n;
+  setTimeout(() => slides[prev2].classList.remove('out'), 370);
+  slides[cur].classList.add('active');
+  // scroll current slide body to top
+  const sb = slides[cur].querySelector('.sb');
+  if (sb) sb.scrollTop = 0;
+  upd();
+}
+function next() { if (cur < total - 1) goTo(cur + 1); }
+function prev() { if (cur > 0) goTo(cur - 1); }
+
+function upd() {
+  document.getElementById('btn-prev').disabled = cur === 0;
+  document.getElementById('btn-next').disabled = cur === total - 1;
+  document.getElementById('prog').style.width = ((cur + 1) / total * 100) + '%';
+  document.getElementById('ncnt').textContent = (cur + 1) + ' / ' + total;
+  document.getElementById('ntitle').textContent = slides[cur].dataset.title || '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+});
+
+let tx = 0;
+document.getElementById('deck').addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true });
+document.getElementById('deck').addEventListener('touchend', e => {
+  const dx = tx - e.changedTouches[0].clientX;
+  if (Math.abs(dx) > 45) dx > 0 ? next() : prev();
+}, { passive: true });
+
+function selAlt(qId, letter, el) {
+  document.querySelectorAll('#alts-' + qId + ' .alt').forEach(a => a.classList.remove('certa', 'errada'));
+  el.classList.add('errada');
+}
+function mostrarGab(qId, correta) {
+  const gab = document.getElementById('gab-' + qId);
+  gab.classList.add('show');
+  document.querySelectorAll('#alts-' + qId + ' .alt').forEach(a => {
+    const l = a.querySelector('.alt-letra').textContent;
+    if (l === correta) a.classList.add('certa');
+    a.style.pointerEvents = 'none';
+  });
+  setTimeout(() => gab.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 120);
+}
+
+upd();
+
+// Mobile enhancements
+(function() {
+  const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+  const khint = document.getElementById('khint');
+  if (isMobile && khint) {
+    khint.style.display = 'none'; // esconder dica de teclado no mobile
+  }
+  
+  // Atualizar contagem corretamente
+  const ncnt = document.getElementById('ncnt');
+  if (ncnt) ncnt.textContent = '1 / ' + slides.length;
+  
+  // Prevenir pinch zoom horizontal que causa layout break
+  document.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 1) return; // permitir pinch zoom vertical
+  }, { passive: true });
+})();
+
+
+</script>
+</body>
+</html>

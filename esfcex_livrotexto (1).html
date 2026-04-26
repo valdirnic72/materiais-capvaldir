@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --verde:#1a3a2a; --verde-m:#2d5a3d; --verde-c:#4a7c5f;
+  --verde-bg:#edf5ee; --verde-borda:#7cb87e;
+  --ouro:#b8860b; --ouro-l:#d4a017; --ouro-bg:#fdf6e3; --ouro-borda:#c9a227;
+  --azul:#1a3060; --azul-m:#2c4a7a; --azul-bg:#edf2fb; --azul-borda:#7090c8;
+  --laranja:#c44f00; --laran-bg:#fff3ea; --laran-borda:#d4724a;
+  --verm:#8b1a1a; --verm-c:#c0392b; --verm-bg:#fff0f0; --verm-borda:#d08080;
+  --roxo:#4a1a7a; --roxo-bg:#f5f0ff; --roxo-borda:#a07ac0;
+  --cinza:#3a3a3a; --cinza-m:#555; --cinza-c:#888;
+  --fundo:#f5f3ec; --papel:#fffef8; --borda:#d4c89a; --txt:#1e1e1e;
+  --tira-bg:#f8f6f0; --tira-borda:#c8b87a;
+  /* Margem-mestre: todas as margens internas derivam daqui */
+  --mg:1.5cm;         /* ≈ 56.7px a 96dpi */
+  --mg-px:clamp(18px, 3.5vw, 57px); /* fallback responsivo em tela */
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Sora',sans-serif;font-size:17px;line-height:1.90;color:var(--txt);background:var(--fundo);}
+.page{max-width:920px;margin:0 auto;background:var(--papel);box-shadow:0 0 50px rgba(0,0,0,.14);}
+
+/* ── CAPA ── */
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ── SUMÁRIO ── */
+.sumario{padding:var(--mg-px);border-bottom:2px solid var(--borda);page-break-after:always;}
+.sumario-titulo{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--verde);margin-bottom:34px;padding-bottom:14px;border-bottom:3px solid var(--ouro);display:inline-block;}
+.sumario-item{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px dotted var(--borda);}
+.sumario-item a{display:flex;align-items:baseline;gap:10px;width:100%;text-decoration:none;color:inherit;transition:color .18s;}
+.sumario-item a:hover .sumario-nome{color:var(--azul-m);}
+.sumario-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--ouro);min-width:36px;letter-spacing:.06em;}
+.sumario-nome{font-size:16px;color:var(--cinza);flex:1;line-height:1.5;}
+.sumario-nome b{color:var(--verde);}
+.sumario-sub{font-size:13.5px;color:var(--cinza-c);font-style:italic;padding-left:36px;margin-top:2px;margin-bottom:6px;}
+
+/* ── CAPÍTULOS ── */
+.chapter{padding:var(--mg-px);border-bottom:1px solid #e5dfc8;}
+.chapter-header{margin-bottom:40px;padding-bottom:26px;border-bottom:2px solid var(--borda);}
+.chapter-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px;}
+.chapter-titulo{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,36px);font-weight:900;color:var(--verde);line-height:1.15;margin-bottom:8px;}
+.chapter-periodo{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cinza-m);letter-spacing:.12em;}
+
+/* ── HEADINGS ── */
+h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--azul);margin:40px 0 16px;padding-left:16px;border-left:5px solid var(--ouro);line-height:1.3;}
+h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--verde-m);margin:28px 0 12px;line-height:1.3;}
+h4{font-size:15px;font-weight:700;color:var(--azul-m);margin:20px 0 10px;text-transform:uppercase;letter-spacing:.06em;}
+
+/* ── TEXTO ── */
+p{margin-bottom:16px;text-align:justify;text-indent:2em;font-size:17px;line-height:1.90;color:var(--txt);}
+.box p,.box-vunesp p,.box-resumo p,.box-atencao p,.box-pegadinha p,.box-autor p,
+.box-dica p,.box-roxo p,.box-clara p,.svg-box p,.voltar-sumario p,.intro-clara p,
+li>p,.questao p,.alternativas p,.gabarito p,.exemplo p,.nota p,.box-personagem p,
+.guia-personagens p,.tira-analise p,.ponte-logica p{text-indent:0;}
+strong{font-weight:700;color:var(--cinza);}
+em{font-style:italic;}
+ul,ol{margin:12px 0 16px 28px;}
+li{margin-bottom:8px;font-size:16.5px;line-height:1.78;color:var(--txt);}
+ol li{padding-left:4px;}
+
+/* ── INTRO CLARA ── */
+.intro-clara{background:linear-gradient(135deg,#edf2fb 0%,#edf5ee 100%);border:2px solid var(--borda);border-left:7px solid var(--ouro);border-radius:10px;padding:26px clamp(16px,3vw,32px);margin:0 0 34px;}
+.intro-clara h3{color:var(--verde);margin:0 0 12px;font-size:19px;}
+.intro-clara p{color:#1a2a1e;font-size:16px;line-height:1.82;margin-bottom:10px;}
+.intro-clara p:last-child{margin-bottom:0;}
+
+/* ── CAIXAS ── */
+.box-vunesp{background:#fff8ee;border:2px solid #d4724a;border-left:6px solid #c44f00;border-radius:8px;padding:20px clamp(14px,2.5vw,24px);margin:24px 0;}
+.box-vunesp .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#8b3000;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.box-vunesp p{color:#2a1400;font-size:16px;line-height:1.78;}
+.box-vunesp li{color:#2a1400;font-size:16px;}
+.box-vunesp strong{color:#6b2000;}
+
+.box-atencao{background:#fefce8;border:2px solid var(--ouro-borda);border-left:6px solid var(--ouro);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-atencao .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#7a5a00;margin-bottom:12px;}
+.box-atencao p{color:#2a1e00;font-size:16px;line-height:1.78;}
+.box-atencao li{color:#2a1e00;font-size:16px;}
+.box-atencao strong{color:#5a3a00;}
+
+.box-autor{background:#f0f5fc;border-left:6px solid #5070b0;border-radius:0 8px 8px 0;padding:18px clamp(14px,2.5vw,24px) 18px clamp(16px,3vw,28px);margin:24px 0;}
+.box-autor .autor{font-style:normal;font-size:11.5px;font-weight:800;color:#1a3060;margin-bottom:10px;font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;}
+.box-autor p{color:#1a2a44;font-style:italic;font-size:16.5px;line-height:1.82;margin-bottom:8px;}
+.box-autor strong{color:#1a2a60;font-style:normal;}
+
+.box-pegadinha{background:var(--verm-bg);border:2px solid var(--verm-borda);border-left:6px solid var(--verm-c);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-pegadinha .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--verm);margin-bottom:12px;}
+.box-pegadinha p{color:#3a0a0a;font-size:16px;line-height:1.78;}
+.box-pegadinha li{color:#3a0a0a;font-size:16px;}
+.box-pegadinha strong{color:var(--verm);}
+
+.box-resumo{background:#f8faf5;border:2px solid var(--verde-borda);border-left:7px solid var(--verde-m);border-radius:8px;padding:24px clamp(16px,3vw,28px);margin:32px 0;}
+.box-resumo .box-titulo{font-family:'Playfair Display',serif;font-size:17px;font-weight:800;color:var(--verde);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--verde-borda);}
+.box-resumo li{color:#1a2e1e;font-size:16px;margin-bottom:9px;line-height:1.78;}
+.box-resumo strong{color:#1a3a2a;}
+
+.box-dica{background:#f0f6ff;border:2px solid #aac4ee;border-left:6px solid #3a70c0;border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-dica .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#1a3a70;margin-bottom:12px;}
+.box-dica p{color:#0a1e44;font-size:16px;line-height:1.78;}
+.box-dica li{color:#0a1e44;font-size:16px;}
+.box-dica strong{color:#1a3060;}
+
+.box-roxo{background:#f8f4ff;border:2px solid var(--roxo-borda);border-left:6px solid var(--roxo);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-roxo .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--roxo);margin-bottom:12px;}
+.box-roxo p{color:#1a0a30;font-size:16px;line-height:1.78;}
+.box-roxo li{color:#1a0a30;font-size:16px;}
+
+.box-clara{background:#fafaf5;border:2px solid #ddd8c0;border-left:6px solid #888;border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-clara .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#444;margin-bottom:12px;}
+.box-clara p{color:#222;font-size:16px;line-height:1.78;}
+.box-clara li{color:#222;font-size:16px;}
+
+/* ── PONTE LÓGICA ── */
+.ponte-logica{background:linear-gradient(135deg,#fdf6e3 0%,#edf2fb 100%);border:3px solid var(--ouro);border-radius:14px;padding:clamp(18px,3vw,32px) clamp(16px,3.5vw,36px);margin:36px 0;position:relative;}
+.ponte-logica::before{content:'⚔️ PONTE LÓGICA';font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--ouro);display:block;margin-bottom:16px;}
+.ponte-logica h3{color:var(--verde);margin:0 0 14px;font-size:20px;}
+.ponte-logica p{color:#1a1a0a;font-size:16.5px;line-height:1.85;margin-bottom:12px;}
+.ponte-logica .pilar-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;}
+.ponte-logica .pilar{background:#fffef8;border:2px solid var(--borda);border-radius:8px;padding:14px clamp(12px,2vw,16px);}
+.ponte-logica .pilar .pilar-nome{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px;}
+.ponte-logica .pilar p{color:#1a1a0a;font-size:15px;line-height:1.75;margin:0;}
+
+/* ── GUIA DE PERSONAGENS ── */
+.guia-personagens{background:linear-gradient(135deg,var(--tira-bg) 0%,#edf5ee 100%);border:3px solid var(--tira-borda);border-radius:14px;padding:clamp(18px,3vw,32px) clamp(16px,3.5vw,36px);margin:36px 0;}
+.guia-personagens-titulo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--verde);margin-bottom:6px;}
+.guia-personagens-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:26px;}
+.personagem-card{background:#fffef8;border:2px solid var(--tira-borda);border-radius:10px;padding:18px clamp(14px,2.5vw,22px);margin-bottom:18px;}
+.personagem-card:last-child{margin-bottom:0;}
+.personagem-nome{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--verde);margin-bottom:4px;}
+.personagem-autor{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza-c);margin-bottom:10px;}
+.personagem-desc{font-size:15.5px;line-height:1.80;color:#2a2a1a;margin-bottom:8px;}
+.personagem-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;}
+.personagem-tag{background:var(--verde-bg);color:var(--verde-m);border:1px solid var(--verde-borda);border-radius:14px;padding:3px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.06em;}
+
+/* ── ESTUDO DE CASO ── */
+.estudo-caso{background:linear-gradient(135deg,var(--tira-bg) 0%,#fff8ee 100%);border:3px solid var(--ouro-borda);border-radius:14px;padding:clamp(18px,3vw,32px) clamp(16px,3.5vw,36px);margin:36px 0;}
+.estudo-caso-titulo{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--ouro);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--ouro-borda);}
+.estudo-caso h3{color:var(--verde-m);font-size:17px;margin:18px 0 10px;}
+.estudo-caso p{font-size:16px;line-height:1.82;color:#1a1400;margin-bottom:12px;}
+.estudo-caso li{font-size:16px;color:#1a1400;margin-bottom:8px;}
+.passo-num{display:inline-block;background:var(--ouro);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;border-radius:3px;padding:2px 7px;margin-right:6px;letter-spacing:.06em;}
+
+/* ── TIRA ANÁLISE ── */
+.tira-analise{background:#fff;border:2px solid var(--tira-borda);border-radius:10px;padding:20px clamp(14px,2.5vw,24px);margin:20px 0;}
+.tira-analise .tira-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#5a4a00;margin-bottom:14px;}
+.tira-analise p{color:#2a1a00;font-size:16px;line-height:1.82;margin-bottom:10px;}
+.tira-analise p:last-child{margin-bottom:0;}
+
+/* ── TIRA SVG ── */
+.tira-svg-container{background:#fff;border:2px solid var(--tira-borda);border-radius:10px;padding:16px;margin:20px 0;text-align:center;}
+.tira-svg-container svg{max-width:100%;height:auto;}
+
+/* ── QUESTÕES ── */
+.questao{background:#fff;border:2px solid var(--borda);border-radius:10px;padding:clamp(16px,3vw,26px) clamp(14px,2.5vw,30px);margin:30px 0;box-shadow:0 2px 14px rgba(0,0,0,.07);}
+.questao-header{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--ouro);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--ouro-bg);}
+.questao-texto{font-size:16px;line-height:1.82;color:var(--txt);margin-bottom:18px;}
+.questao-texto blockquote{border-left:4px solid var(--borda);padding:14px clamp(12px,2vw,20px);margin:14px 0;background:#fafaf5;font-style:italic;font-size:15.5px;color:#444;border-radius:0 6px 6px 0;line-height:1.78;}
+.alternativas{list-style:none;margin:0 0 18px;padding:0;}
+.alternativas li{padding:10px clamp(10px,2vw,16px);margin-bottom:7px;border-radius:6px;border:1.5px solid #e8e4d8;font-size:16px;line-height:1.65;}
+.alternativas li.correta{background:#e8f5e9;border-color:#66bb6a;color:#1a3a1a;font-weight:600;}
+.alternativas li.errada{background:#fff0f0;border-color:#ef9a9a;color:#5a1a1a;}
+.gabarito{background:#f8faf5;border:2px solid var(--verde-borda);border-radius:8px;padding:20px clamp(14px,2.5vw,24px);margin-top:18px;}
+.gabarito .gab-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--verde-m);margin-bottom:12px;}
+.gabarito p{font-size:15.5px;line-height:1.78;color:#1a2e1a;}
+
+/* ── EXEMPLO ── */
+.exemplo{background:#fafaf5;border:1.5px solid #ddd8c0;border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:20px 0;font-size:16px;line-height:1.82;}
+.exemplo .ex-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza-m);margin-bottom:12px;}
+.exemplo p{margin-bottom:10px;font-size:16px;line-height:1.82;}
+.exemplo p:last-child{margin-bottom:0;}
+.exemplo ul,.exemplo ol{margin-left:22px;}
+
+/* ── TABELA ── */
+.tabela-wrap{overflow-x:auto;margin:22px 0;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:collapse;font-size:15px;}
+thead tr{background:#f0ede0;color:var(--azul);}
+thead th{padding:12px clamp(8px,1.5vw,15px);text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-bottom:2px solid var(--borda);}
+tbody tr:nth-child(even){background:#fafaf5;}
+tbody tr:hover{background:#edf5ee;}
+tbody td{padding:11px clamp(8px,1.5vw,15px);border-bottom:1px solid #ddd8c0;vertical-align:top;color:var(--txt);font-size:15px;line-height:1.68;}
+tbody td:first-child{font-weight:700;color:var(--verde-m);}
+
+/* ── GRID ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:18px 0;}
+@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* ── SEPARATOR ── */
+.sep{display:flex;align-items:center;gap:18px;margin:36px 0;}
+.sep::before,.sep::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--borda),transparent);}
+.sep-inner{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cinza-c);letter-spacing:.22em;text-transform:uppercase;}
+
+/* ── BADGES ── */
+.badge-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;}
+.badge-verde{background:var(--verde-bg);color:var(--verde);border:1.5px solid var(--verde-borda);}
+.badge-ouro{background:var(--ouro-bg);color:#7a5a00;border:1.5px solid var(--ouro-borda);}
+.badge-verm{background:var(--verm-bg);color:var(--verm);border:1.5px solid var(--verm-borda);}
+.badge-azul{background:#edf2fb;color:var(--azul);border:1.5px solid var(--azul-borda);}
+
+/* ── DESTAQUE INLINE ── */
+.dest{background:#fff3cd;padding:1px 4px;border-radius:3px;font-weight:700;color:#5a3a00;}
+.dest-verm{background:#fff0f0;padding:1px 4px;border-radius:3px;font-weight:700;color:#8b1a1a;}
+.dest-verde{background:#e8f5e9;padding:1px 4px;border-radius:3px;font-weight:700;color:#1a3a1a;}
+
+/* ── VOLTAR SUMÁRIO ── */
+.voltar-sumario{display:flex;align-items:center;justify-content:flex-end;margin:44px 0 0;padding-top:22px;border-top:1px solid var(--borda);}
+.voltar-sumario a{display:inline-flex;align-items:center;gap:7px;background:var(--ouro-bg);border:2px solid var(--ouro-borda);border-radius:7px;padding:9px 22px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#5a3a00;text-decoration:none;transition:all .2s;}
+.voltar-sumario a:hover{background:var(--ouro);color:#fff;}
+
+/* ── NOTA RODAPÉ ── */
+.nota{font-size:14px;color:var(--cinza-m);border-top:1px solid var(--borda);padding-top:10px;margin-top:20px;font-style:italic;line-height:1.75;}
+
+/* ── MARCUSCHI BOX ── */
+.box-marcuschi{background:#edf2fb;border:2px solid var(--azul-borda);border-left:6px solid var(--azul);border-radius:8px;padding:20px clamp(14px,2.5vw,24px);margin:24px 0;}
+.box-marcuschi .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--azul);margin-bottom:14px;}
+.box-marcuschi p{color:#0a1e3a;font-size:16px;line-height:1.78;}
+.box-marcuschi li{color:#0a1e3a;font-size:16px;}
+
+/* ── QUADRINHOS ── */
+.quadrinho-row{display:flex;gap:0;border:2px solid #444;border-radius:6px;overflow:hidden;background:#fff;margin:20px 0;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+.quadrinho{flex:1;border-right:2px solid #444;padding:14px 10px;position:relative;min-height:120px;display:flex;flex-direction:column;justify-content:space-between;background:#fffef8;}
+.quadrinho:last-child{border-right:none;}
+.balao{background:#fff;border:2px solid #222;border-radius:12px;padding:6px 10px;font-size:13px;line-height:1.5;position:relative;text-align:center;margin-bottom:8px;}
+.balao::after{content:'';position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#222;}
+.balao-fill::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:#fff;}
+.personagem-q{text-align:center;font-size:24px;margin-top:auto;}
+.quadrinho-texto{font-size:11.5px;color:#555;text-align:center;font-style:italic;}
+
+/* ══════════════════════════════════
+   IMPRESSÃO / PDF — margens 1,5 cm
+   ══════════════════════════════════ */
+@media print{
+  @page{
+    margin:1.5cm;
+  }
+  body{background:#fff;font-size:12pt;line-height:1.75;}
+  .page{
+    box-shadow:none;
+    max-width:100%;
+    margin:0;
+    padding:0;
+    background:#fff;
+  }
+  /* Capítulos e sumário: sem padding lateral —
+     o padding vem das @page margins */
+  .chapter{
+    padding:20pt 0;
+    border-bottom:1px solid #ccc;
+  }
+  .sumario{
+    padding:20pt 0;
+    page-break-after:always;
+  }
+  
+  /* Caixas: reduz padding para respeitar a margem de página */
+  .box-vunesp,.box-atencao,.box-autor,.box-pegadinha,
+  .box-resumo,.box-dica,.box-roxo,.box-clara,
+  .box-marcuschi,.intro-clara,.ponte-logica,
+  .guia-personagens,.estudo-caso,.tira-analise,
+  .exemplo,.gabarito,.questao{
+    padding-left:0;
+    padding-right:0;
+    border-left-width:4px;
+    border-radius:0;
+    margin-left:0;
+    margin-right:0;
+  }
+  /* Tabelas: sem overflow, cabe na margem */
+  .tabela-wrap{overflow:visible;margin:14pt 0;}
+  table{font-size:10pt;width:100%;}
+  thead th,tbody td{padding:6pt 8pt;}
+  /* Grids: 1 coluna em print */
+  .grid2,.grid3,.ponte-logica .pilar-grid{
+    grid-template-columns:1fr;
+    gap:8pt;
+  }
+  .voltar-sumario{display:none;}
+  h2,h3{page-break-after:avoid;}
+  .questao,.box-vunesp,.box-resumo,.estudo-caso,
+  .guia-personagens,.ponte-logica{page-break-inside:avoid;}
+  .chapter{page-break-before:always;}
+  /* Remove sombras e gradientes desnecessários */
+  .questao{box-shadow:none;}
+  
+}
+
+/* ══════════════════════════════════
+   RESPONSIVO — tela estreita
+   ══════════════════════════════════ */
+@media(max-width:700px){
+  :root{--mg-px:18px;}
+  body{font-size:16px;}
+  .chapter,.sumario{padding:var(--mg-px);}
+  
+  h2{font-size:19px;}
+  h3{font-size:16px;}
+  /* Quadrinhos: empilha verticalmente */
+  .quadrinho-row{flex-direction:column;}
+  .quadrinho{border-right:none;border-bottom:2px solid #444;}
+  .quadrinho:last-child{border-bottom:none;}
+  /* Tabelas: permite scroll lateral em telas pequenas */
+  .tabela-wrap{-webkit-overflow-scrolling:touch;}
+  table{font-size:13px;min-width:480px;}
+  thead th,tbody td{padding:8px 10px;}
+  /* Grids */
+  .ponte-logica .pilar-grid{grid-template-columns:1fr;}
+  /* Caixas */
+  .ponte-logica,.guia-personagens,.estudo-caso{padding:16px var(--mg-px);}
+}
+
+@media(max-width:420px){
+  :root{--mg-px:14px;}
+  body{font-size:15px;}
+  .sumario-nome{font-size:14px;}
+  .badge{font-size:10px;padding:4px 10px;}
+}
+
+
+.cover {
+  background: linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 60px 24px; text-align: center;
+}
+.cover-inner {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; max-width: 600px; width: 100%;
+}
+.cover-estrela { font-size: 72px; line-height: 1; margin-bottom: 6px; }
+.cover-guia {
+  font-family:'Sora',sans-serif; font-size:clamp(14px,2vw,18px);
+  font-weight:700; color:rgba(255,255,255,.65);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.cover-metodo-sub {
+  font-family:'Sora',sans-serif; font-size:clamp(12px,1.6vw,15px);
+  font-weight:600; color:rgba(212,160,23,.8);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.cover-linha { width:60px; height:3px; background:#D4A017; border-radius:2px; margin:8px 0; }
+.cover-lp-tag {
+  font-family:'JetBrains Mono',monospace; font-size:clamp(11px,1.4vw,14px);
+  font-weight:700; color:rgba(212,160,23,.7);
+  letter-spacing:.18em; text-transform:uppercase;
+}
+.cover-nome-mat {
+  font-family:'Sora',sans-serif; font-size:clamp(28px,6vw,52px);
+  font-weight:800; color:#ffffff;
+  line-height:1.15; text-transform:uppercase; margin:8px 0;
+}
+.cover-escola-linha1 {
+  font-family:'Sora',sans-serif; font-size:clamp(12px,1.6vw,16px);
+  font-weight:700; color:rgba(255,255,255,.6);
+  letter-spacing:.05em; text-transform:uppercase; margin-top:8px;
+}
+.cover-escola-linha2 {
+  font-family:'JetBrains Mono',monospace; font-size:clamp(10px,1.2vw,13px);
+  font-weight:700; color:rgba(212,160,23,.6);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+
+
+@media (max-width:600px){
+  .tabela-wrap{overflow-x:visible;margin:14px 0;}
+  .tabela-wrap table,.tabela-wrap thead,.tabela-wrap tbody,.tabela-wrap th,.tabela-wrap td,.tabela-wrap tr{display:block;width:100%;}
+  .tabela-wrap thead tr{position:absolute;top:-9999px;left:-9999px;visibility:hidden;}
+  .tabela-wrap tbody tr{background:#fffef8;border:1px solid #d4c89a;border-left:5px solid #2d5a3d;border-radius:8px;margin-bottom:12px;padding:4px 0;}
+  .tabela-wrap tbody td{border:none;border-bottom:1px solid #ede8d4;padding:9px 14px;font-size:14px;text-align:left!important;}
+  .tabela-wrap tbody td:last-child{border-bottom:none;}
+  .tabela-wrap tbody td::before{content:attr(data-label);display:block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b8860b;margin-bottom:4px;}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- ══════════════════════════════════════ CAPA ══════════════════════════════════════ -->
+<section class="cover" id="topo">
+<div class="cover-inner">
+  <div class="cover-estrela">🎖️</div>
+  <div class="cover-guia">Guia Preparatório Capitão Valdir</div>
+  <div class="cover-metodo-sub">Método Prático para Aprovação</div>
+  <div class="cover-linha"></div>
+  <div class="cover-lp-tag">LÍNGUA PORTUGUESA</div>
+  <div class="cover-nome-mat">LIVRO-TEXTO DE<br/>LÍNGUA PORTUGUESA</div>
+  <div class="cover-escola-linha1">ESCOLA DE SAÚDE E FORMAÇÃO COMPLEMENTAR DO EXÉRCITO</div>
+  <div class="cover-escola-linha2">QCO - QCM · VUNESP · 2026</div>
+</div>
+</section>
+
+<!-- ══════════════════════════════════════ SUMÁRIO ══════════════════════════════════════ -->
+<section class="sumario" id="sumario">
+  <div class="sumario-titulo">Sumário</div>
+
+  <div class="sumario-item"><a href="#mod01"><span class="sumario-num">I</span><span class="sumario-nome"><b>Reconhecimento de Tipos e Gêneros Textuais</b> <span style="font-weight:400;color:var(--cinza-c);">— inclui Artigo de Opinião e Editorial aprofundados</span></span></a></div>
+  <div class="sumario-sub">Marcuschi: Gênero × Tipo · Tipologia Textual · Charge e Tira · Estudo de Caso</div>
+
+  <div class="sumario-item"><a href="#mod02"><span class="sumario-num">II</span><span class="sumario-nome"><b>Compreensão e Interpretação de Textos — Efeitos de Sentido</b></span></a></div>
+  <div class="sumario-sub">Três níveis de leitura · Armadilhas clássicas VUNESP · Efeito de sentido</div>
+  <div class="sumario-item" style="padding-left:36px;border-bottom:none;"><a href="#guia-tiras"><span class="sumario-num" style="color:var(--ouro-l);">★</span><span class="sumario-nome" style="color:var(--ouro);font-style:italic;">Introdução: Guia de Personagens das Tirinhas — Vunesp Style</span></a></div>
+
+  <div class="sumario-item"><a href="#mod03"><span class="sumario-num">III</span><span class="sumario-nome"><b>Níveis de Significação: Denotação, Conotação, Pressupostos</b></span></a></div>
+  <div class="sumario-item"><a href="#mod04"><span class="sumario-num">IV</span><span class="sumario-nome"><b>Estilística da Palavra e da Frase — Figuras e seus Efeitos</b></span></a></div>
+  <div class="sumario-item"><a href="#mod05"><span class="sumario-num">V</span><span class="sumario-nome"><b>Coerência Textual: Fatores e Estratégias</b></span></a></div>
+  <div class="sumario-item"><a href="#mod06"><span class="sumario-num">VI</span><span class="sumario-nome"><b>Coesão Textual: Referenciação, Sequenciação e Conectivos em Profundidade</b></span></a></div>
+  <div class="sumario-sub">Koch: Anáfora · Catáfora · Encapsulamento · Tabela completa de conectivos</div>
+
+  <div class="sumario-item"><a href="#mod07"><span class="sumario-num">VII</span><span class="sumario-nome"><b>Estrutura Morfossintática do Período Simples</b></span></a></div>
+  <div class="sumario-sub">7.1 Classe × Função · 7.1.1 Verbo — Coração da Oração · 7.1.2 O Substantivo como Núcleo das Funções Sintáticas · 7.2 Termos Essenciais, Integrantes e Acessórios (aprofundado)</div>
+  <div class="sumario-item" style="padding-left:36px;border-bottom:none;"><a href="#ponte"><span class="sumario-num" style="color:var(--ouro-l);">★</span><span class="sumario-nome" style="color:var(--ouro);font-style:italic;">Introdução: Ponte Lógica — Morfologia → Sintaxe</span></a></div>
+
+  <div class="sumario-item"><a href="#mod08"><span class="sumario-num">VIII</span><span class="sumario-nome"><b>Relações de Coordenação — Análise Aprofundada</b></span></a></div>
+  <div class="sumario-item"><a href="#mod09"><span class="sumario-num">IX</span><span class="sumario-nome"><b>Relações de Subordinação — Análise Aprofundada</b></span></a></div>
+  <div class="sumario-item"><a href="#mod10"><span class="sumario-num">X</span><span class="sumario-nome"><b>Emprego e Correlação de Tempos e Modos Verbais</b></span></a></div>
+  <div class="sumario-item"><a href="#mod11"><span class="sumario-num">XI</span><span class="sumario-nome"><b>Concordância Nominal e Verbal — Regras e Casos Especiais</b></span></a></div>
+  <div class="sumario-item"><a href="#mod12"><span class="sumario-num">XII</span><span class="sumario-nome"><b>Colocação dos Pronomes Átonos — Método Completo</b></span></a></div>
+  <div class="sumario-item"><a href="#mod13"><span class="sumario-num">XIII</span><span class="sumario-nome"><b>Acentuação Gráfica</b></span></a></div>
+  <div class="sumario-item"><a href="#mod14"><span class="sumario-num">XIV</span><span class="sumario-nome"><b>Pontuação: Vírgula, Ponto e Vírgula, Dois-Pontos e Outros Sinais</b></span></a></div>
+  <div class="sumario-item"><a href="#mod15"><span class="sumario-num">XV</span><span class="sumario-nome"><b>Crase — Regras Completas e Casos Especiais</b></span></a></div>
+  <div class="sumario-item"><a href="#mod16"><span class="sumario-num">XVI</span><span class="sumario-nome"><b>Ortografia: Hífen, -izar/-isar, X/Ch e Casos Difíceis</b></span></a></div>
+</section>
+
+<!-- ══════════════════════════════════════ MÓDULO I ══════════════════════════════════════ -->
+<section class="chapter" id="mod01">
+  <div class="chapter-header">
+    <div class="chapter-num">MÓDULO I</div>
+    <div class="chapter-titulo">Reconhecimento de Tipos e Gêneros Textuais</div>
+    <div class="chapter-periodo">Marcuschi · Tipologia × Gêneros · Leitura Multimodal · Estudo de Caso com Tirinhas</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a VUNESP realmente avalia aqui?</h3>
+    <p>Módulo I não é decorar nomes de gêneros. A VUNESP avalia se o candidato compreende a <strong>lógica comunicativa</strong> dos textos: para que cada gênero existe, quem o produz, para quem se dirige, e — acima de tudo — qual é o seu <em>propósito comunicativo</em>. Candidatos que apenas listam características de gêneros sem entender sua função comunicativa erram questões aparentemente simples.</p>
+  </div>
+
+  <h2>1.1 A Base Teórica de Marcuschi — Gêneros vs. Tipos</h2>
+
+  <p>Marcuschi (2008) estabelece a distinção mais importante para este módulo, e ela é <strong>diretamente cobrada pela VUNESP</strong>. Para entender os textos que aparecem na prova, é necessário dominar dois conceitos diferentes que frequentemente são confundidos:</p>
+
+  <div class="box-marcuschi">
+    <div class="box-titulo">📖 Marcuschi — Produção Textual, Análise de Gêneros e Compreensão (2008)</div>
+    <p><strong>Tipo Textual:</strong> é uma categoria teórica, uma construção abstrata que classifica os textos por sua <em>estrutura linguística e modo de organização do conteúdo</em>. Os tipos são em número limitado e se reconhecem pela estrutura formal do texto.</p>
+    <p><strong>Gênero Textual:</strong> é uma realização concreta e social — textos produzidos em situações reais de comunicação, com propósito, interlocutores e suporte definidos. Os gêneros são em número praticamente ilimitado e variam culturalmente e historicamente.</p>
+    <p>A relação fundamental: <em>um gênero pode conter vários tipos</em>. Uma crônica (gênero) pode ser narrativa, descritiva e argumentativa ao mesmo tempo (múltiplos tipos). Um e-mail corporativo (gênero) pode conter injunção (ordem), exposição (informação) e argumentação (justificativa) no mesmo texto.</p>
+  </div>
+
+  <div class="exemplo">
+    <div class="ex-titulo">Aplicação prática — Gênero × Tipo na ESFCEx</div>
+    <p><strong>Gênero:</strong> Tira em quadrinhos (ex: Mafalda)</p>
+    <p><strong>Tipos presentes nessa tira:</strong> narração (sequência de ações nos quadrinhos), descrição (representação visual/verbal da cena), argumentação (quando Mafalda apresenta uma tese crítica)</p>
+    <p>→ A VUNESP perguntará: "O texto é predominantemente..." — a resposta correta identifica o <em>tipo dominante</em> sem negar a presença dos outros.</p>
+
+    <p><strong>Gênero:</strong> Artigo de opinião (jornalístico)</p>
+    <p><strong>Tipos presentes:</strong> argumentação (predominante), exposição (apresentação de dados), descrição (contextualização)</p>
+    <p>→ Questão VUNESP: "Qual é o propósito comunicativo principal do texto?" → Convencer o leitor de uma tese (argumentação), não meramente informar (exposição).</p>
+
+    <p><strong>Por que isso importa:</strong> candidatos que estudaram apenas "tipos" sem entender gêneros respondem que uma crônica é "narrativa" — o que pode estar certo ou errado dependendo da crônica e do que a questão pergunta. A distinção Marcuschi elimina essa incerteza.</p>
+  </div>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Tipo Textual</th><th>Estrutura característica</th><th>Verbos dominantes</th><th>Gêneros que costumam usá-lo</th></tr></thead>
+      <tbody>
+        <tr><td>Narração</td><td>Sequência de eventos no tempo, com agentes e transformação de estado</td><td>Pretérito perfeito e imperfeito do indicativo; verbos de ação</td><td>Conto, crônica narrativa, notícia, biografia</td></tr>
+        <tr><td>Descrição</td><td>Enumeração de características, propriedades, estado de coisas</td><td>Verbos de estado (ser, estar, parecer); presente ou imperfeito</td><td>Verbete, laudo técnico, relatório descritivo</td></tr>
+        <tr><td>Argumentação</td><td>Tese + argumentos + conclusão; marcadores lógicos explícitos</td><td>Presente do indicativo; verbos epistêmicos (acreditar, defender, sustentar)</td><td>Artigo de opinião, editorial, carta ao leitor</td></tr>
+        <tr><td>Exposição/Dissertação</td><td>Apresentação e explicação de informações sem defesa explícita de tese</td><td>Presente do indicativo; verbos de processo (ocorrer, surgir, desenvolver-se)</td><td>Texto didático, verbete enciclopédico, reportagem</td></tr>
+        <tr><td>Injunção</td><td>Sequência de instruções orientadas para uma ação futura do leitor</td><td>Imperativo, infinitivo, futuro do presente</td><td>Manual de instrução, receita, regulamento, edital</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>1.2 Os Gêneros Mais Cobrados pela VUNESP na ESFCEx</h2>
+
+  <div class="badge-row">
+    <span class="badge badge-verm">🔥 Crônica</span>
+    <span class="badge badge-verm">🔥 Artigo de Opinião</span>
+    <span class="badge badge-ouro">⭐ Charge/Tira</span>
+    <span class="badge badge-ouro">⭐ Reportagem</span>
+    <span class="badge badge-verde">✔ Editorial</span>
+    <span class="badge badge-verde">✔ Conto/Excerto literário</span>
+    <span class="badge badge-azul">ℹ Verbete</span>
+  </div>
+
+  <h3>A Crônica — análise aprofundada</h3>
+  <p>A crônica é o gênero mais explorado pela VUNESP nas provas da ESFCEx. Trata-se de um texto híbrido por natureza: parte de um fato do cotidiano, trabalha com linguagem literária e pode ser narrativa, argumentativa ou lírica. Sua leitura exige atenção ao <strong>efeito de sentido</strong> (aprofundado no Módulo II) e à <strong>ironia</strong> — recurso amplamente utilizado pela banca. A crônica não tem o compromisso com a objetividade do jornalismo, mas também não se aprofunda filosoficamente como o ensaio.</p>
+
+  <div class="exemplo">
+    <div class="ex-titulo">Exemplo prático — Identificar a crônica pelo propósito</div>
+    <p>Texto: um militar veterano descreve, com humor irônico, a primeira vez que dormiu em campo aberto durante o treinamento básico — comparando o desconforto com a burocracia de preencher o relatório de missão ao voltar.</p>
+    <p><strong>Tipo dominante:</strong> narração (sequência de eventos) com elementos de argumentação implícita (crítica à burocracia)</p>
+    <p><strong>Gênero:</strong> crônica (ponto de partida no cotidiano, tom pessoal, linguagem literária, finalidade estético-reflexiva)</p>
+    <p><strong>Propósito comunicativo:</strong> reflexão bem-humorada sobre um aspecto da vida militar — não informar objetivamente, não convencer da burocracia ser ruim de forma direta, mas gerar identificação e reflexão pelo caminho do humor</p>
+  </div>
+
+  <h3>O Artigo de Opinião — análise aprofundada</h3>
+  <p>O artigo de opinião é um dos gêneros <strong>mais cobrados pela VUNESP nas provas da ESFCEx</strong> e merece atenção especial. Trata-se de um texto jornalístico argumentativo em que um autor identificado (jornalista, especialista ou personalidade pública) defende uma tese sobre tema de relevância social, política ou cultural. Ao contrário da notícia — que busca a imparcialidade — o artigo de opinião é explicitamente posicionado: o autor assume um ponto de vista e usa recursos retóricos para persuadir o leitor.</p>
+
+  <div class="box-marcuschi">
+    <div class="box-titulo">📖 Estrutura típica do artigo de opinião — o que a VUNESP cobra</div>
+    <p><strong>1. Apresentação do tema:</strong> contextualização do assunto, geralmente em um ou dois parágrafos iniciais. Pode conter dados, referências a fatos recentes ou citações que introduzam o problema.</p>
+    <p><strong>2. Tese:</strong> a posição que o autor defende. Costuma aparecer explicitamente no primeiro ou último parágrafo da introdução — é o ponto que todas as questões de "qual a tese do autor?" buscam. Em textos de nível superior, a tese pode estar implícita e ser inferida pelo leitor.</p>
+    <p><strong>3. Argumentação:</strong> corpo do texto; é onde os argumentos de apoio à tese são desenvolvidos. Recursos frequentes: exemplos, dados estatísticos, apelos à autoridade (citações), comparações históricas, raciocínio analógico.</p>
+    <p><strong>4. Conclusão:</strong> retomada da tese e fechamento argumentativo. Pode conter uma proposta, uma advertência ou uma síntese do raciocínio.</p>
+  </div>
+
+  <div class="exemplo">
+    <div class="ex-titulo">Exemplo de fragmento de artigo de opinião com análise</div>
+    <p><em>"O Brasil gasta mais em publicidade governamental do que em saneamento básico para populações vulneráveis. Esse dado, por si só, revela uma inversão de prioridades que não pode ser tratada como mera questão orçamentária: é, fundamentalmente, uma escolha política. Enquanto governos sucessivos continuam a financiar sua própria imagem com recursos públicos, milhares de famílias seguem sem acesso a água potável. A pergunta que não se quer responder é simples: a quem serve o Estado brasileiro?"</em></p>
+    <p><strong>Tese implícita:</strong> o Estado brasileiro prioriza a autopromoção política em detrimento das necessidades básicas da população — o que representa uma falha ética e política grave.</p>
+    <p><strong>Recursos argumentativos identificados:</strong></p>
+    <ul>
+      <li>Dado concreto ("gasta mais em publicidade do que em saneamento") → argumento de evidência</li>
+      <li>Reformulação ("não pode ser tratada como mera questão orçamentária: é uma escolha política") → ampliação do argumento com recurso argumentativo da redefinição</li>
+      <li>Contraste ("enquanto governos financiam sua imagem... famílias sem água potável") → argumento por oposição que intensifica a crítica</li>
+      <li>Pergunta retórica final → recurso que engaja o leitor e o coloca diante da contradição sem precisar enunciá-la diretamente</li>
+    </ul>
+    <p><strong>O que a VUNESP perguntaria:</strong> "A pergunta final do texto ('A quem serve o Estado brasileiro?') cumpre, no argumento do autor, a função de..." → não exige resposta do leitor; é uma pergunta retórica que sintetiza a crítica e implica que o Estado serve a si mesmo, não à população.</p>
+  </div>
+
+  <div class="box-atencao">
+    <div class="box-titulo">⚠️ Artigo de Opinião × Reportagem — distinção cobrada na ESFCEx</div>
+    <p><strong>Reportagem:</strong> informa com base em apuração jornalística; apresenta múltiplos pontos de vista; evita avaliações do jornalista; predominantemente descritiva/expositiva.</p>
+    <p><strong>Artigo de opinião:</strong> defende um ponto de vista explicitamente; o autor assina e assume sua posição; predominantemente argumentativo; não tem obrigação de apresentar o "outro lado".</p>
+    <p>A confusão entre os dois é uma das armadilhas clássicas da VUNESP: apresentar um artigo de opinião como "texto informativo e imparcial" é sempre alternativa errada.</p>
+  </div>
+
+  <h3>O Editorial — análise aprofundada</h3>
+  <p>O editorial é um dos gêneros mais relevantes nas provas da ESFCEx e, ao mesmo tempo, um dos mais mal compreendidos pelos candidatos. Trata-se do texto argumentativo que expressa a <strong>posição institucional de um veículo de comunicação</strong> (jornal, revista, portal) sobre um assunto de relevância pública. O editorial é sempre <em>sem assinatura</em> — pois não representa a opinião de um jornalista individual, mas do próprio veículo como instituição.</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Característica</th><th>Editorial</th><th>Artigo de Opinião</th></tr></thead>
+      <tbody>
+        <tr><td>Autoria</td><td>Sem assinatura — voz institucional do veículo</td><td>Assinado — posição do autor individual</td></tr>
+        <tr><td>Posição</td><td>Posição oficial da empresa jornalística</td><td>Posição pessoal do colunista ou colaborador</td></tr>
+        <tr><td>Tom</td><td>Formal, sóbrio, institucional; raramente irônico</td><td>Variável — pode ser irônico, combativo, coloquial</td></tr>
+        <tr><td>Propósito</td><td>Orientar a opinião pública sobre fatos relevantes; posicionar o veículo</td><td>Persuadir o leitor a adotar a perspectiva do autor</td></tr>
+        <tr><td>Localização no jornal</td><td>Sempre na mesma seção fixa; geralmente na primeira ou segunda página</td><td>Seção de opinião, caderno especial ou coluna fixa</td></tr>
+        <tr><td>Estrutura</td><td>Apresentação do fato → avaliação → recomendação ou conclusão</td><td>Tese → argumentos → conclusão</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exemplo">
+    <div class="ex-titulo">Exemplo de editorial com análise — estilo VUNESP</div>
+    <p><em>"A aprovação da medida orçamentária sem ampla discussão com a sociedade civil representa um retrocesso no processo democrático. Quando decisões de tamanha repercussão são tomadas à margem do debate público, o Estado enfraquece o único mecanismo que legitima sua autoridade: o consentimento informado dos cidadãos. Este jornal reitera sua posição de que transparência não é concessão, mas obrigação de todo governo que se pretenda democrático."</em></p>
+    <p><strong>Marcas do editorial identificadas:</strong></p>
+    <ul>
+      <li>Sem assinatura individual — o sujeito enunciador é "Este jornal" (voz institucional)</li>
+      <li>Tom formal e assertivo, sem recursos poéticos ou coloquiais</li>
+      <li>Estrutura: fato (aprovação sem debate) → avaliação negativa (retrocesso democrático) → princípio (transparência como obrigação) → posicionamento institucional ("Este jornal reitera...")</li>
+      <li>Verbos no presente do indicativo com valor assertivo — não hipotético</li>
+    </ul>
+    <p><strong>O que a VUNESP perguntaria:</strong> "O trecho 'Este jornal reitera sua posição...' indica que o texto pertence ao gênero editorial porque..." → a voz institucional do veículo ("Este jornal") e a ausência de assinatura individual são marcas definidoras do editorial como gênero.</p>
+  </div>
+
+  <div class="box-dica">
+    <div class="box-titulo">💡 Como diferenciar editorial, artigo de opinião e crônica na prova</div>
+    <p><strong>Passo 1 — Verifique a assinatura:</strong> tem assinatura de pessoa física → artigo de opinião ou crônica; sem assinatura com voz institucional ("Este veículo", "Nossa redação") → editorial.</p>
+    <p><strong>Passo 2 — Observe o tom e o registro:</strong> formal, sóbrio, sem humor → editorial; informal, literário, com humor ou narrativa → crônica; argumentativo com posição clara e assinado → artigo de opinião.</p>
+    <p><strong>Passo 3 — Identifique o propósito:</strong> informar com posicionamento institucional → editorial; persuadir a partir de posição pessoal → artigo de opinião; refletir sobre o cotidiano com leveza literária → crônica.</p>
+  </div>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📚 Artigo de Opinião e Editorial — Síntese para a Prova</div>
+    <ul>
+      <li><strong>Artigo de opinião:</strong> assinado, posição pessoal do autor, tipo predominante = argumentação, propósito = persuadir</li>
+      <li><strong>Editorial:</strong> sem assinatura, voz institucional do veículo, estrutura fato→avaliação→recomendação, tom formal</li>
+      <li>Em ambos: presença de <strong>tese explícita ou inferível</strong>, uso de argumentos e recursos retóricos</li>
+      <li>A VUNESP cobra: identificar a tese, os recursos argumentativos, o efeito de sentido das escolhas lexicais e o propósito comunicativo</li>
+      <li>Questão frequente: "O texto pertence ao gênero X porque..." → identifique marcas de gênero: assinatura, tom, estrutura, propósito</li>
+    </ul>
+  </div>
+
+  <h3>Charge e Tira — leitura multimodal</h3>
+  <p>Charges e tiras exigem leitura que vai além do verbal. A VUNESP formula questões sobre o <strong>implícito</strong>, a <strong>ironia</strong>, o <strong>humor</strong> e o <strong>intertexto</strong>. A charge é sempre de caráter crítico e conjuntural — exige conhecimento do contexto sociopolítico. A tira pode ser narrativa, cômica ou filosófica. Em ambas, a linguagem não verbal é parte constitutiva e indissociável do sentido.</p>
+
+  <!-- ██████████ ESTUDO DE CASO — TIRINHA ARMANDINHO ██████████ -->
+  <div class="estudo-caso">
+    <div class="estudo-caso-titulo">🔬 Estudo de Caso I — Interpretação de Tira · Armandinho (VUNESP Style)</div>
+
+    <h3>A Questão</h3>
+    <p>Leia a tira do Armandinho (Alexandre Beck) apresentada a seguir, considerando seus elementos verbais e não-verbais:</p>
+
+    <!-- Representação textual da tira do Armandinho da questão -->
+    <div class="tira-analise">
+      <div class="tira-titulo">🗨️ Reprodução descritiva da tira — Armandinho (Alexandre Beck, 2013)</div>
+      <p><strong>Quadrinho 1:</strong> Um adulto fala para Armandinho (menino de cabelinho azul): <em>"Filho, tome cuidado! Esse peixe tem muitas espinhas!"</em></p>
+      <p><strong>Quadrinho 2:</strong> Armandinho observa o peixe silenciosamente. Sua expressão revela pensamento.</p>
+      <p><strong>Quadrinho 3:</strong> Armandinho diz reflexivamente: <em>"Só o que me faltava..."</em></p>
+      <p><strong>Quadrinho 4:</strong> Armandinho conclui: <em>"Um peixe adolescente!"</em></p>
+      <p style="margin-top:10px;font-style:italic;font-size:14px;color:#666;">(Alexandre Beck. Armandinho Zero. Florianópolis – SC: A.C. Beck, 2013)</p>
+    </div>
+
+    <p><strong>Enunciado da questão:</strong> O efeito de humor da tira decorre</p>
+    <p>(A) dos diferentes sentidos atribuídos à palavra "peixe", pelo adulto e pelo menino.<br>
+    (B) da interpretação feita pelo menino do sentido da palavra "espinhas".<br>
+    (C) do tempo que o menino fica indeciso sobre comer ou não o peixe.<br>
+    (D) da espera em vão do menino pelo adulto, que não vem auxiliá-lo.<br>
+    (E) do fato de o adulto cobrar cuidado da criança, sem ser ele próprio cuidadoso.</p>
+
+    <h3><span class="passo-num">PASSO 1</span> Identificar o personagem e sua carga crítica</h3>
+    <p>O personagem é <strong>Armandinho</strong>, criação de Alexandre Beck. Como vimos no Guia de Personagens, Armandinho é uma criança curiosa e bem-intencionada cujo humor emerge do diálogo com adultos — e frequentemente da reinterpretação ingênua (mas logicamente consistente) de palavras do mundo adulto. Esta identificação já nos orienta: o humor provavelmente virá de uma <em>reinterpretação lexical</em> feita por Armandinho.</p>
+
+    <h3><span class="passo-num">PASSO 2</span> Ler o elemento verbal com atenção à polissemia</h3>
+    <p>O adulto usa a palavra <strong>"espinhas"</strong> no sentido de <em>espinhas de peixe</em> — as estruturas ósseas que tornam o peixe difícil de comer e perigoso se engolidas. Esse é o sentido denotativo e contextualmente esperado.</p>
+    <p>Armandinho, porém, ativa outro sentido da palavra <strong>"espinhas"</strong>: as <em>espinhas de adolescente</em> — as erupções cutâneas típicas da puberdade, vulgarmente chamadas de espinhas (cravos, acne).</p>
+
+    <h3><span class="passo-num">PASSO 3</span> Analisar o mecanismo do humor</h3>
+    <p>O humor é gerado pela <strong>polissemia da palavra "espinhas"</strong>: ela tem dois sentidos completamente distintos em português. O adulto usa o sentido 1 (culinário/biológico: ossos do peixe). Armandinho ativa o sentido 2 (dermatológico/juvenil: acne). A conclusão de Armandinho — <em>"Um peixe adolescente!"</em> — faz sentido perfeito dentro de sua reinterpretação: se o peixe tem muitas espinhas, ele deve ser um adolescente.</p>
+    <p>Esse mecanismo é chamado de <strong>quebra de expectativa por polissemia</strong>: o leitor espera a continuação lógica do sentido 1; recebe, no último quadrinho, a ativação inesperada do sentido 2. A surpresa gera o riso.</p>
+
+    <h3><span class="passo-num">PASSO 4</span> Analisar os elementos não-verbais</h3>
+    <p>A expressão de Armandinho nos quadrinhos intermediários revela que ele está genuinamente <em>refletindo</em> — não fingindo não entender, não sendo irônico. Sua ingenuidade é autêntica, o que torna o humor mais eficaz: a criança não está brincando de palavras, ela simplesmente aplicou o único sentido de "espinhas" que fazia sentido em sua experiência.</p>
+
+    <h3><span class="passo-num">PASSO 5</span> Identificar a alternativa correta</h3>
+    <p><strong>Alternativa correta: (B)</strong> — "da interpretação feita pelo menino do sentido da palavra 'espinhas'."</p>
+    <p>Esta alternativa descreve com precisão o mecanismo: o humor decorre não de ambiguidade sobre "peixe" (eliminando A), não de indecisão sobre comer (eliminando C), não de espera por ajuda (eliminando D), e não de comportamento do adulto (eliminando E) — mas da <em>reinterpretação que o menino faz do sentido da palavra "espinhas"</em>, ativando o sentido errado para o contexto culinário mas correto dentro da lógica infantil.</p>
+
+    <div class="gabarito">
+      <div class="gab-titulo">✅ Por que as outras alternativas estão erradas</div>
+      <p><strong>(A) Errada:</strong> a palavra "peixe" não é polissêmica nesta tira — tanto o adulto quanto Armandinho se referem ao mesmo peixe (o animal). A polissemia está em "espinhas", não em "peixe".</p>
+      <p><strong>(C) Errada:</strong> a tira não apresenta indecisão de Armandinho sobre comer ou não. Ele nunca hesita — ele reinterpreta a informação.</p>
+      <p><strong>(D) Errada:</strong> não há nenhuma espera por auxiliar. O adulto está presente e falou para o menino.</p>
+      <p><strong>(E) Errada:</strong> a tira não critica o comportamento do adulto — o adulto age corretamente ao alertar a criança. O humor não está no adulto, está na resposta de Armandinho.</p>
+    </div>
+  </div>
+
+  <!-- ██████████ ESTUDO DE CASO — TIRINHA MAFALDA ██████████ -->
+  <div class="estudo-caso">
+    <div class="estudo-caso-titulo">🔬 Estudo de Caso II — Mafalda e o Pessimismo (QUINO)</div>
+
+    <h3>A Tira</h3>
+    <div class="tira-analise">
+      <div class="tira-titulo">🗨️ Tira original — Mafalda (QUINO)</div>
+      <div style="text-align:center;margin:14px 0 10px;">
+        <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADeAloDASIAAhEBAxEB/8QAHQAAAgIDAQEBAAAAAAAAAAAAAAcFBgEECAMCCf/EAGgQAAEDAwMCAwQFBgULDA8HBQECAwQFBhEABxIhMRMiQQgUUWEVIzJxgRZCUpGhwRcksdHSJTNicnOCkqKjssIJGCYnNDdjdISTlbM1OENERlNkZXWDlKS0w/AoNkVWV9ThR3al4vH/xAAXAQEBAQEAAAAAAAAAAAAAAAAAAQID/8QAIhEBAAICAQQDAQEAAAAAAAAAAAERIfBBMVGhsWHB0XGR/9oADAMBAAIRAxEAPwDsjRpeb538vbWwZt1IpjtUW1JaYRHD/hglZA6nBx+o6p9M3N3gnMtuJ2HqqAsAguV1lvofkvBGtMHno0nPy43nPUbHv4+dzxQf5dY/LXes9tkSMn866Y2gcmjSg/LHejAP8C6c46j8qY/fWTeG85Hl2YSPkq6Y+gbujShF4b04JOzDYx6flVH6/s19i7d58ZOzrH3C6WM/yaBt6NKJy7t6RkI2bYV8P9lTA/dry/LDfDH+8tHPwxdbHT7+mgcWjSeF3b4Ef7zUQH53Wz/R18/lVvuQSNoaUnrgBV0oz+xOiHHo0nPyk37xj+C6g5PXP5S9B8j5O+hVzb9pyf4KaIvHom5wM/dlP/1nQOPRpLOXdv5nCNm6b95ulr+bXmLv9oIKwrZulkfK52hoHbo1z1d242/9BodQrMnaKlR4UCOuS+8a+h4NtoTyUrilQUcAHoNOaHXIzljNXVI8ZEc04T3ENrKilPh8yB8emdET+jXPVC3zv64qazVrd2TuCfTZAK48n6QShLiM9xkalP4T92e52HrnE4xisMk6B4aNJRvcrdhZwNia2OvrW44/lOvRG4m7ZPE7F1YH/wBPxsfr5aBz6NJr+EHdz/8AQuqY/wD7gi/0tYG4m7A6K2LrOflXY2P18tA5tY0nFbg7tABQ2Mq2Ce35QRc/52vtu/N3FpCv4D6iMn864ogx/jaBwaNKP8ut1gPNsjVOg64uGGf9PXz+XW7R7bIVIffccQf6Wgb2jSfN9bvDJ/gQnH7rkif0taEnc7ddgkL2IrpI/QrDKx+tOdUO/RpbbL7gT77Ndh1u2pls1aiyUMSYT8nxFALRzQrOB3Bzqu3RvLWIF+1m1Lf2zuW5FUhbbciTCcBQFLQFgH4dD6n00Dr1jSbj7l7jvoStvY65gD1+sqkdB/UpQ18ubi7r5+q2LrJBHTnXIw6/4Wgc2jSbbvveNWM7HTBk/wD5li/z69xeu8CuidlJIPxVc0XH8uiG7o0oxeO8hT/vMKBx63PGxr2auveBTYK9oUIXnqk3Ox/KBoGto0r1XPu5w8u1LBV8Pymax/m61nbq3mS3yRtDGcV+iLoaH8qdA2dGlAq7d7g3y/gbiE5+yLrZzj/BxrxcvTfDj5NkW849brj99A5dGkq5eO/aE8/4F4Kx+im6WeX7RjW3t1uPeNY3MXY95WKLYlfRaqk2tNWEnxEBxKABwGO5V6+mgb+jSw3r3Eq1iTbdptAtZ+5qlXHnmmYrczwVDw0BRI6HPQn4dtV+LuHvZI6o2JkoB6jxLkYR/LoHfo0nmry3rXjlsshHx5XTH16flbvXgkbPRO3QG6mcn/FxoG7o0nRd2+SlYGzkFI+Krqa/cnX0q6d8yglG0lLScdAq6UE5/BGgcGsaTqLn35UMHaijIOO6rnTj9ideguPffy52woPXv/sl7f4mgb2jSjTX99eYCtt7d4nuRciun+T1ts1Te5eSuyrTbGMhJuF7P6wydA0dGle5Ud7Sj6uz7QSojoVXA+QP8gNeSqlvp0KbQs3HYg11/Pfv/WtENTRpXLqW+ACeNoWeT1z/AFef6/5HXhLn7+ED3W2LHRn/AMZWJK8fqbGgbGjSVlVX2j2urdoWQ+O2G6o9n7/MRqybFXbXrztupP3RDi0+sUyqyKbKjw3VKQhbRAPUqOeueoONEMbRpE/ltvBX9ybutyzqbaIg29KQwXKm5JDq+aOaT5FYP6hqabk+0IEDxaJYClepTUZYH6uJ0Dc0aVKZW/IQSu3rGWrPZNWlDp/zZ1gzN++ZItqx+PoPpiTkf5PQNfRpUolb9cVc6BYvLHlxVJX7fJrCpW/oSCLfsQn1H0pK/oaBr6NKf37fwJ62zYyj8qvJGP8AJ6+25+/BVldr2Rx+ArMnP6/C0DV1jSulTt8yEmNa1lox9rnW5C8/dhoY/brzEzfopcJtyxgcfVj6Wk98+v1fXp92gaujSk9+9oLA/wBjdhg/H6Uk9P8AE18LqPtBZ8trWOR/6Wkf0dA3tGks9WfaLbCuNjWg9jtwrDgz+vGtF25PaWQPLtnbSz/Y1kfvcGqHvo/HSb9nXcK7L9Tdjd2U2LS5tEniJ7vGWo8FBJ5BRKjnzJ6EdOunGn7I6+mgTXtltlew9YI4+SfFUcnHTxUfz6dMchUdsjGCkEY+7SW9sskbDVjGf93Rf+tRp0RSTGaJGMoH8msur00azo0GNGs6NBjRo0aA0aNa9QnQqfHMifLYisg4LjzgQn9ZOg2NGq+/c6XlBqi0qoVZ1RxyQ34TKPmpxziMf2vJXyOtC4naqzS3Z1xXPAtqmNgKecikc0j9HxnRgA9uiAr4EaCbuK46DbsdEiu1iFTWnFhCFSHko5qPYDJ6n7tSXiI8RLfMc1JKgnPUgYyf2j9eqNSaLaVctKdUrYDEtdRivMN1KQtxxxZwU5LjmV8c/Dp8NWW2JqqpQqXVHQ0l5+IhSwhYWEqUlJUAodCAQeo740RLaNGjQVHellcjZ682GjhblBnJT95YXqJtk+P7OkI55c7XH7Y2rNuMgO7e3G0SAF0qUk57dWlag7OaU7sTTGAgJK7cQkJHzj40RDeyaT/rerQzj/cZ7f3RWmlpYeynj/W+WfgY/iR/z1aaGg85JeEdwx0oU8EHw0rOElWOgJ9BnXMsW+d1a6w4/PuaPbslLi2nqdCpqFKjLSopKCt0qJIIPp92ugrzuqiWhSDVK7NbiscglPJaQpZ+CQSMnHX7gdc4X5e+39xXzGqVlXAiVLnJWzU4QaUnipCcpfGQOpHlJBIOE/A5CZpl87j0rg4m441cCftsVCMhsOfctoAoP4K+7Td283Fot20qU8simz6eB9IQ33ByY6Z5Z7KQR2V/IemuTL43Abt+omEilyZK0o5qcPkaAP8AZev4Z0rb03O+lGAhmE22+pISXmJCxlvl5mlggcknHb5g6DvZzezahExcVd80dLiFcVZe8oP39tQV+b3UyI6ulWMyxcVU4pUt8O4hRgrqObiclSsdeCevxI1wuvdmvBrwGYFOaYxgNBo8R+Gdalvbl1yhwkwocaCGA6pxQLXVRUonv+OPuA0HW9W3Dv8AbjO1GReCY7bY5KbiU5oJHyAUFqJ+WdO7aqVdk21USLwYDM1a8tBTaUOFviMFaUkgKznp93Qa4utDcilXHNpERLTkeqfScNTbLgyh1xL6FBOf0SRjr6a79HbQZ0aNGqFRtd/v9bupx/3zSjn/AJEnX1tGT/DBuwCgo/qlBOCfjET1/HXttlHI3p3XlBQw5NprePXKYDZ/0tY2sQlO8O6xyeRqMDI+XuaMfynQM/RrOsaA0aNGiDRo14yZUaNw94kNM81BKOawnkSQABnuckD8RoPbRrWqtQg0qnvVCpS2YkRhJW688sIQgD1JPbXPl9701StlK7Oq7FBt/wB7RGbq0mOVuVBOVeO4yCCENNtoeXzIJKmwAME6DozRqpbTXh+XVoi4UQXoUd2U+1HQ90cU22soC1j81RwSR6dtW3QGlVJTn2soavhZLv8A8anTV0rJST/rroSgQP8AYU7n5/x1Gg8N20A75bRLyc++VIdP+KE6bWlhulGcXvHtRKSU8G6hUEKBUM5VCcIwO5HkPX06fHTP0Bo0aNAaNGjQGsazrGgNGjRoDRo0aAOsaydY0QaU/s7MNtStxloBCnb1qKlffyA02NK3YEKTP3EQT2vKccfDPE/v0RrbSsGPvlu2gj7U6nuD++iJP79NvSy29a8PfTc9Wf66qmL7f+SBP+jpm6A0aNVXcC5E0xhqiU91aq/VfqKe02jmpBOQXlDsEIAKiT08uOp6aDarN6WtSamilTa3F+knPsQWVF6Sr7mkZWf1a0qpd9QaCU0qyrhqbijhP1bcdA+ai6sED8Cflrasez6NaVMbjU9lTsnwwmROfPORJV3KnFnqSTk47degGrHoKH71u+uf4qKNZLcLv4C6lJL2PTKwzxz/AHp1L06qXelSxWLViJGRwVTqmHwR6lQdQ0R+GdWXRoISXc1OgrIqjcyntju/IjqDI/tnAChP98RqWYfYfaS6w6262sZSpCgQR8QRr0IB7jVWr1h0Ko5kQ0O0eoAHwpkAhtbZPrxwUK6/pJP4aotOjVQj3HMt1IhXnxbbQEpZqzTZ93kZOAFgZLS846HynIwfQWyO+zJYQ/HdQ60sckLQrIUPiDoPvRo1gAgk5Jyf1aBGezajje+75xjNxkZ/vVfz6eafsjr6aTPs9s+HdW7KsYzdDg/yST+/TmT9kdfTQKP2vmg7sJcHxTJiqH3+M2P36cDAww2D34j+TSi9rkkbCXHgkfXxfT/h2tN2OSWEE9+I/k1l1emjWpVKjT6VBcnVOdGhRWhlx6Q6ltCR81E4GoUXczLYDtEpFWq6VnCFsseE2r+yC3ShJT8xn5Z0Fl1g6qimr7qbWVzKPb6SfsMNqmugf26uCQf71Q+/SevK96DS36vGnHcm8p1HZXJlNpWqBDQhta0qWrw/CBbBbX14rHlI66B8Vm4qDR0k1OrwoqvRDjwC1fJKe6j8gCdRQu56W0p6k27VHo6cfxmagQmsfHDuF4+fDGkdce4110ah2/XbPsO3Y1PqsZ6S4uDmQ+ENOoC1Iy22V/VkqxjOAs9k5O5d1m3XWZ920dVQuS66ZX6dBep78l7hDi85OXEhAKU5QhCF+XCsdPXOgvNy3s03eFMtWr3jGpFSmvJSml0iMuS+rl0SFvFJCASUknijA9euRTp+49HhyYL1vWy9Mrs5aoVMqteClB6SiSlh5gYKltqHVfEcQQknUzKp1PtCkW8u977pUSpUaq4ptQaaHvU9hLYbLDiOpU4UKSlXEK7IPfrqGuLdHbjb+pqpEW3KxU6jWql9MxETmPAYMh4pBU24/jhjPonocjvnQSm026F01m859Hu2muClVOXJat2owoS0tOBlxaFpUoKVgcQhQWriCSoZPTVBu7ZDdC7H6/Qvp2pRacZ7ym59WqypSKhGKkKYR4IJ4KbIX58JPpjr0ul03Pu5R77Rb8SJb9Oh1KnVFygxWo5cW9IZbKm2lL5BKVEFK+2Oik/PUlsZ+Xz1xMzqobrZpL9JzVI9wlJUmo80jMfHUN459AAnHHpnsF42mtOt2ha7dIrdyqri20pQyQwW0MJA+ykqUpaupPVSj6AAAY1VrDv+ybRkvbbVe5UMVemTXWUJlpWkLbccU419YocSeC0g9c5Gm3rj/wBu6iVSlShdVNgNP0uox24tSUodWnm1Hw1gjqMhYGfihOiOv0qSpIUlQIPUEHvqHu26rctOmqqNyVqFS4yc4XIdCSo/BI7qPyAJ1xNth7W9ctSxY9uVW3hW5cRpTUae7NKCE48gWngeQHx5AkarrNw1C7bgNer7s6q1SarPjuxnPAZT+i1kcUI+GO/roOmqj7QVrXXKl2hbdEr9Qcn0+SRKMXwWkNBteXTzIVw6d8dewyemmBtaoObF26eRUFW+z1Hr9SNct7TXTQrS3Duh65KjFp0abbKo7Dr5xlzn9hPxJz2Guo9nD4mxVrE8TmgR+wwP6yNERvstf9r/AGcMYxTx/nK1Vvaa3edsNv6OhVRmEtbP1qkM85JUoHilrl5UnHUq4uccjIGU5ldgK5Cons0WlNlOFJ+j+LSPznF5WcAfcCfkASegOuCN5LvnXlfE2oy6hInIbcU2066OJWAT5uP5uT1CeyRgDoNBD3bdVfumormV2s1Kpq5EtmZJU8pA9ACe34AD5andpJ8KkzqpVZDrTciNDJjFwEjmTjsOvy/HVG19IWtByhSkkgjIOOh76Cx3tc02tzVBcx15lJ/O7E+pA9B/9de+q2dGdfTTLrvLw21r4jkrinOB8T8tB8HRpuWp7OO7VyU2PUoFvMohyWkvMPPTGkpcQoZSoebqCDnWne2w25NnstvVqkxm23ORSpuY2sYGMknOEjqOpx30FBtiU5DuGBIbeZYUiQj6x1HJCOo8xHwHy66/SL2d7quGtQatQrkjqMqjuNhmWAeD7LnLinJ+0pPAgnsQUKHRQJ/NesUuo0epv02qwpEGbHVxdYfbKFoPwIPXX6CexPPcnbWRcy3nm24zafDUklLS0uPIICz3JCEHj+aCnGAcaB9aNGjVC622SRurugcYBqcH17/1PY15baJA3h3TVxwTOp2T/wAhb167bDG626HXJ+k4J/8A8exry238Qbx7pApIb99ppScdz7i3n+QaBlaxrOsaDDi0NoK3FJQkDJJOANUau7qWrAXLYgyjVXojbq5C4wJjseEnksOP/wBbSoAjy5KskDHUaxULJrLtYcqq7kNZV1LMOrsBcdrrnypaKEg/2akqUPj30vW9r5lI9/eco9TEuQouJkwJbU5oOla3StSHAyrq8WllKUkHwEJzjOSJx+5rtvBuREpFbptCe4BpUVghchhwKY8ZZecBQsNpfCSEoB8Ty8vKdc2e01DrkmpUCPUKPMp3FLkudWZjzs5lDiifCje8JCsBAbweJCea1HACc6Z1UpdSiSvoqmqapLxUI9NYmc2HHWmlJDCAl0ALWp1xyU6UhQPhpHfWbLqLVvUSJSKZAktTmo/9UETwrk1ECnkMqkIWMAJR75KUg/ncE5PJJ0FTtqoPxbTtmZUqpU6hUksPVBUepGQ614TqeDKmErdwV4PMJTyWQtBT4edLq/59Ku7cx+SlCYdJo7KVu+8SGUGTIOO/NTZIA6cSpS8IV1yrAs1frNRh29X7lTAgqokWcWYfu7JbLYeUpxDCXkJQtSG/OyQVFA4BKUrHZZwnH105uA/EffLqnqmtD0VppMqQ11dyonIabQlzqOnJBTxHJWAfll713Nau1VLolEteGJTMZb6pEmQp1xZWtx5ZRHylSsIPM+foFJJ7nTb2J3yhX3Gh024YAoVwPNKUhoqyxL4rU2otK9DyQryE5wOnIDOuX9lU1uoUybHj2vDkyHIiWm3RHcW854jThaaKQUpLRS0M9D185OVE6ZMu1KtHi1m2YVDpk6SpSX2KZFIZkxnFxVradTwUVNhp0oQOXRWSpXVWdB15pXywB7VMFWMk2W8M/D+ON6sG0Ld3MWTEjXmSuoMpS2lxxYU84gISOTuCRzKufYnpxJOSQK9Nwfapp2T1Fmv46/8Aljeg2NzEOHd3atYCPDTUagFE/ayYDuMfLoc/hpk6WW5zjg3l2pbGfDVOqRV9/uLmP5Tpm6A0aNGgNGjRoDWNZ15yXFNR3HUtrdUhJUEJ7qIHYfPQa9XqEal056fK8UtNDJDTanFqOcAJSkEkkkAAawtMyQt1PiiPHU2nwltj61KsnlnkCntjHQ+uvOnR3HHk1SUl9iU/GbQ5FMgraaIySAPs8sqwVY64GpDQaaKcwipLqAclF5aOBSZLhaA6dm88AencDPf46iGbOplPZWm31v0RRypKYiyGeXxLRyg/PABPx1Y9Gg0qU5OMZLdTSwmWjIUpk4Q4B+ekEkpB/RJOO2T3O5qNmw3F3FT5zb6EBll9tbZV1WlfA9B8ihPX0z89SWiDSy2SQGri3JaznF1uq/wmGVfv0zdLnaVtLV67loT/APmNCzg/pQo5/fogsrCN8twE56rj01f4eEofu0xtLi0kpTv7fJz5lU6mqx8sOj92mPoKhuNX6nANOoNvNhyu1hxSI5UnKI7SBlx9foEpykevVaeh7a3rUtWBQ1qnOfx6tPtJbmVR9IL8jHoT+anPZA6DVURU6TBr1wbmXFJbjU2nKcpMJ/Kl8WkuJQ8SAPV9viB1+z89T6txrPRGkSHqullEaE1PkB1taFMsOLKEKWkjKckdj1x17aC26SN2bm3dRrguRpK6K5DiPzIcOIIyxKQWaf70JClFfFaAcJUnin7Sevxat0XJTbdixJE9asTJTcVhKSkFS1nA6qIAAGSST2HqcA1a6be24t6p1y77lkRYDtfZEGVImSuKFJLYQUNgnCSpCBy49TwBPbQUWBupcaqDaSkXFQ2HatTpNQlTa/THYiVFotYZabC0Hr4pwvzcgnIB1JJ3Ru6RTJN1CkQqdRaNGiO1WnSW1mW4XkhbhbXkBAQhSSApBKuoPHUxQLc29s+VTH2q9IkCj0eRIZ9+mqlhMNZay6FKzxQPBSEhOE/awO+vesUey7tveZBRU6kqUtmOqrQowV7rKbQQ4yHlcSkHB7BSSpJwcjVERc2490u01iVSoKKVT26rNhVGqmnu1ERUsOlCCWG1JV58ZK+qU4Oe+dNK3ZzNSoUGexUI1RbfYQsS44w29kDzpGTgHvjJx8dLxdKsKZWH7MTdtSRWDUZU9xinVN2O6hT5Li21logYweyuuOo76sNq3DYFKo8uh2/WKY3DtuOUyGGn+XujTYIUVZOSBxOT16g5OdBb3W0OtKacQlaFgpUlQyCD3BGqXIca28S0Utq/JVbiWuCEg/Rq1rwD/cCVAY6lBP6P2bLTK3S6lLdiQpaHZDUdmS42AQpLboUW1HPoeKv1a1EVq269VKvaiZkSdMhNpTUYR8xQlxOQFD5jQTncaNU3berPoEu06zL51ikOKQkOr+tkROWGX+vVQKcAq6+ZKs9dXI6BN7BOA3duy1yBKbnWrHqMsp/m040/ZH3aTOw0Jlu/d254KvGcuHwVdenFLQUOnxys/s05k/ZH3aBT+1zn/W/3QUlIUHIxTn4+O1qZsFdzXbQ2pdbuRUB6M65FlwKTGSyA4hWCFuOFxZBGFAoKOigdRntXseNsBdnXHAMOfqeaOrLbTjFMvJ2CiM1HbrUBuooUk9XpDaUNPevcI8Dt36n46y6l1XNzrKpd+VChxbYXLr1JaluvKqi/r/qY6nUKY5lSlhYSQCkjGMnuM1u67t3YvCkViHbM2DIdjQ47waoySluXHmtqSlSXSStDzKxnAICgMkDtq2700/bWJekafc0StTq6rw6pEbpMNSn2m4wIUvmgZ4fpAq9B00t6RvLOqU+6aNs9RbSocNhsymHFRXG1SMp5KdJCUtpcwCPDUCSQcE46gx7DsvcW2t0a5ckOQy/RKnPER2nVCUorEZttCW5SF5UeXILHAgZCskjpj33FuHbBzchyJV7mlCoOU1ygzKbDjOKDokqyhtx1CfIskEJBUO50u5JuXeW1rTTadVuFNYo9WdM2rVBYbjowha0r+pwh3CihKSkdk4OOR1dJmx9TvG/YV9XnUGKTVo9OZa40R1QUmY04SiSFrGD0xhJScdjnHUK1tNujasy5oFtWRaDlJhpS7BNSrC1vOQJqkLDLJClFRCkxxkBY7AdCNRVPu3cvc+w5dssVCqRLrhVqO7GqUOKqMw9DcBwtQT0U2CD1z1BSevXT5oFjWDYNBeVIYpzbapAmTKjUvDCnnwtTiXXFkAckqWog9MemMa+KXunZ1TqH0ba6ajXyjyqdpVPcdjo+AL2A3j++xoEvaPs9Xe9tc9aNwTaRGdensVpmYlJcdiyTgPMlIwFJwB5grr27YOmy1s7Q6pCjIvuS5dsmMwthlyQ0llDCFLSrDaUYKccEgHkSB0z10x47jjrAcUwthR/McIyPvwSNVu7Y1KMF43Pc0iLC+0ttEv3ROMgY5IIXjJH53roNyvXLa9ulpNYq0KK6kYabWvk6en5qRlR/AajY14z6utabdtSqyG0u+GJc9IhR1DH208/rFD4ENnOqm9fVk2i/Kco1tEx8gSKi1HDfiPF5popW4oclEF5BKiT+d16HS9XuTW76RUXJNTmwqTHSGKlT6SwpTsNDgW2pzx09VFJaeI6J6lBAVjqQ3LluCbS2VuXPedGtxlKStTUFsOyCOnRKncg5yBgNEkkY1yb7Xe6VpVuL+SVsxJM+Uh0KmVacorXxHUJa5Hy8uhJAT0wMfC9X1ErUaA3RLapaatXJT7jcF2I0Vc0AnxFuK/RS45JPLslTLP8AY6qVF9jO9ZnJ6uXXSIORnDDa5Kz07deA/boOWs6aezd0EA0GY5nB5Ryo+nqnTLl+x9cb9MkSaBdMaVJjuFtyJPhKiLCgAcZClpOQQQQcEHvpDXtZ12bf10U+5KVLpUxJ5NLUPK4AcckLHRQ6dxoJ3fCamTX4rCSkhpkk475UfX9Q1+hmxSvE2FtAjJzQY46/3Ia/LuozpNRlGTLdLrpABUflr9QfZ7Up3YazSQcmixxgn+wA0RyNfW40GN7Ltl27DQFVIx1Mh4EfV9VBwDrnISUZ6Y8474UNc3Ek99TVwTGlUqk09k+aOysyOnZZcXhPTocJwc/FavliE0Bo0aNB2P7Lvs1WrXrFpd73u1Mmvz+T0enlzw2UtciEKWAOSioDkPMBgjoddLxbH2/t2k/VW1QoEGIQ+SYzaUIKQcLUSO4Gep7aqXskVhqrbE28lmUJSIbAihZI5pKO6FJ9Ck5SPikJV64Fv3YsiHuJZMq1KhUZ0CJKW2p1yIoJWoIUFceoIwSBnQWSDJjTITEuG829GebDjTjagUrSRkEEdCCNacmp0V2LUQ/NhOMQkqTOCnEqSyOOSHBnp5evX00upiafaTSLTfuKqW7SKZTmI9HRFayuSEowpQWUK8RzOB4YGexweQxCJ2ldh+zvcdv0MS03JcUQyprs17Lr8lQBKVHsM9U47ddBT9n7ctPfDc2+9xq3RmKlQkvt0mlNSEHgpLaE8nMdCDxDZHqOZ10ZaluUO1KK3RrdpkemwGlKUhhlOEgk5J+86/P/ANmvdy4tqbsVa1QZZYpEyckVKPOQpC4yx5VKT24rwACCMZAz21+hNEqcOs0qPU4Di3I0hPJtS21NkjOOqVAEfiNBu6NGjVC523yN3N0Rn/8AEKecf8gZ17WI0Wt3txlYADrlNc6Hv/FeOT/g/s1q7bE/wx7pA+k2nev/AJC1rbsSQh/drcZsKClx3qc2RxwQDFCgPn9o6C/6xrOsaA0aNGiNapU+BU4jkOowo8yM4MLafbC0K+8HppQ163aXU6pPRbcuRRaPSW3fpB0cX2ZDqASWGmXeSQEEArUkJwcJByDxvl7VKY+tVv0eQY0lbYcnTUkkwo5z5kgdVOqwUoHocq/NwULeVxUOy5zNSflQaXTqcRBoEVB94cQ4yVKeJwriAQC3yUT9colWQjoCd3Tua4EVS2XobFNamyYIlCFEK1NNFBW3GfUwSpKXUoUpQCSoEq5YJ08LQ9mlmqxaXWrtqT9Mn+5ht+JT0gunl1Ul153nzUcqCilKQckdtUn2ZLMqe4e8NS3EuV19+NAkpkrS8cpemEcmePXCm20K5J+A8PHQnHZo0FVgbf21FbjpcjSJZjghtUiStXHIwcJBCR06YAA1NUaiUeiodRSKXDgJdXzcEdlLfNXxOO5+Z1IaNAaVdSwn2q6P3yq0JIz/AMqRpqaV1YbKfahoDpOUrtWWlIx9kiQ0Sf26DO56iN6tp05PWbUzj06Ql/z6aGlhuig/wx7UPYOE1CopJx0GYTn82mfoDRo0aA0aNGgNYIB76zo0GNQ93VlyjU5lcWKqZOlyERYccHAcdVn7R9EpSFLUf0UnAJwDMajq/SWKvFaadceZdYeS/HeZVxW04MgKB6jsSCCCCCQe+gjaZQqimQmp12vzJklJ5hiOfAitfJKE+ZYH9mpWflr6rdJpMZEiryKlMppT9Y5JTNWhKOvfiolGPkQR8teUinXQhrgq62Us5CQsUxJeySAPNz4+v6GvRi04jkqPLrEyZWpEdfiMmYseG2v0UGkgI5D0JBI9DojUtUyK1cci55LbrEUx/daUy8ng4WuXJx8pPVPiEN4BAIS2knBUQLZqAqy0C9qC0g/XliWpQ/4EBvl/jlrU/oDS62sP+2FuckHp9OsH9cCPpi6XO1wI3H3Oz61qMR/7CxojNvEJ9oK7UBI89DprhPqfrJCf3at95VH6ItGsVUqUn3OC8/lIyRwQpXT9WqjRkhPtEXIc9VW1Tjj4fXyhq0bgQ1VCxa7AQ34qpFOfaCMZ5FTahjQLnc+1Z9Q9mVdv2pFkSpwgxnYzaFAOurC0OKVk/nE8lHPqdUOVZ9/uU27KWbVq9QcveFEYFQqM2Op6n+Gjwl+8lBAJAHiDgDnIHfOOk6NJiTaRElwVoXFeZQtlSPslBAIx+Gl1vDfFRtq5qLSIleo1CYmxJMhcqoxFyAtbRbCWkpStJyrme2T06A6D63ep1V8aynadAmVEQKl/GDHgtylpSWVJCihakpAzgcsjjnOsbmfSdLvuj3S3bs6vw4tJlxo8WMjmW5ji2ikqAzxCkJWjn2TnrgHOqnZ24u4VfcuN5NFqDdahU5lcSiKiBEZLq2Uqy46oBQVklQbJSSOhweomm7wux+yZIotQfq1fjzWmqkhyiFiRTWVAlSxFKgXe3lAUc5yCcYIVSg2vd9Jth1gWlUKpKrdsNUYJW4039HOoU8Foc5rH1X1oIUjlnj26jVx27ty47d3RqSZMervUp+FESiUh9kQlLbjobUVNn6zxMo6Y6YOt+m3+Vw6UiJUm6wiRCqDkiY5GMZxD0YJJQpo4KCMkFJ69BqnWpvNWZ0bbz36O2l2oqdauPLfExleIhhlZ/RC3FpP3H4DVFgbo100jcxQtKkVanUmbUlyKwqVIjuU99C0+Z5oci8h4qx5ccenUY1VGbIuWqWjTbNFFkwplDpE2DKmvAJjzioo4JQrPnS6UclH83rnqcasE6/btqNFplaabepVCDs9FUnQKf7660piStpCfDJylBSgqUsJVgjGB31I1urVt+8Lddpt8rFt1aBIn8o8RnPhsoaUnitSTkKCyT06fLQSm3tOrUu9qtdtVoT1Aafp0WnMQnnm3HFeEpxSnD4alJAysBPXOAScdNV3bGzrwoe435SVaNBDNYanqnBkHxmlrfQ4yHVcileEJ4DiAAP16iLI3Que4Nur0nRJ1NqNbZQ2/SEQ+KwwJWUx2nAD9tCh5s/jp8Rw4llAdUFLCRyUBjJ9ToKrdVPhuX5aVSJCJzL0hpKk4CltKYUVJPxTyCD94GrbpfwHU1vfSpKVIQti26Qyyy0knyvylrU4o+n2GWwPhk/HTA0Cg2L6XjuyM9PymV09f6wjTeT9kfdpPbHBKdwd3Ugeb8oEkqz8WB004U/ZH3aBb+06hTmwd5hHcRgo/cFoJ/YDqSu4Nx7Utq5QtLK6RJiyC4tXEJZcT4LoUfhwdUevqkH01oe0yjxNg72T8ISlfqKD+7XvcMmTPtGkWbFgNrcr9GW03IffLbbRS0jIyEkleFFQHqEK+GsuqW3BslN2zKRMbrtQo0imuOlL0LhzcbcbKHG8qBwCD3AyCAR1AOqjUV7Cba1JuoTnLXplTjMoabWpSXJKEoTxTgdVA49QMkkk5J1GDZWpTnHZd9bp3JIbkIbadhU6YuJFUMhPE81LUeSj6FOSca27Ys3YeyZ8EUmj0hU6QR4D7iVS158RtvqtXLieTqO5B7nsDgJ1O6cCdGZbsS1a5dAcRlpyLG92iJ+HJ57ikD+1CtbsdjdGsNhU6dQrWbXg+HDQqdISPgXHAlsH+8UNaFb3LXDrTcJmmhuO5FTIQ5IylavrCFJ4+hCGpB/vE6pd13bc9Tp6I8qc7Bmst+NKjR2y2jgkHxU98q6wpgAz2cT36aC51KPt/TmUm8K+q43mHeqqo6JCUOJ8TqGUANIUPDc6hAPlVk9Nas7dJDFBmu2naT8kQ4wdYZdUIyXMLQlSUgAnoHEYwDkkjpjS/rERufBQ/ISYUKqNKgvutO5Wt3i029zGThST778B5cjqSde22SZtd+lm51TmIq1PoMmAGWHVoSl7xS64pPHzZIcYGUkHyn5aCyx7tv2fcNHptWMenxFzptLqpjoSkF3wgqOpKuSlNg56cihRJGBjGl5Pqrjb8eJNfdU5HC/GfU0XJE2M6tC3GyckZStbaBn9BXy1HquRM6h1qoIo4eq1Qp0K6m4SYfvLEeXHV4TxKyrPJwpGE9VJx+l01aLjogF0CVcNcbodHhTTUYbHhc332nh4pHFPmCUvOrHm7BrtgZAe6G/4xVKW6tctb0aTTJQS6lxll8NLeLiAooCit50NhJT3QOo66W1t3FDt59+7W1+B9J081CUt1svR2XFrbkpB8uE5kNy2gASRlI79rb+UNk2LaLkiBSJ1QeehtPtyq8ElKiyVuMrKE4V5lpI+8JHXGvbbWzou48Gjzr7luwLXWS5Rrd8bw2JakK6uHiEgtgqUEIHUpPIk6C87bVqxLHcdZr9Uap1amwY81T8w8GlsOE8G2FE4VxJJXx7rWpR79L/S7/t+o32uz4zrippprdTjvAAsSmFqI5NLBPLBAz27jGeuve46M+5IpU6hu06PMpvNDDMprkytpQAUkcTlBwlOFDOBkYIOo2NFfo6GYQdpX07MfkyPGDWW4ba1c3CkE8sfZ7kBSjk/DRF3xrnj2/kUk7GpcmpQZwqbAgqx5gs8uYz8OAV+zTTs664kmVUoEquJlrhsplEyPCQ8hlWTyWEAJCSOKgcA4UM9dcH+1ju27ube6WIC1t0GlBTUVrxApLjmTyd6Dueg7kYT0PXQJca/Tz2Vlqd9nmzlLBB9wKep9A4sD+TX5hjX6ceyUUn2dbP4q5D3Rwfj4zmRoj88b6t+oUuFSatJeZdjVNt5UZLf2mktvrQUq6d8gn8dVXXbNP2wO4vsjx4EBMZFZhTZb8Z5TeSsIkO8mgQM4UO3zA1xXKjvxXlMyGltOpxlC04IyMjpoPLRo0aDpH2I7onNXBULJg1JdOmVAJlwXVKJZcdaUlSmXEfBaAochggZ75GO2I90tMt+HWqdPpkhA+sBYW618ylxAIKfXrg47gdtfm/7M01cHfK1VtR1POO1BplISMlPJQBV+Cc5+WdfqCAMaCA/LWzyvgLlpKnM9WxKQVp+9Ocj8dYVelqlALNchyVH7LcZfjLV9yUZJ/Vpf35uRXrB3DmQ6pTU1ShyYrcyEiMziSltJ4SCFZ4rDeULKSAeKyeWE40yLQuahXbRGazb1RZnwnh0W2eqT6pUk9UqHqDgjQcue1ftJLum06xumxATT6nBcU4uLwCFyICQkBbg9HU+dfx4YB6gDUT7B+6NTanfwcTktyITi1Ow1lQStklKiodT5k+UYGMjJ69hpye2dfMK09l6pSw+0anXWzAjMk5JQro6vHwCOQz8SnXJPsbQmpW+1FW5DefUypTjK0JVxbUO6lEdhx5d+mSNB+kejRrBSCQTnp89ULPbZJTvbunkY5SKYofP+JIGf2fs1jbQ/7du64z/31Sz/AO4p157bqP8ADxuskkYDlKwPX/cY1nbP/f13Z/u9J/8AghoGjrGs6NBjUDetfFDpv8XDDtRkBSYjLzvBBIGVOOK/NaQPMtXoPiSAd+4Z0qm0SXOhUyRVJLLZU1DYUlK3leiQVEAfidJGvU+9rtcZVRZ8VNSeSTX40lC4klptK08YbfLKkMkKVlSQfE4E8hySNERF13el1iRQ6BUJT0FtlUqs1yGtKHZktwEJS0Ffb8qVY6gNoQFZCWxlE73OIru6X0NQZUCXIp6GqNDS2cIcfGEFDTeCAnk4pQUevNSsKJ46sm8UlFh2fKtSjoTAn1xkGoBtTiiI6eZ5qbKQW3niEjBOEt4GACTrf9hjb5+duBVrwrUFxk0QlhhDrXFIfcSfsj04IJ6dhzRjQdU7PWVD2+28pdrxFF1UZvlJePd55R5OLP8AfE4+AAHpq3aNGgNGjRoDSzrqMe0pbTuftW1PT+p9g/v0zNLS5wpHtG2a4j/ulBqaF/cFxyP2nQe+5ycbk7YvcAeNYlo5ZORygSOmO3p+zTE0ud2HPBvzbJ0pJT+UDrefgVQZAGmNoDRo0aA0aNGgNGjRoMaNGtWq1GFS4Lk2oSUR2Gx5lrP6gPiT6AdToNlXUYz66hq5clOpj5gpLk2plvm3Aip5vKHoSOyRn85RA+eoZ1646/IhLWXaBSH3SPCA/jshPBSgVKzhhPl7DK+o6oORqxUOiUujNOIp0NDBeVzec6qceVjHJaz5lnHqSdBGWpSZ4nSbirqG0Vaa2lvwG3OaIjCSSllJ6AnKiVKA6k+oSnVkOjQdEY0uNseY3R3OQVZT9KQ1AffCa/m0x9LjbU/7bG5ozk+/QT/7on+bRHvTBj2ha4c97Yg/skyv59MDVAgJUPaEq6z9lVsQwPwkyP59X/QL6uOStv6t9MsBKrRlOZqbRVj6LUc/xhA7eET9tP5pPId1asppFJq9wUu7WnhIdixHWYy21hTa23ShRV8/62MEfE6lp0WNOhPwpjKH40htTTzSxlK0KGCkj1BBI1TWbBcowkO2lctVpLrnmRHeUmTECskkltY5dSepSpJPx0G/KsG2pNzVG4nI0oT6jF91lKbmvNocRxKPsJUEhXE4CsZHoRrxi7c2xGpcyA03UgZq21yJRqcgyllv7H1xXzAT6AHHfp1OoBN6XrayUIvu2VTmPE4KqVAjOvN8f01MjktIHTOT9wOrrTrptuoNIch12nOhYyAJKQr8QTkH5HQQq9traEJiFGbkxo7TMtpQQ+pS3DJSEurWtRKlLOPtEk69U7cWePpnNHbUK0wyxOHNQ8RDSeKAMHyEd8pwc4PcDUy/clvMAl+vUtoA4JXLbHX9evuBX6FUFFMCs06UodwzJQs/sOgridsrWVQ49IktTno8eRJfRxnvMqPjurccSotqTySSsjirIxjU1ItS3n4USEulsJjQ4rkSM0jKEtMrRwUgBJGAUgDUu8+ywwp951ttpAypalAJSPiTqvVG/LQhRw8uvRJHJXBDcNRkuLV8EoaClE/cNB7R7QoMWpCowoZiSPBYYKo7imwptlRUhJCSAQCo5z3HQ9Nfd9XBEte06jW5b7LQjMKU34pIC3MeRHTqSVYGB166gJMncCvrc+jYrdtwTkMvSShclQPZZRhaU/2hGfiU9tb1LsaDzgzLklyLlqkM825U8Dihz9NDSQEIPwIGQPXQe+3NAkUK3G01N1mRWpizLqkltHEPSF9VEf2I6JT8kjVl0aNUKLZSUhW4G7cAN4UzX0vFeOp5x0jH4cD+vTcT9kfdpM7JEDd3eRAwP6qxjj1/rKtOZP2R92goHtGtF7Yi+EJzkU11XT4JSCf5NblTCk7a0SdHSpUunsRpkbiMqUpDYKkD5rRzR8+WNeXtAHGxt99cf1Hlf9VqQt5txNsW68ApbL1NjtKHL7Cw2lSFdfiQU/inWXVTNyFuyK6zLRMMmj12m+HDUV5Q244AEEfDLvuhTj1Kjqky3JU2euRDise4Tw28zIEVHhRnXggtcxjj1VOUTyHUxsnJ66vdwRG39vpsKG0lK6HUfDbbUMBqM9xOfkG2ngofAsj4aoU8Knut06ATEYmRw8JT7qFCMsYU4tXMBI4tT3cJIOPdSOuNB7VKozqhDS8USW23lORpK20khpt0NzMuf2HhuS0j4KAHw1L1KpTV1aMKvVG4MlDbf0krl4iEsONhUhrKcjoqHNSMdio9uutagzjUKJPhvxpjM7wE+I00Pq5DbbiJPAY6qJakuNY/4Jfw1JUC0LvmUpmmVOElTiHJMeQ7M6tPBRa5vgA5ClD3oBWP+6jPTQVSpQR7rMiKKY8CqKXHCg4FKjyWz4D6TjGFEuzl5wM8CdSO29VagXpTqvIktx5Ep9uLLilogqalI8ZLoUfUSJLbJH/B/LGrtO2zdqFN8Cs19qEmQxwcajNpAS+pkoWtClYypRckKJIyeYz9nXrC/gngOMzHKjBnvrccdak8i6CEreex5Bxwgpcx8OI9caBVxlPUi7E0urYlvt3PUaK8xElpcWiFUyp1t51JScEcVKwjGE5Jx21L3LZt3LtmyaZNpqXp8dbtGfddmANuJCHENPKdCSpCVNreweJVzLYx10wHb8prVaMyj0SCBMd8GXMcdQh4uIKmm0rQPOfOFpB6gBKj0BGq/a1dev8AqdWcuO6EUOnwnUJRTebTbqkLZQrkoq5J8M8spOCsH1SRjQUS89l90zLrFRj/AJK1KHU15dggLccjoK+Z8LxEpBIOCOo+7XRltv0Ot2+iLHZZcYjJEZ6I6zxLCkpA8Nbah5SBjoR2II6Ea+bNp1LiRSqiV2ZUoIHhhLtQMtCVDvhaipWflyx8tfF2U+VFWblocZb1TiIJcitrCff2h1LRycc/VCjjB6ZAKtB7izrSCFITbFFCVfaAgtYP7Naj23tkul8qtilpMhHhvKQwEFxPwUU4JH361abult/OQ1i6qbFdWM+DLeEd1JBIIKV4IIIIPzGp+PcNAkf1iuUx3+0loV/IdEIX2urmpe1W1rdItSMxTKnXpPhj3dISpTaE5cWs4JX+YnqevL4AjXATi1OOKWtRUpRJJPcnXW3+qNvokVSznGJ7b7Hgyk+EhwKCFZbyrp8QR+rXI50ANfpZ7Gj3jezbahzkpRKQfwlPD+TX5pjX6SexMlSfZutwn1clkfd7y7oiT9lVvw9nIbfUcJ85PX5SnNQ283s5WjuAt6ZFDFDnqY4odjRUgeKPsqIBGU46EevQgg5zYfZpbDG2BYyfqqxUmzn4iY6NM3QfmjfPs57q2nERJkW67VG1u+GPosGSR1IBKUjkAenp6jSwqNHqdNmLh1KBIgykEBTElBacGRn7KsHX6Oe0JvHEsBcC26WWpFzVY8Y6V9UREHI8ZwevXsn1IPoNcUS6hKXuDUazLuaTXVOx3G5UtfUpcWClKVegTyx26emgY3s+bZ3BtzetNv2/LUqIpbDRcivR3m1JYWoYS471wEcSepUMdDrs2NedNeiNSvcKyGXEBaVt0515JB7EFoKB/DW3ZlYg3DatNrEB9p+PLjIcCkKBGSkZB+YOQR8dUreG4dvdt7efrVZQzFkO/wBYjQ3VMPSnD2ADZBxnuo9BoKZ7VlagzdvWa/QJM1m4LdloqMLnT30EpHldSeSAOBQSVA9CE9dKu36qqjW5F3K20qSaHDqDT30kwWyqNGlApyy42cNhCVKTxWSghKiQHFEjX3/DXUIrsyTfNgJfo6kOseI3IfccjIdBb8vjOKQ5ySo5xx9RqkeytWqGm56ttXdHiKoFzY9zfcbCFsyUg+C6nkDxUpJ6HBwrj6Z0FUNMvLeG8Ha1edyRYDy0tKK55UlZZWrigRo6RycBPQJQOpPU9SddabC2lZ+0FGW9LNwe8Ot4kVOo0lyOw0FYKyDg+Eg8Ucis/mJyRjVBrVqt29Ok0eoIQUQpjZjR0KQXypSse9qcKj4ZVkfXPEqz0bbT01bKRvm3Y63KJdqZleirW47EfjLQ5Kbj4BHioWQeAyUpUtQcUEkqQMaDo9pxDraXG1pWhYCkqScgg9iDr61yjRvaCq9BuJy1qTYUlyFLnqNJjSnlIfZYUUggoQheUpc8UgI5FIBTjyaallbpVup3FDpdy0WmUJyUpLLcFMxcicXVJ5eZpCCG0DCsqcKThJOMao29v0JTv1ugpPHzIpPLHx92V3+eMa+9uRx3w3UA9XaUr/3TH7tfdhsttb5blOITxU63SlL/ALI+7rGf1AD8NZ2/AG9m52AASqlE/P8Aip0DI0aNYUoJBJIAHck6A1F16hRKsWX1LcizoyiqNMYIS60T3APYpPqk5B9R21IpdbW4ptKgVJ7j4a+8jrgjI+eiEnJ2LVc+4VSujcCtt1NlTjaYMWCwI4DbbYAWtY86V8uX2VfAg9cJbtBotKoNOTT6PAYhRUnIbaRgE+qj6knHUnqdbceQzIbLjDqHEBakEpVkBSVFKh94IIPzGvsKSUhQIIPUEHvoM6NGjQGjRo0Bpa3f5faGsJXUc6RVk/ZznHux7+mmVpZX509oLbQ5+1BrQ/xI2g994RxujbV4faTdIQMnphUOVn+TTG0st9jxqu2quv8A99Iwz98eSNM3QGjRo0Bo1HXLXKVbdCl1ytTW4dPhtlx95Z6JH7yTgAepI1CncO0m9vI9/SqqiLQH2EvpkOg5CVdhxGSVZ6cRk5B0Fr0a+W1pWhK0HKVDIPxGvrQYBBzg9u+qnRmF1+5pddmKC4VPfXDpjBHlStB4vPn4qKwpA/RCDj7R1aktoSVlKUgrOVEDucYyfwA1XbBKY1qqj9VvRJMpt4DupwPLJP8AfZ5f3w0EvLcR9JwY5zzPiOjp6JTxP+eNbuoR95KrppzqiG0pp0hS0qPVPJbGM/4KtSrEuK+PqJLLv9qsHQDcZpuU7JTy8V1KUqJUSMJzgAdh3Pb469tGjQY0uNuyBvFuUgJAw7TlHA75jkZ/ZpkHS22/I/hs3KGMdKWfv+pc66I34wUN+JxKvKbaYwPn7y7/AD6vOqSkBG+S1ZOXbbHTP6Mn/wD21dtEGjRo0BqIrVu23VG1mr0OlTUkeYyYjbn+cDqX1UrnrsB9M2mEw3WGFIRLeefa8JhR6hLgLiFJPYjGdBTott2zQbqfjs2Jb8mPVClVMdTDQw02ngkFpXJHEKJBV5cqUD1HlGrPa23dtwIk4SrVt5j354uriR4qFsNdAnCSpAznGT5U9Senqd61Jttyy3GptYgVGUwjC0MVBUgIGc5AKlY641adBRIW0O3USaqU3bTC+eeTDzzjrBz/AMEtRR+zp6auFNptPpsdMenQYsNlAwlthpLaQPkAMa29GgNGjRoDWNZ0aoSeyY/2595Tgj+qMT1/4JenUn7I+7SU2ZIG+W8iUnp75CP4+EvOnWn7I+7QU3fNtLuyl+IUFEfQc09O+Qwoj+TUxZCRJ2+oPqVU2MoZPr4aSO2tHd9JXtFfCAASqhzhg/8AFla29sHC5t7b+ULSE0yMAVfnfVJOR1+f7NZdUdWKQhV1TozawlNfozkZwnsHGlHif8F9ef7UaqNJpNsrplYpCqDWK6lM+S1NcU2IzQcWp8LQlTq0BaR7w6kKTnylPwGr1fBFKFIraEKLcKpo94x1w0/llR+5JcSs/JB0mPa5odUqFlXFFoq53vbMmJVhFiqV/GGyPBXlCft4UhBx6dD66C8VO+X4kX3GirolMRGebirS1mc82txxbaE8EcG0EuIUnkpZHLuOozQKduvddRERcOrregulx8LejtofUGSh5bagjygqbUWwB1yD66p2082itUy54FYu+hUWoV9xLlNp0t1SHIrwcS6A4ccUYdC/L1P8mpe6qJTKBeYg0x5tvDspz3JOUhktq96YRgqPVXJSemARxTjQXGnPuv3tAqcp9yoT1yozC0LZD6WpDRUy4pClH6shLEs5SOocJyPWgW23LjS7go1bmoWaJcjzXjJHihllwGQhHErOASwUcegHjEdSSBcG6a5UIDrbb4ZhOOtsynUkco8grSwVA5zjxffD0/TB7ajp7UaRf1RC2nwut0ZmtSWWorTbRdZLaySoLClkKjupPkz9bgkg6COq1QkwaQ9JbyJzY8CpLWOSfekPEh8IHEEBaZi0pOeuMd8au2y35GP1SvXBTLbnVuvLqLjaZ4p31fhJx4SGnVAIQEN8EnrklJ7jjqrTqZVJdRaolMpj82WttTNYbJbdeSwglv3oNqITlQW+UpUfMXgoAjI01o+4m0+3lrRqW5WolCjwWw0mA+hTclOBnzNEc8nOc46k5ydBdqDXY9SkSYTkd6DUYpHjxHynxAk/ZWMEhSD6KBIyCOhBAmO41ybun7VdjLLUi0aVV59ThOZjzyEx2kZ6FJ5clLQoZykpHoQQQCNE+2jHetyTHNnPsV1UYiM43JS5HDxHlUoEBQSD1I69sfPQLK76DAqu99zVWZKpL66nOmKp0OQ0pbbvB1SFKXxIIHkVghQOevoQbFtzbGw9JoJjbtwpVOrbbywH0LkKYktk+Uo8IHBAOOJwemfXS/oEm2lTWb2qFWkEweMXC04C3uPmUAOp5FSlfeSTraRbdSq82461NfbmRp7Cl09tDhUF9eTR+WMJH4n8SGPfB9khFsy6ZT4lWRUk+Zn3WPJblKUQQnBeTxx1zgj4aQNh7a3LflUl021WI8uYzH96RGXIS2443zCTjkQMgkZBI1K0h9yLbrl116iokyoLiGYDqlFPIgkeYA4PEjueuiNVqvbm51OuiBMdgzpqESovuy/M3yGAlYIwpJIII9RoN6F7O+8EivijLsyZHd4lZfdWj3cAd/rQSgn5ZzrtT2OoSqbsJSoDiuTkeZOaUodiUynU5Hy6as+ym4dN3M29iXHCKW3ynwp0cHqw+B50/d1yD8CNQfsrOFzaRAz0RV6kkfd746f36CQ9n1IFkVBvIPG4quMfD+PPat163HTbStWo3JWHfChU9hTzpHc4HRIHqScAD4nVQ2DbW3aFWCVdTc9XJ5eg9+e7aS/+qD3smLQqNYMRxSn6g775MSg9Q0jo2k/2yyT/AHmiErSrlpt67iVy+K/HU3KA8Z2S86S23y8qUAenFOEj5J1Va7HjUCI0zR1Jg02ruKQp91QfeeaHTKUjoEdenqc9dYoUSXcVolh+TDpkZ+po83EILwCMEDA8xzjv651JNVRqfaE+VBoTTiaIoMUl5SStXFRCVKx6kABX3nQTWzK92G9wZ1rbdVWtyIravFnIjlLLRAABWQ4ShClHpyzk+mrFdO2+9K7nnVa8rZl1GlyG3ELkPuIqC2khBLZwgrWnCgnqE4Hrjvp+7PKt/Zba6nSL+rDUav13jJkjw1KdcWQAhlKUgklKSBgD7RVplRb8pjrTDsqnVWmtSeQjmfHDCniBkJQ2pXNSj6JCeR+Gg4DuSqwxDqIqkir+9yIAR7mWCqN4wQkgpXkpKQtOenxPU6qtdiXjJpUS9qnTqjAQy6lmFPEYstKKTySEHpgpOcEdOwznXUdTvWHMvarVWxLBpNbrMivQoq250NLbwacZdKkcV4U05yYc5FWO+cHGT5e0Nt4m86vSLmqtwT7coVUUhibGqbqiqmPoBQhtmODhfiEHoB+aVA4Og1X9+bcunbal1KpPyWr1gupYkUyK2oLnLKePiIISoJGMnlxKk9QkAkHSbq0O/wCpXEp80lNMqr8gOIlvthngpCQGmEk/EpQn6wklZGeJKuX3vZsfV9v4ka67VqK7gtN9pK26rFPVonoefHskk9FA464ODpqWA4jcaxrfnraT4TiTS6kww2pppmQzxWlwojpDr63E5XhS0pHnGRnQJRFImUq6KbVZdxPz6w3IawjxVMKCVDLfhu8wRlK2sYxx5KyAGznqH2K7PgR0V650vl5bEs01ltRBLawlLjriiPKXD4iEEjt4ZGSCMfVrot9qZKnyam1UnFNpZedWmO4YLChhCVf97REhQCghJW4oJRk5PEWT2TIT1uwbxs+pTnZtUg1oTVvONqQXo8hhvwXcHqOQaXlPcEY1RarHSpO9+4xOMKbpZTj+4LH7tYsJfLe3cxOclIpQ+7+LKOP/AK+OsWalaN+9wgVkocp9IcSPh5ZCT/m69rIajN71biqYU4XHGqUt/l2C/BcTgfLilP450DBGfXWAhIOQBk+ulPvnuhcdlVSDSLbtZupSJLBkLlzH/CjtoCuJAx5lKBwTjsFJ78tUlv2hrkokFuddtp09cMEF9ymTVKcaT8eDiAFfgr+fQdGOrbabU64tKEJBKlKOAB6knSYnbk2RcW5kC37UdMirSXS3JqcOE+SUIICk+K3xCkgE+ZRUhJx0OkH7Q/tOxbuahUaz4cxFISfEnGX9WZRx5WylJPkB6kE4UQMjA60DbjfWqWpfUW4RTYvgsw3Yi2W2s8kLKCenJPq2k9xoO8G4sSZAXEdgVlyEam5Ge8/FMk4wt1aU4PhFwFJAABJKiCklWpmkQ3ZFuR4Tz8WP4RSlP0UottNpQRxQnr0A4gEdsZGMdNVHYXdanbqUSZPhMoYXEWhDjXI8xyBOVJ6hPY4wpXzx21ZpgTb9eYlod8Km1SQGZLaiAhuQsYbcB9OagGyM4KlIwMlRJEtSacYAcBmzJXLGDIdKynH/APOf2fDW9o0aA0aNGgNLK/f+2B2y/wCJVr/q42mbpZX7/wBsBtl0/wC86z/1cfQG+4SahtxzXxAvWIfvPgSMDTN0sd+se/bcZGT+WsPB+H1MjUB7Re/1L2tUzS6exHqtdX5nIq3FoDKCkkKJCSCScdMjvoGRuFe9u2PQ3KpX6rBhJAw0iQ/wLqsZ4pGCSeh7A9tc2XZ7WkaG8tdGVGqsZ1whUYIdadaRjuh4pSAfhlCtcp7jXnW79u2dctfkB2XLc5cEjCGkgAJQkegCQB8TjJJJJ1XRoOkJ+9YvS0Kpa1TjVuqQBWIs5p6a+lTiY/IBTLhTgEBZRjHfJOB21u7pTrcq0K1rGRUmnqfSaemVIMeSEtMyX8uvOH0ynmkJBzgrI+OkvQ74YhWZMtyRSG1h5pSEPtK4qCs5SpXxIODn5DVOcdcWSVKPUAHHQEAYGg/Tn2e73F4ba0+dPqsaXPQ67GW4khKnvDWUpXxz3UkJJx6nTJ1+SFoXDUrXuGHW6YtIkRHQ6lK+qVEHsR+8dR3BBAOv1R2+q0yu2ZS6vPiORJEpgOLZcaU2tOe2UqJKTj0yfvPfQTUh5phhb77qGmm0lS1rUAlIHcknsNLSqR7kuOXIrFkSm6BCkt/Xy5TZP0ikYAUhBGGjxGA8QSRjyKSAdWS7W3K3cFMtpKh7iP49VAfz2kHDbX3Lc6n4pbUPXVmkFDcZxSshCUEnj3xj00Cei0O2EXKW7vtuqVNDFOjBh+eHKqwCVu5UCApKB5U9SlA6Z6an0Qtm3oran4FlKUEJXlcSO2vr2ISRyHX8dWFqcFSqylp33cRoLPB9wZ4AoWoKP3ZzqwtKCiUnqU4yT66Ci0l4JrkJu0Gqyqnod4zfekOpiBrierZe6lQIGPDynuDjOdX4dtGjQGl1ZDfh74binH241JXn/wBW+P3aYul5aB/297+GD1ptIPy7StEbTnTfdj+ytl39klv+fV41QZalJ9oSnIyeK7VlHHzTKj/0tb+7V7xbBtRVblJZUFPIYR4ryW0gqPc56nAycDv64GVAixVqq06jU1+pVSY1EiMIU4464rASkDJ+/oOw1y3uTuPQdwr8hN2XuFcApy6epLzNNlPwvd3W158RQITnklQGcEeXXLG5V83JelwS51artQntLeUplt57KEJz0CUDCUj7hrwsG7JFoypsuJFbekSI5ZQpZ6NnIOcev3aB9Oe0BXNvHizQ7hqF1NugpUiurXIQgjstt0cVHv1GSD8RpcXzvNUb9rzVTvWAmptMKPu8Bp1TURkfFKMklR9VKJOqPDo12XdOXJgUeq1d91YSVx4y3BknoPKMD7tWCkbM7oVR0NxbNqQUfR0JaP6lEaDon2RqXY93X/MuGBQo0ZykQWFxkNo4eC+tbgWTjHI8Upxn4nXXevzu9myXcW2ftH0u3qyH6WuW+IFRiqAVy8RP1YODj7ZQcjt1+ev0R0Bo0aNAaNGjQGjRo0CX2nShvf3d9COxcgKI+ZYVn9unMn7I+7SX2r4o9oXd1A7n3BX+QOnSn7I+7VFZ3Y8M7UXqHVcW/oWbyPwHu6s62drf97W2en/4VG/6pOvPcxlMjbO72FAFLlJmIIPbBYUNfW1Sy5tlbC1JKSqkxiQf7knWXVOVeE1UqVLpz+fCksrZXj4KBB/l0nr2obF70i211yqSqLKgS36RUpLHBLqFgA80qWCEhSmG1JVjPFwfHTr1TKzBiNXoIlUgMTaTXkJIS+hK0NzWBlOUn1WgZB9Cz8xoOabt2YhVCttUNmux6zbsOG6xDlhMifUGi5ILxPFkJSVhSnByUeOD1GdWO1NirWod0U2rKXWIwRNaS6/V6nHbddCeqW0NMA9S54WQsg46euo3cZ25JQqFuN0uZUlMMSkmZJccdT4scpUSAsiOwgpC0lQSSOSeoJGN2330yK5EizX0OTagzEqSZ7P1yTLjksOEEKwsKfiRVdB1C+/UaBnyIu3tMZkwpLDtV98U2FOukIaSTHSkFKyUgZQ8peUknK19c4Aj7UXKvOXXqrR6NT7bqVCSqBHdVHafMhwpLvFZKeQZw4MoBSrK1ZwRrViRbeq8IxlQWo0Fl9phceoKQta0NPLiOHgR0y24yeWPz0gnAxr12bn3E3MqU2HTPpSnyAlNQbadQhTMxKlZ4FRAUPDKApJwUhKOqiSAErS7cjTrFsaVLSI1TqLkd+ozYJLLjynWlOupK0+bgtXQjPbGMYGNusW+i3qhO+kKzKYtUw3Za33WG5C4wRjmwp11Kz4JB5pSQTkKHLGE69o9s3nKpSqK3LgUSjtvtuU84U/NhIQQpKAQQ30IwM8gE9CF6RftsXxc1tU6lWXOuKJUG6ll+azGg+7qVHQscQsla8lSgc44g8e2g5wu52103JKq0ilSjEqcpT8RjCGVNR84SVJbCU8ld8JAA1puMwot0SpVSjLh0eawv3daU5JbKfLwPUAkY76slzXTZzsuAxOpCqkUJSoulXENhXXt+d9x6an9wKhaSqNGg1deGHSFsIYHmQAMBQx26HGgp9FTQa9achMxh+DAo7hcT4Tg5O5H52R1Ufl8dTb1amV3btbdpxH4iozqWVISsBSW0jPRWevp89Zqdo2o3Y0iqUxUx1oRy6C2+R4uO3IdR0Py6aq+1saZXXJVAelzmaYpsuOCPxAzkdCSD3/doJyfV5tt7aw4UoRn58pxXhp4pdSlHLkVK7hRye/Xv8talvUyXWotQvWto5vRkkwmFDilxSU5GB+iPQD119ViPItS84dPtukmUFIThbifFW7k+YBXZIHrjHz1YNzaROqtbpAiT22vCyTHSrLuc55hI79sZ+WiLH7NO67dq3bAn1hTVOhViT7hNDaODLw/NfI7AoUoAq+Cz311B7JzqHdqn/DKShNcqQSUnIIMlZB/brkTcBdtS59Gt+rxpLch9Q8JTWElkqOMk/M/f211B7DKfC2RXG8VTgYrMxsFRyeih/8A9/HQXDZeZHgWLXJsx1LEePcNZcdcWcJSlM18kn5Y1xBe160jcHca5L5roIRGcUKdGC8EtJwlkDr3ASSfmrXcOx/CTbVxxH20LbRc9WaUhQyFJVJWrBHr0VqD3U2Z2ckUydctctNiKqO0tbq6YCw48ST5QlsgLWpRwOhJJA0R+dlPqHhymCv3gwYj/vCWQeXE5HTPpnA08tr9vbxr7Uy46uti0bWW405Fdnp4pVhxLiQ0yMFzkEkY6Z5dM9tM+n7N7c7WRIFeumFKrFcqk7+o9uqeDjSXjkobI/7pwGOSz0z2ByAc0qh1Xdu43Wq7Ubgh3HRn1w60x4LbUOAypAUnwAoLQVJdHJCvtqSArKcJOg9X9ya3UrmpEayLTqdzVR52U0/LrQDEtoNtoWXI7asNMZQ6lScp69AQc5Po/a9DtlUuoXbcFReqFYchS6FMkFTlXaqLKOa2PDOW0ZI6JJAw4U5PQ6k9xr/Zp6bqpe11RZjXrCmRH6k5UGua6m2W22+bBUSCAnw84GOPUDBB1s0vYtq97zlXXuFQF0ZxZYeehwqmS1Jlo5pcewkeVChwI6hQIPXroISr3jfm4tJequ0ca36bUpMpqLVmkhf0myUJcU34y1JCG+iVp7HBJHPvi40/ZSnPGQ9U4zlNhVWmR3qgtypuOTIdSaXyQ624SpOU8lebJ+yMdCc/G9u8dl7LQH6fbVOps65JzxedhxyE4WcZdkKT15H5+ZX7dcjbnbp7qbjR3ZVYnTGaQpeEQIeWmB8MpByofNWfXQdY1Xc3ajaSzTZ064nrvkOre94jt+G+68p5alOeJjDaQSs9D6aQ+yN9W03u9W7Xt+mPUG3bnb8GPBnzFraZnoPJlSigpUEFWUFAV1CsZ7Yo2zW3FR3BVLMGO9IqNMbKxFDCcEY8hUVrSMFeRjB7fPVmd9mfeqoJfqc2lw0Smmytse+Nhxak9QBx6Z6YH4aB3TbWS3U4D8uT7rTKVJAg0iI2mLGRIHmDkjuhsfZIRhx3qD5VKCReNqY0obnSAUpbei0ta6gtDIaS6Hnz7unjyUvCSzJWFOHmrxlHoCAERQ9xK5c9NhqfeNHvCnYplSeNOcmVFa0oXxUyheUMckpwtflIUjJyD0fPsqUhmHa9wVdMFqM7Uqy4eSaiZ7ikNoQjC5B/rigsOkkdMqONUTtnhJ353AIHm+j6QD/gyP59ZsdPh737jZUT4jNKX3+z9S4Mfsz+Os2iCN9b+OAM0+k/j5ZHX/6+GkT7Rm6VZ243DvZmhLZ9+qbVORlxOQhoR3QSDyBCgoggAfM4AwQs3tJb3WlSYircqNBZrMl1xxoxUzuEiOnipPikoB8PIPRJUFEHqB1GuP8Acqu1yW/Hps95aGWGW0hAJAcVwBUo/Hr0/DVQmSXpUx2W8rLzqy4tQAGVE5JwOg/DV+9n21I24e8lCt2tOOuw5Li1yfOeS220KWU57jPHH46Cu2VZF2XnOEO2KFNqbmcKUy2eCOo+0o9B3Hc+umlcnsy3dbVmVa469cFvRFUuH73IhJfUt0A5CE9E4ypSSkdcE+uu8adZtHo1IpdKttgUOJTZCXmmYYCULABSpKx+eFJUrJOTnCs5AOqrEsKdckS46fuEhqfHqcZuJzbWlK1JS44slBQlJSjzNlKVFRSQvqc5ILT2K9p6/ZcNy6avMjFqrRAY7DDnIeGsNLQskdz9tJB7cenc66EuulCs0J+CPDD3JD0ZTgJSh9paXGlkDuEuIQr8Nc53RcN8eztFTT6Ti8rJp4a5NS0luVTm3lOBtJeTkKRyQoBSk9MpTgZGnPtVuZQNybLfuKhrcZSwpbUhl7AWytKc9cdxjqD6/gdEXnRqBsmpVCp0552fHU2G1MhhwoKfHQqMy4V/A+da09Onlx6HU9oDRo0aA0tL9/3/ADbM5wPdayP8nH0y9LW/kk76baKA+yzVs5/uTOg89/M+9bdKAJCb1hk/8zIH79cH+0Y685uXJ95qztWklHiOyljiF+ItbqOKeyAG1t+X0Odd4b9lIk7ecklRN6QgOvY+E/rlr21bbqMW65c0UppMYSETTIYR5h7wFtBLh9RiEkpHoVq+I0HNes6xo0Dl9lba2n7jXTUZtwKWbfoTCZM5ttfFbxVy4NjHXB4KJI9Bjpka6SjtbW7ax4VNYsqHMrtws+9ACnGS1HSvqhtQAUoISjkfKCSGyT1UCedPY3vhq0N3Y0Cckqp1wJFNf6nCVLUPDUR/bYBPoFHXa12WladMtqR9KVSpxW23PFiPR5ZalML8ItBLK0YWolB4BJKsjA9NBXKZ7PGz1Sp9OqbtAi1BxbQeMph1bTUorGefBCuISeWQB26fDTjistRozcdlAQ00gIQkdkpAwBqqbWVCQ7RpFCmQlQpNDdTC4FtDYW0G0qaWEoJSnKFJBA7EHVw0FdgkJ3EqwX0U5TYhbz+cEuP8sfdyT+sanpHHwVhYBSUnIIz0+7Vb3CLUCC1X2nVM1OErhDCQSZCnCB7uUj7QWeP3EBXpqr/TFVrSKmzc0yoUB5noijwHA28pvp9YJHdz7QyW+PDsc9yFprMBhMavrblBK5zCGFjHRry8B269eWpinSUvTJ7QUkqYfS2QD1H1aFdf8LUID9FS1UxMx91htppTTbilLUlClBOC4pRUtWULOT183y1G3HbNCTMqFwtx2KbVm5BkJqbRDK0qTGAytXTmjAwUq6aC96NR9tTnanbtNqT7JZdlxGn1tkEFClICinB6jGcddSGgNLe08j2g77HoqkUk/tlaZGlxa/Ie0LewPY0WlEf4UnQe1TIHtD0MY6m15/X/AJTF0g/9UNuCmraoNs++KM5lK5io6UZACiEpUVenRLnT5g6fdWP/ANoe3xn/AMGZ/wD8RF1zz/qh1sz3apbdxRUOPRyw8w823H6NqSQouKWO+UkDBHQN5z8COQ8626LKahViFMfYTIZYkIdcaV2cSlQJSfvAxrT0aI/TCiTafuFbUK7beH01Q3Ww23RlJDCWcAhQ4khK3AruFnjxA446lVaNRjMu0i2JW2EB6sIfaj1BpMSF9aosFxSkp5YS32+sHQEFOCdJ32BburkKp122I1Ik1OnuNpmHwQhJYc6JyVKI6KGBjr1HT111oUXhUHVPsCkUNAPFAkR1THlp+KihxCUfcCv7x20HPXsmT6FD3LvqlXVT4VEuqXU0Oxaa82lIbbRywlkkdSCR27jBGurNcke3NblRg2xRrwlv056qRpyI7VQhR1RX0pKVKCVDmvmAUkggjj8DnOnh7Nd21K9dmaDXquornrbWy+5jHiqbWUc/vIAJ+edAx9GjRoDRo0aA0aNGgSG1aFte0du2hayvkiAvJGCMs5A07k/ZH3aSu22U+0ruwhRyTHp6hjtjwNOpP2R92qIS/gFWDc6Tkg02UDj+4nWps0tbm01qLWSVGkRiSf7mnW9fCSux7kQCQVU+SMj0+pOo3ZFRXs9aKjnJo8Y9f7mnWXVcdV/cCDKmWvJdpzaXKlCxNgpUcBT7R5oQT6BRHE/JR1YNYPUEaDnreFSZ7jLFL96WqrPsV+Ilt/wkvp8ENPx1dQCC0guYOOoOSOmqxZtG4zYdEl1dh6dbtafbW9T0lwFGGpqEgEAnK4biePwJwdOFdLt+XZDU2v0v3/6GfkQvDQ4U+QSFNcFAEBScBJKVZGOuNLW5N1U0m36SqzbIptNgPhl+M+hkFMfxkuoLoQgAAoBQSTkEO4OPUJGnx7hcpphs02oNqmyVsMuy0lLbjymFNBwpyFcfEjodzgHirPXJw8bXo0ag0ZmnR8KKSpx1wICS66tRUtZA6ZUok/jpbbGN1O6ZT9/VqXNkx+KodGRJ8v1YWrxZHEHjlxWQlQAwgADoTlu6DGqRee0+3t5VhVXue14lUnKaSz4zy18ghOSEjCgB3Pb46u+jQc+3/wCzFs83bVVqUKgy6dIYiOvNqYqDxAUlJI6LUoYyO2q5V/Y6tqqxYzzN411l4NAfxhLbwHTOBgJ6Zzp570ViPR9uaqp8PKXLZMNhDKOa1uODikJSOqup7AE+uOmp2l3BQ57SBDq0J1WACgPAKB+BSTkH5HQcuTvZ2rVqN0OgUm8IcpFTluRWve6eQEEMPPnkUudiGiOxPXXo57Om5zdPkQoVYsyKh1BSFsh9BBP5wAR0Oug7/kx2brsBDrraFOV54J5Kxn+p0wdPxIH4jVx0RxXbHst7u29U1S4tzWrKStBStD0qTjr648I9deL3st3tWdwpq595UqLMjR40sOMsOrQAtTqQhOSD5fBP+ENdtarysx9xAokATqWEj45ZdJ/kfOgRlP8AZQpdQqkep3veFRrDzIAS1DZRFQOucZGVYz88/PVr9kCG1TrCuGnR0qSzEumoMtpKiSlKVJAGT36adCcgYJJ0pfZjQGaPerIIw3edST0OfVGgkdg3CqHeTZBSWrvqKcfepKv9LVgu55E257dt9OVKXIXUnhjIDUcDBP8A61xnH4/DVe2FI/2dpH5t4zgf8Bo/v1u1SrxqVUr0vCS5HDNHgoioW8rihBbQp5Y5AEgKLiAcAnKR0OMaIhrpmbTX5e0y06vVo5uGA0unKjLcLbg8UIc+q5dCsKSghSPMCnHbINJ3mvC5bLFMoNq0BmtUKa61S5s91TbqqrMUpLDjDy0rSWnChKgXFDJWAMAA6iLHqLFAset7y3fQ4VWfiNINNqDUpLxllbp8o5JLjbiHXXG0lQBCClJHlzqV9nu2LUotv3PuTGfrE6D7w9KiN1JxYdbDacueK0Rgv+Jy8/UkccYOchP2JZ1l7R2hHqFRoZcq0qcuRAhoa94mB1SVBDDY5KHiJbwhRSoI8pPQddUe/wBPtIbiT004W1NtK3iskogVBhMlxOMAOOFwdO5wB+B00qBalSfktXJcdEqj9yOsqQ7JarAQGUqPItNJSoBCAcDHc4BJJ66kqklyAgqmP1VoAfYkV8JJ+4JySfl30CRsr2foFsXRBfrFLl1D3tL4UZ76HlBwNKUClLZ6noepVn4Y76bFC21YbJbboUWO0R5lSwFuDP6PNx/9vHUBGj1OubpWxDmUO46FTVtzJjMxdZkKXJKEJSEFCurQPicsKCVHj2AByz5VOpMVfgyLrqMZePsrqnFX7eugjqJQYNuX5AbjcfEl0uQlxfhtoU4UOskZCEpBAClAdNXnS7qdGhxr/s6sRazUXkKkSYpPvynkPKVHWsJUCSOOGyrIGcpR6Z0xNAkt9tq1S57t/wBnw2/ptEZyPVqelOG6xDUMONqAI+sA6pPclKRkYBE/7L1OapmzFKjsTVTmi/KUiSUFJeT47gC8HqM4zg9s6Zx1q0unxKZHXHhMhlpbzjxQCcc3Flaz+KlE/jqilWoVfw43yCDx+jqVj9UnXIPttUcyN6K/U3pbUdDEOHwDmMOZaV5R1yVZT2AxjJJAHXry0ir+HO+wV5xTqTgfAYk/v1y77Xdt3BcO6F6TYUpf0VRokB6axyPYsq8NQHr51FPy557AkByydWLbi8KxYd4QLpoS2kzoSiUh1HJC0qBSpJHwKSR069emq84lSFlCklKkkggjBB186D9FNit06RuwZLtIrtUt6tJQHJ1IIaeZz2LrRWgnBwMhJAB6kZJJaSrcqL6/45eFcdZPRTLQjsJV/fNtBwfgoHX5i7SXPKs7cKlXDDjmQ7GcUkNB0t8uaFI+0Oo+1n1HxBGRpkXnu3uPd9KVXKlfUmhJ98MZUCAtxhtpPwwg8ien52T0PXQdPe1ZU7QsvY24aOFRm6hWWksMR1Olb8hZUkeIoqJUriATyUfTGc40rfYnoN1U21rgqX0dIRTK3TeEJ1XmQ5I8VTQKkp6hI5dz2AWex0gKtFTVrhUuMKgZqJDTLDynS47LkL+xgrOUgkZ9dd42dUapQoB2zWwyirR4C0UqQIyorT6EYSXMAqBxy55Sok/nBCiASL5ZBC7fbcbbktsqccDKX3OZ8JKilCh8EqSlKgPQKxqb1rUqI1T6ZFgMf1qMyhlH3JAA/k1s6A0aNGgNLbcHn/DbtoUJ/NqgUfgPBb//AI0ydLbcdzhvHtkM45vVEdf+Lp0Hxv2hS1WCU8PLeUE5UrGPI8OnxPXH4nVsvCz6HdcR2LWo632HYzkZxAWUhSVFKsnH5yVISpJ7pPbvqqb9hgN2M48Hipu8YJa4AEcil0ebPpgq/HGtjfLcyJttb8R73f3uq1OQItPjnIQXCQOSyOyE8hn1OQB30HNe8PsiVSC21O26mInstspTIiTnw28pYzlaFEBGD06Ej5fDXLVWp0yl1STTJzRalxnFNOt5B4qScEZHQ9tOTem9r+qK5ariuxqp+8SMMU+KpSWWkIJ5FTQPHHYebkfnpcRKZDkQqmpmUy5IZjMutl5QbCCpQK+PXGRnH6/XQTuz1mTKpfsWDVIdQh/VOuMgx3QpTiU4B8ozxSVJUr5AjuRr9ALeqtHYbRPqCZ9UrryAp1aKa8ooOP6035AEJGcDtnuSTk64mf3evC6rzs+qV2WmnNQIyIIqDbBX4eV4XKABHn6JJAIBCcEEEg/otHUFsNrS4HApIIUOyunfQQdmU6Wwqp1iosmPNq0kSFsFQJYQltDaGyQSCQlGTgkclKwSMasOjRoK05GRUNwS5KSHG6VCbcjIV1CXXlOBS8fpBLeAe4ClfE6xeVKgVaiSok9ll9pcpkgONg8SFt/vHf54171eLOhVk16mtiTzZSxNi5wpbaCopU2f0k81eU/aB7ggZS/tM3o5R7SoNcoleq1OnvVoIZbEdxCVtBaVLDrK08jxKU4ynOSR6nQXm67UpLVfdmCTUIDIaiBAjVJ9lCVBb5USErCcYx6fH4nU1R7Ut1M3m/HfqDjkl51tU6U7K48TxyPFUrHp21ytWNydvL1vGmUuqS7jn092dGXNn1MqDY8NCx4Sm0+RKFLWMniMJB+OddT2zNpdSq9Hm0iQxKhOM1JTLsd0KbKfeGh0x0I0F1AwMaNR1WrtGpMWVKqNTiRmojSnnyt0AtoSMlRHfoNLbe3d6RYrcBNBoKa88/CdqcjnI8FDMNviFOZwcklaQB8dA2tLi28j2h7xHoaFTD/jyNaNm3PeF57oTp1Ilwo1lUdwU+TGday/KkFkOKWlX5vBS2047EcvXW5QTj2jrnSMYXbsBR/B18fv0G5WWz/D3bbuO9vVBOfj9dF6aus+HEnRlxpsZqQysFKkOoCkkEEEYPyJH46pNceX/D3bDAHk+gaio/8AOxv5tX7RHON5+yFt7V5D0qh1CqUJx1wr8JCkvMoz+alKhkD++0g93fZnrm3tCcrsm7aFJgJWG0IWHGpDyyfKhtsJUFKPw5fs66/QWU+zFjOyZLqGWWkFbji1BKUJAySSewA9dfn3vtupIv7ceeufAmuUOjJIpDCApKWl5HF90YyeZx06YCgPvC4exVVKxSqfVIlsJo1RqLj3OoUqQgsTQhPRK2nVKCFoGTlJwUkk+unKxvtUKjddUs+lWzTBXqcn6xiVW0ILjgGS22nh51j4BXfpkddcY3m/VYUhuqNs1umV1hpAmLEdcRMYqBPIYAI8TJPXGcHvnpBojfSDcBcYSHJM0ONOuuIBU4+FcshRPQ4UkE50R2De+2O4++zNMmXDd9tQbejuqUzGpTL61lWeKysOBJDgIKcH7PXpp/bf2pSbJtCn2xRG1ohQW+CCtWVLJJKlKPxJJJ+/XNnsebsuw6RTLGuRttph1xTFMkhvgUrzktuAfEk4X6nIPXXWOgNGjRoDRo0aA0aNGgRm2I4e0/uyjPQxoKu5/wDFDTyT9kfdpE7cEj2sd1ED7Jp8En7/AAkaeyfsj7tUaFxNl626yynuuM8kfi3jUBsOrnstZqh60aL/ANWnVnqAzTKgPi2v/M1UfZ5KjsdZnLv9Dx/8way6r5o0aNAuKlHcpzV/QlHLbi26uwP0ELaSlf8Ajx3Ff32lhSrfXX6DDtNCD4qnpNFlKbUAlDfgR0vLKftDo2tacHooJSe+Q3r1aSi7IjCyEor9Nk0lKlDy+MEl1sH70B/9Wo/ZqhFEd+45bipEiUVNsOKKVeXllxYUkAK5ucvN6pQjHzC/UqDFplMi06E0lqNFaSy0hIwEpSMAfqGtnRrylOoaSCVNg56Ba+Og9deM+XGgQnps2Q1GjMILjrrqwlCEgZJJPYa0mJ9QW4lK6a2PNhXCUlRT17kYGuS/a/3kr1s7zUKi09vlTaKlmbLhukhua4o8glfoQkAY74JPw0F1u6Vu7uSzFiPbZU1+hIqfvcZx+cqG6Wm1HwjzJK08x3IQDgkDvkQ06l7wW6/4ldoNdk0EJ8wgy49ccYA+Lb7QdWB0/Pz09dT1q+2DthUY6fpuPWKHIAHMORvGbz8lNkk/ikanKz7VWzMKluy4tfl1N9A8kWPT3kuOH4AuJSkfidApEI20qV6UCrRtxreVHZ8WVUvphvgltJSUBpEZ10oS7y7BCEFIycnoDeYG69o0urNwKdfCEwlqKfHRUnm2yr4BExpxtA+55I+WpT2cpVj7pVm4ty02zRotSXOEVhgspU+02hAUHXO48RZWcqAHRAHUgkvSq0ynVWC5BqcGNNiuDC2X2gtCvvB6aIV8bcCjONFxO4i1hIyUtu0+Qofi0Tn8NRNy192sLoi6XWbyXU1T0imkUP3ZLoPR3KltAFAaKycfAEdcamJ+0q7Yn/Tm1FVFsShlT9LeUt2ly/XC285bP9k3j7tJ7end6867tjLqVNpFIoNQtutstTudRQ7LQ4gJUVso4/1slSRyByU8hjGdB1yO3fSk9mh/nHv2PjHgXnURnPfJQdSu2O6EW77UoFTUiHGl1KIl51lUsAoWMhQAwfVJIzjpjVM2Gn+7St1HI0pLfG9HihQSVp860jsAeh7dvxHfQSO3VzQrbVfLLhD9QnXtNYp0RKgFyXfd2FcRnsAMkn0GoX2gbJvFzaiDQaBBiVSMqU5UbgcdddSp1xS/EVhtrKloKlueUZICUAZwNWfauI3PG5sRdPhz3E3fKLbMsDw1LMaMU8jhWBk9wCRr0fvip2E2Yty2p7tTkuDwnaZIkTEpST5j5mhgDIOM4Az2wMgqt34kbai1bKp0SoU96VHkrqEmkzJDz706QriFONqIwop6hAWB1II8w1f7zgSLf9nC36FLpVQenSFUxmoQactapUh0utuykpUDyK1cXcqz6kk+upC+7Lgbmop15WVcrbElxtll9fV2PMihfiBC0H7C0klSVABQJ6/KD9sG/q/t9TbRq1tssPzU1VbpZdaLiVoSypKgQOuMOYyMEZGiPWkbX3rc8dcq6Ljk2zEeIU1SIEpya60juA5IkKWOfx4JH36nKJsjT7bCnrXvO76ZLKuZcVOEhC1epU24kpOfu0nKB7akHwgi4LHlNupHnVDlJUM/2qwCOvz1JTvbVtNLKjCs2tOuY6B55pAz94KtBv39TNya3u7bFk3hfDVEpT0OY5GqdGzFeqPHhzbUCo+GsJ4/ZJGCrvnTApPs7bSxUc5VuuVeQclUmoTnnlr+/wA2P1DXIHtFe0A9u5Q4FGNsMUtmHK95S97wXHCeKk8ewAHm/YNRVKs7eGJSoU+16xOkU6VHQuO5Cq5aBChngELUhWR64SR8zoOy617O9huue8USbXrZ4ZUEU6puoZCsY5cFEgdOhxjpqc2XumA/FkWRKuyn16vUFRZdealJcckMAjg6RknICkoVkkhSTk9dcDV2j721KJIRV415TozGEuhxTzrfUgfEg9SO2dXz2V9sdyG9zqdVl29V6bRuLjE+WviwUtLQe3idSc8egBOg/QPRqlotKWw8RDmPIa48cqkpKifQnLR6/jjU9RaYqLGCJzgfkZILnLqsDIBOABnB64AGgp9nrUd+9wErB8tNpHD5pxJ/fnUHaTLUj2lNyoU2O29GfpdNUpDiQpK0+GUkEEdR31O2kMb+34M5/qRR/wCWXqNtNYc9pu+UhJw3RKckk/HLh/fqjljfGNshOuE0jbCk1Op3GXnGvCirUuESCSojkcnABI4eXAyc+qFYpTjlOkT3HAhlpxLSVDzBSznp06joCe2uzvartWmVSJUqdYe3sORUaSz75WJ8OI2hxgLSrw0Ix1UvI5qCQSEjuCRqiS/Z7gV6w6LdW19xu1OEGUOVCMlQVI8biOZTgDqk58hHIdcZ6DQISZb0qNUlUiBIZkOiIl1/mQkoJ8ygnPUdAPnjX1TnX2KeipOiBNgmeXZEbj5yoYJxkdeh/bqwQ1zKNWqtULro5hTuPhpLyFIIV1HHgrr1x3xrwElbVosUaaqPT5dQeKozjaQEpbOPtFPor+TQG2d202mboMXBUYcVTYnJkITMWvwkcSVJB4pWR5gkZCTgZGOuu4dq5S75vN276fVJabejIafYiKfafSmc4h9uShKwSpLYSWFcTgFXXA1wne9NNFi0NMSTEKkIOFoSBzcyMq69Ph3+Gn7trTXLGqK6jJvioW1X6s6EkNS4MmFPUEeVtTaPG8FZVnCiSDg44k40HaWjS920vip3BWHKNPpcxC2ISZLsh6CuKWyogJbUhRIUVZUQpBKTwV0T0GmFog0aNGgNLHdPpu9tar/y6cn9cY/zaZ2ljuoSndra1XElP0jNTn4ExVY/kOg2t9ksGmWq48UBbd009TPJJPm5kHBB6HiVdTn1GMkEXmqU6n1aEuHUocebGcThbTzYWhQPyOqB7Qi/Ct63H+uW7oppGPm9x6/r0ytBx9vf7OUmLeMdW1dTlRqhWY8t2TCkTFJHhILfPi6STgqcQnirPcdcaU1+2ZfdNp1eVdG00WK4+GRFnxY622oKW8jDfg+RfIDB8Qkk9ep12Le1Znxd3EPQpDiPouicOAocmalXvL3JWVMkcD/FW8Zz3PfHSFuzemr0CA0+i211OQ+4WmIbcKaw8+oDPlS4yM4Hf0Hx0HGVEqNCZtuJT32GRHQh2ctp6V5lSkdEN4/RIA6Y9dd6ezJOqNR2JtSVVA4mSYZR50kHglako79T5Anr699KHaSr3zcV9ybiVZBirgSJUqVSJTkeM9iRjj4JUgOLPQqKnFJQSSARjXQ1mXdRLqZkfRj/ABlw1+FNhOFIeiufoLAJH4gkH0JGgsGg606nU4NMbQ5OkBlC1cUkgkZ/DXzDrFKmLSiLUory1DIQl0FR/DOdAsdpb4nVnePcm1akxJiGnSoz8Vh9fIobLCG1FPXohRQFjHTz57k6VvtV7kW9Obj2dCrlWpFdiVtDhUpsx2EpS7xLqnSOXFPUhSM9jkHGpb2xqbSqPNpt1vRER/e0+7SahHedYlILYJQlLjeQCeZ+2FDyAY7aVUp2474MDZy36jFuaA7JL7dVmRkOvRI61qWXPH5Z5BOCo8QSTj1GQtdBr9XtC3kSaBeO2NbiuLaXU4tILbc8kABQZDmfGcIyeSxyUr009tkYlBTSW59IplWguTHJb7yasypuWpanUhRWlXb7KRhOB00i7Qp1O2fvGl3qtdMplvTELE6VGbee8KOvHu7bzQCilxaQlwOJCRy8RJHUHV6ib7UmXd7ke0G2K1T2GXlLnPqeZTIdccDgYYSltalrSlQzlIAAJOAM6BN7iWOqSzuNf9fqC2W6dersVmM2wPGcQt9rJWvOSgNKHFA9ST66dF92Zc26VYolao0JyiW/U6U5Saq1UkBuUzE94Q7ybQCcFxLYAz1APUA63NvN0KTV7gmwHtq6/S41SnJkyaitjxoi38JSl1ajjiMIRhQHTGemnOKxSylRRPjuBP2vDWFY/VoKJt9tvVbUu+ozm7sfcoDsp+XFpDUdLaQ49jkXV5Jc44wkdMa+KO7x9pevsHHntiIsf3r7o/0tXVFy0VU+PB99AkSc+ClTa0hePgSMaocZKk+1bLIGEuWYgnp3Il4/n0EncnEb82genNVHqSfw5RzpgaWN5u+F7Q+345Y8an1NvHxwhCv9HTO0EPelvQ7rtefbtQektQ57RZkGO5wWWz9pIPoCOh+ROuftwfZssNioUCNSZdeiSavVURXV+/FeGkMOvE9R3AZ6E9jjXTOkxu29cLW9VrrpdxxojMWky5iIMhTaEOOIKUrVlQ8+W3D5eSMBJPIdckUqv+yrMmzps1nc+rzPenG3Xo9TaW8mWW/sJfWHQV46gHHQHoNLBGxO702t1Ky1qoKmmyiQuoB0hthDpVgN+UKBPA5AT66eit5brlyfo63bYNfqHh8ymA2w80gdQCtaJakoyQehOTqkDdTdakXdOdvG1JVtyqqwxGpzcGkKnqkOoLhCUkvBAUQrrknoOw0E1spsBbUygQLiuidU6jVuHguNJklpthxlwpwOGFHC0ZyT3GukkjikJyTgY66Tfs83FWoNtKpG4UaVRqxKqkhyEmdFEcSEOrLgCSCUleSvyjBHQYPcsyfdVtU+oLp9Qr9Nhy0AKUzIkobVg9jhRGRoiC3CuC5aZMZh0mlliCtvnJrS2lSERgD1SGG/Mo465JSkDrk9tUqdv7RaDDXKqiRXaa06GlViiIUuPyIzxWF4CV/2CFufhqwVvc2A5VhEolZoyI/JDKJEkKcTKeUrHBripOUp/OX1AOQMlKsQ25VcoCKG47MYplt3atXFh2dSVTQXUdctlsEO4AJSepT6pB6aBVXT7YaY99Ro1EtxxdutOJTMVLQUS1jPn4J5cU49Ae+OuM66NsTcayr3jNuW1cdPnOrRyMZLwD6B68mz5hj7tcUUKr0mTuXNvncagyZcilNhTEEPIDlQfTnDryJCw5xIwQEo4jAAAAwevNupNot2i1f0x+ktS5jPvE2etaPqCRkshX5oRnhxGO3XqTkGPo0vqBvPtpcFyR7dodzt1KpSM+G1GjPODp3JWEcQPmTjTA9NAhtu8D2ud0hk5NMhHH/q0afKfsj7tISwPL7YO5o69aRDPX+5t6fafsj7tB5ycGHMB7YV/m6p3s8qSvZCzyj7IpTKR+Ax+7Vykf7kmfcr/N0vfZbeL+wdqOKOcRloH3JeWkfyajqZmoW5K/8AQiPEXRazPbCeRVAi+OR1xjik8ifuB1MnBGNHTQKy6LmgXnR36M/Z+4ERtKkuCUikrjuMqTlQU2pXXPQjyg/ax66mqdekWGIFJgWVdaIfgtojLRSlIabRgJSkhWCjHQYUBj7tXk9dGgqlPviJKkqZdoNzxEgdHHqLI4k/Dog62pdxUQuJD8Se6Svhn6KfXxI69fJ01YtYIB76CjzZTK6k85GcU0hZBU1+TUpa/jyKhjJyM5xr7qFBtO7Y3C5LbhVhbSCnnOoLiSE57I8VJI69eh+OrrgDRkfHQc8Vz2UNsX1+LTaNMTzypQVV3GgD8APDX01FI9kOzPoiohCZkeouxXW4hdqXvDTLpHkWcMoJwe4+Hx9OnMj46M6D89U+zdv3aNXVNtho+O0cIl0urJYWofIlSD+Gp5ij+2Uy0Ah65VBYz558ZZH4qWSNd2ZHx0Z+eg4QXsX7SV+SwLyrUphjOCalWPFQkfJttSh+wabtheydaVvRXxXZEW533UgpVKiuNhtQx0AQ8AR379eo66em4M6TS7OqVTjVFqm+5sqkPSlxy/4TSBycUEA+ZXEHA+Okhbu7G5L1di0R2FTX3lKRKfcmRXI5RAcbU4HyUkpSltIRy7krWUADGdENim2tGgUpmi0qitU+LGT4bOVqU2kY8pCQ4DgEYxnSj2dedojO9Lkf6tUC4nXEeEjITxTyJ49SR0zx7kdO+nFtddce7aJInxatEqjLcgttvsJCeSeKVDkkKPE9c4JzgjIB6aU+zZlya1vmzAZMiWK+8WGhwy4vgrinzgp6kAdRjQWvY55Em5t1qaFOtqTdC1lxBwQFxmQMH4jgf2assa0q5RHJEqm3TWKqlSRiFU5IcQojORzUkkZ+Ax9+l57Lb1WXeu56K8001VhVIi5qGjltLyo/nCflyB0+tAtavU2TXm3yRa1fbSGm3JLjRYmIB6NuJCuS0ZKuKgMpOcHqQYuuUtjci9voW46EqGadRnSmR4TchtK33WxzjuLQUk8WlDPEKGT0GmtUIcWfGVGlspdaUCCD3HTGQe4PzHXUTGtxuntss0idKisNnqw44XkL6YOSslROMfnYGO2iEjJ9nra9iQ6uuToLcIjyCQ21Hk59Sp1KgFHIz9gYz9+swPZ22RfDrkG26/UskY877aCPihS+CFD5gnT9g0mlwVcodOiR1derbKUnr36ga3RjQJamezNtDCntS2bdeUprOEvSVOIJOO6VZB+Xw1PXrZtPoVmc6K5PhmI8gmS3IdUuOwpweKtKUnrxQSR06cR3xgsvpoOCMHtoOb6pb1xTffVM3PW5KVKdRT1NRHpzb7SsYzIbd4ICwBnyJSD6HGTZLAuRqgRXYFxwrjgGCtAQGac4UO/Vp58y0jDpSvknxABzCQrHXr73Lio3H9GUCzbeXIfckJZW8w35ksKShxxxRxwHNQASlLhI6nHbWjVaLU6P4kKo0uEJ0iK+7T41OdiBl9bSOZQtRiodbH9kMpBIBUCRkN6495bTpj8WJDqUw1aWsMx3qhT1sMNjIKuanS0kDpjJV3I79tQlz79IoNTk0yrzKLRVMthbc19xUxL5KcgNsNcVKSe3MKKcgjlnVkpG1lKqtMYmvTWnI8xlDoHB2QClQCgQmS44j4Hqj8Brwc9m3ah+eKlNpVRmVDn4ipbtUfDinM5K/KoJBz18oA+AGg09gLoF37mXhWippTr1Go3iltsoSVYknPHkrjkEHjyVjOMnvrbsoqHtW7hDIKTRqaR8vKdQmzLTdF9qPc23Ir8p6Kim0xbapUpb7gCGU4HJZKiPrT69NSG3roc9rnc5AIPCl01P+SSf36CIRU93bK3ivR2n7bS7mtqtTWpMRxmYyypCwy22VZUT5SEgEKA+zkeuYGn7a7ky90vyjtqnSdqKPL+trDbVUalCQsEkkMpy2CR6nIHU/I9RdNJL2nt3KJYpotr1Ft91NafT9IKZJBZhBQDh6dyrqnA9OXrjVC8m1zbi9rply7rau6+qTS2/CgcaM46lxRH1j/JhpGEdUpSCT1BPqNaU+hezvWI4Epi7bYYbQUNSJlMdQ22MYGHHG1BPQepHYaYNS9oCzJEmVBo13UWg0eEA2JzrfjPSFAdmGE9AgdPOvuegSQM6VO5e/lqKt6o0mlX1eVyuTE8Hm5FOitw3m/z2lYS24lKxlJKOoBOgmaT7JFOrtlUyQ1e9TiqfQZDaJERDyW0OeZKQOSSDxIz16nJwO2nFZuy8G34dGhLqjUuFDJXUIZp6EsVB0MLYS8UZPBwoWOZyeZQCQDk6kthN1qHuraP0nTGFQpkQpanQlf8AcFkdOJ/OScdD+sDTFyMdxoIWg2xTKLNfmQzLW880hnMiU49wbSVFKE8yeKQVHpqa1jkn4j9egrSO6gPx0RnRrzU+wn7TzY646rHfXw7NhtNqcdlsIQn7SlOAAff10HvpVbuOqTvDtO0PsrqU4nr6iKcfynTBXcdvI+1XaWn75bf8+lZudWaNVd59p2abVqfMcbqU1ahHkJcUke7Efmk4H3/DQT3tFnhYkB/klJZuGlKGT16zGk9Pn5v1Z0ydJn2v6mKXtrSXlrDbarkp/iLUQAlKXC5kk9gOGr+3uHYLiVKRe1uKCVcSRU2e/wAPtaBbbobX7kVreOPetlXvHt1gU5ER4FK3FL4lRwpv7K0kqHc9O+qnQbf9oizKtPmxKDbt0zZSEMtz51WedWy2kDKUh1YKUqUCspBA5K7YAAerd/2EpZCL0twk9Tips/0teyb5slSuKbwt4nGcCpM/0tBzhdm2PtDbqT4jd6VS3rep7CyR7ifrEJV0UkFOVEED7JXgkDPbTi2j2RsnbKoLqdvInrqDrBYekSJSleIkkE5SMJ7pHpq4JvSzlEhN2UFWOpxUWun+NrK7zs9DfiKuuhJR+kai1j9fLQSzXhuuLcbkFYB4lIUCEkdx9+tertNmLlUVuThQPFwpAGPXJ1FJvmxW2i4m8LdSjJyRUmQM+v52tB28Ns1z1TXbwtpcgJCeS6q0oJHwAK8D8O+gi63aibrrLNSmrl/xVlUaIiBNU2wwFdVr54SVk4SPLnATjp10r7E2el2jBmzaReUoVCrqehqkQICUuSHkJdcGHXlugIKklJPEcilPUd9Ox3cHbtTKml3tbJbUCkj6UZwR8Pta+I1/bcRozcePedrtMspCG0IqTASgAYAA5dBjQIqDsZVqlERMnXPcsmK/CYiSIb6G3UrSyQEp6lpSQkp6AoJHXvnJn6Fs1SGl0qLIlV9UOkrW7Fju8UMIcV9pwpVGSnl178z26abitw7ASATe9tgH/wA6M/0teLm5m3KPKu+7ZHy+lGf6WggGbFDFRXPaZCZC15XJkNOvOHsnPJElPp8E4+WpSHbEeW376im25KWSRykUhbayoHBz4ilKHUfD4a9F7sbZN9FX9bfw6VFs/wAh14ubw7WtkBV/W9knHSag/wAh0Flp1DpjDbLho1LYkIwolhhOEqH6J4g6onJCParCM+ZyySf1TR/PqRe3p2oaOF39Qvwkg/yaoVp3rbN4+1iiXbVZi1OK1aK46nWSccxJCinr64IPTQWLctwt+0RtUEDzLTVEnr0x7tnt+GmDPjzmlyJ0q4jDhN5c4pZaQhtsDJ5rWFfAknp0/XpVb7Vym23vbtZWq1MagU5ldRS7JeOG0FUfiMn06kaRo3UpyJMuHWrocVLmOLjypgqbkhnmp1p0vhtJLfgJShaEpT5lBXFQA66I6cTa0h9LdVod01erRn0mQhxded4OcvMkICBwKCMYPbHx1QK97PFCvaqN1uuybppctpXlQ3WRJSoE5PFTgWUdfQYGkzc25VtuUZdvUusxn6chulra9yfejFtUZrw30DKE5S6klI69DgkAZUly+zrult8xb71Ok3XT6W6nisQ5s5X1YA4k83DwCldDwbJSkAdySdBpVXajeiiPVWDt7uPGZps6U5KcVOihEtTq8cip1KCFHt5hjt2GNLmubL+0LKkNrnbmpmPsPoeDTtbfKWnEnklYSRxBGMjprqj+E7bnpm/LZGeozVGf6WsHdDbcYzfls9f/ADmz/S0CHVsFuNdtLjqvjc+uuSYzhkMNpcD7KFj7Ch5h5vnjpqfhUHcS/wCeKRUblixWaCQ07OTS3ESkyC2OoLqEBYUhRCsYGCD8NNle523CBk37bIH/AKUZ/pawndHbbGRfts9Rn/smz/S0CMub2fqmjm6u5ZlcqskoYjvSobyUR0tIADmGVkFZ4IwVqQkFOcE6Wo2P3MeqX0m9t1Gjh59C2AmelQiJT9oqQpa1LWshPcrAyo4114rdPbVOeV+20Md/6ptf0tfI3X2zIyL+tv8A6Ra/paI5LqNm7wSaoqVcW1SKjLfb4KcVFjzFyXuHHxVuqUrwgkdUpHEZ4pxgYFtsHZ+4265S6wq1olITGaUkU2el6VEXMUnrKLYKUt+gCfMPKOvw6EO7e2AGfy+t3H/H2/59ebm8O1reeV/W/wBPhNQf5DoILaCx6nZMX3ytQIVVuKTlmXUIrLaFLaSSUAHy9MYJyMknr2GLtBuR+RcztDftytQwhkupnOtJMVeOPlC0qPm8w6H4H4ar43s2nP8A4fUP/wBo1g72bTAH/Z7ROnU/X6CjWQ4D7YW4iCAF/QcPOPjwb/n0+k/ZH3a5r2buOiXV7V+4FaoE5udAfo0cNPozxVxS2lWM/MY10on7I+7QfLrbikPN8AUuZGeWDgjHw0iaH7PddoEBum0HeC76dAaKizGaWjg2CoqIAx8Sf16f+jUdSVY2bvVskK3uvVST3AW0D+spOttG013JIUd573JHQfWMY/V4em/o0ClRtVdiFlQ3kvgg+hdjn/5WvZG2F1+UObwXuoD9FyKkn/InTU0aBYjbKv4wrdq/j064lxB1/wDZ9ZTthWgP99jcI/8ALov/AO20zdGgVknamsPuBSt2dxUgDqE1GMM/qj6+BtDO5BR3V3JJzn/stH//AG+mtrGgVQ2flYwd0NyFDOcGsM/uY18ubNc1clbj7jZ+VdSP/laa+jQKsbNt4wrcDcNXX1r+P5G9fL2zEd0YVfu4ePlcJH+hpraNApFbG0pYUl28b/cQropKrkdwofA9NfD+w9CeADl036rHxuZ8/jpvaNEJFz2cbWWSVXLfR5d83Cs5+/y6um1G2dt7Z02XCtuK/wApjviyZEqSXXnVemVYHQdfT11etGgSd07DGp3nWLpot+3TbkqrvJeltU+UlLSylPEdMA/HuT3OtE7CXMFHhvXfYST0Blg9NPrRoEOnYe6k/Z3tvnPzkJOvpOxt3p+zvdew83Lq8k9dPbRohDObC3S4src3svoknPSSBryX7PlwLVlW9N/Y+AnY0/tGgQqfZ+rQRwO8u4XHOf8AsiM/rxr5/wBbxUiSV7xbjEHuBVcfu0+9Gg5zd9lalPO+K/uJfTjhf95KjUUZ8XGPE/rf2sdOXfX097K9GfkPSZG4N+uvvslh51VUQVuNHuhRLeSk/A9NdFaNBz+j2Z4rbSWm9z9xkISOKUispACfgB4etaV7LdLkL8Re41/Lc/ScqqFn/q9dEnWNAqtlNl6RtZUqtUKbUZ9Vk1JttDj9QUhTqAkkkBaUg4OU5B/RGvK6NjKBXL9qF6N126qNU6ilCZQpVVEdDgQkJGcIKuyR6402tGgUydkqcO96bgqPxNyO/wA2tGs+zpY9dDIuKXdFbLJJaVPrjrhRnvjp0zgdvhpz6NUItXssbRLUpbtCnurUcqWuqvEn7+uhPsr7Og5Nty1ffVX/AOfT00aBRU72fNt6dG92g0urRWP/ABbNemIT8+gcx8f169D7P+2hGF0Ocsf2Valn/wCZps6NApR7Pu2HQm3JKiOxNXkn/T+Ws/63zarrytFK89PPUH1fyq02dY0Qpz7PW0h72PDPr/ul3+loR7Pe0af/AAFgn5KkOn/S02NGgV6dhtpU9tvqOfvKj+/Ulbe0W3lt1yNW6FZtMgVGLksvtE8kZBScZ+RI1ftGghrst+mXVQpFDuClsT6dI4+Kw6s8VcVBQ7fAgH8NUlOw+0qcY29oxx8eR/fpn6NAtU7G7UJ+zt5Q/wDAOsjZDakZ/wBryhde/kOmTo0C3TshtUk5G3lCz/czr0Oy+12Sf4PaBk/8CNMTRoF4NmdsE9tvaB/zA1gbMbXD/wDp7QO//iRpiaNAuhsvtcDkbe0DP9xGsfwK7Wf/AKeUH/mtMbRoFyNlNrAQRt7Qen/Ba+0bM7XoGE7e0DH9xB/dph6NBQm9ottEAhO31u9e+YyT+7X1/BNtuE8Rt/bmP+KI/m1e9GgoJ2i20KeJ2+t7H/Fk/wA2pC2NvbNteqGqW9aVKpk0tlovR0BKuBxkdu3Qat2jQQty27RbmitRbhoNPqjLS/EbRKbS4EKxjIyOhxqFTtjt8kYFg21j/iDX9HVz0aCn/wAG1g4x+QNsf9Hs/wBDR/BtYOAPyBtnp/5vZ/oauGjQU9W21gqGDYNs/wDR7P8AQ0DbawQelg2x/wBHs/0NXDRoinjbawR2sG2P+j2f6Gs/wcWEP/AG2P8Ao5n+hq36NBUP4OLCzn8grYz/AOjmf6Gvsbe2MBgWHbH/AEcz/Q1bNY0FY/ISzOAR+RFt8AchP0ezgf4mvM7f2OTk2JbOR/5uZ/oatejRFXFiWWEcBY9tBPw+j2cf5mhFiWWgYRY9tJB6dKcyP9DVo0aCBolr0GgrkOUK3KTS3JCQl1USOhorA7Z4pGe+p0dABrOjQe2jUHKqtYemvsUOkRZTUZXhuvy5qo6VLxkpRxbcKsepISM9BnBx6UquJnvxWRDejrebfLqHSAtlbS0IUggZB6q7g4IAIyDqRl1nCY0aiV1njNcje7Z4TkROXPvyaDnLt88Y/brVp1yomW/OqRiKZkQ2lurjKX1KQFFCgrHVKgOhx3yO6SNTi93K1N0sGjUJNq1TXNMOi0tiY40hKpDkmWWGmyoZCApKFlS8dcccAEdeoGtqh1FdQYeTIiKiS4zngyWSrkErwFZSrpySQoEHAOD1AOQKzE3FpHRqLrNSlRnmoVMgCdOdSVhC3vCabQDgqcXhRSOuAAlRJ9MBRHzRapKky5FOqcFuFPYQl0oZfLzS21EhKkrKUk9UqBBSCCPUEEoys4S2sa0pFXpMea1CfqkJqU8vw22FyEpcWrAPEJJyThSTgfEfHRBq9JnsePBqkKUz4vg+IzIStPifoZBxy6jp306jd0a1pNQgRkOLkzYzKWiQ4XHUpCCE8znJ6eUcvu69teJrdFFIFYNXp4pp7SzJR4Pfj9vPHv0799Qb+jUIxdVENOVU5NUp0WnqkKZjynZaA0/j1SokA9QodCfs6mkqSpIUlQUkjIIOQRqozo1DQrlpE+q+402owZwbZcdkuR5SFhjiUgBQSTjPI98fZP4bdIrNHrCXFUirQKglogOGLIQ6EE9s8Scdjp1VvaNRUKtNSK9PpSmi2YiUqS4VDDvQFeB/Y8kZ/thrwpdyRJ30lJUExqZC44mvOpSh0FPIqGeyAOJCieoOe2CZxZ8JzRqsVe9qDHhx3KdWKLNflveDGSqpNttKUOqsrHLAA+AJyUjHUalI9eoz01dOFXpqqgykl+K3LQpxvH2spzywPiQNOLRJ6NQMy6qTTqNGnVWbDgPyY3jtRXpSUrcPHPFOcFR6gdB3OtuRXaTCejRKnVKfAmyEpKIz0pCVqJ6YSCQVdenQddWuElJ6Necl5MeM6+sKKW0FagkZOAM9NQ8Kq1RykyapMp0CPHEf3iNxqPIrTxKh4hLaUt9MZIUsDr1IGTLWk3o1BUC5odSo0iqyHYEWJHWUOSEVBp5jIA5KDiTgJyenLirHdKe2pWmz4NSiJl06bGmxlEhL0d1LiCQcHCkkjVpGxo1XGa9VfefGfpERNLM5UMPtzlKeCvFLSVFstgYKsdlkgHPXUnErlElrlIi1invqif7pDUlCiz1I8+D5eoPf4aRknCQ0a0qtUW4EZbnkddRwJa5gKwpYTn7uv7NYdrNIaqqKS5VYKKg4MoiKkIDyhjPRGcnoD6emg3dGvOPJjyELXHfbeSham1FtYUApJwpJx6gggj0I1GW/X41Vt1FZWn3VAbKn21qyWSBkgn4Y6g+oIProJfRqDjXPS00OJVKxLiUdMrISiXJQjCgSOOVEAnp21uzazR4T4YmVaDGdUhSwh2QhCilKeSlYJ7BPUn0HXV6Df0ah6XcVLqcVmdBn092CplbjjolpKmyniSCBkdArzHkOPl756e8Wu0SVGlSY1Zpz7ETPvLrclCks46nmQcJ7HvoJHRrTaqUOTSlVKBJYmxuClocYdC0L45zhQyO4I1pUSpVR+EqfWYVNp0TwA8lxqoKdwnGTz5NICQB65Onf436OyZ1jWhErdFmQF1CJV6fIhoXwW+1JQptKunQqBwD1HT5jWnKu22Y9NbqSq9TFw3Hwwl9ExsoKyRkcuWOgOT16DroJvRrRFZo5qTdNFVgGc6jxG4wkI8VacZ5BOckYGc419xKpTJc2RBiVGHIlRjh9hp9KnGv7ZIOU/jojb0ai7nqkqkUt2ZGpi53hoU4vDyW0ISkFRKievYEDilXXGcDqNSbXZrMqQ4zS23aXEdDUqQqVxdSenJSG+JCkp5DJKknorAOBydZo6ZT+jUAK9N97D30W2KSZRie8+9fXBfiFvl4XHHDmMZ559eONZptdmyZUNciltsU6fkQ30yubhPErT4jfEBAUlJIwpXoDjPRGRPaNfLzrbLK3nnENtoSVLWtWEpA7kk9hrUptWpVTcfbptThTVx1cXkx30uFs9eigknB6Hv8AA6Dd0a1qkuc3EUqnRo0iRkcW5EhTKCM9cqShZH+DrXt6ouVOne8PR0MOodcZcQ294qOSFlJKV4HIZHqAfiBoJHRo0aA0aNGgNGjRoDRo0aA0aNGgNY1nRoMaNGjQGjRo0Bo0aNAaNGjQY0azo0RjRo0aINGjRoIP3isUaTJYRQplWiuvLfYdiOsJUjmSpSFpdWjsonBHLIPXBHWOpZqiG4tdbo8qTKLshM2EkeC42XCg+QvcEuBPhpTyyArqpJPY3PRrMYdZyrUeDUX1onPQ1Rlv1REpTCnEqUy2lkNjkQSkq8oJCSR1xk4zrVqFBqCrQSmG2lFWbhOxy2pQ4vIWDltRzjvgg+hHwKgbfo03xSxMxN73V5xdXo8+Q4xSJNWiy+LmIrrKXWHAhKCCHFoBSQkEEKJzkYxg62KGiciS/JmwVtOT1l0pStCkxkpSlKELOclZGSeIKQcjJABVM6NVmIqIhBVP6Rp1cXU4lMkVRiRGQw4zHcaS62pClqSoeIpKSkhagfNkEJwDk49aKxPdnyatUWBFW+2hpmLzC1NNpKj51DpzJUchJIGAAT3Mxo0hZyqb1tplxJKJVPaU5U6mHpxUQolltwqbB69RxQgcR+mrp3OvqoRajFn+/wAekPTECohZjsONBZaTHKEqHNSU4CznGQf1Y1atY1IxFbx+E5VOBRZ02bFk16CxyE1+c4hDnNtDqQlpgD9LCPNnA6pzhJwB8LhVWJU2JzdEM9xS5K2h4rSExnVueVa8q7eHhPJAUoDl0PI6t+jT+bv0KZT49dpT0eS5QnKnMep6EFbchpCI76lrW8F815ShSlJJKAs4R2PFOZOfSpDFkM0iO0ZimGWWnGUKCPHbSU+IhPIgDkkKABIHXBI76sGjVk5tSpkOtTUyJcugExAuOhuloea8RbCColJysN55KSSnlxIRxyfWdttupqeqE6rRkxnpDyQy0lwL4MpQOKSQcZ5FecepOMjBMxo0tFeZt5qdEQqqJdQ772+84hDgAdQtZw2vH2kFIRlPrxGemRrVqEKosyWZyqQupj3919UZpxpJSoAIYcPNSUkJSgdMkgqBAJGrXo1N9fi7v+qWxFrL4kMPhtqriNKkng5lCHXVFtghXfohBGenzGsGHWH4jqGLfdpsGPTXI8SGHmS8payAo9FlsEAHjlXqSSM4F10au+/V4N9KY7CrJkTITFELaZcxsyZy3m+K4oUkeGgBXPKUZTggJ+0QST1+mYdaVMMMUcstOVQyZ09bzZ94bSsqb4AK5dAltB5AYAAAUOouOjTtvb8SYw8WnXFw0vGM426UcvAWpPJJx9kkEpz6dCR89VNiNVW49Sdo9Ak0lC2sphyXGFpW6VAqU02hxTaDx5d1JClkEjuTctGoF/T6VXkS3qtLp9SmluUxITHmOxBIeCW3EH+s8WgpJUlQ5HrxHmB6Jstusy1zqjU5NPXTRMU3xjOLQpzyJ4lxfBSk8j0HQnyoTk+gm9Y1bRXKLbcdh56fJbkKme+SHmkPTHXGUFTqyhaWuZbSeJHUJBGT6k6rrVIuioPvOTI0xChS5EcJkqiIYS6stlKGQzyWG/IeriiQAOhPXTF0anReqoyGqzV5MuQ5QpFPQY7DbaJD7KlrUl7mrohakgAduuT16Dpn4lQamYk2goobqxKmrfTU/Ga8FPJ3xA4QVhzmgYAASeqE+YDqLjo1YxW82m+KeTDi3W1lcd1ghakhLhSSoA4ChxJ6HuM9cHqAemqtT6HUWo9MhqbQiI9GZFTQVjKVtJGAMZCueEpV6cUfPVuOsaQKVUIdxMU6FEiR5wRxfDpg+6l1KlOZSFKfJSGyDk8UqVkDtjBkLJpEmmoDk2Mlp80+HHUoKSoktoIKcj0BJ+A69NWXRpGIrdyTlS5NMqk6hiIulONONUiXBKHHGyHFqDQSU4UfKrirGcHp1A1IV2lEyXHY9OecZTBS0hMNTbbgUh0KbCOZCcp6qHLy+nrg2TRq103v+rvm/pD0tNUftlTdSQ4Jq23EhLnhhwjJCOfAlHMp454njnOMDoIpNrQafbjCaVQKezLb93dkMMNNtGSWyFFBUAATkEjkcZxkgHItujTmZj48JxX98qfLp02tuy5cmhrhtPmG0qLKW0tbyW3+a1rCFqRxCSQBkk9enbO7VoU1uZUZsWAqRzVDcS20tCVPFtwleORA5cQPtEA4Azqx6NBRG6PWPpotyRcCojtRE0GOqB7unzhaQsqAeynASeJV0HlOOgkqQqrwalJZbpk9NOU8A03JWyQlSnMqU0ptSleHx5Kw4Ac8QMZwLTrGkYpJzaPuWM9Mt2pRIyObz0V1ttOQMqKSAMnp31AXJQ0VWsrYboc9KX1tmRNM7hFWkAZUWUufWOAAJBU30ISc4SNW/RpzZwqE2honXKkt0OfFablolOynZ38WcUhQUFNsJcUOaiACpSEnHI5zjOIFDQu5WpjVCn05iE848lUmcHEOLUlSfqGUurQ2DyUScIPYYOTi4aNIxFE5Ql2rW/YtWW5GU0tynPFTDxTlJLZ8qikqHyOCR9+tWEZ7lSbqCrakwEQYa46GfFYK3ipSDxb4r4hCQj84p7jpqxvNtvMrZebQ42tJStC05SoHuCD3GvrTmxH3EhpylOtP0VdaaWQlcNKWlcxnPUOqSggYz1OtO2GZUCntsqpr8Zl6QstRg6hQhNYylKvNjGR0SjkE8gB5RkTmjSME5GjRo0Bo0aNAaNGjQGjRo0Bo0aNAaNGjQGsazrGgNGjRoDRo0aA0aNGgNGjRoDRo0aA1j8dZ0aI//9k=" alt="Tira da Mafalda: Nova Tentativa de Desarmamento — Depois eu é que sou a pessimista!" style="max-width:100%;height:auto;border-radius:6px;border:1px solid #c8b87a;box-shadow:0 2px 10px rgba(0,0,0,.12);" />
+      </div>
+      <p style="text-align:center;font-style:italic;font-size:13.5px;color:#666;margin-top:8px;">QUINO. <em>O mundo da Mafalda</em>. São Paulo: Martins Fontes, 1999. p. 3.</p>
+    </div>
+
+    <h3><span class="passo-num">PASSO 1</span> Quem é Mafalda neste contexto?</h3>
+    <p>Como vimos no Guia de Personagens, Mafalda é uma criança com visão crítica aguçada sobre o mundo político. Ela <em>acredita</em> genuinamente em um mundo melhor — e se frustra sistematicamente com a realidade. Esse perfil é essencial: sua fala final não é um desabafo de alguém amargo, mas de alguém que esperava mais do mundo adulto.</p>
+
+    <h3><span class="passo-num">PASSO 2</span> Ler a sequência visual e verbal</h3>
+    <p>A manchete "Nova Tentativa de Desarmamento" poderia ser lida como notícia positiva — afinal, está se tentando novamente. Mas Mafalda reage com crescente frustração, culminando em jogar o jornal. Por quê? Porque "Nova Tentativa" implica que as tentativas anteriores falharam — e uma nova tentativa implica a mesma possibilidade de fracasso. Para Mafalda, a palavra "nova" não é esperançosa: é a confirmação de que o mundo continua falhando.</p>
+
+    <h3><span class="passo-num">PASSO 3</span> Analisar o elemento não-verbal decisivo: o PLOC</h3>
+    <p>A onomatopeia <strong>PLOC</strong> no quarto quadrinho — o som do jornal caindo no chão — tem um papel fundamental. Ela confirma visualmente o gesto de Mafalda (jogar o jornal), mas também cria um momento de silêncio cômico antes da fala final. O PLOC é o "ponto de pausa" que dramatiza a reação de Mafalda e prepara o leitor para a conclusão.</p>
+
+    <h3><span class="passo-num">PASSO 4</span> O mecanismo da ironia</h3>
+    <p>A frase final de Mafalda — <em>"Depois eu é que sou a pessimista!"</em> — funciona por <strong>ironia</strong>. A estrutura lógica é: o mundo (que promove guerras e precisa de "tentativas de desarmamento" repetidas) é o verdadeiro pessimista. Mafalda, ao ler o jornal e reagir com frustração, é chamada (implicitamente, pelo senso comum) de pessimista. Mas a ironia inverte essa lógica: quem lê a realidade com lucidez não é pessimista — é o mundo que produz essas realidades que o é.</p>
+    <p>O humor e a crítica social emergem dessa inversão: Mafalda defende que sua reação é a <em>única racional diante dos fatos</em>. É o mundo que falhou, não ela que é negativa.</p>
+
+    <h3><span class="passo-num">PASSO 5</span> Que tipo de questão a VUNESP faria sobre esta tira?</h3>
+    <div class="gabarito">
+      <div class="gab-titulo">🧪 Questões prováveis e seus gabaritos comentados</div>
+      <p><strong>Q1: "O efeito humorístico da tira decorre de..."</strong> → da ironia da fala final de Mafalda, que inverte a acusação de pessimismo: quem lê as notícias com realismo não é pessimista — é o mundo que o é.</p>
+      <p><strong>Q2: "A onomatopeia PLOC cumpre, na tira, a função de..."</strong> → representar sonoramente o gesto de Mafalda (jogar o jornal), confirmando visualmente sua frustração e criando a pausa dramática antes da fala conclusiva.</p>
+      <p><strong>Q3: "A manchete 'Nova Tentativa de Desarmamento' é interpretada por Mafalda como..."</strong> → evidência de fracasso contínuo — a palavra "nova" implica que tentativas anteriores falharam, o que, para Mafalda, confirma a persistência dos problemas mundiais, não a esperança de solução.</p>
+    </div>
+  </div>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📚 Síntese do Módulo I — Para a Prova</div>
+    <ul>
+      <li><strong>Tipo textual</strong> (Marcuschi) = categoria teórica: narração, descrição, argumentação, exposição, injunção</li>
+      <li><strong>Gênero textual</strong> = realização concreta e social: crônica, editorial, artigo de opinião, charge, tira, ata, e-mail</li>
+      <li>Textos reais são <strong>heterogêneos</strong>: um gênero contém vários tipos; identifique o <em>dominante</em></li>
+      <li>A VUNESP cobra sempre o <strong>propósito comunicativo</strong> do gênero — não apenas traços superficiais</li>
+      <li><strong>Artigo de opinião:</strong> assinado, tese explícita, posição individual do autor; tipo predominante = argumentação</li>
+      <li><strong>Editorial:</strong> sem assinatura, voz institucional do veículo, estrutura fato→avaliação→recomendação</li>
+      <li><strong>Crônica:</strong> parte do cotidiano, tom pessoal, pode ser narrativa ou argumentativa, linguagem literária</li>
+      <li><strong>Tirinhas:</strong> leia sequência + elementos não-verbais + perfil do personagem antes de responder</li>
+      <li><strong>Armandinho:</strong> humor por polissemia/reinterpretação lexical inocente</li>
+      <li><strong>Mafalda:</strong> humor por ironia crítica sobre política e comportamento social</li>
+      <li>O <strong>último quadrinho</strong> quase sempre é onde está o mecanismo do humor — analise-o com atenção</li>
+    </ul>
+  </div>
+
+  <div class="voltar-sumario"><a href="#sumario">⬆ Retornar ao Início</a></div>
+</section>
+<!-- ══════════════════════════════════════ MÓDULO II ══════════════════════════════════════ -->
+
+<div style="position:relative;margin:30px 0 0;">
+  <div style="background:linear-gradient(180deg,rgba(242,240,232,0) 0%,rgba(242,240,232,.97) 60%,rgba(242,240,232,1) 100%);height:80px;margin-bottom:-2px;pointer-events:none;"></div>
+  <div style="background:linear-gradient(135deg,#0A1C12 0%,#0d2016 100%);border-radius:10px;border:2px solid #D4A017;padding:28px 24px;text-align:center;">
+    <div style="font-size:26px;margin-bottom:10px;">🔒</div>
+    <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:#ffffff;margin-bottom:8px;">Conteúdo Completo — Módulos Seguintes</div>
+    <div style="font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Para ter acesso ao material completo, entre em contato com o Guia Preparatório Capitão Valdir.</div>
+    <a href="mailto:guiaprepcapvaldir@gmail.com" style="display:inline-block;background:#D4A017;color:#0A1C12;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;padding:13px 28px;border-radius:6px;text-decoration:none;">📧 Quero Acesso ao Material Completo</a>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;margin-top:12px;">guiaprepcapvaldir@gmail.com</div>
+  </div>
+</div>
+</body>
+</html>

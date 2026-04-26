@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-l:#43A047;
+  --verde-bg:#E8F5E9;--verde-xbg:#F1F8F1;
+  --ouro:#B8860B;--ouro-l:#D4A017;--ouro-bg:#FFF9E6;
+  --laranja:#BF4A00;--laranja-l:#F57F17;--laranja-bg:#FFF3E0;
+  --azul:#0D47A1;--azul-l:#1565C0;--azul-bg:#E3F2FD;
+  --verm:#B71C1C;--verm-l:#C62828;--verm-bg:#FFEBEE;
+  --cinza:#37474F;--cinza-l:#546E7A;--cinza-bg:#ECEFF1;
+  --roxo:#4A148C;--roxo-l:#6A1B9A;--roxo-bg:#F3E5F5;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:14px;background:#111C24;color:var(--texto);display:flex;flex-direction:column;}
+
+/* ── DECK ── */
+.deck{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .32s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+
+/* ── NAV ── */
+.nav{background:#0D1820;padding:6px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--verde-l);}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.07em;padding:5px 13px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);}
+.nbtn:disabled{opacity:.22;cursor:default;}
+.pw{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--verde-l);border-radius:2px;transition:width .32s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.65);max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap;}
+.khint{font-size:10px;color:rgba(255,255,255,.2);white-space:nowrap;}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--verde);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:3px solid var(--verde-l);position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:160px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;}
+.topbar.azul{background:var(--azul);border-color:#42A5F5;}
+.topbar.verm{background:var(--verm);border-color:#EF9A9A;}
+.topbar.cinza{background:var(--cinza);border-color:#90A4AE;}
+.topbar.roxo{background:var(--roxo);border-color:#CE93D8;}
+.topbar.laranja{background:var(--laranja);border-color:#FF9955;}
+.topbar.ouro{background:#6B4400;border-color:var(--ouro-l);}
+.topbar.azul-esc{background:#0A2540;border-color:#1E88E5;}
+.topbar-left{display:flex;flex-direction:column;gap:1px;}
+.topbar-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(14px,2.2vw,22px);font-weight:800;color:white;line-height:1.1;}
+.topbar-sub{font-size:11px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:rgba(255,255,255,.15);flex-shrink:0;line-height:1;}
+
+/* ── SCROLL BODY ── */
+.sb{flex:1;overflow-y:auto;padding:14px 20px 56px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+
+/* ── FOOTER VOLTAR ── */
+.slide-footer{position:absolute;bottom:0;left:0;right:0;height:34px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;backdrop-filter:blur(4px);z-index:10;}
+.slide-footer-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:10.5px;font-weight:700;color:var(--verde);letter-spacing:.04em;padding:3px 10px;border-radius:5px;transition:all .2s;}
+.slide-footer-btn:hover{background:var(--verde-bg);}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+
+/* ── CARD ── */
+.card{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:9px 13px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid var(--borda);}
+.card-head.verde{background:var(--verde-bg);border-color:#A5D6A7;}
+.card-head.azul{background:var(--azul-bg);border-color:#90CAF9;}
+.card-head.verm{background:var(--verm-bg);border-color:#EF9A9A;}
+.card-head.ouro{background:var(--ouro-bg);border-color:#F9D878;}
+.card-head.cinza{background:var(--cinza-bg);border-color:#B0BEC5;}
+.card-head.laranja{background:var(--laranja-bg);border-color:#FFCC80;}
+.card-head-icon{font-size:17px;flex-shrink:0;}
+.card-head-title{font-size:13px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:11px 13px;flex:1;font-size:13px;line-height:1.65;color:var(--texto);}
+
+/* ── ALERTA ── */
+.alerta{border-radius:8px;padding:10px 13px;margin-bottom:10px;display:flex;gap:9px;align-items:flex-start;}
+.alerta:last-child{margin-bottom:0;}
+.alerta.verde{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.alerta.verm{background:var(--verm-bg);border-left:4px solid var(--verm-l);}
+.alerta.azul{background:var(--azul-bg);border-left:4px solid var(--azul-l);}
+.alerta.ouro{background:var(--ouro-bg);border-left:4px solid var(--ouro-l);}
+.alerta.cinza{background:var(--cinza-bg);border-left:4px solid var(--cinza-l);}
+.alerta.laranja{background:var(--laranja-bg);border-left:4px solid var(--laranja-l);}
+.alerta.roxo{background:var(--roxo-bg);border-left:4px solid var(--roxo-l);}
+.alerta-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.alerta.verde .alerta-title{color:var(--verde);}
+.alerta.verm  .alerta-title{color:var(--verm-l);}
+.alerta.azul  .alerta-title{color:var(--azul-l);}
+.alerta.ouro  .alerta-title{color:var(--ouro);}
+.alerta.cinza .alerta-title{color:var(--cinza);}
+.alerta.laranja .alerta-title{color:var(--laranja);}
+.alerta.roxo  .alerta-title{color:var(--roxo-l);}
+.alerta-text{font-size:13px;line-height:1.62;color:var(--texto);}
+.alerta-text b{font-weight:700;}
+
+/* ── ANA (dica) ── */
+.ana{background:var(--ouro-bg);border:1.5px dashed var(--ouro-l);border-radius:7px;padding:7px 11px;margin-top:8px;display:flex;gap:6px;align-items:flex-start;}
+.ana-icon{font-size:14px;flex-shrink:0;}
+.ana-text{font-size:12.5px;line-height:1.55;color:var(--cinza);font-style:italic;}
+
+/* ── ITEM ── */
+.item{display:flex;gap:7px;margin-bottom:7px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:13px;flex-shrink:0;margin-top:1px;line-height:1.55;}
+.it{font-size:13px;line-height:1.62;color:var(--texto);}
+.it b{font-weight:700;color:var(--verde);}
+.it .ko{color:var(--verm-l);font-weight:700;}
+.it .ok{color:var(--verde-m);font-weight:700;}
+
+/* ── QUESTÃO ── */
+.qbloco{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.qbloco:last-child{margin-bottom:0;}
+.qbloco-header{padding:10px 15px;display:flex;align-items:center;gap:11px;border-bottom:3px solid var(--borda);background:var(--fundo);}
+.qnum{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;line-height:1;flex-shrink:0;}
+.qinfo{flex:1;}
+.qtitulo{font-size:13.5px;font-weight:700;color:var(--texto);}
+.qsub{font-size:11px;color:var(--sub);margin-top:2px;}
+.qmeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.qchip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.qchip.nivel-f{background:var(--verde-bg);color:var(--verde);border:1px solid #A5D6A7;}
+.qchip.nivel-m{background:var(--ouro-bg);color:var(--ouro);border:1px solid #F9D878;}
+.qchip.nivel-d{background:var(--verm-bg);color:var(--verm-l);border:1px solid #EF9A9A;}
+.qchip.assunto{background:var(--azul-bg);color:var(--azul-l);border:1px solid #90CAF9;}
+.qchip.ano{background:var(--cinza-bg);color:var(--cinza);border:1px solid #B0BEC5;}
+.qbloco-body{padding:14px 16px;}
+.passagem{background:var(--fundo);border:1.5px solid var(--borda);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.75;color:var(--texto);margin-bottom:12px;font-style:italic;}
+.passagem b{font-style:normal;font-weight:700;color:var(--texto);}
+.passagem-fonte{font-size:10.5px;font-weight:600;color:var(--sub);margin-top:7px;font-style:normal;}
+.qenunciado{font-size:13.5px;font-weight:600;line-height:1.6;color:var(--texto);margin-bottom:10px;}
+.alternativas{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.alt{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border:1.5px solid var(--borda);border-radius:7px;cursor:pointer;transition:all .15s;background:white;font-size:13px;line-height:1.55;}
+.alt:hover{border-color:var(--verde-l);background:var(--verde-xbg);}
+.alt.certa{border-color:var(--verde-m);background:var(--verde-bg);}
+.alt.errada{border-color:#EF9A9A;background:var(--verm-bg);}
+.alt-letra{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--verde);flex-shrink:0;width:17px;}
+.btn-gab{background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .2s;width:100%;margin-bottom:10px;}
+.btn-gab:hover{background:var(--verde-m);}
+.gabarito-area{display:none;}
+.gabarito-area.show{display:block;}
+.gab-box{background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:9px;padding:13px 15px;}
+.gab-title{font-size:13px;font-weight:800;color:var(--verde);margin-bottom:9px;}
+.gab-texto{font-size:12.5px;line-height:1.72;color:var(--texto);}
+.gab-texto b{font-weight:700;}
+.gab-estrategia{display:flex;gap:7px;background:var(--laranja-bg);border:1.5px dashed var(--laranja-l);border-radius:7px;padding:8px 12px;margin-top:10px;align-items:flex-start;}
+.gab-estrategia-txt{font-size:12px;line-height:1.55;color:var(--cinza);font-style:italic;}
+.gab-painel{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+.gab-painel-item{background:white;border:1.5px solid var(--borda);border-radius:7px;padding:8px 11px;}
+.gab-painel-label{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-bottom:4px;}
+.gab-painel-valor{font-size:12.5px;font-weight:600;color:var(--texto);line-height:1.45;}
+
+/* ── INSERIR TIRA ── */
+.tira-aviso{background:#FFF9E6;border:2px dashed var(--ouro-l);border-radius:8px;padding:12px 15px;margin-bottom:12px;text-align:center;}
+.tira-aviso-icon{font-size:22px;margin-bottom:5px;}
+.tira-aviso-title{font-size:12px;font-weight:800;color:var(--ouro);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.tira-aviso-desc{font-size:12.5px;line-height:1.6;color:var(--cinza);font-style:italic;}
+
+/* ── SUMÁRIO ── */
+.sumario-section{margin-bottom:14px;}
+.sumario-titulo{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--verde);padding:7px 13px;background:var(--verde-bg);border-left:4px solid var(--verde-l);border-radius:0 7px 7px 0;margin-bottom:7px;}
+.sumario-item{display:flex;align-items:center;gap:9px;padding:8px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:4px;}
+.sumario-item:hover{border-color:var(--verde-l);background:var(--verde-xbg);transform:translateX(3px);}
+.sumario-item-num{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--verde);flex-shrink:0;min-width:32px;}
+.sumario-item-txt{flex:1;}
+.sumario-item-nome{font-size:13px;font-weight:700;color:var(--texto);}
+.sumario-item-desc{font-size:11px;color:var(--sub);margin-top:1px;}
+.sumario-item-arrow{font-size:14px;color:var(--verde-l);}
+.sumario-item.mod{border-left:4px solid var(--verde);}
+
+/* ── CAPA ── */
+.capa-slide{flex:1;background:linear-gradient(160deg,#0B1A0D 0%,#1B5E20 38%,#0A2E10 72%,#040C05 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;gap:11px;overflow-y:auto;position:relative;}
+.capa-slide::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 55px,rgba(255,255,255,.012) 55px,rgba(255,255,255,.012) 56px);pointer-events:none;}
+.capa-ebadge{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);border-radius:25px;padding:3px 15px;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.capa-logo{font-size:50px;line-height:1;}
+.capa-titulo{font-family:'Sora',sans-serif;font-size:clamp(22px,4vw,42px);font-weight:800;color:white;text-align:center;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;}
+.capa-subtitulo{font-family:'Sora',sans-serif;font-size:clamp(12px,1.8vw,17px);font-weight:600;color:rgba(255,255,255,.62);text-align:center;text-transform:uppercase;letter-spacing:.04em;}
+.capa-linha{width:70px;height:3px;background:var(--ouro-l);border-radius:2px;}
+.capa-badge-lp{background:linear-gradient(135deg,rgba(184,134,11,.3),rgba(184,134,11,.1));border:1.5px solid rgba(212,160,23,.38);border-radius:9px;padding:8px 18px;text-align:center;max-width:480px;}
+.capa-badge-lp-t{font-size:14px;font-weight:800;color:#F9D878;text-transform:uppercase;letter-spacing:.05em;}
+.capa-badge-lp-s{font-size:12px;color:rgba(255,255,255,.6);margin-top:3px;}
+.capa-autor{font-size:12.5px;color:rgba(255,255,255,.7);text-align:center;line-height:1.7;}
+.capa-autor b{color:white;font-weight:800;}
+.capa-stats{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.capa-stat{text-align:center;}
+.capa-stat-n{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--ouro-l);display:block;line-height:1;}
+.capa-stat-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);display:block;margin-top:2px;}
+.capa-aviso{background:rgba(183,28,28,.18);border:1px solid rgba(239,154,154,.28);border-radius:7px;padding:7px 14px;font-size:11.5px;color:rgba(255,255,255,.65);max-width:450px;text-align:center;line-height:1.5;}
+.capa-aviso b{color:#FFCDD2;}
+.capa-btn{background:linear-gradient(135deg,#B8860B,#D4A017);color:#3B2500;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;padding:11px 38px;border-radius:8px;cursor:pointer;transition:all .2s;box-shadow:0 5px 18px rgba(184,134,11,.5);}
+.capa-btn:hover{transform:scale(1.04);}
+
+/* ── APRESENTAÇÃO ── */
+.apres-banner{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:11px;padding:18px 22px;margin-bottom:13px;color:white;position:relative;overflow:hidden;}
+.apres-titulo{font-size:20px;font-weight:800;margin-bottom:5px;}
+.apres-sub{font-size:13px;color:rgba(255,255,255,.78);line-height:1.6;}
+.metodo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:13px;}
+.metodo-step{background:white;border-radius:9px;padding:13px;text-align:center;border:2px solid var(--borda);}
+.metodo-step:nth-child(1){border-top:4px solid var(--azul-l);}
+.metodo-step:nth-child(2){border-top:4px solid var(--verde-l);}
+.metodo-step:nth-child(3){border-top:4px solid var(--laranja-l);}
+.metodo-step:nth-child(4){border-top:4px solid var(--verm-l);}
+.metodo-icon{font-size:26px;margin-bottom:6px;}
+.metodo-passo{font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--sub);margin-bottom:3px;text-transform:uppercase;}
+.metodo-nome{font-size:16px;font-weight:800;color:var(--texto);}
+.metodo-desc{font-size:11.5px;line-height:1.5;color:var(--sub);margin-top:4px;}
+.citacao-box{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:9px;padding:14px 18px;margin-top:12px;text-align:center;position:relative;overflow:hidden;}
+.citacao-txt{font-size:14.5px;font-weight:600;font-style:italic;color:white;line-height:1.6;}
+.citacao-autor-nome{font-size:12px;color:rgba(255,255,255,.65);margin-top:7px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+
+/* ── ANÁLISE ESTRATÉGICA ── */
+.estrategia-card{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;margin-bottom:12px;}
+.estrategia-head{padding:10px 14px;display:flex;align-items:center;gap:9px;border-bottom:1.5px solid var(--borda);}
+.estrategia-body{padding:12px 14px;}
+.tendencia-item{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;margin-bottom:7px;}
+.tendencia-item:last-child{margin-bottom:0;}
+.tendencia-num{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:var(--verde);flex-shrink:0;min-width:30px;line-height:1;}
+.tendencia-info{flex:1;}
+.tendencia-titulo{font-size:13px;font-weight:700;color:var(--texto);}
+.tendencia-desc{font-size:12px;color:var(--sub);margin-top:2px;line-height:1.5;}
+.modulo-stat{background:white;border:1.5px solid var(--borda);border-radius:9px;padding:10px 13px;text-align:center;}
+.modulo-stat-n{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--verde);}
+.modulo-stat-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-top:2px;}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVIDADE — MOBILE FIRST
+   ══════════════════════════════════════════════════ */
+
+/* Garante que nada ultrapasse a largura da tela */
+* { box-sizing: border-box; }
+img, table, pre, code { max-width: 100%; }
+
+/* ── NAV mobile ── */
+@media (max-width: 600px) {
+  .khint { display: none; }
+  .ntitle { max-width: 120px; font-size: 10px; }
+  .ncnt { font-size: 9px; }
+  .nbtn { font-size: 9px; padding: 4px 9px; }
+  .nav { padding: 5px 8px; gap: 6px; }
+  .pw { min-width: 30px; }
+}
+
+/* ── TOPBAR mobile ── */
+@media (max-width: 600px) {
+  .topbar { padding: 8px 12px; flex-wrap: wrap; gap: 4px; }
+  .topbar-title { font-size: clamp(13px, 3.8vw, 18px) !important; }
+  .topbar-sub { font-size: 10px; }
+  .topbar-right { font-size: 22px; }
+}
+
+/* ── SCROLL BODY mobile ── */
+@media (max-width: 600px) {
+  .sb { padding: 10px 10px 56px; }
+}
+
+/* ── GRIDS: 2 e 3 colunas viram 1 no mobile ── */
+@media (max-width: 540px) {
+  .g2 { grid-template-columns: 1fr !important; }
+  .g3 { grid-template-columns: 1fr !important; }
+  .g4 { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 360px) {
+  .g4 { grid-template-columns: 1fr !important; }
+}
+
+/* ── CARDS mobile ── */
+@media (max-width: 600px) {
+  .card-head-title { font-size: 12px; }
+  .card-body { font-size: 12px; padding: 9px 10px; }
+  .card-head { padding: 7px 10px; }
+}
+
+/* ── QUESTÃO / ALTERNATIVAS ── */
+@media (max-width: 600px) {
+  .qbloco { border-radius: 8px; margin-bottom: 10px; }
+  .qnum { font-size: 9px; padding: 5px 10px; }
+  .qtexto { font-size: 13px; padding: 11px 12px; }
+  .alts { padding: 8px 12px 10px; gap: 6px; }
+  .alt { font-size: 12px; padding: 7px 10px; }
+  .alt-letra { font-size: 11px; min-width: 22px; height: 22px; }
+  .gab-area { padding: 10px 12px; }
+  .gab-btn { font-size: 10px; padding: 5px 12px; }
+  .gab-estrategia { font-size: 12px; }
+}
+
+/* ── ALERTAS mobile ── */
+@media (max-width: 600px) {
+  .alerta { padding: 8px 10px; gap: 7px; font-size: 12px; }
+  .alerta-title { font-size: 9px; }
+}
+
+/* ── CAPA mobile ── */
+@media (max-width: 600px) {
+  .capa-titulo { font-size: clamp(22px, 7vw, 36px) !important; }
+  .capa-subtitulo { font-size: 13px !important; }
+  .capa-stats { flex-wrap: wrap; gap: 10px; }
+  .capa-stat { min-width: 70px; }
+  .capa-badge-lp-s { font-size: 10px; }
+  .capa-autor { font-size: 11px; }
+  .capa-btn { font-size: 13px; padding: 12px 28px; }
+  .capa-aviso { font-size: 11px; }
+}
+
+/* ── ITENS DE LISTA mobile ── */
+@media (max-width: 600px) {
+  .item { font-size: 12px; }
+  .it { font-size: 12px; }
+}
+
+/* ── ESTRATÉGIA / ANÁLISE ── */
+@media (max-width: 600px) {
+  .estrategia-body { padding: 10px 11px; font-size: 12px; }
+  .estrategia-head { padding: 8px 11px; }
+  .tendencia-num { font-size: 18px; }
+  .tendencia-titulo { font-size: 12px; }
+  .tendencia-desc { font-size: 11px; }
+  .modulo-stat-n { font-size: 22px; }
+}
+
+/* ── max-width inline styles: make responsive ── */
+@media (max-width: 600px) {
+  [style*="max-width:540px"],
+  [style*="max-width: 540px"],
+  [style*="max-width:460px"],
+  [style*="max-width: 460px"],
+  [style*="max-width:480px"],
+  [style*="max-width: 480px"] {
+    max-width: 100% !important;
+  }
+}
+
+/* ── Prevent horizontal scroll ── */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.deck {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.slide {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* ── Touch swipe hint for mobile ── */
+@media (max-width: 600px) {
+  .khint::before {
+    content: '← deslize →';
+    display: inline;
+  }
+  .khint {
+    display: inline !important;
+    font-size: 9px !important;
+    color: rgba(255,255,255,.25) !important;
+  }
+}
+
+
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+<div class="slide active" data-title="Capa" id="slide-0">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(212,160,23,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#D4A017;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(212,160,23,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">QUESTÕES COMENTADAS
+ESFCEx</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA DE SAÚDE E FORMAÇÃO COMPLEMENTAR DO EXÉRCITO</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.2vw,13px);font-weight:700;color:rgba(212,160,23,.6);letter-spacing:.1em;text-transform:uppercase;">QCO - QCM · VOLUME II</div>
+</div>
+</div>
+<div class="slide" data-title="Apresentação — Capitão Valdir" id="slide-1">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · Questões Comentadas ESFCEx 2020–2025</span>
+<span class="topbar-title">APRESENTAÇÃO — O CAPITÃO VALDIR</span>
+<span class="topbar-sub">Conheça o professor por trás deste material</span>
+</div>
+<div class="topbar-right">01</div>
+</div>
+<div class="sb">
+<div class="apres-banner" style="margin-bottom:13px;">
+<div class="apres-titulo">Bem-vindo ao material que vai transformar seu desempenho em LP!</div>
+<div class="apres-sub"><b>116 questões de Língua Portuguesa</b> da ESFCEx (2020–2025), comentadas, analisadas e organizadas pelo padrão VUNESP — para você dominar cada tema do edital e chegar à prova com confiança total.</div>
+</div>
+<div style="background:linear-gradient(135deg,#0A2E10,#1B5E20,#2E7D32);border-radius:12px;padding:20px 24px;margin-bottom:13px;display:flex;gap:20px;align-items:center;position:relative;overflow:hidden;">
+<div style="position:absolute;right:0;top:0;bottom:0;width:100px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;"></div>
+<div style="flex-shrink:0;width:88px;height:88px;background:rgba(255,255,255,.13);border-radius:50%;border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:40px;">🎖️</div>
+<div style="flex:1;">
+<div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;">SEU PROFESSOR</div>
+<div style="font-size:26px;font-weight:800;color:white;line-height:1;margin-bottom:4px;">Capitão Valdir</div>
+<div style="font-size:12px;color:rgba(255,255,255,.72);margin-bottom:8px;">Capitão da Reserva do Exército Brasileiro · QCO (Quadro Complementar de Oficiais)</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap;">
+<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🎓 Letras — UNICAMP</span>
+<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">⭐ Formado pela ESFCEx</span>
+<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">📜 Pós-grad. Magistério Português</span>
+<span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🏆 20+ anos de experiência</span>
+</div>
+</div>
+</div>
+<div class="g2" style="margin-bottom:13px;">
+<div class="card">
+<div class="card-head verde"><div class="card-head-icon">📋</div><div class="card-head-title">Formação Acadêmica e Militar</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">🎓</span><div class="it">Licenciado em <b>Letras pela UNICAMP</b> (Universidade Estadual de Campinas)</div></div>
+<div class="item"><span class="dot">⭐</span><div class="it"><b>Formou-se Oficial de carreira</b> pela Escola de Administração do Exército (EsAEx), atual Escola de Saúde e Formação Complementar do Exército (ESFCEx)</div></div>
+<div class="item"><span class="dot">📜</span><div class="it"><b>Pós-graduado pela ESFCEx</b> — área de Magistério em Língua Portuguesa</div></div>
+<div class="item"><span class="dot">🏆</span><div class="it"><b>Especialista em Ensino</b> — há <b>duas décadas</b> ensinando, formando e preparando <b>ALUNOS</b> com excelência!</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-head azul"><div class="card-head-icon">🏫</div><div class="card-head-title">Experiência Docente Militar</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Colégio Militar de Fortaleza</b></div></div>
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Colégio Militar de Manaus</b></div></div>
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Escola de Aperfeiçoamento de Sargentos das Armas (EASA)</b></div></div>
+<div class="item"><span class="dot">🟢</span><div class="it"><b>Centro de Instrução de Aviação do Exército (CIAvEx)</b></div></div>
+<div class="item"><span class="dot">🟢</span><div class="it">Preparatórios para concursos militares — <b>especialidade ESFCEx/VUNESP</b></div></div>
+</div>
+</div>
+</div>
+<div class="alerta azul" style="margin-bottom:12px;">
+<div class="alerta-icon">💬</div>
+<div class="alerta-content">
+<div class="alerta-title">Mensagem do Capitão Valdir — Para cada aluno que usa este material</div>
+<div class="alerta-text">Resolvi cada uma dessas questões pensando em você, aluno. Não me preocupei apenas em dar o gabarito — me preocupei em explicar <b>por que cada alternativa errada está errada</b>. Porque é aí que a banca te pega. Estudar o erro é tão importante quanto acertar. Use este material com método, disciplina e estratégia. <b>Bons estudos! E te vejo na lista de aprovados...</b></div>
+</div>
+</div>
+<div class="citacao-box">
+<div class="citacao-txt">"O conhecimento é a arma mais poderosa que existe. Prepare-se com método, disciplina e estratégia."</div>
+<div class="citacao-autor-nome">— Capitão Valdir · QCO · Formado pela ESFCEx · Especialista em Ensino</div>
+</div>
+<div style="text-align:center;margin-top:13px;">
+<button onclick="next()" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Continuar: Método e Prioridades →</button>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Apresentação — Método e Prioridades" id="slide-1b">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · Questões Comentadas ESFCEx 2020–2025</span>
+<span class="topbar-title">MÉTODO · PRIORIDADES · COMO USAR</span>
+<span class="topbar-sub">O roteiro de estudo e o mapa de prioridades para o ESFCEx 2026</span>
+</div>
+<div class="topbar-right">01</div>
+</div>
+<div class="sb">
+<div class="metodo-grid" style="margin-bottom:13px;">
+<div class="metodo-step">
+<div class="metodo-icon">📋</div><div class="metodo-passo">Passo 1</div><div class="metodo-nome">RESOLVER</div>
+<div class="metodo-desc">Tente resolver cada questão antes de ver o gabarito. Simule a prova real.</div>
+</div>
+<div class="metodo-step">
+<div class="metodo-icon">🔍</div><div class="metodo-passo">Passo 2</div><div class="metodo-nome">ANALISAR</div>
+<div class="metodo-desc">Leia o comentário de TODAS as alternativas — as erradas ensinam tanto quanto as certas.</div>
+</div>
+<div class="metodo-step">
+<div class="metodo-icon">🎯</div><div class="metodo-passo">Passo 3</div><div class="metodo-nome">IDENTIFICAR</div>
+<div class="metodo-desc">Observe o padrão da VUNESP. A banca repete pegadinhas e temas recorrentes.</div>
+</div>
+<div class="metodo-step">
+<div class="metodo-icon">⚡</div><div class="metodo-passo">Passo 4</div><div class="metodo-nome">ACERTAR</div>
+<div class="metodo-desc">Aplique os gatilhos automáticos e estratégias de eliminação na hora da prova.</div>
+</div>
+</div>
+<div class="g2" style="margin-bottom:13px;">
+<div class="card">
+<div class="card-head laranja"><div class="card-head-icon">⚠️</div><div class="card-head-title">Como usar este e-book</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">📌</span><div class="it">Estude primeiro o resumo de cada módulo do <b>Volume I</b>, depois responda às questões referentes ao respectivo módulo neste e-book</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Marque os erros e <b>revise pelo menos 3 vezes</b></div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Leia a <b>Análise Estratégica Final</b> antes da prova</div></div>
+<div class="item"><span class="dot">📌</span><div class="it">Use <b>← →</b> no teclado ou swipe no celular para navegar</div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-head verde"><div class="card-head-icon">📚</div><div class="card-head-title">O que este e-book contém</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">✅</span><div class="it"><b>116 questões</b> das provas ESFCEx 2020–2025 · banca VUNESP</div></div>
+<div class="item"><span class="dot">✅</span><div class="it"><b>16 módulos</b> conforme o edital CFO/QC 2026</div></div>
+<div class="item"><span class="dot">✅</span><div class="it"><b>Gabarito justificado</b> — análise de todas as alternativas</div></div>
+<div class="item"><span class="dot">✅</span><div class="it"><b>Padrão VUNESP</b> + estratégia de eliminação em cada questão</div></div>
+<div class="item"><span class="dot">✅</span><div class="it"><b>Análise Estratégica Final</b> — gatilhos e mapa de prioridades</div></div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-head verde"><div class="card-head-icon">🗺️</div><div class="card-head-title">Grau de Prioridade dos Módulos — ESFCEx 2026</div></div>
+<div class="card-body">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:11px;">
+<div style="background:#FFEBEE;border:2px solid #EF9A9A;border-radius:9px;padding:12px;">
+<div style="font-size:20px;text-align:center;margin-bottom:5px;">🔴</div>
+<div style="font-size:12px;font-weight:800;color:#B71C1C;text-align:center;margin-bottom:7px;">ALTA PRIORIDADE</div>
+<div style="font-size:11px;line-height:1.65;color:#37474F;">Presente em <b>100% das provas</b> 2020–2025<br/><br/>· Mód. II — Interpretação<br/>· Mód. VI — Coesão<br/>· Mód. VII — Morfossintaxe<br/>· Mód. IX — Subordinação<br/>· Mód. X — Verbos<br/>· Mód. XI — Concordância<br/>· Mód. XII — Colocação<br/>· Mód. XV — Crase</div>
+</div>
+<div style="background:#FFF8E1;border:2px solid #FFD54F;border-radius:9px;padding:12px;">
+<div style="font-size:20px;text-align:center;margin-bottom:5px;">🟡</div>
+<div style="font-size:12px;font-weight:800;color:#E65100;text-align:center;margin-bottom:7px;">MÉDIA PRIORIDADE</div>
+<div style="font-size:11px;line-height:1.65;color:#37474F;">Presente em <b>60–90% das provas</b> 2020–2025<br/><br/>· Mód. III — Significação<br/>· Mód. IV — Estilística<br/>· Mód. V — Coerência<br/>· Mód. VIII — Coordenação<br/>· Mód. XIII — Acentuação<br/>· Mód. XIV — Pontuação<br/><br/></div>
+</div>
+<div style="background:#E8F5E9;border:2px solid #A5D6A7;border-radius:9px;padding:12px;">
+<div style="font-size:20px;text-align:center;margin-bottom:5px;">🟢</div>
+<div style="font-size:12px;font-weight:800;color:#1B5E20;text-align:center;margin-bottom:7px;">BAIXA PRIORIDADE</div>
+<div style="font-size:11px;line-height:1.65;color:#37474F;">Presente em <b>&lt;60% das provas</b> 2020–2025<br/><br/>· Mód. I — Gêneros Textuais<br/>· Mód. XVI — Ortografia<br/><br/><br/><br/><br/></div>
+</div>
+</div>
+<div class="alerta ouro">
+<div class="alerta-icon">⭐</div>
+<div class="alerta-content">
+<div class="alerta-title">Foco estratégico para a reta final</div>
+<div class="alerta-text">🟢 Baixa prioridade <b>não significa ignorar</b> — significa que os 🔴 devem receber mais horas. Com 8 questões de LP e mínimo de 50% (4 acertos) para não ser eliminado, <b>dominar os módulos 🔴 é obrigatório para a aprovação!</b></div>
+</div>
+</div>
+</div>
+</div>
+<div style="text-align:center;margin-top:13px;">
+<button onclick="goTo(3)" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Ver Sumário →</button>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Sumário" id="slide-2">
+<div class="topbar">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · Questões Comentadas ESFCEx · Volume II</span>
+<span class="topbar-title">SUMÁRIO</span>
+<span class="topbar-sub">Clique em qualquer módulo para ir direto à sua capa</span>
+</div>
+<div class="topbar-right">02</div>
+</div>
+<div class="sb">
+<div class="alerta azul" style="margin-bottom:12px;">
+<div class="alerta-icon">🖱️</div>
+<div class="alerta-content">
+<div class="alerta-title">Navegação rápida — clique no módulo desejado</div>
+<div class="alerta-text">Clique em qualquer módulo para ir diretamente à sua capa. Use ← → no teclado ou swipe no celular. As cores indicam a prioridade: <b>🔴 Alta · 🟡 Média · 🟢 Baixa</b>.</div>
+</div>
+</div>
+<div class="g2">
+<div>
+<div class="sumario-section">
+<div class="sumario-titulo">📖 Introdução</div>
+<div class="sumario-item" onclick="goTo(1)" style="margin-bottom:4px;"><div class="sumario-item-num" style="color:var(--verde);">01</div><div class="sumario-item-txt"><div class="sumario-item-nome">Apresentação — Capitão Valdir</div><div class="sumario-item-desc">Biografia e mensagem</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(2)" style="margin-bottom:4px;"><div class="sumario-item-num" style="color:var(--verde);">01</div><div class="sumario-item-txt"><div class="sumario-item-nome">Método, Prioridades e Como Usar</div><div class="sumario-item-desc">Roteiro de estudo + mapa de prioridades</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+<div class="sumario-section">
+<div class="sumario-titulo">📚 Módulos — 1ª metade</div>
+<div class="sumario-item" onclick="goTo(4)" style="border-left:4px solid #1B5E20;background:#E8F5E9;margin-bottom:4px;"><div class="sumario-item-num" style="color:#1B5E20;">I</div><div class="sumario-item-txt"><div class="sumario-item-nome">🟢 Reconhecimento de Tipos e Gêneros Textuais</div><div class="sumario-item-desc">6 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(12)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:4px;"><div class="sumario-item-num" style="color:#B71C1C;">II</div><div class="sumario-item-txt"><div class="sumario-item-nome">🔴 Compreensão e Interpretação de Textos</div><div class="sumario-item-desc">19 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(33)" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:4px;"><div class="sumario-item-num" style="color:#E65100;">III</div><div class="sumario-item-txt"><div class="sumario-item-nome">🟡 Níveis de Significação</div><div class="sumario-item-desc">4 questões · 2021–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(39)" style="border-left:4px solid #4A148C;background:#FFF8E1;margin-bottom:4px;"><div class="sumario-item-num" style="color:#4A148C;">IV</div><div class="sumario-item-txt"><div class="sumario-item-nome">🟡 Estilística da Palavra e da Frase</div><div class="sumario-item-desc">5 questões · 2022–2023</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(46)" style="border-left:4px solid #004D40;background:#FFF8E1;margin-bottom:4px;"><div class="sumario-item-num" style="color:#004D40;">V</div><div class="sumario-item-txt"><div class="sumario-item-nome">🟡 Coerência Textual: Fatores</div><div class="sumario-item-desc">3 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(51)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:4px;"><div class="sumario-item-num" style="color:#B71C1C;">VI</div><div class="sumario-item-txt"><div class="sumario-item-nome">🔴 Coesão Textual: Referenciação e Sequenciação</div><div class="sumario-item-desc">12 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(66)" style="border-left:4px solid #37474F;background:#FFEBEE;margin-bottom:4px;"><div class="sumario-item-num" style="color:#37474F;">VII</div><div class="sumario-item-txt"><div class="sumario-item-nome">🔴 Estrutura Morfossintática do Período Simples</div><div class="sumario-item-desc">6 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(74)" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:4px;"><div class="sumario-item-num" style="color:#E65100;">VIII</div><div class="sumario-item-txt"><div class="sumario-item-nome">🟡 Relações de Coordenação</div><div class="sumario-item-desc">4 questões · 2020–2024</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+</div>
+<div>
+<div class="sumario-section">
+<div class="sumario-titulo">📚 Módulos — 2ª metade</div>
+<div class="sumario-item" onclick="goTo(80)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:4px;"><div class="sumario-item-num" style="color:#B71C1C;">IX</div><div class="sumario-item-txt"><div class="sumario-item-nome">🔴 Relações de Subordinação</div><div class="sumario-item-desc">8 questões · 2020–2024</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(90)" style="border-left:4px solid #BF4A00;background:#FFEBEE;margin-bottom:4px;"><div class="sumario-item-num" style="color:#BF4A00;">X</div><div class="sumario-item-txt"><div class="sumario-item-nome">🔴 Emprego/Correlação de Tempos e Modos Verbais</div><div class="sumario-item-desc">7 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(99)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:4px;"><div class="sumario-item-num" style="color:#B71C1C;">XI</div><div class="sumario-item-txt"><div class="sumario-item-nome">🔴 Concordância Nominal e Verbal</div><div class="sumario-item-desc">11 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(112)" style="border-left:4px solid #4A148C;background:#FFEBEE;margin-bottom:4px;"><div class="sumario-item-num" style="color:#4A148C;">XII</div><div class="sumario-item-txt"><div class="sumario-item-nome">🔴 Colocação dos Pronomes Átonos</div><div class="sumario-item-desc">9 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(123)" style="border-left:4px solid #37474F;background:#FFF8E1;margin-bottom:4px;"><div class="sumario-item-num" style="color:#37474F;">XIII</div><div class="sumario-item-txt"><div class="sumario-item-nome">🟡 Acentuação Gráfica</div><div class="sumario-item-desc">5 questões · 2020–2024</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(130)" style="border-left:4px solid #E65100;background:#FFF8E1;margin-bottom:4px;"><div class="sumario-item-num" style="color:#E65100;">XIV</div><div class="sumario-item-txt"><div class="sumario-item-nome">🟡 Sinais de Pontuação</div><div class="sumario-item-desc">6 questões · 2020–2024</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(138)" style="border-left:4px solid #B71C1C;background:#FFEBEE;margin-bottom:4px;"><div class="sumario-item-num" style="color:#B71C1C;">XV</div><div class="sumario-item-txt"><div class="sumario-item-nome">🔴 Sinal Indicativo de Crase</div><div class="sumario-item-desc">9 questões · 2020–2025</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item" onclick="goTo(149)" style="border-left:4px solid #1B5E20;background:#E8F5E9;margin-bottom:4px;"><div class="sumario-item-num" style="color:#1B5E20;">XVI</div><div class="sumario-item-txt"><div class="sumario-item-nome">🟢 Ortografia Oficial</div><div class="sumario-item-desc">2 questões · 2020–2024</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+<div class="sumario-section">
+<div class="sumario-titulo">📊 Encerramento</div>
+<div class="sumario-item" onclick="goTo(153)" style="border-color:var(--laranja-l);background:var(--laranja-bg);margin-bottom:4px;"><div class="sumario-item-num" style="color:var(--laranja);">★</div><div class="sumario-item-txt"><div class="sumario-item-nome">Análise Estratégica Final</div><div class="sumario-item-desc">Tendências · Gatilhos · Como se preparar para 2026</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Módulo I — Reconhecimento de Tipos e Gêneros Textuais" id="slide-modcapa-i">
+<div style="flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;background:linear-gradient(160deg,#1B5E20ee,#1B5E2099,#1B5E20cc);">
+<div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);pointer-events:none;"></div>
+<div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 28px;flex:1;text-align:center;">
+<div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);">GUIA CAPITÃO VALDIR · ESFCEx 2026 · VOLUME II</div>
+<div style="font-size:56px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">📝</div>
+<div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);">MÓDULO I</div>
+<div style="font-family:'Sora',sans-serif;font-size:clamp(20px,3.5vw,32px);font-weight:800;color:white;line-height:1.15;text-transform:uppercase;max-width:540px;">Reconhecimento de Tipos e Gêneros Textuais</div>
+<div style="width:60px;height:3px;background:rgba(255,255,255,.4);border-radius:2px;"></div>
+<div style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 20px;max-width:520px;">
+<div style="font-size:13px;color:rgba(255,255,255,.88);line-height:1.65;">Tipologia textual · Gêneros textuais · Par tipo × gênero · Artigo · Crônica · Editorial</div>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+<span style="background:#E8F5E9;border:2px solid #A5D6A7;border-radius:20px;padding:4px 14px;font-size:12px;font-weight:800;color:#1B5E20;">🟢 Baixa Prioridade</span>
+<span style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.88);">📅 ESFCEx 2020–2025</span>
+<span style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.88);">📝 6 questão(ões)</span>
+</div>
+<button onclick="goTo(5)" style="background:rgba(255,255,255,.95);color:#1B5E20;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:11px 36px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 4px 18px rgba(0,0,0,.25);">Ver Questões →</button>
+<button onclick="goTo(3)" style="background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.25);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:6px 20px;border-radius:6px;cursor:pointer;">⬆ Voltar ao Sumário</button>
+</div>
+</div>
+</div>
+<div class="slide" data-title="Módulo I — Reconhecimento de Tipos e Gêneros Textuais" id="slide-3">
+<div class="topbar azul">
+<div class="topbar-left">
+<span class="topbar-tag">Guia Capitão Valdir · Questões Comentadas ESFCEx · 2020–2025</span>
+<span class="topbar-title">MÓDULO I — RECONHECIMENTO DE TIPOS E GÊNEROS TEXTUAIS</span>
+<span class="topbar-sub">Identificar o gênero textual e a tipologia predominante em textos variados — 🔴 Alta Prioridade</span>
+</div>
+<div class="topbar-right">I</div>
+</div>
+<div class="sb">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;margin-bottom:13px;">
+<div class="modulo-stat"><div class="modulo-stat-n">6</div><div class="modulo-stat-l">Questões neste módulo</div></div>
+<div class="modulo-stat"><div class="modulo-stat-n" style="font-size:22px;">2020–2025</div><div class="modulo-stat-l">Anos das questões</div></div>
+<div class="modulo-stat"><div class="modulo-stat-n">📖</div><div class="modulo-stat-l">Tópico do edital</div></div>
+</div>
+<div class="alerta laranja" style="margin-bottom:12px;">
+<div class="alerta-icon">📋</div>
+<div class="alerta-content">
+<div class="alerta-title">Sobre este módulo</div>
+<div class="alerta-text">Identificar o gênero textual e a tipologia predominante em textos variados — 🔴 Alta Prioridade. Tente resolver cada questão antes de ver o gabarito. As explicações comentam <b>todas as alternativas</b> — as erradas ensinam tanto quanto as certas.</div>
+</div>
+</div>
+<div class="card">
+<div class="card-head laranja"><div class="card-head-icon">📖</div><div class="card-head-title">O que a VUNESP cobra neste módulo na ESFCEx</div></div>
+<div class="card-body">
+<div class="item"><span class="dot">🎯</span><div class="it">Questões baseadas em textos autênticos de jornais, revistas e literatura contemporânea</div></div>
+<div class="item"><span class="dot">🎯</span><div class="it">Referência bibliográfica: Bechara (Gramática), Luft e Marcuschi (gêneros textuais)</div></div>
+<div class="item"><span class="dot">🎯</span><div class="it">Padrão estável e previsível — as questões deste módulo seguem um roteiro identificável</div></div>
+</div>
+</div>
+<div style="text-align:center;margin-top:16px;">
+<button onclick="next()" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:700;padding:11px 32px;border-radius:8px;cursor:pointer;">Ir para a Questão 01 →</button>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Módulo I Q1 — Gêneros Textuais — Artigo vs outros gêneros" id="slide-4">
+<div class="topbar azul">
+<div class="topbar-left">
+<span class="topbar-tag">Módulo I · ESFCEx 2022 · VUNESP</span>
+<span class="topbar-title">GÊNEROS TEXTUAIS</span>
+<span class="topbar-sub">Questão 1 — Gêneros Textuais — Artigo vs outros gêneros</span>
+</div>
+<div class="topbar-right">Q1</div>
+</div>
+<div class="sb">
+<div class="qbloco">
+<div class="qbloco-header" style="border-color:var(--verde-l);">
+<div class="qnum" style="color:var(--verde);">01</div>
+<div class="qinfo">
+<div class="qtitulo">Gêneros Textuais — Artigo vs outros gêneros</div>
+<div class="qsub">Módulo I · Banca VUNESP · ESFCEx</div>
+<div class="qmeta">
+<span class="qchip nivel-m">🟡 Médio</span>
+<span class="qchip ano">📅 2022</span>
+<span class="qchip assunto">📚 Gêneros Textuais — Artigo vs outros gêne</span>
+</div>
+</div>
+</div>
+<div class="qbloco-body">
+<div class="passagem"><b>O medo</b><br/><br/>O medo, em seu estado mais bruto, é um sentimento que se assenta em circuitos neuronais tão antigos quanto os primeiros répteis da Terra. Existem evidências de que estruturas extremamente primitivas na escala evolutiva do cérebro humano, presentes desde a época dos dinossauros, desempenham tarefas fundamentais em situações de risco, potencial ou real. Apesar de estar na raiz biológica de vários distúrbios, o medo é vital para nossa sobrevivência e, ainda assim, lidamos mal com ele. Desde cedo, o homem é manipulado por seus temores.<br/><br/>Uma das fobias mais peculiares é o medo dos espelhos. Na Inglaterra da era vitoriana, antes de um morto ser levado ao cemitério, todos os espelhos eram cobertos com tecidos, pois se acreditava que a alma da pessoa poderia ficar presa nos espelhos.<br/><br/>O medo é pessoal e reflete a resposta do coração às inseguranças que cada um carrega dentro de si. [...] A real tragédia da vida é os homens terem medo da luz. [...] Aceitemos o medo, mas que ele não nos limite.<div class="passagem-fonte">Rafael Delsin. Os homens maus estão chegando. BE — Revista Bem-Estar</div></div>
+<div class="qenunciado">Pelas características que apresenta, o texto se identifica com o gênero</div>
+<div class="alternativas" id="alts-q4">
+<div class="alt" onclick="selAlt('q4','A',this)"><div class="alt-letra">A</div><div>artigo, pois apresenta dados e emite opiniões acerca de tema associado a vivências humanas.</div></div>
+<div class="alt" onclick="selAlt('q4','B',this)"><div class="alt-letra">B</div><div>reportagem documental, pois elenca fatos pretéritos e testemunhos pessoais para explicar fatos do cotidiano.</div></div>
+<div class="alt" onclick="selAlt('q4','C',this)"><div class="alt-letra">C</div><div>crônica de costumes, pois revela hábitos que caracterizam a sociedade contemporânea em suas contradições.</div></div>
+<div class="alt" onclick="selAlt('q4','D',this)"><div class="alt-letra">D</div><div>editorial, pois expressa ponto de vista controverso da revista acerca de temática em voga na área do comportamento humano.</div></div>
+<div class="alt" onclick="selAlt('q4','E',this)"><div class="alt-letra">E</div><div>depoimento, pois apresenta dados consolidados que revelam a experiência do autor com sentimentos que nele se debatem.</div></div>
+</div>
+<button class="btn-gab" onclick="mostrarGab('q4','A')">🔍 Ver gabarito comentado</button>
+<div class="gabarito-area" id="gab-q4">
+<div class="gab-box">
+<div class="gab-title">✅ Gabarito: Alternativa A — Análise completa de todas as alternativas</div>
+<div class="gab-texto"><b>✅ Por que A está CORRETA:</b> O texto é um <b>artigo</b> — tem autor identificado (Rafael Delsin), apresenta dados (neurociência, fobias vitoriana), emite opiniões pessoais ("Aceitemos o medo, mas que ele não nos limite") e discute um tema de relevância humana (o medo). A combinação de argumentação, dados e posicionamento do autor é a marca do artigo.<br/><br/>
+<b>❌ Por que B está ERRADA:</b> Reportagem documental exige apuração jornalística, fontes diversas e linguagem neutra. O texto tem voz pessoal e reflexiva, sem características da reportagem.<br/><br/>
+<b>❌ Por que C está ERRADA:</b> Crônica de costumes retrata o cotidiano de forma leve e narrativa, geralmente com humor ou ironia. O texto é argumentativo e reflexivo, não narrativo de costumes.<br/><br/>
+<b>❌ Por que D está ERRADA:</b> Editorial expressa a posição <i>institucional</i> do veículo, sem assinatura pessoal. Este texto tem autor identificado — logo, não é editorial.<br/><br/>
+<b>❌ Por que E está ERRADA:</b> Depoimento é relato em primeira pessoa de experiência vivida. O texto não é um relato pessoal — o autor fala sobre o tema do medo de forma analítica, não como testemunho.</div>
+<div class="gab-painel">
+<div class="gab-painel-item"><div class="gab-painel-label">🎯 Padrão VUNESP</div><div class="gab-painel-valor">Questão sobre gênero textual exigindo a identificação do par gênero + características — padrão clássico da VUNESP na ESFCEx</div></div>
+<div class="gab-painel-item"><div class="gab-painel-label">📌 Tipo de Cobrança</div><div class="gab-painel-valor">Reconhecimento de gênero textual com justificativa</div></div>
+</div>
+<div class="gab-estrategia"><div style="font-size:16px;flex-shrink:0;">⚡</div><div class="gab-estrategia-txt">Elimine primeiro os gêneros que exigem características ausentes no texto (reportagem = neutralidade, editorial = sem assinatura, depoimento = 1ª pessoa de vivência). O que sobrar com as características corretas é o gabarito.</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Módulo I Q2 — Gêneros Textuais — Crônica vs outros gêneros" id="slide-5">
+<div class="topbar azul">
+<div class="topbar-left">
+<span class="topbar-tag">Módulo I · ESFCEx 2023 · VUNESP</span>
+<span class="topbar-title">GÊNEROS TEXTUAIS</span>
+<span class="topbar-sub">Questão 2 — Gêneros Textuais — Crônica vs outros gêneros</span>
+</div>
+<div class="topbar-right">Q2</div>
+</div>
+<div class="sb">
+<div class="qbloco">
+<div class="qbloco-header" style="border-color:var(--verde-l);">
+<div class="qnum" style="color:var(--verde);">02</div>
+<div class="qinfo">
+<div class="qtitulo">Gêneros Textuais — Crônica vs outros gêneros</div>
+<div class="qsub">Módulo I · Banca VUNESP · ESFCEx</div>
+<div class="qmeta">
+<span class="qchip nivel-m">🟡 Médio</span>
+<span class="qchip ano">📅 2023</span>
+<span class="qchip assunto">📚 Gêneros Textuais — Crônica vs outros gên</span>
+</div>
+</div>
+</div>
+<div class="qbloco-body">
+<div class="passagem"><b>A alegria da música</b><br/><br/>Eu gosto muito de música clássica. Comecei a ouvir música clássica antes de nascer, quando ainda estava na barriga da minha mãe. Ela era pianista e tocava... Sem nada ouvir, eu ouvia. E assim a música clássica se misturou com minha carne e meu sangue. [...] Pois a música produz alienação: ela me faz sair do meu mundo medíocre e entrar num outro, de beleza e formas perfeitas. [...] Terminada a viagem, o Ademar retirou a fita e m'a deu. 'É sua', ele disse de forma definitiva. Existem gestos de amizade que não podem ser rejeitados. Assim, trouxe comigo um pedaço do Ademar que é também um pedaço de mim.<div class="passagem-fonte">Rubem Alves, Na morada das palavras. Adaptado</div></div>
+<div class="qenunciado">Tendo em conta as características do texto "A alegria da música", é correto afirmar que se trata de um trecho de</div>
+<div class="alternativas" id="alts-q5">
+<div class="alt" onclick="selAlt('q5','A',this)"><div class="alt-letra">A</div><div>um conto, em que são narrados eventos de que o autor participa em diferentes momentos de sua vida, contestando suas memórias.</div></div>
+<div class="alt" onclick="selAlt('q5','B',this)"><div class="alt-letra">B</div><div>uma crônica, em que são narradas experiências introspectivas do enunciador, associadas a sua relação afetiva com a música.</div></div>
+<div class="alt" onclick="selAlt('q5','C',this)"><div class="alt-letra">C</div><div>um depoimento, em que o enunciador descreve passagens de sua existência nas quais se dedicou a estreitar relações pessoais.</div></div>
+<div class="alt" onclick="selAlt('q5','D',this)"><div class="alt-letra">D</div><div>um editorial, no qual o autor apresenta argumentos próprios para sustentar a tese de que a música clássica transformou sua vida.</div></div>
+<div class="alt" onclick="selAlt('q5','E',this)"><div class="alt-letra">E</div><div>uma resenha, na qual são apresentados traços culturais em composições clássicas declaradas como preferências do autor.</div></div>
+</div>
+<button class="btn-gab" onclick="mostrarGab('q5','B')">🔍 Ver gabarito comentado</button>
+<div class="gabarito-area" id="gab-q5">
+<div class="gab-box">
+<div class="gab-title">✅ Gabarito: Alternativa B — Análise completa de todas as alternativas</div>
+<div class="gab-texto"><b>✅ Por que B está CORRETA:</b> A <b>crônica</b> é o gênero marcado pela narração em 1ª pessoa, com subjetividade, reflexão íntima e relato de vivências do cotidiano. Rubem Alves narra suas experiências pessoais com a música clássica (infância, viagem a Coimbra, amigo Ademar) de forma introspectiva — todos traços definidores da crônica.<br/><br/>
+<b>❌ Por que A está ERRADA:</b> Conto é ficção com personagens inventados, conflito e desfecho narrativo estruturado. Este texto não é ficção — o narrador fala de si mesmo em eventos reais.<br/><br/>
+<b>❌ Por que C está ERRADA:</b> Depoimento é relato mais formal de experiência pessoal, geralmente em contexto jurídico, histórico ou jornalístico. A subjetividade literária e a reflexão filosófica do texto apontam para crônica, não depoimento.<br/><br/>
+<b>❌ Por que D está ERRADA:</b> Editorial não tem assinatura de autor e representa a posição institucional do veículo. Rubem Alves é identificado como autor — incompatível com editorial.<br/><br/>
+<b>❌ Por que E está ERRADA:</b> Resenha é avaliação crítica de uma obra (livro, filme, disco). O texto não avalia composições musicais — usa-as como pano de fundo para reflexões pessoais.</div>
+<div class="gab-painel">
+<div class="gab-painel-item"><div class="gab-painel-label">🎯 Padrão VUNESP</div><div class="gab-painel-valor">1ª pessoa + cotidiano + reflexão íntima = crônica. A VUNESP sempre usa esse trio para cobrar crônica na ESFCEx.</div></div>
+<div class="gab-painel-item"><div class="gab-painel-label">📌 Tipo de Cobrança</div><div class="gab-painel-valor">Identificação de gênero textual — crônica literária</div></div>
+</div>
+<div class="gab-estrategia"><div style="font-size:16px;flex-shrink:0;">⚡</div><div class="gab-estrategia-txt">Viu narrador em 1ª pessoa + experiência do cotidiano + reflexão pessoal + publicado em jornal/revista? É crônica. Esse triângulo é suficiente para eliminar todas as outras opções.</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Módulo I Q3 — Gêneros Textuais — Artigo jornalístico" id="slide-6">
+<div class="topbar azul">
+<div class="topbar-left">
+<span class="topbar-tag">Módulo I · ESFCEx 2025 · VUNESP</span>
+<span class="topbar-title">GÊNEROS TEXTUAIS</span>
+<span class="topbar-sub">Questão 3 — Gêneros Textuais — Artigo jornalístico</span>
+</div>
+<div class="topbar-right">Q3</div>
+</div>
+<div class="sb">
+<div class="qbloco">
+<div class="qbloco-header" style="border-color:var(--verde-l);">
+<div class="qnum" style="color:var(--verde);">03</div>
+<div class="qinfo">
+<div class="qtitulo">Gêneros Textuais — Artigo jornalístico</div>
+<div class="qsub">Módulo I · Banca VUNESP · ESFCEx</div>
+<div class="qmeta">
+<span class="qchip nivel-m">🟡 Médio</span>
+<span class="qchip ano">📅 2025</span>
+<span class="qchip assunto">📚 Gêneros Textuais — Artigo jornalístico</span>
+</div>
+</div>
+</div>
+<div class="qbloco-body">
+<div class="passagem"><b>Violência contra idosos</b><br/><br/>"Depósito": o modo como uma casa de repouso para idosos é chamada em um novo livro de ficção pretende denunciar as incongruências de nossa relação com a velhice [...] "Embora não seja regra, alguns fatores tornam os idosos mais vulneráveis e dependentes de outras pessoas", explica a psicóloga Allana Moraes. [...] Entre os fatores em jogo, há também aquilo que o gerontólogo Robert N. Butler chamou já em 1969 de "ageísmo" ou "idadismo". [...] A saúde dos vínculos afetivos entre o idoso e os seus cuidadores é um fator de proteção contra a violência muito significativo.<div class="passagem-fonte">Disponível em: https://www.semprefamilia.com.br. Acesso em: 08.04.2025. Adaptado</div></div>
+<div class="qenunciado">Por suas características composicionais predominantes, o texto pode ser identificado como sendo do gênero</div>
+<div class="alternativas" id="alts-q6">
+<div class="alt" onclick="selAlt('q6','A',this)"><div class="alt-letra">A</div><div>instrução, de caráter normativo, empregando a citação de trechos de especialistas para induzir o leitor a adotar práticas sociais adequadas.</div></div>
+<div class="alt" onclick="selAlt('q6','B',this)"><div class="alt-letra">B</div><div>matéria científica, de caráter instrucional, empregando referências extratextuais para levar o leitor a praticar as recomendações nele expostas.</div></div>
+<div class="alt" onclick="selAlt('q6','C',this)"><div class="alt-letra">C</div><div>artigo, de caráter informativo, empregando a referência a especialistas como argumento para conferir confiabilidade às ideias nele veiculadas.</div></div>
+<div class="alt" onclick="selAlt('q6','D',this)"><div class="alt-letra">D</div><div>parecer, de caráter avaliativo, expondo pontos de vista contrastantes acerca das descobertas recentes sobre o "ageísmo" e sua disseminação.</div></div>
+<div class="alt" onclick="selAlt('q6','E',this)"><div class="alt-letra">E</div><div>editorial, de caráter polêmico, contrapondo teorias e pontos de vista acerca do tema, para afirmar ideologias e ações positivas em relação à velhice.</div></div>
+</div>
+<button class="btn-gab" onclick="mostrarGab('q6','C')">🔍 Ver gabarito comentado</button>
+<div class="gabarito-area" id="gab-q6">
+<div class="gab-box">
+<div class="gab-title">✅ Gabarito: Alternativa C — Análise completa de todas as alternativas</div>
+<div class="gab-texto"><b>✅ Por que C está CORRETA:</b> O texto é um <b>artigo</b> de caráter informativo: tem autor, cita especialistas (psicóloga Allana Moraes, gerontólogo Robert Butler), apresenta dados e argumentos sobre o tema da violência contra idosos, e emprega as referências como argumento de autoridade para dar credibilidade às informações. Esse é o padrão do artigo jornalístico/informativo.<br/><br/>
+<b>❌ Por que A está ERRADA:</b> Texto instrucional/normativo usa linguagem diretiva (imperativos, deve-se, é necessário que...). O texto não instrui o leitor a fazer nada — informa e argumenta.<br/><br/>
+<b>❌ Por que B está ERRADA:</b> Matéria científica tem estrutura formal (metodologia, resultados, conclusão) e linguagem técnica acadêmica. Este texto é jornalístico, não científico stricto sensu.<br/><br/>
+<b>❌ Por que D está ERRADA:</b> Parecer é documento formal de avaliação, geralmente jurídico ou técnico. O texto não tem estrutura de parecer nem linguagem avaliativa formal.<br/><br/>
+<b>❌ Por que E está ERRADA:</b> Editorial não tem autor identificado e representa posição do veículo. Este texto tem fonte identificada (semprefamilia.com.br) e voz autoral não institucional.</div>
+<div class="gab-painel">
+<div class="gab-painel-item"><div class="gab-painel-label">🎯 Padrão VUNESP</div><div class="gab-painel-valor">A VUNESP gosta de colocar 'artigo' como gabarito quando o texto cita especialistas + é informativo + tem autor. Esse padrão aparece em 2022, 2023 e 2025.</div></div>
+<div class="gab-painel-item"><div class="gab-painel-label">📌 Tipo de Cobrança</div><div class="gab-painel-valor">Identificação de gênero com justificativa composicional</div></div>
+</div>
+<div class="gab-estrategia"><div style="font-size:16px;flex-shrink:0;">⚡</div><div class="gab-estrategia-txt">Elimine editorial (sem autor institucional aqui), instrução (sem imperativo), parecer (sem estrutura formal). Entre artigo e matéria científica: linguagem jornalística = artigo.</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Módulo I Q4 — Tipologia Textual — Argumentativa + Editorial" id="slide-7">
+<div class="topbar azul">
+<div class="topbar-left">
+<span class="topbar-tag">Módulo I · ESFCEx 2020 · VUNESP</span>
+<span class="topbar-title">GÊNEROS TEXTUAIS</span>
+<span class="topbar-sub">Questão 4 — Tipologia Textual — Argumentativa + Editorial</span>
+</div>
+<div class="topbar-right">Q4</div>
+</div>
+<div class="sb">
+<div class="qbloco">
+<div class="qbloco-header" style="border-color:var(--verde-l);">
+<div class="qnum" style="color:var(--verde);">04</div>
+<div class="qinfo">
+<div class="qtitulo">Tipologia Textual — Argumentativa + Editorial</div>
+<div class="qsub">Módulo I · Banca VUNESP · ESFCEx</div>
+<div class="qmeta">
+<span class="qchip nivel-m">🟡 Médio</span>
+<span class="qchip ano">📅 2020</span>
+<span class="qchip assunto">📚 Tipologia Textual — Argumentativa + Edit</span>
+</div>
+</div>
+</div>
+<div class="qbloco-body">
+<div class="passagem"><b>A tecnologia contra o vírus</b><br/><br/>Além de confrontar a humanidade, um dos efeitos da pandemia é transportar o futuro de um horizonte longínquo para o aqui e agora. [...] Em tempos excepcionais, os processos regulatórios também precisam avançar em condições excepcionais. Como tudo o mais nesta pandemia, a chave está na agilidade. [...] A única atitude inaceitável é não tentar.<div class="passagem-fonte">Estadão. Opinião. https://opiniao.estadao.com.br, 20.04.2020. Adaptado</div></div>
+<div class="qenunciado">Analisando as informações textuais, conclui-se corretamente que a tipologia predominante no texto é a</div>
+<div class="alternativas" id="alts-q7">
+<div class="alt" onclick="selAlt('q7','A',this)"><div class="alt-letra">A</div><div>narrativa, pois se trata de uma crônica reflexiva em que se analisa o impacto da inteligência artificial.</div></div>
+<div class="alt" onclick="selAlt('q7','B',this)"><div class="alt-letra">B</div><div>argumentativa, pois se trata de um editorial em que se defende o ponto de vista de que a inteligência artificial será útil para frear os primeiros estágios de um surto por meio de rastreamento robusto.</div></div>
+<div class="alt" onclick="selAlt('q7','C',this)"><div class="alt-letra">C</div><div>injuntiva, pois se trata de uma carta eletrônica em que se explica ao leitor o papel da inteligência artificial.</div></div>
+<div class="alt" onclick="selAlt('q7','D',this)"><div class="alt-letra">D</div><div>expositiva, pois se trata de um artigo de opinião em que se detalham usos políticos da inteligência artificial.</div></div>
+<div class="alt" onclick="selAlt('q7','E',this)"><div class="alt-letra">E</div><div>descritiva, pois se trata de uma resenha em que se expressa a ideia de que a inteligência artificial será útil para implementar o procedimento tradicional de notificação de infectados.</div></div>
+</div>
+<button class="btn-gab" onclick="mostrarGab('q7','B')">🔍 Ver gabarito comentado</button>
+<div class="gabarito-area" id="gab-q7">
+<div class="gab-box">
+<div class="gab-title">✅ Gabarito: Alternativa B — Análise completa de todas as alternativas</div>
+<div class="gab-texto"><b>✅ Por que B está CORRETA:</b> O texto é um <b>editorial argumentativo</b>. Está na editoria "Opinião" do Estadão — isso já indica editorial. A tipologia predominante é argumentativa: o texto defende um ponto de vista (usar IA no combate ao vírus), apresenta argumentos (usos da IA, rastreamento, regulação) e conclui com uma tomada de posição ("A única atitude inaceitável é não tentar").<br/><br/>
+<b>❌ Por que A está ERRADA:</b> Tipologia narrativa exige narrador, personagens e sequência de eventos. Não há nada disso no texto. Além disso, não é crônica — é editorial.<br/><br/>
+<b>❌ Por que C está ERRADA:</b> Tipologia injuntiva instrui alguém a fazer algo (receitas, manuais, regulamentos). O texto não usa imperativos para instruir o leitor — argumenta. Além disso, não é carta eletrônica.<br/><br/>
+<b>❌ Por que D está ERRADA:</b> Tipologia expositiva apenas informa, sem tomar partido. O texto claramente defende um ponto de vista. Além disso, a identificação do gênero como "artigo de opinião" é incorreta — é editorial.<br/><br/>
+<b>❌ Por que E está ERRADA:</b> Tipologia descritiva pinta um quadro estático de algo. Não é o que o texto faz. E resenha avalia uma obra — o texto não é resenha.</div>
+<div class="gab-painel">
+<div class="gab-painel-item"><div class="gab-painel-label">🎯 Padrão VUNESP</div><div class="gab-painel-valor">A VUNESP cobra o PAR tipologia + gênero. Questão que pede 'pois se trata de...' exige acertar os dois ao mesmo tempo. Erro em um = alternativa errada.</div></div>
+<div class="gab-painel-item"><div class="gab-painel-label">📌 Tipo de Cobrança</div><div class="gab-painel-valor">Tipologia textual + identificação de gênero simultâneos</div></div>
+</div>
+<div class="gab-estrategia"><div style="font-size:16px;flex-shrink:0;">⚡</div><div class="gab-estrategia-txt">Na ESFCEx, editorial do jornal 'Opinião' = argumentativo. Essa combinação é garantida. Elimine as alternativas com gênero ou tipologia errados e o gabarito aparece.</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Módulo I Q5 — Gêneros Textuais — Questão adaptada (identificar o que NÃO é verdade)" id="slide-8">
+<div class="topbar azul">
+<div class="topbar-left">
+<span class="topbar-tag">Módulo I · ESFCEx 2023 · VUNESP</span>
+<span class="topbar-title">GÊNEROS TEXTUAIS</span>
+<span class="topbar-sub">Questão 5 — Gêneros Textuais — Questão adaptada (identificar o que NÃO é verdade)</span>
+</div>
+<div class="topbar-right">Q5</div>
+</div>
+<div class="sb">
+<div class="qbloco">
+<div class="qbloco-header" style="border-color:var(--verde-l);">
+<div class="qnum" style="color:var(--verde);">05</div>
+<div class="qinfo">
+<div class="qtitulo">Gêneros Textuais — Questão adaptada (identificar o que NÃO é verdade)</div>
+<div class="qsub">Módulo I · Banca VUNESP · ESFCEx</div>
+<div class="qmeta">
+<span class="qchip nivel-f">🟢 Fácil</span>
+<span class="qchip ano">📅 2023</span>
+<span class="qchip assunto">📚 Gêneros Textuais — Questão adaptada (ide</span>
+</div>
+</div>
+</div>
+<div class="qbloco-body">
+<div class="qenunciado">Sobre os gêneros textuais, a única alternativa que <b>não</b> corresponde à verdade é a</div>
+<div class="alternativas" id="alts-q8">
+<div class="alt" onclick="selAlt('q8','A',this)"><div class="alt-letra">A</div><div>em um conto, são apresentados fatos e teses que comprovam fatos científicos.</div></div>
+<div class="alt" onclick="selAlt('q8','B',this)"><div class="alt-letra">B</div><div>em uma crônica, podem ser narradas experiências introspectivas do enunciador.</div></div>
+<div class="alt" onclick="selAlt('q8','C',this)"><div class="alt-letra">C</div><div>em um depoimento, podem ser descritas passagens da existência de alguém.</div></div>
+<div class="alt" onclick="selAlt('q8','D',this)"><div class="alt-letra">D</div><div>em um editorial, o autor pode apresentar argumentos próprios para sustentar uma tese.</div></div>
+<div class="alt" onclick="selAlt('q8','E',this)"><div class="alt-letra">E</div><div>em uma resenha, o autor pode avaliar criticamente uma obra, emitindo uma opinião.</div></div>
+</div>
+<button class="btn-gab" onclick="mostrarGab('q8','A')">🔍 Ver gabarito comentado</button>
+<div class="gabarito-area" id="gab-q8">
+<div class="gab-box">
+<div class="gab-title">✅ Gabarito: Alternativa A — Análise completa de todas as alternativas</div>
+<div class="gab-texto"><b>✅ Por que A é a alternativa ERRADA (gabarito da questão negativa):</b> O <b>conto</b> é um gênero de <b>ficção</b> narrativa — narra eventos imaginários com personagens, conflito e desfecho. Ele não apresenta "fatos e teses para comprovar fatos científicos". Isso é função de artigo científico, texto expositivo ou ensaio acadêmico. A alternativa inverte completamente a natureza do conto.<br/><br/>
+<b>✅ Por que B é VERDADEIRA:</b> Crônica pode sim narrar experiências introspectivas — Rubem Alves é o exemplo perfeito. Alternativa correta que não é o gabarito.<br/><br/>
+<b>✅ Por que C é VERDADEIRA:</b> Depoimento descreve passagens da existência de alguém — essa é sua função primordial.<br/><br/>
+<b>✅ Por que D é VERDADEIRA:</b> Editorial apresenta argumentos para sustentar uma tese — é sua função institucional.<br/><br/>
+<b>✅ Por que E é VERDADEIRA:</b> Resenha avalia criticamente uma obra e emite opinião — essa é exatamente sua função.</div>
+<div class="gab-painel">
+<div class="gab-painel-item"><div class="gab-painel-label">🎯 Padrão VUNESP</div><div class="gab-painel-valor">Questão negativa — padrão VUNESP: 'a única que NÃO é verdade'. Sublinhe o NÃO antes de ler as alternativas.</div></div>
+<div class="gab-painel-item"><div class="gab-painel-label">📌 Tipo de Cobrança</div><div class="gab-painel-valor">Questão negativa sobre características de gêneros textuais</div></div>
+</div>
+<div class="gab-estrategia"><div style="font-size:16px;flex-shrink:0;">⚡</div><div class="gab-estrategia-txt">⚠️ ATENÇÃO ao NÃO! Todas as alternativas verdadeiras devem ser eliminadas. A única que contém informação falsa sobre o gênero é o gabarito. Conto ≠ texto científico.</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Módulo I Q6 — Tipologia Textual + Gênero — Reportagem vs Notícia" id="slide-9">
+<div class="topbar azul">
+<div class="topbar-left">
+<span class="topbar-tag">Módulo I · ESFCEx 2023 · VUNESP</span>
+<span class="topbar-title">GÊNEROS TEXTUAIS</span>
+<span class="topbar-sub">Questão 6 — Tipologia Textual + Gênero — Reportagem vs Notícia</span>
+</div>
+<div class="topbar-right">Q6</div>
+</div>
+<div class="sb">
+<div class="qbloco">
+<div class="qbloco-header" style="border-color:var(--verde-l);">
+<div class="qnum" style="color:var(--verde);">06</div>
+<div class="qinfo">
+<div class="qtitulo">Tipologia Textual + Gênero — Reportagem vs Notícia</div>
+<div class="qsub">Módulo I · Banca VUNESP · ESFCEx</div>
+<div class="qmeta">
+<span class="qchip nivel-m">🟡 Médio</span>
+<span class="qchip ano">📅 2023</span>
+<span class="qchip assunto">📚 Tipologia Textual + Gênero — Reportagem </span>
+</div>
+</div>
+</div>
+<div class="qbloco-body">
+<div class="passagem"><b>ChatGPT ajuda a criar roteiro criativo de viagem</b><br/><br/>Planejar uma viagem pode ser uma tarefa desafiadora. Os guias, por sua natureza, mandam todos os leitores para os mesmos destinos. [...] Alpa Patel, uma viajante ávida que vive na cidade de Nova Iorque, gostou da ideia de usar o ChatGPT porque ele oferece uma lista muito clara às pessoas. [...] Em resposta, o ChatGPT sugeriu a ela algumas opções nas quais ela poderia deslocar-se de trem.<div class="passagem-fonte">Disponível em: estadão.com.br. Acesso em: 26.06.2023. Adaptado</div></div>
+<div class="qenunciado">De acordo com as considerações de Luiz Antônio Marcuschi acerca dos tipos e gêneros textuais, é correto afirmar que esse texto apresenta as características do tipo</div>
+<div class="alternativas" id="alts-q9">
+<div class="alt" onclick="selAlt('q9','A',this)"><div class="alt-letra">A</div><div>injuntivo e do gênero notícia.</div></div>
+<div class="alt" onclick="selAlt('q9','B',this)"><div class="alt-letra">B</div><div>argumentativo e do gênero resenha.</div></div>
+<div class="alt" onclick="selAlt('q9','C',this)"><div class="alt-letra">C</div><div>expositivo e do gênero reportagem.</div></div>
+<div class="alt" onclick="selAlt('q9','D',this)"><div class="alt-letra">D</div><div>descritivo e do gênero publicidade.</div></div>
+<div class="alt" onclick="selAlt('q9','E',this)"><div class="alt-letra">E</div><div>narrativo e do gênero aula virtual.</div></div>
+</div>
+<button class="btn-gab" onclick="mostrarGab('q9','C')">🔍 Ver gabarito comentado</button>
+<div class="gabarito-area" id="gab-q9">
+<div class="gab-box">
+<div class="gab-title">✅ Gabarito: Alternativa C — Análise completa de todas as alternativas</div>
+<div class="gab-texto"><b>✅ Por que C está CORRETA:</b> O texto é <b>expositivo</b> — informa sobre o uso do ChatGPT para planejar viagens, com dados, exemplos e explicações, sem tomar partido. O gênero é <b>reportagem</b> — texto jornalístico que narra um fato de interesse público (nova tendência de viajantes) com fontes (Alpa Patel), publicado em jornal (Estadão), com foco informativo. Segundo Marcuschi, reportagem = narração + exposição de fatos com fonte.<br/><br/>
+<b>❌ Por que A está ERRADA:</b> Tipologia injuntiva instrui/manda fazer algo. O texto não usa imperativo nem orienta o leitor. Notícia tem estrutura de pirâmide invertida — o texto não segue esse formato.<br/><br/>
+<b>❌ Por que B está ERRADA:</b> Argumentativo defende ponto de vista. O texto apenas informa. Resenha avalia uma obra — não é o que o texto faz.<br/><br/>
+<b>❌ Por que D está ERRADA:</b> Descritivo pinta um quadro estático. O texto narra ações (Alpa perguntou, o ChatGPT sugeriu). Publicidade vende algo com linguagem persuasiva — não é o caso.<br/><br/>
+<b>❌ Por que E está ERRADA:</b> Aula virtual é gênero digital pedagógico estruturado. O texto não é didático — é jornalístico.</div>
+<div class="gab-painel">
+<div class="gab-painel-item"><div class="gab-painel-label">🎯 Padrão VUNESP</div><div class="gab-painel-valor">Marcuschi é referência bibliográfica explícita do edital ESFCEx. A VUNESP cita diretamente para validar a resposta. Atenção especial a esse tipo de questão.</div></div>
+<div class="gab-painel-item"><div class="gab-painel-label">📌 Tipo de Cobrança</div><div class="gab-painel-valor">Tipologia + gênero textual com referência a Marcuschi</div></div>
+</div>
+<div class="gab-estrategia"><div style="font-size:16px;flex-shrink:0;">⚡</div><div class="gab-estrategia-txt">Quando a questão cita Marcuschi, o par tipologia+gênero deve ser tecnicamente preciso. Texto do Estadão Cultura = reportagem. Linguagem expositiva sem tomada de partido = expositivo.</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+<div class="slide" data-title="Acesso Completo" id="slide-cta">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px 24px;text-align:center;height:100%;background:linear-gradient(135deg,#0A1C12 0%,#0d2016 100%);">
+  <div style="font-size:40px;">🔒</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#ffffff;">Conteúdo Completo</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#D4A017;">Módulos Seguintes</div>
+  <div style="font-size:clamp(13px,1.8vw,15px);color:rgba(255,255,255,.65);line-height:1.7;max-width:480px;">Para ter acesso ao material completo, entre em contato com o Guia Preparatório Capitão Valdir.</div>
+  <a href="mailto:guiaprepcapvaldir@gmail.com" style="display:inline-block;background:#D4A017;color:#0A1C12;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;padding:14px 32px;border-radius:8px;text-decoration:none;margin-top:8px;">📧 Quero Acesso ao Material Completo</a>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;">guiaprepcapvaldir@gmail.com</div>
+</div>
+</div>
+</div>
+<div class="nav" id="nav">
+<button class="nbtn" disabled="" id="btn-prev" onclick="prev()">← Ant.</button>
+<div class="pw"><div class="pb" id="pb"></div></div>
+<span class="ntitle" id="ntitle">Capa</span>
+<span class="ncnt" id="ncnt">1 / 13</span>
+<span class="khint" style="font-size:10px;color:rgba(255,255,255,.2);">← →</span>
+<button class="nbtn" id="btn-next" onclick="next()">Próx. →</button>
+</div>
+<script>
+
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let cur = 0;
+
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  const pc = cur;
+  setTimeout(() => { if(slides[pc]) slides[pc].classList.remove('out'); }, 360);
+  cur = n;
+  slides[cur].classList.remove('out');
+  slides[cur].classList.add('active');
+  const sb = slides[cur].querySelector('.sb');
+  if (sb) sb.scrollTop = 0;
+  document.getElementById('ntitle').textContent = slides[cur].dataset.title || '';
+  document.getElementById('ncnt').textContent = (cur+1) + ' / ' + total;
+  document.getElementById('pb').style.width = ((cur+1)/total*100)+'%';
+  document.getElementById('btn-prev').disabled = cur===0;
+  document.getElementById('btn-next').disabled = cur===total-1;
+}
+function next() { goTo(cur+1); }
+function prev() { goTo(cur-1); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+  if (e.key === 'End') { e.preventDefault(); goTo(total-1); }
+});
+
+let tx = 0;
+const deck = document.querySelector('.deck');
+if (deck) {
+  deck.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+  deck.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (dx < -50) next();
+    if (dx > 50) prev();
+  }, {passive:true});
+}
+
+function mostrarGab(id, gabLetra) {
+  const area = document.getElementById('gab-' + id);
+  if (!area) return;
+  const isShow = area.classList.contains('show');
+  area.classList.toggle('show');
+  if (!isShow) {
+    const alts = document.querySelectorAll('#alts-' + id + ' .alt');
+    alts.forEach((alt, i) => {
+      const letra = ['A','B','C','D','E'][i];
+      alt.classList.remove('certa','errada');
+      if (letra === gabLetra) alt.classList.add('certa');
+      else alt.classList.add('errada');
+    });
+  }
+}
+
+function selAlt(qid, letra, el) {
+  const alts = el.parentElement.querySelectorAll('.alt');
+  alts.forEach(a => { a.style.borderColor=''; a.style.background=''; });
+  el.style.borderColor = 'var(--azul-l)';
+  el.style.background = 'var(--azul-bg)';
+}
+
+goTo(0);
+
+</script>
+</body>
+</html>

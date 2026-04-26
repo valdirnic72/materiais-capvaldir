@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --verde:#1a3a2a;--verde-m:#2d5a3d;--verde-c:#4a7c5f;
+  --verde-bg:#edf5ee;--verde-borda:#7cb87e;
+  --ouro:#b8860b;--ouro-l:#d4a017;--ouro-bg:#fdf6e3;--ouro-borda:#c9a227;
+  --azul:#1a3060;--azul-m:#2c4a7a;--azul-bg:#edf2fb;--azul-borda:#7090c8;
+  --verm:#8b1a1a;--verm-c:#c0392b;--verm-bg:#fff0f0;--verm-borda:#d08080;
+  
+  --laran:#b84a00;--laran-bg:#fff4ec;--laran-borda:#e8a07a;--laran-txt:#5a2000;
+  --azulc:#1a5080;--azulc-bg:#e8f4fd;--azulc-borda:#7ab8e0;--azulc-txt:#0a2a44;
+  --cinza:#3a3a3a;--cinza-m:#555;--cinza-c:#888;
+  --fundo:#f5f3ec;--papel:#fffef8;--borda:#d4c89a;--txt:#1e1e1e;
+  --tira-bg:#f8f6f0;--tira-borda:#c8b87a;
+  --mg-px:clamp(18px,3.5vw,57px);
+
+  /* Alerta NF/EI 2026 */
+  --alerta-nfei:#b84a00;--alerta-nfei-bg:#fff4ec;--alerta-nfei-borda:#e8a07a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Sora',sans-serif;font-size:17px;line-height:1.90;color:var(--txt);background:var(--fundo);}
+.page{max-width:920px;margin:0 auto;background:var(--papel);box-shadow:0 0 50px rgba(0,0,0,.14);}
+
+/* CAPA */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* SUMÁRIO */
+.sumario{padding:var(--mg-px);border-bottom:2px solid var(--borda);}
+.sumario-titulo{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--verde);margin-bottom:34px;padding-bottom:14px;border-bottom:3px solid var(--ouro);display:inline-block;}
+.sumario-item{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px dotted var(--borda);}
+.sumario-item a{display:flex;align-items:baseline;gap:10px;width:100%;text-decoration:none;color:inherit;transition:color .18s;}
+.sumario-item a:hover .sumario-nome{color:var(--azul-m);}
+.sumario-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--ouro);min-width:36px;letter-spacing:.06em;}
+.sumario-nome{font-size:16px;color:var(--cinza);flex:1;line-height:1.5;}
+.sumario-nome b{color:var(--verde);}
+.sumario-sub{font-size:13.5px;color:var(--cinza-c);font-style:italic;padding-left:36px;margin-top:2px;margin-bottom:6px;text-align:justify;}
+
+/* CAPÍTULOS */
+.chapter{padding:var(--mg-px);border-bottom:1px solid #e5dfc8;overflow-x:hidden;}
+.chapter-header{margin-bottom:40px;padding-bottom:26px;border-bottom:2px solid var(--borda);}
+.chapter-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px;}
+.chapter-titulo{font-family:'Playfair Display',serif;font-size:clamp(24px,4vw,36px);font-weight:900;color:var(--verde);line-height:1.15;margin-bottom:8px;}
+.chapter-periodo{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cinza-m);letter-spacing:.12em;}
+
+/* HEADINGS */
+h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--azul);margin:40px 0 16px;padding-left:16px;border-left:5px solid var(--ouro);line-height:1.3;}
+h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--verde-m);margin:28px 0 12px;line-height:1.3;}
+h4{font-size:15px;font-weight:700;color:var(--azul-m);margin:20px 0 10px;text-transform:uppercase;letter-spacing:.06em;}
+
+/* TEXTO — parágrafos sempre justificados e com recuo */
+p{margin-bottom:16px;text-align:justify;text-indent:2em;font-size:17px;line-height:1.90;color:var(--txt);}p:empty{display:none;}
+.box-atencao p,.box-pegadinha p,.box-autor p,.box-dica p,.box-verde p,.box-resumo p,
+.intro-clara p,.estudo-caso p,.analise-bloco p,.analise-erro p,
+.metodo-card p,.redacao-box p,.conect-card p,.voltar-sumario p,
+.conceito-box p,.enunciado-box p,.exemplo-passo p,.uniao-box p,
+.esqueleto-box p{text-indent:0;text-align:justify;}
+strong{font-weight:700;color:var(--cinza);}
+em{font-style:italic;}
+ul,ol{margin:12px 0 16px 28px;}
+li{margin-bottom:8px;font-size:16.5px;line-height:1.78;color:var(--txt);}
+
+/* INTRO CLARA */
+.intro-clara{background:linear-gradient(135deg,#edf2fb 0%,#edf5ee 100%);border:2px solid var(--borda);border-left:7px solid var(--ouro);border-radius:10px;padding:26px clamp(16px,3vw,32px);margin:0 0 34px;}
+.intro-clara h3{color:var(--verde);margin:0 0 12px;font-size:19px;}
+.intro-clara p{color:#1a2a1e;font-size:16px;line-height:1.82;margin-bottom:10px;}
+.intro-clara p:last-child{margin-bottom:0;}
+
+/* CAIXAS */
+.box-atencao{background:#fefce8;border:2px solid var(--ouro-borda);border-left:6px solid var(--ouro);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-atencao .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#7a5a00;margin-bottom:12px;}
+.box-atencao p{color:#2a1e00;font-size:16px;line-height:1.78;}
+.box-atencao li{color:#2a1e00;font-size:16px;}
+.box-atencao strong{color:#5a3a00;}
+
+.box-autor{background:#f0f5fc;border-left:6px solid #5070b0;border-radius:0 8px 8px 0;padding:18px clamp(14px,2.5vw,24px) 18px clamp(16px,3vw,28px);margin:24px 0;}
+.box-autor .autor{font-style:normal;font-size:11.5px;font-weight:800;color:#1a3060;margin-bottom:10px;font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;}
+.box-autor p{color:#1a2a44;font-style:italic;font-size:16.5px;line-height:1.82;margin-bottom:8px;}
+.box-autor strong{color:#1a2a60;font-style:normal;}
+
+.box-pegadinha{background:var(--verm-bg);border:2px solid var(--verm-borda);border-left:6px solid var(--verm-c);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-pegadinha .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--verm);margin-bottom:12px;}
+.box-pegadinha p{color:#3a0a0a;font-size:16px;line-height:1.78;}
+.box-pegadinha li{color:#3a0a0a;font-size:16px;}
+.box-pegadinha strong{color:var(--verm);}
+
+.box-resumo{background:#f8faf5;border:2px solid var(--verde-borda);border-left:7px solid var(--verde-m);border-radius:8px;padding:24px clamp(16px,3vw,28px);margin:32px 0;}
+.box-resumo .box-titulo{font-family:'Playfair Display',serif;font-size:17px;font-weight:800;color:var(--verde);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--verde-borda);}
+.box-resumo li{color:#1a2e1e;font-size:16px;margin-bottom:9px;line-height:1.78;}
+.box-resumo strong{color:#1a3a2a;}
+.box-resumo p{color:#1a2e1e;font-size:16px;}
+
+.box-dica{background:#f0f6ff;border:2px solid #aac4ee;border-left:6px solid #3a70c0;border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-dica .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#1a3a70;margin-bottom:12px;}
+.box-dica p{color:#0a1e44;font-size:16px;line-height:1.78;}
+.box-dica li{color:#0a1e44;font-size:16px;}
+.box-dica strong{color:#1a3060;}
+
+.box-verde{background:var(--verde-bg);border:2px solid var(--verde-borda);border-left:6px solid var(--verde-m);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-verde .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--verde);margin-bottom:12px;}
+.box-verde p{color:#0a1e0a;font-size:16px;line-height:1.78;}
+.box-verde li{color:#0a1e0a;font-size:16px;}
+
+/* CONCEITO BOX — 7 conceitos */
+.conceito-box{background:#fffef8;border:2px solid var(--ouro-borda);border-radius:10px;padding:22px clamp(16px,3vw,28px);margin:24px 0;position:relative;}
+.conceito-box::before{content:'';position:absolute;top:0;left:0;bottom:0;width:6px;background:linear-gradient(180deg,var(--ouro),var(--verde-m));border-radius:10px 0 0 10px;}
+.conceito-titulo{font-family:'Playfair Display',serif;font-size:17px;font-weight:800;color:var(--verde);margin-bottom:8px;padding-left:6px;}
+.conceito-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;color:var(--ouro);letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:4px;padding-left:6px;}
+.conceito-def{font-family:'Sora',sans-serif;font-size:16px;line-height:1.82;color:var(--txt);padding-left:6px;margin-bottom:12px;text-align:justify;text-indent:0;}
+.conceito-ex{background:var(--ouro-bg);border:1px solid var(--ouro-borda);border-radius:6px;padding:12px 16px;font-size:15px;font-style:italic;color:#3a2a00;line-height:1.75;margin-top:8px;}
+.conceito-ex::before{content:'Exemplo: ';font-style:normal;font-weight:700;color:var(--ouro);}
+.conceito-atenc{background:var(--verm-bg);border:1px solid var(--verm-borda);border-radius:6px;padding:10px 14px;font-size:14px;color:#3a0a0a;line-height:1.70;margin-top:8px;}
+.conceito-atenc::before{content:'⚠ Atenção: ';font-weight:700;color:var(--verm-c);}
+
+/* TABELAS */
+.tabela-wrap{overflow-x:auto;margin:22px 0;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:collapse;font-size:15px;}
+thead tr{background:#f0ede0;color:var(--azul);}
+thead th{padding:12px clamp(8px,1.5vw,15px);text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-bottom:2px solid var(--borda);}
+tbody tr:nth-child(even){background:#fafaf5;}
+tbody tr:hover{background:#edf5ee;}
+tbody td{padding:11px clamp(8px,1.5vw,15px);border-bottom:1px solid #ddd8c0;vertical-align:top;color:var(--txt);font-size:15px;line-height:1.68;}
+tbody td:first-child{font-weight:700;color:var(--verde-m);}
+
+/* GRID */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:18px 0;}
+@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* SEPARATOR */
+.sep{display:flex;align-items:center;gap:18px;margin:36px 0;}
+.sep::before,.sep::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--borda),transparent);}
+.sep-inner{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cinza-c);letter-spacing:.22em;text-transform:uppercase;}
+
+/* BADGES */
+.badge-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;}
+.badge-verde{background:var(--verde-bg);color:var(--verde);border:1.5px solid var(--verde-borda);}
+.badge-verm{background:var(--verm-bg);color:var(--verm);border:1.5px solid var(--verm-borda);}
+.badge-azul{background:#edf2fb;color:var(--azul);border:1.5px solid var(--azul-borda);}
+
+/* MÉTODO CARDS */
+.metodo-secao{margin:24px 0;}
+.metodo-secao-titulo{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;padding:8px 14px;margin-bottom:14px;display:inline-block;}
+.titulo-intro{background:var(--azul-bg);color:var(--azul);border:1px solid var(--azul-borda);}
+.titulo-dev{background:var(--verde-bg);color:var(--verde-m);border:1px solid var(--verde-borda);}
+.titulo-conc{background:var(--verm-bg);color:var(--verm);border:1px solid var(--verm-borda);}
+.metodo-card{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start;padding:18px;background:#fff;border:1.5px solid var(--borda);margin-bottom:10px;transition:transform .15s,box-shadow .15s;}
+.metodo-card:hover{transform:translateX(4px);box-shadow:3px 3px 0 var(--borda);}
+.metodo-card.mc-intro{border-left:5px solid var(--azul-m);}
+.metodo-card.mc-dev{border-left:5px solid var(--verde-m);}
+.metodo-card.mc-conc{border-left:5px solid var(--verm-c);}
+.mc-num{width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800;flex-shrink:0;}
+.mc-num-intro{background:var(--azul-m);color:#fff;}
+.mc-num-dev{background:var(--verde-m);color:#fff;}
+.mc-num-conc{background:var(--verm-c);color:#fff;}
+.mc-tipo{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:5px;}
+.mc-tipo-intro{color:var(--azul-m);}
+.mc-tipo-dev{color:var(--verde-m);}
+.mc-tipo-conc{color:var(--verm-c);}
+.mc-desc{font-size:15.5px;line-height:1.75;color:var(--txt);}
+
+/* ESQUEMA VISUAL */
+.esquema-visual{background:var(--tira-bg);border:2px solid var(--tira-borda);border-radius:10px;padding:24px clamp(14px,3vw,30px);margin:28px 0;}
+.esq-linha{display:flex;align-items:flex-start;gap:14px;margin-bottom:8px;font-size:15px;}
+.esq-num{width:28px;height:28px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.esq-num-i{background:var(--azul-m);color:#fff;}
+.esq-num-d{background:var(--verde-m);color:#fff;}
+.esq-num-c{background:var(--verm-c);color:#fff;}
+.esq-tag{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:800;padding:2px 8px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;align-self:center;}
+.esq-tag-i{background:var(--azul-bg);color:var(--azul-m);border:1px solid var(--azul-borda);}
+.esq-tag-d{background:var(--verde-bg);color:var(--verde-m);border:1px solid var(--verde-borda);}
+.esq-tag-c{background:var(--verm-bg);color:var(--verm-c);border:1px solid var(--verm-borda);}
+.esq-texto{color:var(--txt);line-height:1.55;flex:1;}
+
+/* ESQUELETO DA DISSERTAÇÃO */
+.esqueleto-box{background:#fafcfa;border:2px solid var(--verde-borda);border-top:5px solid var(--verde);border-radius:12px;padding:28px clamp(16px,3vw,36px);margin:32px 0;font-family:'Sora',sans-serif;}
+.esqueleto-titulo{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--verde);margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--verde-bg);}
+.esq-secao{margin-bottom:24px;background:#fff;border-radius:8px;padding:14px;border:1px solid var(--borda);}
+.esq-secao-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;padding:5px 14px;display:inline-block;margin-bottom:10px;}
+.esq-secao-label.lbl-intro{background:var(--azul-m);color:#fff;}
+.esq-secao-label.lbl-dev{background:var(--verde-m);color:#fff;}
+.esq-secao-label.lbl-conc{background:var(--verm-c);color:#fff;}
+.esq-frase-linha{display:grid;grid-template-columns:32px 220px 1fr;align-items:baseline;gap:10px;padding:8px 6px;border-bottom:1px dashed #ddd;border-radius:2px;}
+.esq-frase-linha:hover{background:rgba(0,0,0,.02);}
+.esq-frase-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;color:#aaa;text-align:center;}
+.esq-frase-nome{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;color:var(--azul-m);letter-spacing:.04em;line-height:1.4;}
+.esq-frase-desc{font-size:13.5px;color:var(--cinza-m);font-style:italic;line-height:1.55;}
+@media(max-width:640px){
+  .esq-frase-linha{grid-template-columns:28px 1fr;gap:8px;}
+  .esq-frase-nome{grid-column:2;grid-row:1;}
+  .esq-frase-desc{grid-column:2;grid-row:2;font-size:12.5px;}
+}
+
+/* ENUNCIADO DA PROVA */
+.enunciado-box{background:#f9f7f0;border:2px solid var(--tira-borda);border-radius:10px;padding:24px clamp(16px,3vw,30px);margin:28px 0;}
+.enunciado-header{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:#6a5a30;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--tira-borda);}
+.enunciado-texto{font-size:16px;line-height:1.85;color:var(--txt);}
+.enunciado-texto p{text-indent:0;text-align:justify;margin-bottom:12px;}
+.enunciado-texto p:last-child{margin-bottom:0;}
+.texto-apoio{background:#fff;border:1px solid var(--borda);border-radius:6px;padding:14px 18px;margin:12px 0;font-size:15px;line-height:1.80;color:#2a2a1a;}
+.texto-apoio-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;color:var(--ouro);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;}
+.enunciado-instrucoes{background:var(--verde-bg);border:1px solid var(--verde-borda);border-radius:6px;padding:14px 18px;margin-top:16px;font-size:14.5px;line-height:1.78;color:#1a2e1a;}
+.enunciado-instrucoes ol{margin-left:18px;}
+.enunciado-instrucoes li{margin-bottom:6px;font-size:14.5px;}
+
+/* EXEMPLO PASSO A PASSO */
+.exemplo-passo{background:#fff;border:1.5px solid var(--borda);border-radius:10px;margin:16px 0;overflow:hidden;}
+.passo-header{display:grid;grid-template-columns:54px 1fr;gap:0;align-items:stretch;}
+.passo-num-box{background:var(--verde-m);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:800;color:#fff;min-height:54px;}
+.passo-num-box.azul{background:var(--azul-m);}
+.passo-num-box.vermelho{background:var(--verm-c);}
+.passo-header-info{padding:12px 16px;background:var(--verde-bg);}
+.passo-header-info.azul-bg{background:var(--azul-bg);}
+.passo-header-info.verm-bg{background:var(--verm-bg);}
+.passo-tipo{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-m);margin-bottom:3px;}
+.passo-tipo.azul{color:var(--azul-m);}
+.passo-tipo.vermelho{color:var(--verm-c);}
+.passo-nome{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--verde);line-height:1.3;}
+.passo-nome.azul{color:var(--azul);}
+.passo-nome.vermelho{color:var(--verm);}
+.passo-body{padding:16px 20px;}
+.passo-instrucao{font-size:14.5px;color:var(--cinza-m);line-height:1.70;margin-bottom:10px;font-style:italic;}
+.passo-resultado{background:var(--ouro-bg);border:1px solid var(--ouro-borda);border-radius:6px;padding:14px 18px;font-size:16px;line-height:1.85;color:#1a1400;font-style:normal;}
+.passo-resultado::before{content:'✎ Frase resultante: ';font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;color:var(--ouro);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:8px;}
+
+/* DISSERTAÇÃO EXEMPLO COMPLETA */
+.diss-completa{background:#fff;border:2px solid var(--borda);border-radius:10px;padding:28px clamp(16px,3vw,36px);margin:28px 0;font-family:'Sora',sans-serif;font-size:16px;line-height:1.90;}
+.diss-completa-header{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--verde-m);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--verde-bg);}
+.diss-titulo-text{text-align:center;font-style:italic;font-weight:700;font-size:17px;margin-bottom:18px;color:var(--verde);}
+.diss-paragrafo{text-align:justify;text-indent:2em;margin-bottom:16px;line-height:1.90;font-size:16px;color:var(--txt);}
+.diss-marcacao{display:inline;background:#fff3cd;border-bottom:2px solid var(--ouro);padding:1px 0;}
+.diss-marcacao-v{display:inline;background:#edf5ee;border-bottom:2px solid var(--verde-m);padding:1px 0;}
+.diss-marcacao-r{display:inline;background:var(--verm-bg);border-bottom:2px solid var(--verm-c);padding:1px 0;}
+.diss-legenda{display:flex;flex-wrap:wrap;gap:14px;margin:16px 0;font-size:13px;}
+.diss-legenda-item{display:flex;align-items:center;gap:6px;}
+.diss-legenda-cor{width:28px;height:10px;border-radius:2px;}
+
+/* UNIÃO DAS FRASES */
+.uniao-box{background:linear-gradient(135deg,var(--ouro-bg) 0%,var(--verde-bg) 100%);border:3px solid var(--ouro-borda);border-radius:14px;padding:clamp(18px,3vw,32px) clamp(16px,3.5vw,36px);margin:36px 0;}
+.uniao-titulo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:var(--verde);margin-bottom:6px;}
+.uniao-sub{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:20px;}
+.uniao-box p{font-size:16px;line-height:1.82;color:#1a1400;margin-bottom:12px;text-align:justify;}
+
+/* ESTUDO DE CASO */
+.estudo-caso{background:linear-gradient(135deg,var(--tira-bg) 0%,#fff8ee 100%);border:3px solid var(--ouro-borda);border-radius:14px;padding:clamp(18px,3vw,32px) clamp(16px,3.5vw,36px);margin:36px 0;}
+.estudo-caso-titulo{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:var(--ouro);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--ouro-borda);}
+.estudo-caso h3{color:var(--verde-m);font-size:17px;margin:18px 0 10px;}
+.estudo-caso p{font-size:16px;line-height:1.82;color:#1a1400;margin-bottom:12px;}
+.estudo-caso li{font-size:16px;color:#1a1400;margin-bottom:8px;}
+.passo-num{display:inline-block;background:var(--ouro);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;border-radius:3px;padding:2px 7px;margin-right:6px;letter-spacing:.06em;}
+
+/* REDAÇÃO BOX */
+.redacao-box{background:#fff;border:2px solid var(--borda);border-radius:10px;overflow:hidden;margin:28px 0;}
+.redacao-header{background:var(--verde);padding:14px 22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.redacao-header-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ouro-l);}
+.redacao-nota-badge{background:var(--ouro-l);color:var(--verde);font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:800;padding:5px 16px;border-radius:3px;}
+.redacao-corpo{padding:22px clamp(16px,3vw,32px);counter-reset:linha;background:repeating-linear-gradient(transparent,transparent 27px,#f0ede4 27px,#f0ede4 28px);}
+.redacao-linha{counter-increment:linha;display:flex;gap:18px;margin-bottom:1px;min-height:28px;}
+.redacao-linha::before{content:counter(linha);font-family:'JetBrains Mono',monospace;font-size:11px;color:#c0b898;width:22px;text-align:right;flex-shrink:0;padding-top:3px;}
+.redacao-texto{flex:1;font-size:16px;line-height:1.85;color:var(--txt);text-align:justify;text-align-last:left;}
+.redacao-par{flex:1;font-size:16px;line-height:1.85;color:var(--txt);text-align:justify;text-align-last:left;text-indent:2.2em;}
+.redacao-titulo-linha{text-align:center;font-style:italic;font-weight:700;font-size:16px;line-height:1.85;color:var(--verde);}
+.redacao-footer{background:var(--tira-bg);padding:14px 22px;border-top:1px solid var(--borda);font-size:14px;color:var(--cinza-m);}
+.redacao-footer strong{color:var(--verde);font-weight:700;}
+
+/* BAREMA */
+.barema-item{display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--borda);}
+.barema-label{width:200px;font-size:14px;color:var(--cinza);flex-shrink:0;}
+.barema-outer{flex:1;height:10px;background:#e8e4d8;overflow:hidden;border-radius:2px;}
+.barema-inner{height:100%;background:var(--verde-m);border-radius:2px;}
+.barema-val{width:80px;text-align:right;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:800;color:var(--verde);flex-shrink:0;}
+
+/* ANÁLISE */
+.analise-bloco{background:#f8faf5;border-left:5px solid var(--verde-m);border-radius:0 8px 8px 0;padding:16px 22px;margin:16px 0;}
+.analise-bloco .ab-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--verde-m);margin-bottom:10px;}
+.analise-bloco p{font-size:15.5px;line-height:1.78;color:#1a2e1a;margin-bottom:8px;}
+.analise-bloco p:last-child{margin-bottom:0;}
+.analise-erro{background:var(--verm-bg);border-left:5px solid var(--verm-c);border-radius:0 8px 8px 0;padding:16px 22px;margin:16px 0;}
+.analise-erro .ab-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--verm-c);margin-bottom:10px;}
+.analise-erro p{font-size:15.5px;line-height:1.78;color:#2a0a0a;margin-bottom:8px;}
+.analise-erro p:last-child{margin-bottom:0;}
+
+/* CHECKLIST */
+.checklist{list-style:none;margin:16px 0;padding:0;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--borda);font-size:15.5px;line-height:1.65;}
+.ck-ok::before{content:'✓';color:var(--verde-m);font-weight:800;font-size:16px;flex-shrink:0;}
+.ck-no::before{content:'✗';color:var(--verm-c);font-weight:800;font-size:16px;flex-shrink:0;}
+.ck-box::before{content:'□';color:var(--ouro);font-size:18px;flex-shrink:0;line-height:1.2;}
+
+/* CONECTIVOS */
+.conect-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;margin:20px 0;}
+.conect-card{background:#fff;border:1.5px solid var(--borda);border-radius:8px;padding:14px 16px;}
+.conect-card-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--ouro);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--borda);}
+.conect-lista{font-size:14px;color:var(--cinza-m);line-height:2.1;}
+
+/* VOLTAR */
+.voltar-sumario{text-align:right;margin:32px 0 0;}
+.voltar-sumario a{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ouro);text-decoration:none;border-bottom:1px dotted var(--ouro);padding-bottom:2px;}
+.voltar-sumario a:hover{color:var(--verde-m);}
+
+/* PRINT / RESPONSIVO */
+@media print{.chapter{page-break-before:always;}}
+@media(max-width:700px){
+  :root{--mg-px:18px;}body{font-size:16px;}
+  .chapter,.sumario{padding:var(--mg-px);}
+  
+  h2{font-size:19px;}h3{font-size:16px;}
+  .metodo-card{grid-template-columns:44px 1fr;}
+  .barema-label{width:130px;font-size:13px;}
+  .redacao-corpo{padding:18px 12px;}
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .esq-frase-nome{min-width:120px;}
+  .passo-header{grid-template-columns:44px 1fr;}
+}
+@media(max-width:420px){:root{--mg-px:14px;}body{font-size:15px;}}
+
+/* ── JUSTIFY GLOBAL FORÇADO ── */
+.chapter p, .sumario p, .intro-clara p,
+.box-atencao p, .box-pegadinha p, .box-autor p,
+.box-dica p, .box-verde p, .box-resumo p,
+.analise-bloco p, .analise-erro p,
+.conceito-box .conceito-def, .uniao-box p,
+.estudo-caso p, .enunciado-box .enunciado-texto p,
+.exemplo-passo .passo-instrucao,
+.exemplo-passo .passo-resultado {
+  text-align: justify;
+}
+/* Itens de sumário — manter normal */
+.sumario-item a, .sumario-nome, .sumario-num { text-align: left; }
+/* Células de tabela — justify */
+tbody td { text-align: justify; }
+/* Listas dentro de boxes — justify */
+.box-resumo li, .box-verde li, .box-dica li,
+.box-atencao li, .box-pegadinha li { text-align: justify; }
+
+/* BOX LARANJA CLARO */
+/* Boxes de estilo laranja e azulc */
+.box-laranja{background:var(--laran-bg);border:2px solid var(--laran-borda);border-left:6px solid var(--laran);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-laranja .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--laran);margin-bottom:12px;}
+.box-laranja p{color:var(--laran-txt);font-size:16px;line-height:1.80;text-align:justify;text-indent:1.5em;}
+.box-laranja p:first-of-type{text-indent:0;}
+.box-laranja li{color:var(--laran-txt);font-size:16px;line-height:1.78;}
+.box-laranja strong{color:var(--laran);}
+/* BOX AZUL CLARO */
+.box-azulc{background:var(--azulc-bg);border:2px solid var(--azulc-borda);border-left:6px solid var(--azulc);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-azulc .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--azulc);margin-bottom:12px;}
+.box-azulc p{color:var(--azulc-txt);font-size:16px;line-height:1.80;text-align:justify;text-indent:1.5em;}
+.box-azulc p:first-of-type{text-indent:0;}
+.box-azulc li{color:var(--azulc-txt);font-size:16px;line-height:1.78;}
+.box-azulc strong{color:var(--azulc);}
+
+/* BOX ALERTA NFEI — Mudança 2026 */
+.box-nfei-alerta{background:#fff8ec;border:2px solid #d4820a;border-left:7px solid #c07000;border-radius:8px;padding:22px clamp(16px,3vw,28px);margin:28px 0;position:relative;}
+.box-nfei-alerta::before{content:'⚡ MUDANÇA EDITAL 2026 — LEIA COM ATENÇÃO';display:block;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#c07000;margin-bottom:12px;}
+.box-nfei-alerta p{color:#3a2000;font-size:16px;line-height:1.82;text-align:justify;text-indent:1.5em;}
+.box-nfei-alerta p:first-of-type{text-indent:0;}
+.box-nfei-alerta strong{color:#c07000;font-weight:700;}
+
+/* FÓRMULA NFEI */
+.formula-nfei-wrap{background:#fafaf5;border:2px solid var(--ouro-borda);border-radius:10px;padding:28px clamp(16px,3vw,36px);margin:28px 0;text-align:center;}
+.formula-nfei-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--ouro);margin-bottom:18px;}
+.formula-nfei-expr{font-family:'JetBrains Mono',monospace;font-size:clamp(13px,2vw,17px);font-weight:700;color:var(--verde);line-height:2.5;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px 8px;}
+.fn-num{color:var(--azul-m);}
+.fn-frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 4px;}
+.fn-top{border-bottom:2px solid var(--cinza-m);padding-bottom:3px;margin-bottom:3px;font-size:clamp(12px,1.8vw,15px);}
+.fn-bot{font-size:clamp(12px,1.8vw,15px);color:var(--cinza-m);}
+.fn-p1{color:#b85e00;}
+.fn-mat{color:#1a3060;}
+.fn-p2{color:#5a2080;}
+.fn-p3{color:#1a5030;}
+.fn-red{color:#8b1a1a;}
+.fn-eq{color:var(--cinza-m);}
+
+/* Tabela de pesos */
+.tabela-pesos{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px;}
+.tabela-pesos thead tr{background:var(--verde);color:var(--ouro-l);}
+.tabela-pesos thead th{padding:11px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;text-align:left;}
+.tabela-pesos tbody tr:nth-child(even){background:#f8f6f0;}
+.tabela-pesos tbody td{padding:10px 14px;border-bottom:1px solid var(--borda);vertical-align:top;font-size:15px;line-height:1.65;}
+
+
+/* ── RECUO DENTRO DE BOXES ── */
+.box-atencao p, .box-pegadinha p, .box-autor p,
+.box-dica p, .box-verde p, .box-resumo p,
+.box-laranja p, .box-azulc p,
+.intro-clara p, .estudo-caso p,
+.analise-bloco p, .analise-erro p,
+.uniao-box p, .conceito-box .conceito-def {
+  text-indent: 1.6em;
+  text-align: justify;
+}
+/* Primeira linha após título de box — sem recuo */
+.box-titulo + p,
+.box-titulo + .conceito-def,
+.estudo-caso-titulo + p,
+.ab-titulo + p { text-indent: 0; }
+/* Boxes de exemplo/enunciado — sem recuo pois já têm padding */
+.enunciado-box .enunciado-texto p,
+.passo-instrucao, .passo-resultado,
+.texto-apoio p { text-indent: 0; }
+
+/* ── CSS FINAL — ALINHAMENTO GLOBAL ── */
+/* Garantir que p dentro de .chapter que não sejam boxes tenham text-indent */
+.chapter > p { text-indent: 2em; text-align: justify; }
+
+/* Módulo autor */
+.box-autor p { font-style: italic; text-indent: 1.4em; text-align: justify; }
+
+/* Conceito-def alinhamento */
+.conceito-def { text-align: justify; text-indent: 0; }
+.conceito-ex { text-align: justify; text-indent: 0; }
+.conceito-atenc { text-align: justify; }
+
+/* Sumário — sem recuo em links */
+.sumario-item, .sumario-item a, .sumario-nome { text-indent: 0 !important; }
+
+/* uniao-box melhora */
+.uniao-box p { text-indent: 1.6em; text-align: justify; }
+
+/* Passo a passo */
+.passo-instrucao { text-align: justify; font-style: italic; color: var(--cinza-m); font-size: 14.5px; margin-bottom: 10px; }
+.passo-resultado { text-align: justify; }
+
+/* Análise comentada */
+.analise-bloco p, .analise-erro p { text-indent: 1.4em; }
+
+/* Enunciado */
+.enunciado-texto p { text-align: justify; text-indent: 0; }
+.texto-apoio p { text-align: justify; text-indent: 0; }
+
+/* intro-clara */
+.intro-clara p { text-align: justify; text-indent: 1.4em; }
+.intro-clara p:first-of-type { text-indent: 0; }
+
+/* estudo-caso */
+.estudo-caso p { text-align: justify; text-indent: 1.4em; }
+.estudo-caso p:first-of-type { text-indent: 0; }
+
+/* Redação linhas */
+.redacao-texto { text-align: justify; }
+.redacao-par { text-align: justify; }
+
+/* ══ FOLHA DE REDAÇÃO — LINHAS NUMERADAS + CURSIVA ══ */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap');
+
+.folha-wrapper{
+  background:#fefef6;
+  border:1.5px solid #c8c0a0;
+  border-top:6px solid var(--verde);
+  border-radius:4px;
+  margin:28px 0;
+  box-shadow:3px 4px 22px rgba(0,0,0,.14);
+  font-family:'Sora',sans-serif;
+  overflow:hidden;
+  width:100%;
+  max-width:100%;
+  box-sizing:border-box;
+}
+.folha-cabecalho{
+  background:var(--verde);padding:10px 24px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;
+}
+.folha-cab-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ouro-l);}
+.folha-cab-nota{background:var(--ouro-l);color:var(--verde);font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800;padding:4px 14px;border-radius:3px;}
+
+/* Área do título na folha */
+.folha-titulo-area{
+  text-align:center;padding:10px 14px 5px;
+  border-bottom:1px solid #ddd8c0;
+  font-size:10.5px;font-family:'JetBrains Mono',monospace;
+  font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#c0b890;
+}
+.folha-linha-titulo{
+  display:flex;align-items:center;gap:0;
+  padding:0 14px 0 52px;
+  border-bottom:2px solid #c8be98;
+  min-height:38px;
+  width:100%;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+.folha-ln-titulo-num{
+  font-family:'JetBrains Mono',monospace;font-size:10px;color:#b8b090;
+  width:32px;text-align:right;padding-right:10px;flex-shrink:0;
+}
+.folha-ln-titulo-text{
+  flex:1;
+  min-width:0;
+  font-family:'Caveat','Kalam',cursive;
+  font-size:22px;font-weight:600;
+  color:#1a1a0e;text-align:center;
+  padding:4px 0 2px;
+  line-height:1.3;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Corpo da folha com linhas numeradas */
+.folha-corpo-lin{
+  /* margem vermelha vertical à esquerda */
+  background:
+    linear-gradient(90deg, #fefef6 50px, #e8b0a0 50px, #e8b0a0 51.5px, #fefef6 51.5px);
+  background-color:#fefef6;
+  padding:0;
+  width:100%;
+  box-sizing:border-box;
+  overflow:hidden;
+}
+/* Cada linha da redação */
+.fl{
+  display:flex;
+  align-items:stretch;
+  border-bottom:1px solid #e0dac8;
+  min-height:34px;
+}
+/* Número da linha */
+.fl-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9.5px;color:#b8b090;
+  width:52px;text-align:right;
+  padding:9px 10px 0 0;
+  flex-shrink:0;
+  border-right:1.5px solid #e8b0a0;
+  background:#fefef6;
+}
+/* Texto da linha */
+.fl-txt{
+  flex:1;
+  min-width:0;
+  font-family:'Caveat','Kalam',cursive;
+  font-size:18px;font-weight:400;
+  color:#1a1a0e;
+  padding:3px 14px 0 16px;
+  line-height:1.65;
+  letter-spacing:.01em;
+  word-wrap:break-word;
+  overflow-wrap:break-word;
+  text-align:justify;
+  text-align-last:justify;
+}
+/* Linha de início de parágrafo (com recuo) */
+.fl-txt.par{
+  padding-left:56px;   /* recuo do parágrafo */
+}
+/* Última linha de parágrafo — alinha à esquerda para não esticar */
+.fl-txt.fim{
+  text-align-last:left;
+}
+/* Rodapé */
+.folha-rodape{
+  background:var(--tira-bg);padding:12px 24px;
+  border-top:1px solid var(--borda);font-size:14px;color:var(--cinza-m);
+}
+.folha-rodape strong{color:var(--verde);font-weight:700;}
+
+
+.cover {
+  background: linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 60px 24px; text-align: center;
+}
+.cover-inner {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; max-width: 600px; width: 100%;
+}
+.cover-estrela { font-size: 72px; line-height: 1; margin-bottom: 6px; }
+.cover-guia {
+  font-family:'Sora',sans-serif; font-size:clamp(14px,2vw,18px);
+  font-weight:700; color:rgba(255,255,255,.65);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.cover-metodo-sub {
+  font-family:'Sora',sans-serif; font-size:clamp(12px,1.6vw,15px);
+  font-weight:600; color:rgba(212,160,23,.8);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+.cover-linha { width:60px; height:3px; background:#D4A017; border-radius:2px; margin:8px 0; }
+.cover-lp-tag {
+  font-family:'JetBrains Mono',monospace; font-size:clamp(11px,1.4vw,14px);
+  font-weight:700; color:rgba(212,160,23,.7);
+  letter-spacing:.18em; text-transform:uppercase;
+}
+.cover-nome-mat {
+  font-family:'Sora',sans-serif; font-size:clamp(28px,6vw,52px);
+  font-weight:800; color:#ffffff;
+  line-height:1.15; text-transform:uppercase; margin:8px 0;
+}
+.cover-escola-linha1 {
+  font-family:'Sora',sans-serif; font-size:clamp(12px,1.6vw,16px);
+  font-weight:700; color:rgba(255,255,255,.6);
+  letter-spacing:.05em; text-transform:uppercase; margin-top:8px;
+}
+.cover-escola-linha2 {
+  font-family:'JetBrains Mono',monospace; font-size:clamp(10px,1.2vw,13px);
+  font-weight:700; color:rgba(212,160,23,.6);
+  letter-spacing:.1em; text-transform:uppercase;
+}
+
+
+@media (max-width:600px){
+  .tabela-wrap{overflow-x:visible;margin:14px 0;}
+  .tabela-wrap table,.tabela-wrap thead,.tabela-wrap tbody,.tabela-wrap th,.tabela-wrap td,.tabela-wrap tr{display:block;width:100%;}
+  .tabela-wrap thead tr{position:absolute;top:-9999px;left:-9999px;visibility:hidden;}
+  .tabela-wrap tbody tr{background:#fffef8;border:1px solid #d4c89a;border-left:5px solid #2d5a3d;border-radius:8px;margin-bottom:12px;padding:4px 0;}
+  .tabela-wrap tbody td{border:none;border-bottom:1px solid #ede8d4;padding:9px 14px;font-size:14px;text-align:left!important;}
+  .tabela-wrap tbody td:last-child{border-bottom:none;}
+  .tabela-wrap tbody td::before{content:attr(data-label);display:block;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b8860b;margin-bottom:4px;}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- CAPA -->
+<section class="cover" id="topo">
+<div class="cover-inner">
+  <div class="cover-estrela">🎖️</div>
+  <div class="cover-guia">Guia Preparatório Capitão Valdir</div>
+  <div class="cover-metodo-sub">Método Prático para Aprovação</div>
+  <div class="cover-linha"></div>
+  <div class="cover-lp-tag">LÍNGUA PORTUGUESA</div>
+  <div class="cover-nome-mat">REDAÇÃO PRÁTICA<br/>PARA A EsPCEx</div>
+  <div class="cover-escola-linha1">ESCOLA PREPARATÓRIA DE CADETES DO EXÉRCITO</div>
+  <div class="cover-escola-linha2">EsPCEx · 2026–2027</div>
+</div>
+</section>
+
+<!-- SUMÁRIO -->
+<section class="sumario" id="sumario">
+  <div class="sumario-titulo">Sumário</div>
+  <div class="sumario-item"><a href="#mod01"><span class="sumario-num">I</span><span class="sumario-nome"><b>Sobre o Autor</b></span></a></div>
+  <div class="sumario-item"><a href="#mod02"><span class="sumario-num">II</span><span class="sumario-nome"><b>Apresentação do Material</b></span></a></div>
+  <div class="sumario-item"><a href="#mod03"><span class="sumario-num">III</span><span class="sumario-nome"><b>Regras Oficiais da Redação EsPCEx — Edital 2026</b></span></a></div>
+  <div class="sumario-item"><a href="#mod06"><span class="sumario-num">IV</span><span class="sumario-nome"><b>Critérios e Sistema de Avaliação</b></span></a></div>
+  <div class="sumario-item"><a href="#mod04"><span class="sumario-num">V</span><span class="sumario-nome"><b>A Arte de Argumentar — Teoria Essencial</b></span></a></div>
+  <div class="sumario-sub">Os 7 conceitos fundamentais: Assunto · Tema Central · Título · Tese · Argumentação · Ideia-força · Tópico Frasal</div>
+  <div class="sumario-item"><a href="#mod05"><span class="sumario-num">VI</span><span class="sumario-nome"><b>A Estrutura da Dissertação: Título, Introdução, Desenvolvimento e Conclusão</b></span></a></div>
+  <div class="sumario-item"><a href="#mod07"><span class="sumario-num">VII</span><span class="sumario-nome"><b>O Método Prático — Esqueleto e Detalhamento das 14 Frases</b></span></a></div>
+  <div class="sumario-sub">Esqueleto · Detalhamento · Exemplo passo a passo: tema "O uso do celular nas salas de aula" · União das frases</div>
+  <div class="sumario-item"><a href="#mod08"><span class="sumario-num">VIII</span><span class="sumario-nome"><b>Conectivos e Coesão Textual</b></span></a></div>
+  <div class="sumario-item"><a href="#mod09"><span class="sumario-num">IX</span><span class="sumario-nome"><b>Checklist de Revisão Final</b></span></a></div>
+  <div class="sumario-item"><a href="#mod10"><span class="sumario-num">X</span><span class="sumario-nome"><b>Redação Modelo I — EsPCEx 2020 · Análise Comentada</b></span></a></div>
+  <div class="sumario-sub">Tema: A importância da ciência · Nota: 94,00 pts</div>
+  <div class="sumario-item"><a href="#mod11"><span class="sumario-num">XI</span><span class="sumario-nome"><b>Redação Modelo II — EsPCEx 2022 · Análise Comentada</b></span></a></div>
+  <div class="sumario-sub">Tema: Resiliência · Nota: 90,00 pts</div>
+  <div class="sumario-item"><a href="#mod12"><span class="sumario-num">XII</span><span class="sumario-nome"><b>Redação Modelo III — EsPCEx 2025 · Análise Comentada</b></span></a></div>
+  <div class="sumario-sub">Tema: O livro físico na era das telas digitais · Nota: 92,00 pts</div>
+</section>
+
+<!-- MÓDULO I — AUTOR -->
+<section class="chapter" id="mod01">
+  <div class="chapter-header">
+    <div class="chapter-num">Módulo I</div>
+    <div class="chapter-titulo">Sobre o Autor</div>
+    <div class="chapter-periodo">Quem é o Capitão Valdir Nicioli</div>
+  </div>
+  <div class="box-autor">
+    <div class="autor">⚔️ Cap. Valdir Nicioli — Lic. em Letras · UNICAMP · Especialista em Ensino · EsFCEx · Cap. da Reserva Remunerada QCO/Magistério</div>
+    <p>O <strong>Capitão Valdir Nicioli</strong> é militar da Reserva Remunerada do Exército Brasileiro, Licenciado em Letras pela Universidade Estadual de Campinas (UNICAMP) e Especialista em Ensino; tem o Curso de Formação de Oficiais e de Pós-graduação <em>Lato Sensu</em> pela Escola de Formação Complementar do Exército (EsFCEx — antiga EsAEx), integrante do Quadro Complementar de Oficiais (QCO) do Exército Brasileiro na área de Magistério.</p>
+    <p>Durante anos de docência nas fileiras do Exército, o Capitão Valdir atuou diretamente no ensino, formação, preparação, especialização e aperfeiçoamento de alunos de Escolas Militares. Esse contato diário com jovens dedicados — sólidos nas provas objetivas, mas que relatavam dificuldades diante da folha de redação — foi o impulso definitivo para o desenvolvimento de uma metodologia prática, didática e com resultados comprovados.</p>
+  </div>
+  <div class="intro-clara">
+    <h3>A origem deste guia</h3>
+    <p>A frase que mais ouvi em anos de sala de aula foi: <em>"Capitão, fui bem em tudo — mas penei na redação."</em> Não era falta de inteligência, nem de esforço. Era falta de método. Ninguém havia ensinado a esses candidatos, de forma direta e prática, <strong>como</strong> estruturar uma dissertação argumentativa dentro das exigências específicas da EsPCEx. Este guia foi criado para resolver exatamente isso.</p>
+  </div>
+  <div class="voltar-sumario"><a href="#sumario">↑ voltar ao sumário</a></div>
+</section>
+
+<!-- MÓDULO II — APRESENTAÇÃO -->
+<section class="chapter" id="mod02">
+  <div class="chapter-header">
+    <div class="chapter-num">Módulo II</div>
+    <div class="chapter-titulo">Apresentação do Material</div>
+    <div class="chapter-periodo">Como usar este guia · EsPCEx 2026–2027 · Edital publicado em 1º de abril de 2026</div>
+  </div>
+  <p>Este material foi organizado de forma progressiva e intencional. Cada módulo constrói a base do seguinte: começamos com a teoria essencial sobre argumentação — os sete conceitos fundamentais —, passamos pelas regras e critérios oficiais do Edital EsPCEx 2026 (publicado no Diário Oficial da União em 1º de abril de 2026, com 440 vagas para matrícula em 2027), chegamos ao coração prático — o <strong>Método Prático</strong> — e finalizamos com três exemplos reais de redações de alto desempenho, analisados em detalhe.</p>
+  <div class="box-azulc">
+    <div class="box-titulo">📋 Edital EsPCEx 2026 — Novidades</div>
+    <p>O Edital do Concurso de Admissão à EsPCEx 2026 foi publicado oficialmente em <strong>1º de abril de 2026</strong>, com fundamento nas Portarias DECEx/C Ex n.º 1.319 e n.º 1.320, de 27 de março de 2026. São <strong>440 vagas</strong> (400 masculinas e 40 femininas). As provas ocorrem em <strong>13 e 14 de setembro de 2026</strong>. Em relação à prova de redação, o edital 2026 manteve os mesmos critérios de avaliação, extensão (25 a 30 linhas), sistema de pontuação interno (T + 60 – P) e condições de grau zero vigentes desde o edital 2025.</p>
+  </div>
+
+  <div class="box-nfei-alerta">
+    <p><strong>A principal mudança do Edital 2026 não está dentro da prova de redação — está em como a sua nota de redação afeta a classificação final.</strong> A Nota de Redação (de 0 a 100) agora integra a fórmula da <em>Nota Final do Exame Intelectual</em> (NF/EI) como um componente ponderado com peso 1, ao lado de Português (peso 2), Matemática (peso 2), Física+Química (peso 1,5) e Geografia+História+Inglês (peso 1,5). Isso significa que a redação passou a integrar diretamente o cálculo da média classificatória — ela é tanto <strong>eliminatória</strong> (exige nota mínima de corte em todas as provas objetivas para ser corrigida) quanto <strong>classificatória</strong> (sua nota entra na média ponderada que determina sua posição no ranking). <strong>Veja o Módulo IV para a fórmula completa da NF/EI.</strong></p>
+  </div>
+  <div class="estudo-caso" style="border-color:var(--laran-borda);">
+    <div class="estudo-caso-titulo" style="border-bottom-color:var(--laran-borda);color:var(--laran);">Plano de Uso — Roteiro Recomendado</div>
+    <p><span class="passo-num">1ª LEITURA</span> Leia todo o material do início ao fim. O objetivo é ter visão global da estrutura da redação e dos critérios de avaliação.</p>
+    <p><span class="passo-num">2ª ETAPA</span> Estude o Módulo VII (Método Prático) com atenção redobrada. Monte o esquema para um tema de prova anterior antes de ler os exemplos.</p>
+    <p><span class="passo-num">3ª ETAPA</span> Leia as redações modelo (Módulos X, XI e XII) e compare com o esquema que você montou. Identifique as diferenças e aprenda com elas.</p>
+    <p><span class="passo-num">TREINO SEMANAL</span> Escreva ao menos uma redação completa por semana usando o Método Prático. Use o Checklist (Módulo IX) para revisar antes de concluir.</p>
+  </div>
+  <div class="voltar-sumario"><a href="#sumario">↑ voltar ao sumário</a></div>
+</section>
+
+
+<!-- MÓDULO III — REGRAS OFICIAIS -->
+
+<div style="position:relative;margin:30px 0 0;">
+  <div style="background:linear-gradient(180deg,rgba(242,240,232,0) 0%,rgba(242,240,232,.97) 60%,rgba(242,240,232,1) 100%);height:80px;margin-bottom:-2px;pointer-events:none;"></div>
+  <div style="background:linear-gradient(135deg,#0A1C12 0%,#0d2016 100%);border-radius:10px;border:2px solid #D4A017;padding:28px 24px;text-align:center;">
+    <div style="font-size:26px;margin-bottom:10px;">🔒</div>
+    <div style="font-family:'Sora',sans-serif;font-size:18px;font-weight:800;color:#ffffff;margin-bottom:8px;">Conteúdo Completo — Módulos Seguintes</div>
+    <div style="font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:20px;max-width:500px;margin-left:auto;margin-right:auto;">Para ter acesso ao material completo, entre em contato com o Guia Preparatório Capitão Valdir.</div>
+    <a href="mailto:guiaprepcapvaldir@gmail.com" style="display:inline-block;background:#D4A017;color:#0A1C12;font-family:'Sora',sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;padding:13px 28px;border-radius:6px;text-decoration:none;">📧 Quero Acesso ao Material Completo</a>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;margin-top:12px;">guiaprepcapvaldir@gmail.com</div>
+  </div>
+</div>
+</body>
+</html>
