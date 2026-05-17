@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="theme-color" content="#0A1C12">
+<title>EsPCEx — Questões Comentadas de Literatura · Guia Preparatório Capitão Valdir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-l:#43A047;
+  --verde-bg:#E8F5E9;--verde-xbg:#F1F8F1;
+  --ouro:#B8860B;--ouro-l:#D4A017;--ouro-bg:#FFF9E6;
+  --laranja:#BF4A00;--laranja-l:#F57F17;--laranja-bg:#FFF3E0;
+  --azul:#0D47A1;--azul-l:#1565C0;--azul-bg:#E3F2FD;
+  --verm:#B71C1C;--verm-l:#C62828;--verm-bg:#FFEBEE;
+  --cinza:#37474F;--cinza-l:#546E7A;--cinza-bg:#ECEFF1;
+  --roxo:#4A148C;--roxo-l:#6A1B9A;--roxo-bg:#F3E5F5;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:14px;background:#111C24;color:var(--texto);display:flex;flex-direction:column;min-height:0;}
+.deck{position:fixed;top:0;left:0;right:0;bottom:46px;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .32s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+.nav{background:#0D1820;padding:6px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--verde-l);position:fixed;bottom:0;left:0;right:0;height:46px;z-index:100;}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.07em;padding:5px 13px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);}
+.nbtn:disabled{opacity:.22;cursor:default;}
+.pw{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--verde-l);border-radius:2px;transition:width .32s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.65);max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap;}
+.topbar{background:var(--verde);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:3px solid var(--verde-l);position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:160px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;}
+.topbar.azul{background:var(--azul);border-color:#42A5F5;}
+.topbar.verm{background:var(--verm);border-color:#EF9A9A;}
+.topbar.cinza{background:var(--cinza);border-color:#90A4AE;}
+.topbar.roxo{background:var(--roxo);border-color:#CE93D8;}
+.topbar.laranja{background:var(--laranja);border-color:#FF9955;}
+.topbar.ouro{background:#6B4400;border-color:var(--ouro-l);}
+.topbar.azul-esc{background:#0A2540;border-color:#1E88E5;}
+.topbar-left{display:flex;flex-direction:column;gap:1px;}
+.topbar-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(14px,2.2vw,22px);font-weight:800;color:white;line-height:1.1;}
+.topbar-sub{font-size:11px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:rgba(255,255,255,.15);flex-shrink:0;line-height:1;}
+.sb{flex:1;overflow-y:auto;padding:14px 20px 56px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+.slide-footer{position:absolute;bottom:0;left:0;right:0;height:34px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;backdrop-filter:blur(4px);z-index:10;}
+.slide-footer-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:10.5px;font-weight:700;color:var(--verde);letter-spacing:.04em;padding:3px 10px;border-radius:5px;transition:all .2s;}
+.slide-footer-btn:hover{background:var(--verde-bg);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.card{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:9px 13px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid var(--borda);}
+.card-head.verde{background:var(--verde-bg);border-color:#A5D6A7;}
+.card-head.azul{background:var(--azul-bg);border-color:#90CAF9;}
+.card-head.verm{background:var(--verm-bg);border-color:#EF9A9A;}
+.card-head.ouro{background:var(--ouro-bg);border-color:#F9D878;}
+.card-head.cinza{background:var(--cinza-bg);border-color:#B0BEC5;}
+.card-head.laranja{background:var(--laranja-bg);border-color:#FFCC80;}
+.card-head-icon{font-size:17px;flex-shrink:0;}
+.card-head-title{font-size:13px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:11px 13px;flex:1;font-size:13px;line-height:1.65;color:var(--texto);}
+.alerta{border-radius:8px;padding:10px 13px;margin-bottom:10px;display:flex;gap:9px;align-items:flex-start;}
+.alerta:last-child{margin-bottom:0;}
+.alerta.verde{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.alerta.verm{background:var(--verm-bg);border-left:4px solid var(--verm-l);}
+.alerta.azul{background:var(--azul-bg);border-left:4px solid var(--azul-l);}
+.alerta.ouro{background:var(--ouro-bg);border-left:4px solid var(--ouro-l);}
+.alerta.cinza{background:var(--cinza-bg);border-left:4px solid var(--cinza-l);}
+.alerta-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;color:var(--verde);}
+.alerta.verm .alerta-title{color:var(--verm-l);}
+.alerta.azul .alerta-title{color:var(--azul-l);}
+.alerta.ouro .alerta-title{color:var(--ouro);}
+.alerta-text{font-size:13px;line-height:1.62;color:var(--texto);}
+.item{display:flex;gap:7px;margin-bottom:7px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:13px;flex-shrink:0;margin-top:1px;line-height:1.55;}
+.it{font-size:13px;line-height:1.62;color:var(--texto);}
+.it b{font-weight:700;color:var(--verde);}
+.qbloco{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;}
+.qbloco-header{padding:10px 15px;display:flex;align-items:center;gap:11px;border-bottom:3px solid var(--borda);background:var(--fundo);}
+.qnum{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;line-height:1;flex-shrink:0;}
+.qinfo{flex:1;}
+.qtitulo{font-size:13.5px;font-weight:700;color:var(--texto);}
+.qsub{font-size:11px;color:var(--sub);margin-top:2px;}
+.qmeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.qchip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.qchip.assunto{background:var(--azul-bg);color:var(--azul-l);border:1px solid #90CAF9;}
+.qchip.ano{background:var(--cinza-bg);color:var(--cinza);border:1px solid #B0BEC5;}
+.qbloco-body{padding:14px 16px;}
+.passagem{background:var(--fundo);border:1.5px solid var(--borda);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.75;color:var(--texto);margin-bottom:12px;font-style:italic;}
+.qenunciado{font-size:13.5px;font-weight:600;line-height:1.6;color:var(--texto);margin-bottom:10px;}
+.alternativas{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.alt{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border:1.5px solid var(--borda);border-radius:7px;cursor:pointer;transition:all .15s;background:white;font-size:13px;line-height:1.55;}
+.alt:hover{border-color:var(--verde-l);background:var(--verde-xbg);}
+.alt.certa{border-color:var(--verde-m)!important;background:var(--verde-bg)!important;}
+.alt.errada{border-color:#EF9A9A!important;background:var(--verm-bg)!important;}
+.alt-letra{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--verde);flex-shrink:0;width:17px;}
+.btn-gab{background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .2s;width:100%;margin-bottom:10px;}
+.btn-gab:hover{background:var(--verde-m);}
+.gabarito-area{display:none;}
+.gabarito-area.show{display:block;}
+.gab-box{background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:9px;padding:13px 15px;}
+.gab-title{font-size:13px;font-weight:800;color:var(--verde);margin-bottom:9px;}
+.gab-texto{font-size:12.5px;line-height:1.72;color:var(--texto);}
+.gab-estrategia{display:flex;gap:7px;background:var(--laranja-bg);border:1.5px dashed var(--laranja-l);border-radius:7px;padding:8px 12px;margin-top:10px;align-items:flex-start;}
+.gab-estrategia-txt{font-size:12px;line-height:1.55;color:var(--cinza);font-style:italic;}
+.sumario-section{margin-bottom:8px;}
+.sumario-titulo{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--verde);padding:7px 13px;background:var(--verde-bg);border-left:4px solid var(--verde-l);border-radius:0 7px 7px 0;margin-bottom:7px;}
+.sumario-item{display:flex;align-items:center;gap:9px;padding:8px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:4px;}
+.sumario-item:hover{border-color:var(--verde-l);background:var(--verde-xbg);transform:translateX(3px);}
+.sumario-item-num{font-family:'Sora',sans-serif;font-size:18px;flex-shrink:0;min-width:28px;}
+.sumario-item-txt{flex:1;}
+.sumario-item-nome{font-size:13px;font-weight:700;color:var(--texto);}
+.sumario-item-desc{font-size:11px;color:var(--sub);margin-top:1px;}
+.sumario-item-arrow{font-size:14px;color:var(--verde-l);}
+.sumario-item.mod{border-left:4px solid var(--verde);}
+.capa-slide{flex:1;background:linear-gradient(160deg,#0B1A0D 0%,#1B5E20 38%,#0A2E10 72%,#040C05 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;gap:11px;overflow-y:auto;position:relative;}
+.capa-slide::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 55px,rgba(255,255,255,.012) 55px,rgba(255,255,255,.012) 56px);pointer-events:none;}
+.capa-ebadge{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);border-radius:25px;padding:3px 15px;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.capa-logo{font-size:50px;line-height:1;}
+.capa-titulo{font-family:'Sora',sans-serif;font-size:clamp(22px,4vw,42px);font-weight:800;color:white;text-align:center;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;}
+.capa-subtitulo{font-family:'Sora',sans-serif;font-size:clamp(12px,1.8vw,17px);font-weight:600;color:rgba(255,255,255,.62);text-align:center;text-transform:uppercase;letter-spacing:.04em;}
+.capa-linha{width:70px;height:3px;background:var(--ouro-l);border-radius:2px;}
+.capa-badge-lp{border-radius:9px;padding:8px 18px;text-align:center;max-width:480px;}
+.capa-badge-lp-t{font-size:14px;font-weight:800;color:#F9D878;text-transform:uppercase;letter-spacing:.05em;}
+.capa-badge-lp-s{font-size:12px;color:rgba(255,255,255,.6);margin-top:3px;}
+.capa-autor{font-size:12.5px;color:rgba(255,255,255,.7);text-align:center;line-height:1.7;}
+.capa-autor b{color:white;font-weight:800;}
+.capa-stats{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.capa-stat{text-align:center;}
+.capa-stat-n{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--ouro-l);display:block;line-height:1;}
+.capa-stat-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);display:block;margin-top:2px;}
+.capa-btn{background:linear-gradient(135deg,#B8860B,#D4A017);color:#3B2500;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;padding:11px 38px;border-radius:8px;cursor:pointer;transition:all .2s;box-shadow:0 5px 18px rgba(184,134,11,.5);}
+.capa-btn:hover{transform:scale(1.04);}
+@media(max-width:600px){
+  .topbar{padding:8px 12px;flex-wrap:wrap;gap:4px;}
+  .topbar-title{font-size:clamp(13px,3.8vw,18px)!important;}
+  .topbar-sub{font-size:10px;}
+  .topbar-right{font-size:22px;}
+  .sb{padding:10px 10px 56px;}
+  .g2{grid-template-columns:1fr!important;}
+  .g3{grid-template-columns:1fr!important;}
+  .nbtn{font-size:9px;padding:4px 9px;}
+  .nav{padding:5px 8px;gap:6px;}
+  .ntitle{max-width:120px;font-size:10px;}
+  .qbloco-header{flex-wrap:wrap;}
+  .qnum{font-size:10px!important;}
+  .capa-titulo{font-size:clamp(22px,7vw,36px)!important;}
+}
+
+/* ── APRESENTAÇÃO ── */
+.apres-banner{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:11px;padding:18px 22px;margin-bottom:13px;color:white;position:relative;overflow:hidden;}
+.apres-titulo{font-size:20px;font-weight:800;margin-bottom:5px;}
+.apres-sub{font-size:13px;color:rgba(255,255,255,.78);line-height:1.6;}
+.metodo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:13px;}
+.metodo-step{background:white;border-radius:9px;padding:13px;text-align:center;border:2px solid var(--borda);}
+.metodo-step:nth-child(1){border-top:4px solid var(--azul-l);}
+.metodo-step:nth-child(2){border-top:4px solid var(--verde-l);}
+.metodo-step:nth-child(3){border-top:4px solid var(--laranja-l);}
+.metodo-step:nth-child(4){border-top:4px solid var(--verm-l);}
+.metodo-icon{font-size:26px;margin-bottom:6px;}
+.metodo-passo{font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--sub);margin-bottom:3px;text-transform:uppercase;}
+.metodo-nome{font-size:16px;font-weight:800;color:var(--texto);}
+.metodo-desc{font-size:11.5px;line-height:1.5;color:var(--sub);margin-top:4px;}
+.citacao-box{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:9px;padding:14px 18px;margin-top:12px;text-align:center;position:relative;overflow:hidden;}
+.citacao-txt{font-size:14.5px;font-weight:600;font-style:italic;color:white;line-height:1.6;}
+.citacao-autor-nome{font-size:12px;color:rgba(255,255,255,.65);margin-top:7px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.modulo-stat{background:white;border:1.5px solid var(--borda);border-radius:9px;padding:10px 13px;text-align:center;}
+.modulo-stat-n{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--verde);}
+.modulo-stat-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-top:2px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+
+</style>
+<style>
+.espcex-wrapper .questao{background:#fff;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;font-family:'Sora',sans-serif;font-size:13px;}
+.espcex-wrapper .questao-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:var(--fundo);border-bottom:2px solid var(--borda);flex-wrap:wrap;}
+.espcex-wrapper .questao-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:var(--verde);}
+.espcex-wrapper .questao-ano{background:var(--verde);color:#fff;font-size:9.5px;font-weight:700;padding:2px 9px;border-radius:10px;letter-spacing:.08em;white-space:nowrap;}
+.espcex-wrapper .questao-body{padding:14px 16px;}
+.espcex-wrapper .enunciado{font-size:13px;font-weight:600;line-height:1.65;color:var(--texto);margin-bottom:10px;}
+.espcex-wrapper .alternativas{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:12px;padding:0;}
+.espcex-wrapper .alternativas li{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border:1.5px solid var(--borda);border-radius:7px;cursor:pointer;transition:all .15s;background:#fff;font-size:13px;line-height:1.55;}
+.espcex-wrapper .alternativas li:hover{border-color:var(--verde-l);background:var(--verde-xbg);}
+.espcex-wrapper .alternativas li.correta{border-color:var(--verde-m)!important;background:var(--verde-bg)!important;}
+.espcex-wrapper .alternativas li.errada{border-color:#EF9A9A!important;background:var(--verm-bg)!important;}
+.espcex-wrapper .alt-letra{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--verde);flex-shrink:0;width:17px;}
+.espcex-wrapper .gabarito-btn{background:var(--verde);color:#fff;border:none;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .2s;width:100%;margin-bottom:10px;}
+.espcex-wrapper .gabarito-btn:hover{background:var(--verde-m);}
+.espcex-wrapper .gabarito-expandido{display:none;}
+.espcex-wrapper .gabarito-expandido.visivel{display:block;}
+.espcex-wrapper .gab-header{background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:9px;padding:11px 14px;margin-bottom:10px;}
+.espcex-wrapper .gab-resposta{font-size:13px;font-weight:800;color:var(--verde);margin-bottom:3px;}
+.espcex-wrapper .gab-titulo{font-size:12px;color:var(--sub);}
+.espcex-wrapper .gab-body{font-size:13px;line-height:1.7;}
+.espcex-wrapper .gab-base{background:var(--fundo);border:1.5px solid var(--borda);border-radius:8px;padding:11px 13px;margin-bottom:10px;}
+.espcex-wrapper .gab-autores{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:600px){.espcex-wrapper .gab-autores{grid-template-columns:1fr;}}
+.espcex-wrapper .gab-autor{border-radius:8px;padding:10px 12px;font-size:12.5px;line-height:1.65;}
+.espcex-wrapper .gab-abaurre{background:#e8f0f8;border:1.5px solid #4a7ab0;}
+.espcex-wrapper .gab-cereja{background:#f8ece8;border:1.5px solid #b05a4a;}
+.espcex-wrapper .gab-autor-header{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.espcex-wrapper .badge-autor{font-size:9px;font-weight:800;padding:2px 8px;border-radius:10px;letter-spacing:.08em;}
+.espcex-wrapper .gab-autor-nome{font-size:12px;font-weight:700;color:var(--texto);}
+.espcex-wrapper .gab-autor-obra{font-size:10.5px;color:var(--sub);}
+.espcex-wrapper .gab-dica{display:flex;gap:7px;background:var(--laranja-bg);border:1.5px dashed var(--laranja-l);border-radius:7px;padding:8px 12px;margin-top:10px;}
+.espcex-wrapper .dica-icon{font-size:16px;flex-shrink:0;}
+.espcex-wrapper .gab-dica p{font-size:12px;line-height:1.55;color:var(--cinza);font-style:italic;margin:0;}
+.espcex-wrapper .texto-base{font-style:italic;background:var(--fundo);border:1.5px solid var(--borda);border-radius:7px;padding:11px 14px;font-size:13px;line-height:1.7;margin-bottom:11px;}
+.espcex-wrapper .box-resumo,.espcex-wrapper .box-atencao{border-radius:8px;padding:11px 13px;margin-bottom:10px;font-size:13px;line-height:1.65;}
+.espcex-wrapper .box-resumo{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.espcex-wrapper .box-atencao{background:var(--laranja-bg);border-left:4px solid var(--laranja-l);}
+.espcex-wrapper .box-titulo{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;color:var(--verde);}
+.espcex-wrapper .legenda-box{background:var(--fundo);border:1.5px solid var(--borda);border-radius:8px;padding:10px 14px;margin-bottom:10px;font-size:12px;}
+.espcex-wrapper .escola-analise{background:var(--ouro-bg,#fffbf0);border:1.5px solid var(--ouro-l,#f5c842);border-radius:9px;padding:12px 15px;margin-bottom:10px;}
+.sumario-item-cnt{font-size:9px;font-weight:700;background:var(--verde);color:#fff;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0;}
+.sumario-item-arrow{color:var(--sub);font-size:18px;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="deck">
+<div class="slide active" data-title="Capa — Literatura EsPCEx" id="slide-0">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1420 0%,#0D1C33 60%,#091428 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(100,160,255,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#4A90D9;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(100,160,255,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">LITERATURA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(16px,3vw,28px);font-weight:800;color:#64A0FF;line-height:1.2;text-transform:uppercase;text-align:center;">QUESTÕES COMENTADAS<br>EsPCEx</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA PREPARATÓRIA DE CADETES DO EXÉRCITO</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.2vw,13px);font-weight:700;color:rgba(100,160,255,.6);letter-spacing:.1em;text-transform:uppercase;">EsPCEx · 2026–2027 · 45 Questões Comentadas</div>
+</div>
+</div>
+<div class="slide" data-title="Apresentação — Capitão Valdir" id="slide-intro-1">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-tag">Guia Preparatório Capitão Valdir · Literatura EsPCEx · Questões Comentadas</span>
+      <span class="topbar-title">APRESENTAÇÃO — O CAPITÃO VALDIR</span>
+      <span class="topbar-sub">Conheça o professor por trás deste material</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="apres-banner" style="margin-bottom:13px;">
+      <div class="apres-titulo">Bem-vindo ao material que vai transformar seu desempenho em Literatura!</div>
+      <div class="apres-sub"><b>45 questões de Literatura</b> da EsPCEx (2016–2025), comentadas, analisadas e organizadas por escola literária — para você dominar cada tema do edital e chegar à prova com confiança total.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0A2E10,#1B5E20,#2E7D32);border-radius:12px;padding:20px 24px;margin-bottom:13px;display:flex;gap:20px;align-items:center;position:relative;overflow:hidden;">
+      <div style="flex-shrink:0;width:88px;height:88px;background:rgba(255,255,255,.13);border-radius:50%;border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:40px;">🎖️</div>
+      <div style="flex:1;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;">SEU PROFESSOR</div>
+        <div style="font-size:26px;font-weight:800;color:white;line-height:1;margin-bottom:4px;">Capitão Valdir</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.72);margin-bottom:8px;">Capitão da Reserva do Exército Brasileiro · QCO (Quadro Complementar de Oficiais)</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🎓 Letras — UNICAMP</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">⭐ Formado pela ESFCEx</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🏆 20+ anos de experiência</span>
+        </div>
+      </div>
+    </div>
+    <div class="alerta azul">
+      <div class="alerta-icon">💡</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Como usar este material</div>
+        <div class="alerta-text">Navegue pelos <b>14 módulos</b> usando os botões ← Ant. / Próx. → ou as teclas de seta. Clique em <b>📋 Sumário</b> para ir diretamente ao módulo desejado. Em cada questão, selecione a alternativa e clique em <b>Ver análise aprofundada</b> para o gabarito comentado.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:13px;">
+      <button onclick="goTo(2)" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Ver Sumário →</button>
+    </div>
+  </div>
+</div>
+<div class="slide" data-title="Sumário — Módulo I Disponível" id="slide-sumario">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-tag">Guia Preparatório Capitão Valdir · Literatura EsPCEx · Questões Comentadas</span>
+      <span class="topbar-title">SUMÁRIO — MÓDULO I DISPONÍVEL</span>
+      <span class="topbar-sub">EsPCEx · Módulo 01 desbloqueado · Módulos 02–14 disponíveis no material completo</span>
+    </div>
+    <div class="topbar-right">📋</div>
+  </div>
+  <div class="sb">
+    
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(3)" style="cursor:pointer;">
+        <div class="sumario-item-num">📖</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 01 — Literatura, História da Literatura, Gêneros Literários, Linguagem Poética e Elementos da Narrativa</div>
+          <div class="sumario-item-desc">Fundamentos Gerais · Fundamentos Literários</div>
+        </div>
+        <div class="sumario-item-cnt">4 questões</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 02 — Trovadorismo</div>
+          <div class="sumario-item-desc">Sécs. XII–XV · Trovadorismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 03 — Humanismo</div>
+          <div class="sumario-item-desc">Séc. XV · Humanismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 04 — Classicismo</div>
+          <div class="sumario-item-desc">Séc. XVI · Classicismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 05 — Quinhentismo</div>
+          <div class="sumario-item-desc">Sécs. XVI–XVII · Quinhentismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 06 — Barroco</div>
+          <div class="sumario-item-desc">Sécs. XVII–XVIII · Barroco</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 07 — Arcadismo</div>
+          <div class="sumario-item-desc">Séc. XVIII · Arcadismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 08 — Romantismo — Prosa e Poesia</div>
+          <div class="sumario-item-desc">Séc. XIX (1836–1881) · Romantismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 09 — Realismo/Naturalismo</div>
+          <div class="sumario-item-desc">Séc. XIX (1881–1902) · Realismo/Naturalismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 10 — Parnasianismo</div>
+          <div class="sumario-item-desc">Séc. XIX–XX (1881–1902) · Parnasianismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 11 — Simbolismo</div>
+          <div class="sumario-item-desc">Séc. XIX–XX (1893–1922) · Simbolismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 12 — Pré-Modernismo</div>
+          <div class="sumario-item-desc">Sécs. XIX–XX (1902–1922) · Pré-Modernismo</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 13 — Movimentos de Vanguarda Europeia no Brasil</div>
+          <div class="sumario-item-desc">Início séc. XX · Vanguardas Europeias</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-item mod" onclick="goTo(8)" style="cursor:pointer;opacity:.55;filter:grayscale(.5);" style="cursor:pointer;">
+        <div class="sumario-item-num">🔒</div>
+        <div class="sumario-item-txt">
+          <div class="sumario-item-nome">Módulo 14 — Modernismo Brasileiro — Prosa e Poesia (1ª, 2ª e 3ª Gerações) e Tendências Contemporâneas</div>
+          <div class="sumario-item-desc">1922 até hoje · Modernismo Brasileiro</div>
+        </div>
+        <div class="sumario-item-cnt" style="background:#888;">Bloqueado</div>
+        <div class="sumario-item-arrow">›</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="slide" data-title="Módulo 01 — Fundamentos Literários" id="slide-mod1-intro">
+  <div style="flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;background:linear-gradient(160deg,#0A1228,#0D47A1,#1565C0);">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:28px 24px;flex:1;text-align:center;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);">EsPCEx · GUIA CAPITÃO VALDIR · LITERATURA</div>
+      <div style="font-size:52px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">📖</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.6);">MÓDULO 01</div>
+      <div style="font-family:'Sora',sans-serif;font-size:clamp(15px,2.5vw,24px);font-weight:800;color:white;line-height:1.2;text-transform:uppercase;max-width:560px;">Literatura, História da Literatura, Gêneros Literários, Linguagem Poética e Elementos da Narrativa</div>
+      <div style="width:60px;height:3px;background:rgba(255,255,255,.35);border-radius:2px;"></div>
+      <div style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);border-radius:9px;padding:12px 22px;max-width:520px;">
+        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;">Fundamentos Gerais</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.88);line-height:1.7;">Conceitos fundamentais: gêneros literários, linguagem poética, elementos da narrativa e história da literatura.</div>
+      </div>
+      <div style="background:rgba(255,200,50,.18);border:1px solid rgba(255,200,50,.35);border-radius:8px;padding:10px 28px;text-align:center;">
+        <div style="font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:#FFD740;line-height:1;">4</div>
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,215,64,.65);margin-top:3px;">Questões EsPCEx</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="slide" data-title="Módulo 01 — Fundamentos Literários · EsPCEx: Questão 01 — Classificação dos gêneros" id="slide-mod1-espcex-q1">
+  <div class="topbar azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">EsPCEx · Guia Preparatório Capitão Valdir · Módulo 01 — Fundamentos Literários</span>
+      <span class="topbar-title">Questão 01 — Classificação dos gêneros</span>
+      <span class="topbar-sub">EsPCEx 2016 · Gabarito Expandido</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="espcex-wrapper">
+<article class="questao">
+    <div class="questao-head">
+      <span class="questao-label">Questão 01 — Classificação dos gêneros</span>
+      <span class="questao-ano">EsPCEx 2016</span>
+    </div>
+    <div class="questao-body">
+      <p class="enunciado">Sobre os gêneros literários, assinale a alternativa CORRETA.</p>
+      <ul class="alternativas">
+        <li onclick="marcar(this,'A','B')"><span class="alt-letra">A</span> O gênero dramático abrange textos que tematizam o sofrimento e a aflição da condição humana, sendo todos encenados em formato de tragédia.</li>
+        <li onclick="marcar(this,'B','B')"><span class="alt-letra">B</span> Textos pertencentes ao gênero lírico privilegiam a expressão subjetiva de estados interiores, com predominância da função emotiva da linguagem.</li>
+        <li onclick="marcar(this,'C','B')"><span class="alt-letra">C</span> O gênero épico compreende exclusivamente textos em verso sobre acontecimentos grandiosos protagonizados por heróis.</li>
+        <li onclick="marcar(this,'D','B')"><span class="alt-letra">D</span> No gênero narrativo, temos somente: romance, conto, fábula e epopeia, não havendo outras formas de expressão.</li>
+        <li onclick="marcar(this,'E','B')"><span class="alt-letra">E</span> A voz narrativa, nos textos dramáticos, está entregue a um narrador onisciente que descreve os personagens e suas ações.</li>
+      </ul>
+      <button class="gabarito-btn" onclick="revelarGabarito(this)">↓ Ver análise aprofundada</button>
+      <div class="gabarito-expandido">
+        <div class="gab-header">
+          <div>
+            <div class="gab-resposta">Gabarito: B</div>
+            <div class="gab-titulo">Gênero Lírico — Função emotiva e subjetividade</div>
+          </div>
+        </div>
+        <div class="gab-body">
+          <div class="gab-base">
+            <strong>Análise da questão:</strong> O gênero lírico é definido pela expressão subjetiva do <em>sujeito lírico</em> — uma voz poética que manifesta emoções, sentimentos e reflexões pessoais com predominância da <strong>função emotiva</strong> (Jakobson) da linguagem. As demais alternativas apresentam erros conceituais clássicos: A restringe o dramático à tragédia (ignora comédia, tragicomédia, auto); C exclui a prosa épica (romance, novela); D é incompleto (crônica, memórias, novela também são narrativos); E confunde — no dramático a "voz" pertence às personagens em diálogo, não a um narrador.
+          </div>
+          <div class="gab-autores">
+            <div class="gab-autor gab-abaurre">
+              <div class="gab-autor-header">
+                <span class="badge-autor" style="background:var(--abaurre);color:#fff">A/P</span>
+                <div>
+                  <div class="gab-autor-nome">Abaurre &amp; Pontara</div>
+                  <span class="gab-autor-obra">Português: contexto, interlocução e sentido</span>
+                </div>
+              </div>
+              Para Abaurre e Pontara, o gênero lírico se distingue por colocar o <strong>eu como centro do discurso</strong>: o sujeito lírico não narra eventos externos, mas expõe sua interioridade. As autoras enfatizam que a <strong>função poética</strong> e a <strong>função emotiva</strong> coexistem no lírico — a primeira cuida da forma da mensagem; a segunda, da emoção transmitida. Segundo essa perspectiva didática, errar essa questão equivale a confundir <em>quem fala</em> (sujeito lírico × narrador × personagem) com <em>o que fala</em> (emoção × narração × diálogo). A distinção entre gêneros fundamenta a competência leitora: identificar o gênero orienta o contrato de leitura entre texto e leitor.
+            </div>
+            <div class="gab-autor gab-cereja">
+              <div class="gab-autor-header">
+                <span class="badge-autor" style="background:var(--cereja);color:#fff">C/M</span>
+                <div>
+                  <div class="gab-autor-nome">Cereja &amp; Magalhães</div>
+                  <span class="gab-autor-obra">Português: linguagens</span>
+                </div>
+              </div>
+              Cereja e Magalhães trabalham a teoria dos gêneros dentro de um quadro histórico-evolutivo: a divisão aristotélica (épico, lírico, dramático) é ponto de partida, mas os autores apontam que ao longo da história literária os gêneros se <strong>hibridizaram e se multiplicaram</strong>. No gênero lírico, destacam: (1) a <strong>musicalidade</strong> como traço formal; (2) a <strong>brevidade</strong> relativa; (3) a <strong>concentração emocional</strong>; e (4) a presença do <em>eu-lírico</em> — voz poética que não se confunde com o autor real. A alternativa B está correta pois captura exatamente esses dois eixos: <em>subjetividade</em> + <em>função emotiva</em>. Os autores alertam que "o dramático não é apenas a tragédia" — erro recorrente nos vestibulares.
+            </div>
+          </div>
+          <div class="gab-dica">
+            <span class="dica-icon">🎯</span>
+            <span><strong>Dica EsPCEx:</strong> A banca frequentemente testa a distinção entre gêneros usando afirmativas que trocam características entre eles. Memorize: <em>lírico = eu interior + emoção; épico/narrativo = narrador + ação externa; dramático = personagens em diálogo, sem narrador</em>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+    </div>
+  </div>
+</div>
+<div class="slide" data-title="Módulo 01 — Fundamentos Literários · EsPCEx: Questão 02 — Soneto e forma fixa" id="slide-mod1-espcex-q2">
+  <div class="topbar azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">EsPCEx · Guia Preparatório Capitão Valdir · Módulo 01 — Fundamentos Literários</span>
+      <span class="topbar-title">Questão 02 — Soneto e forma fixa</span>
+      <span class="topbar-sub">EsPCEx 2017 · Gabarito Expandido</span>
+    </div>
+    <div class="topbar-right">02</div>
+  </div>
+  <div class="sb">
+    <div class="espcex-wrapper">
+<article class="questao">
+    <div class="questao-head">
+      <span class="questao-label">Questão 02 — Soneto e forma fixa</span>
+      <span class="questao-ano">EsPCEx 2017</span>
+    </div>
+    <div class="questao-body">
+      <p class="enunciado">A forma fixa caracterizada por dois quartetos e dois tercetos, geralmente com versos decassílabos, é chamada de:</p>
+      <ul class="alternativas">
+        <li onclick="marcar(this,'A','C')"><span class="alt-letra">A</span> Ode</li>
+        <li onclick="marcar(this,'B','C')"><span class="alt-letra">B</span> Décima</li>
+        <li onclick="marcar(this,'C','C')"><span class="alt-letra">C</span> Soneto</li>
+        <li onclick="marcar(this,'D','C')"><span class="alt-letra">D</span> Espinela</li>
+        <li onclick="marcar(this,'E','C')"><span class="alt-letra">E</span> Rondel</li>
+      </ul>
+      <button class="gabarito-btn" onclick="revelarGabarito(this)">↓ Ver análise aprofundada</button>
+      <div class="gabarito-expandido">
+        <div class="gab-header">
+          <div>
+            <div class="gab-resposta">Gabarito: C</div>
+            <div class="gab-titulo">Soneto — Forma fixa de 14 versos: 2 quartetos + 2 tercetos</div>
+          </div>
+        </div>
+        <div class="gab-body">
+          <div class="gab-base">
+            <strong>Análise da questão:</strong> O <strong>soneto</strong> é a forma fixa mais cobrada na EsPCEx — 14 versos organizados em dois quartetos (4+4) e dois tercetos (3+3), com predomínio do verso decassílabo (10 sílabas poéticas). Introduzido em Portugal por <strong>Sá de Miranda</strong> no Classicismo (séc. XVI), o soneto atravessou todas as escolas literárias: de Camões ao Barroco de Gregório de Matos, do Romantismo ao Parnasianismo de Bilac. As demais formas: <em>ode</em> = poema de exaltação sem forma fixa rígida; <em>décima</em> = estrofe de 10 versos; <em>espinela</em> = décima específica de Vicente Espinel; <em>rondel</em> = forma medieval francesa.
+          </div>
+          <div class="gab-autores">
+            <div class="gab-autor gab-abaurre">
+              <div class="gab-autor-header">
+                <span class="badge-autor" style="background:var(--abaurre);color:#fff">A/P</span>
+                <div>
+                  <div class="gab-autor-nome">Abaurre &amp; Pontara</div>
+                  <span class="gab-autor-obra">Português: contexto, interlocução e sentido</span>
+                </div>
+              </div>
+              Abaurre e Pontara abordam o soneto como <strong>contrato formal entre poeta e leitor</strong>: ao escolher essa forma, o autor se compromete com uma estrutura de expectativas. As autoras destacam o papel da <strong>volta</strong> (os dois tercetos finais), que tradicionalmente condensa a reflexão ou o desfecho emocional, enquanto os quartetos desenvolvem o tema. Esse movimento — exposição nos quartetos, conclusão nos tercetos — é central para a interpretação de sonetos em provas. O reconhecimento de formas fixas é pré-requisito para análise contextual: o leitor que identifica o soneto já sabe que encontrará uma <em>tese</em> e sua <em>conclusão</em>.
+            </div>
+            <div class="gab-autor gab-cereja">
+              <div class="gab-autor-header">
+                <span class="badge-autor" style="background:var(--cereja);color:#fff">C/M</span>
+                <div>
+                  <div class="gab-autor-nome">Cereja &amp; Magalhães</div>
+                  <span class="gab-autor-obra">Português: linguagens</span>
+                </div>
+              </div>
+              Cereja e Magalhães tratam o soneto dentro de seu contexto histórico: nascido na Itália (Petrarca), chegou a Portugal com <strong>Sá de Miranda</strong> por volta de 1527, revolucionando a lírica lusitana ao substituir a redondilha medieval pelo decassílabo italiano. Os autores detalham a estrutura: (a) quartetos com rima <em>ABBA ABBA</em> (petrarquiana) ou <em>ABAB ABAB</em>; (b) tercetos com variação <em>CDC DCD</em> ou <em>CDE CDE</em>. Para a EsPCEx: o soneto <strong>não é exclusivo de nenhuma escola</strong> — aparece do Classicismo ao Modernismo (Drummond, Vinícius). Reconhecer essa permeabilidade evita armadilhas que associam o soneto apenas ao Parnasianismo.
+            </div>
+          </div>
+          <div class="gab-dica">
+            <span class="dica-icon">🎯</span>
+            <span><strong>Dica EsPCEx:</strong> Memorize a estrutura: <em>soneto = 14 versos = 2 quartetos + 2 tercetos, geralmente decassílabos</em>. A banca pode pedir a identificação pelo número de versos, pelo esquema de rimas ou pela organização estrófica. O soneto é forma presente do Classicismo ao Modernismo.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+    </div>
+  </div>
+</div>
+<div class="slide" data-title="Módulo 01 — Fundamentos Literários · EsPCEx: Questão 03 — Crônica como gênero literário" id="slide-mod1-espcex-q3">
+  <div class="topbar azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">EsPCEx · Guia Preparatório Capitão Valdir · Módulo 01 — Fundamentos Literários</span>
+      <span class="topbar-title">Questão 03 — Crônica como gênero literário</span>
+      <span class="topbar-sub">EsPCEx 2022 · Gabarito Expandido</span>
+    </div>
+    <div class="topbar-right">03</div>
+  </div>
+  <div class="sb">
+    <div class="espcex-wrapper">
+<article class="questao">
+    <div class="questao-head">
+      <span class="questao-label">Questão 03 — Crônica como gênero literário</span>
+      <span class="questao-ano">EsPCEx 2022</span>
+    </div>
+    <div class="questao-body">
+      <div class="texto-base">
+        "Assiste demolição — Morou mais de vinte anos nesta casa? Então vai sentir uma coisa quando ela for demolida. Começou a demolição. Passando pela rua, ele viu a casa já sem telhado, e operários, na poeira, removendo caibros. […] Fitou tranquilo o que tinha sido sua casa e era um amontoado de cal e tijolo, a ser removido."
+        <cite>— Carlos Drummond de Andrade (crônica)</cite>
+      </div>
+      <p class="enunciado">O texto de Carlos Drummond de Andrade pertence ao gênero da <strong>crônica</strong>. Assinale a alternativa que melhor define as características desse gênero literário:</p>
+      <ul class="alternativas">
+        <li onclick="marcar(this,'A','D')"><span class="alt-letra">A</span> Narrativa longa que desenvolve múltiplas histórias e personagens ao longo do tempo, com desfecho catártico.</li>
+        <li onclick="marcar(this,'B','D')"><span class="alt-letra">B</span> Texto em verso que expressa estados de alma do sujeito lírico mediante imagens poéticas e musicalidade.</li>
+        <li onclick="marcar(this,'C','D')"><span class="alt-letra">C</span> Narrativa de ficção científica que explora realidades alternativas mediante linguagem técnica e objetiva.</li>
+        <li onclick="marcar(this,'D','D')"><span class="alt-letra">D</span> Texto literário breve, frequentemente narrativo, com motivos geralmente extraídos do cotidiano, escrito com leveza, humor ou reflexão.</li>
+        <li onclick="marcar(this,'E','D')"><span class="alt-letra">E</span> Texto teatral em prosa que narra conflitos entre personagens com desfecho moral explícito.</li>
+      </ul>
+      <button class="gabarito-btn" onclick="revelarGabarito(this)">↓ Ver análise aprofundada</button>
+      <div class="gabarito-expandido">
+        <div class="gab-header">
+          <div>
+            <div class="gab-resposta">Gabarito: D</div>
+            <div class="gab-titulo">Crônica — Gênero híbrido, cotidiano, brevidade e reflexão</div>
+          </div>
+        </div>
+        <div class="gab-body">
+          <div class="gab-base">
+            <strong>Análise da questão:</strong> A crônica é um gênero literário híbrido — entre o jornalismo e a literatura — de <strong>caráter breve</strong>, que toma como matéria <strong>episódios do cotidiano</strong> e os transforma em reflexão, poesia ou humor. Drummond foi um de seus maiores praticantes brasileiros. As demais alternativas descrevem outros gêneros: A = romance; B = poema lírico; C = ficção científica; E = peça teatral.
+          </div>
+          <div class="gab-autores">
+            <div class="gab-autor gab-abaurre">
+              <div class="gab-autor-header">
+                <span class="badge-autor" style="background:var(--abaurre);color:#fff">A/P</span>
+                <div>
+                  <div class="gab-autor-nome">Abaurre &amp; Pontara</div>
+                  <span class="gab-autor-obra">Português: contexto, interlocução e sentido</span>
+                </div>
+              </div>
+              Para Abaurre e Pontara, a crônica é exemplar da capacidade literária de <strong>poetizar o prosaico</strong>: o cronista não inventa mundos extraordinários, mas revela a <em>estranheza do familiar</em>. As autoras destacam que a crônica estabelece com o leitor uma relação de <strong>cumplicidade e proximidade</strong>. No texto de Drummond, o homem que observa a demolição de sua casa <em>"tranquilo"</em> é uma ironia sutil: o que seria tragédia sentimental vira contemplação distanciada. A crônica é terreno fértil para o trabalho com <strong>funções da linguagem</strong> (emotiva, poética, referencial) sobrepostas em um único texto breve.
+            </div>
+            <div class="gab-autor gab-cereja">
+              <div class="gab-autor-header">
+                <span class="badge-autor" style="background:var(--cereja);color:#fff">C/M</span>
+                <div>
+                  <div class="gab-autor-nome">Cereja &amp; Magalhães</div>
+                  <span class="gab-autor-obra">Português: linguagens</span>
+                </div>
+              </div>
+              Cereja e Magalhães situam a crônica no contexto da <strong>imprensa brasileira do século XIX</strong>. Características centrais: (1) <strong>brevidade</strong>; (2) <strong>cotidiano como matéria</strong>; (3) <strong>subjetividade do cronista</strong>; (4) <strong>tom variado</strong> — humorístico, lírico, filosófico ou irônico. Os grandes nomes: Drummond, Rubem Braga, Clarice Lispector, Fernando Sabino. A crônica é <em>gênero narrativo-literário</em>, não jornalístico puro — tem valor estético próprio.
+            </div>
+          </div>
+          <div class="gab-dica">
+            <span class="dica-icon">🎯</span>
+            <span><strong>Dica EsPCEx:</strong> A crônica é gênero recorrente, especialmente com textos de Rubem Braga e Drummond. Identifique: brevidade + cotidiano + reflexão/humor + linguagem literária. Distingua-a do conto (ficção elaborada, personagens definidos) e do poema (forma versificada).</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+    </div>
+  </div>
+</div>
+<div class="slide" data-title="Módulo 01 — Fundamentos Literários · EsPCEx: Questão 38 — Linguagem literária vs. não literária" id="slide-mod1-espcex-q4">
+  <div class="topbar azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">EsPCEx · Guia Preparatório Capitão Valdir · Módulo 01 — Fundamentos Literários</span>
+      <span class="topbar-title">Questão 38 — Linguagem literária vs. não literária</span>
+      <span class="topbar-sub">EsPCEx 2019 · Gabarito Expandido</span>
+    </div>
+    <div class="topbar-right">04</div>
+  </div>
+  <div class="sb">
+    <div class="espcex-wrapper">
+<article class="questao">
+    <div class="questao-head">
+      <span class="questao-label">Questão 38 — Linguagem literária vs. não literária</span>
+      <span class="questao-ano">EsPCEx 2019</span>
+    </div>
+    <div class="questao-body">
+      <p class="enunciado">Sobre a linguagem literária e suas características, assinale a alternativa CORRETA:</p>
+      <ul class="alternativas">
+        <li onclick="marcar(this,'A','B')"><span class="alt-letra">A</span> O texto literário é aquele em que predominam a repetição da realidade, a linguagem linear e a unidade de sentido.</li>
+        <li onclick="marcar(this,'B','B')"><span class="alt-letra">B</span> A linguagem literária se caracteriza pela plurissignificação, pela função poética e pela capacidade de criar mundos autônomos que dialogam com a realidade sem se limitar a ela.</li>
+        <li onclick="marcar(this,'C','B')"><span class="alt-letra">C</span> No gênero lírico, os elementos do mundo exterior predominam sobre os do mundo interior do eu poético.</li>
+        <li onclick="marcar(this,'D','B')"><span class="alt-letra">D</span> Tanto o texto literário quanto o não literário possuem a mesma função comunicativa e o mesmo grau de polissemia.</li>
+        <li onclick="marcar(this,'E','B')"><span class="alt-letra">E</span> A literatura é definida exclusivamente pelo uso de linguagem conotativa em verso, não abrangendo textos em prosa.</li>
+      </ul>
+      <button class="gabarito-btn" onclick="revelarGabarito(this)">↓ Ver análise aprofundada</button>
+      <div class="gabarito-expandido">
+        <div class="gab-header">
+          <div>
+            <div class="gab-resposta">Gabarito: B</div>
+            <div class="gab-titulo">Linguagem literária — Plurissignificação + função poética + mundos autônomos que transcendem o real</div>
+          </div>
+        </div>
+        <div class="gab-body">
+          <div class="gab-base">
+            <strong>Análise da questão:</strong> O texto literário se diferencia do não literário principalmente pela <strong>plurissignificação</strong> (múltiplos sentidos), pela <strong>função poética</strong> (atenção à forma da mensagem, de Jakobson) e pela criação de mundos possíveis que transcendem a mera descrição do real. A alternativa A descreve texto jornalístico/informativo (linguagem linear, unidade de sentido); C inverte o gênero lírico (que prioriza o interior, não o exterior); D ignora a diferença fundamental de polissemia entre texto literário (rica) e não literário (mínima); E exclui equivocadamente a prosa literária (romances, contos, crônicas são literatura!).
+          </div>
+          <div class="gab-autores">
+            <div class="gab-autor gab-abaurre">
+              <div class="gab-autor-header">
+                <span class="badge-autor" style="background:var(--abaurre);color:#fff">A/P</span>
+                <div>
+                  <div class="gab-autor-nome">Abaurre &amp; Pontara</div>
+                  <span class="gab-autor-obra">Português: contexto, interlocução e sentido</span>
+                </div>
+              </div>
+              Abaurre e Pontara fundamentam toda sua abordagem na distinção entre <strong>linguagem denotativa e conotativa</strong> e entre <strong>texto funcional e texto literário</strong>. Para as autoras, o texto literário não se define pelo gênero (verso ou prosa) nem pelo tema — define-se pelo tratamento da linguagem: a literatura usa a língua de forma que cada palavra carrega mais do que seu significado dicionarizado. A <em>plurissignificação</em> é a marca central: uma palavra literária ressoa em múltiplas direções simultaneamente. A <em>função poética</em> (de Jakobson) implica que a mensagem se volta sobre si mesma — o texto literário chama atenção para sua própria forma.
+            </div>
+            <div class="gab-autor gab-cereja">
+              <div class="gab-autor-header">
+                <span class="badge-autor" style="background:var(--cereja);color:#fff">C/M</span>
+                <div>
+                  <div class="gab-autor-nome">Cereja &amp; Magalhães</div>
+                  <span class="gab-autor-obra">Português: linguagens</span>
+                </div>
+              </div>
+              Cereja e Magalhães definem o texto literário por oposição ao não literário em quatro eixos: (1) <strong>Polissemia vs. monossemia</strong>: o texto literário tem múltiplos sentidos; o não literário busca um único sentido claro; (2) <strong>Função poética vs. referencial</strong>: o literário valoriza a forma da mensagem; o não literário prioriza o conteúdo informativo; (3) <strong>Ficção vs. factualidade</strong>: o literário cria mundos possíveis; o não literário descreve a realidade; (4) <strong>Permanência vs. descartabilidade</strong>: o texto literário tem valor estético duradouro; o não literário cumpre função momentânea. Os autores ressaltam que a alternativa E é armadilha frequente: excluir a prosa da literatura é erro grave — romances, contos e crônicas são tão literários quanto poemas. A literariedade está no tratamento da linguagem, não na forma em verso.
+            </div>
+          </div>
+          <div class="gab-dica">
+            <span class="dica-icon">🎯</span>
+            <span><strong>Dica EsPCEx:</strong> Linguagem literária = plurissignificação + função poética (Jakobson) + mundos autônomos. NÃO é definida pelo verso (a prosa também é literária!). O texto NÃO literário busca monossemia (um sentido claro), linearidade e função referencial. Memorize: literário = conotação + polissemia + autonomia estética.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+    </div>
+  </div>
+</div>
+<div class="slide" data-title="Acesso Completo" id="slide-cta">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px 24px;text-align:center;height:100%;background:linear-gradient(135deg,#0A1C12 0%,#0d2016 100%);">
+  <div style="font-size:40px;">🔒</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#ffffff;">Conteúdo Completo</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#D4A017;">Módulos Seguintes</div>
+  <div style="font-size:clamp(13px,1.8vw,15px);color:rgba(255,255,255,.65);line-height:1.7;max-width:480px;">Para ter acesso ao material completo, entre em contato com o Guia Preparatório Capitão Valdir.</div>
+  <a href="mailto:guiaprepcapvaldir@gmail.com" style="display:inline-block;background:#D4A017;color:#0A1C12;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;padding:14px 32px;border-radius:8px;text-decoration:none;margin-top:8px;">📧 Quero Acesso ao Material Completo</a>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;">guiaprepcapvaldir@gmail.com</div>
+</div>
+</div>
+
+<div class="nav" id="nav">
+  <button class="nbtn" onclick="goTo(0)">🏠 Início</button>
+  <button class="nbtn" id="btn-prev" onclick="prev()" disabled>← Ant.</button>
+  <div class="pw"><div class="pb" id="pb"></div></div>
+  <span class="ntitle" id="ntitle">Capa</span>
+  <span class="ncnt" id="ncnt">1 / 9</span>
+  <button class="nbtn" onclick="goTo(2)">📋 Sumário</button>
+  <button class="nbtn" id="btn-next" onclick="next()">Próx. →</button>
+</div>
+<script>
+const slides = document.querySelectorAll('.deck > .slide');
+const total  = slides.length;
+let cur = 0;
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  const pc = cur;
+  setTimeout(() => { if(slides[pc]) slides[pc].classList.remove('out'); }, 360);
+  cur = n;
+  slides[cur].classList.remove('out');
+  slides[cur].classList.add('active');
+  const sb = slides[cur].querySelector('.sb');
+  if (sb) sb.scrollTop = 0;
+  document.getElementById('ntitle').textContent = slides[cur].dataset.title || '';
+  document.getElementById('ncnt').textContent = (cur+1) + ' / ' + total;
+  document.getElementById('pb').style.width = ((cur+1)/total*100)+'%';
+  document.getElementById('btn-prev').disabled = cur===0;
+  document.getElementById('btn-next').disabled = cur===total-1;
+}
+function next() { goTo(cur+1); }
+function prev() { goTo(cur-1); }
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); next(); }
+  if (e.key==='ArrowLeft') { e.preventDefault(); prev(); }
+  if (e.key==='Home') { e.preventDefault(); goTo(0); }
+  if (e.key==='End') { e.preventDefault(); goTo(total-1); }
+});
+let tx = 0;
+const deck = document.querySelector('.deck');
+if (deck) {
+  deck.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+  deck.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (dx < -50) next();
+    if (dx > 50) prev();
+  }, {passive:true});
+}
+function marcar(el, letra, gabarito) {
+  const lista = el.parentElement;
+  lista.querySelectorAll('li').forEach(li => li.classList.remove('correta', 'errada'));
+  if (letra === gabarito) {
+    el.classList.add('correta');
+  } else {
+    el.classList.add('errada');
+    lista.querySelectorAll('li').forEach(li => {
+      if (li.querySelector('.alt-letra') && li.querySelector('.alt-letra').textContent.trim() === gabarito)
+        li.classList.add('correta');
+    });
+  }
+}
+function revelarGabarito(btn) {
+  const div = btn.nextElementSibling;
+  div.classList.toggle('visivel');
+  btn.textContent = div.classList.contains('visivel')
+    ? '↑ Ocultar análise'
+    : '↓ Ver análise aprofundada';
+}
+goTo(0);
+</script>
+</body>
+</html>

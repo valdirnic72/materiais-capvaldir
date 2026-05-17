@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Literatura ESA CFGS — Questões Comentadas · GUIA PREPARATÓRIO CAPITÃO VALDIR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-l:#43A047;
+  --verde-bg:#E8F5E9;--verde-xbg:#F1F8F1;
+  --ouro:#B8860B;--ouro-l:#D4A017;--ouro-bg:#FFF9E6;
+  --laranja:#BF4A00;--laranja-l:#F57F17;--laranja-bg:#FFF3E0;
+  --azul:#0D47A1;--azul-l:#1565C0;--azul-bg:#E3F2FD;
+  --verm:#B71C1C;--verm-l:#C62828;--verm-bg:#FFEBEE;
+  --cinza:#37474F;--cinza-l:#546E7A;--cinza-bg:#ECEFF1;
+  --roxo:#4A148C;--roxo-l:#6A1B9A;--roxo-bg:#F3E5F5;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:14px;background:#111C24;color:var(--texto);display:flex;flex-direction:column;padding-bottom:44px;}
+.deck{position:fixed;top:0;left:0;right:0;bottom:46px;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .32s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+.nav{background:#0D1820;padding:6px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--verde-l);position:fixed;bottom:0;left:0;right:0;z-index:1000;}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.07em;padding:5px 13px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);}
+.nbtn:disabled{opacity:.22;cursor:default;}
+.pw{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--verde-l);border-radius:2px;transition:width .32s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.65);max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap;}
+.topbar{background:var(--verde);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:3px solid var(--verde-l);position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:160px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;}
+.topbar.azul{background:var(--azul);border-color:#42A5F5;}
+.topbar.verm{background:var(--verm);border-color:#EF9A9A;}
+.topbar.cinza{background:var(--cinza);border-color:#90A4AE;}
+.topbar.roxo{background:var(--roxo);border-color:#CE93D8;}
+.topbar.laranja{background:var(--laranja);border-color:#FF9955;}
+.topbar.ouro{background:#6B4400;border-color:var(--ouro-l);}
+.topbar.azul-esc{background:#0A2540;border-color:#1E88E5;}
+.topbar-left{display:flex;flex-direction:column;gap:1px;}
+.topbar-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(14px,2.2vw,22px);font-weight:800;color:white;line-height:1.1;}
+.topbar-sub{font-size:11px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:32px;font-weight:800;color:rgba(255,255,255,.15);flex-shrink:0;line-height:1;}
+.sb{flex:1;overflow-y:auto;padding:14px 20px 56px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+.slide-footer{position:absolute;bottom:0;left:0;right:0;height:34px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;backdrop-filter:blur(4px);z-index:10;}
+.slide-footer-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:10.5px;font-weight:700;color:var(--verde);letter-spacing:.04em;padding:3px 10px;border-radius:5px;transition:all .2s;}
+.slide-footer-btn:hover{background:var(--verde-bg);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.card{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:9px 13px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid var(--borda);}
+.card-head.verde{background:var(--verde-bg);border-color:#A5D6A7;}
+.card-head.azul{background:var(--azul-bg);border-color:#90CAF9;}
+.card-head.verm{background:var(--verm-bg);border-color:#EF9A9A;}
+.card-head.ouro{background:var(--ouro-bg);border-color:#F9D878;}
+.card-head.cinza{background:var(--cinza-bg);border-color:#B0BEC5;}
+.card-head.laranja{background:var(--laranja-bg);border-color:#FFCC80;}
+.card-head-icon{font-size:17px;flex-shrink:0;}
+.card-head-title{font-size:13px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:11px 13px;flex:1;font-size:13px;line-height:1.65;color:var(--texto);}
+.alerta{border-radius:8px;padding:10px 13px;margin-bottom:10px;display:flex;gap:9px;align-items:flex-start;}
+.alerta:last-child{margin-bottom:0;}
+.alerta.verde{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.alerta.verm{background:var(--verm-bg);border-left:4px solid var(--verm-l);}
+.alerta.azul{background:var(--azul-bg);border-left:4px solid var(--azul-l);}
+.alerta.ouro{background:var(--ouro-bg);border-left:4px solid var(--ouro-l);}
+.alerta.cinza{background:var(--cinza-bg);border-left:4px solid var(--cinza-l);}
+.alerta-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;color:var(--verde);}
+.alerta.verm .alerta-title{color:var(--verm-l);}
+.alerta.azul .alerta-title{color:var(--azul-l);}
+.alerta.ouro .alerta-title{color:var(--ouro);}
+.alerta-text{font-size:13px;line-height:1.62;color:var(--texto);}
+.item{display:flex;gap:7px;margin-bottom:7px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:13px;flex-shrink:0;margin-top:1px;line-height:1.55;}
+.it{font-size:13px;line-height:1.62;color:var(--texto);}
+.it b{font-weight:700;color:var(--verde);}
+.qbloco{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;}
+.qbloco-header{padding:10px 15px;display:flex;align-items:center;gap:11px;border-bottom:3px solid var(--borda);background:var(--fundo);}
+.qnum{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;line-height:1;flex-shrink:0;}
+.qinfo{flex:1;}
+.qtitulo{font-size:13.5px;font-weight:700;color:var(--texto);}
+.qsub{font-size:11px;color:var(--sub);margin-top:2px;}
+.qmeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.qchip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.qchip.assunto{background:var(--azul-bg);color:var(--azul-l);border:1px solid #90CAF9;}
+.qchip.ano{background:var(--cinza-bg);color:var(--cinza);border:1px solid #B0BEC5;}
+.qbloco-body{padding:14px 16px;}
+.passagem{background:var(--fundo);border:1.5px solid var(--borda);border-radius:8px;padding:12px 14px;font-size:13px;line-height:1.75;color:var(--texto);margin-bottom:12px;font-style:italic;}
+.qenunciado{font-size:13.5px;font-weight:600;line-height:1.6;color:var(--texto);margin-bottom:10px;}
+.alternativas{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.alt{display:flex;align-items:flex-start;gap:9px;padding:8px 12px;border:1.5px solid var(--borda);border-radius:7px;cursor:pointer;transition:all .15s;background:white;font-size:13px;line-height:1.55;}
+.alt:hover{border-color:var(--verde-l);background:var(--verde-xbg);}
+.alt.certa{border-color:var(--verde-m)!important;background:var(--verde-bg)!important;}
+.alt.errada{border-color:#EF9A9A!important;background:var(--verm-bg)!important;}
+.alt-letra{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--verde);flex-shrink:0;width:17px;}
+.btn-gab{background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .2s;width:100%;margin-bottom:10px;}
+.btn-gab:hover{background:var(--verde-m);}
+.gabarito-area{display:none;}
+.gabarito-area.show{display:block;}
+.gab-box{background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:9px;padding:13px 15px;}
+.gab-title{font-size:13px;font-weight:800;color:var(--verde);margin-bottom:9px;}
+.gab-texto{font-size:12.5px;line-height:1.72;color:var(--texto);}
+.gab-estrategia{display:flex;gap:7px;background:var(--laranja-bg);border:1.5px dashed var(--laranja-l);border-radius:7px;padding:8px 12px;margin-top:10px;align-items:flex-start;}
+.gab-estrategia-txt{font-size:12px;line-height:1.55;color:var(--cinza);font-style:italic;}
+.sumario-section{margin-bottom:8px;}
+.sumario-titulo{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--verde);padding:7px 13px;background:var(--verde-bg);border-left:4px solid var(--verde-l);border-radius:0 7px 7px 0;margin-bottom:7px;}
+.sumario-item{display:flex;align-items:center;gap:9px;padding:8px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:4px;}
+.sumario-item:hover{border-color:var(--verde-l);background:var(--verde-xbg);transform:translateX(3px);}
+.sumario-item-num{font-family:'Sora',sans-serif;font-size:18px;flex-shrink:0;min-width:28px;}
+.sumario-item-txt{flex:1;}
+.sumario-item-nome{font-size:13px;font-weight:700;color:var(--texto);}
+.sumario-item-desc{font-size:11px;color:var(--sub);margin-top:1px;}
+.sumario-item-arrow{font-size:14px;color:var(--verde-l);}
+.sumario-item.mod{border-left:4px solid var(--verde);}
+.capa-slide{flex:1;background:linear-gradient(160deg,#0B1A0D 0%,#1B5E20 38%,#0A2E10 72%,#040C05 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;gap:11px;overflow-y:auto;position:relative;}
+.capa-slide::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 55px,rgba(255,255,255,.012) 55px,rgba(255,255,255,.012) 56px);pointer-events:none;}
+.capa-ebadge{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);border-radius:25px;padding:3px 15px;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.capa-logo{font-size:50px;line-height:1;}
+.capa-titulo{font-family:'Sora',sans-serif;font-size:clamp(22px,4vw,42px);font-weight:800;color:white;text-align:center;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;}
+.capa-subtitulo{font-family:'Sora',sans-serif;font-size:clamp(12px,1.8vw,17px);font-weight:600;color:rgba(255,255,255,.62);text-align:center;text-transform:uppercase;letter-spacing:.04em;}
+.capa-linha{width:70px;height:3px;background:var(--ouro-l);border-radius:2px;}
+.capa-badge-lp{border-radius:9px;padding:8px 18px;text-align:center;max-width:480px;}
+.capa-badge-lp-t{font-size:14px;font-weight:800;color:#F9D878;text-transform:uppercase;letter-spacing:.05em;}
+.capa-badge-lp-s{font-size:12px;color:rgba(255,255,255,.6);margin-top:3px;}
+.capa-autor{font-size:12.5px;color:rgba(255,255,255,.7);text-align:center;line-height:1.7;}
+.capa-autor b{color:white;font-weight:800;}
+.capa-stats{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.capa-stat{text-align:center;}
+.capa-stat-n{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--ouro-l);display:block;line-height:1;}
+.capa-stat-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);display:block;margin-top:2px;}
+.capa-btn{background:linear-gradient(135deg,#B8860B,#D4A017);color:#3B2500;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;text-transform:uppercase;padding:11px 38px;border-radius:8px;cursor:pointer;transition:all .2s;box-shadow:0 5px 18px rgba(184,134,11,.5);}
+.capa-btn:hover{transform:scale(1.04);}
+@media(max-width:600px){
+  .topbar{padding:8px 12px;flex-wrap:wrap;gap:4px;}
+  .topbar-title{font-size:clamp(13px,3.8vw,18px)!important;}
+  .topbar-sub{font-size:10px;}
+  .topbar-right{font-size:22px;}
+  .sb{padding:10px 10px 56px;}
+  .g2{grid-template-columns:1fr!important;}
+  .g3{grid-template-columns:1fr!important;}
+  .nbtn{font-size:9px;padding:4px 9px;}
+  .nav{padding:5px 8px;gap:6px;}
+  .ntitle{max-width:120px;font-size:10px;}
+  .qbloco-header{flex-wrap:wrap;}
+  .qnum{font-size:10px!important;}
+  .capa-titulo{font-size:clamp(22px,7vw,36px)!important;}
+}
+
+/* ── APRESENTAÇÃO ── */
+.apres-banner{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:11px;padding:18px 22px;margin-bottom:13px;color:white;position:relative;overflow:hidden;}
+.apres-titulo{font-size:20px;font-weight:800;margin-bottom:5px;}
+.apres-sub{font-size:13px;color:rgba(255,255,255,.78);line-height:1.6;}
+.metodo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:13px;}
+.metodo-step{background:white;border-radius:9px;padding:13px;text-align:center;border:2px solid var(--borda);}
+.metodo-step:nth-child(1){border-top:4px solid var(--azul-l);}
+.metodo-step:nth-child(2){border-top:4px solid var(--verde-l);}
+.metodo-step:nth-child(3){border-top:4px solid var(--laranja-l);}
+.metodo-step:nth-child(4){border-top:4px solid var(--verm-l);}
+.metodo-icon{font-size:26px;margin-bottom:6px;}
+.metodo-passo{font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--sub);margin-bottom:3px;text-transform:uppercase;}
+.metodo-nome{font-size:16px;font-weight:800;color:var(--texto);}
+.metodo-desc{font-size:11.5px;line-height:1.5;color:var(--sub);margin-top:4px;}
+.citacao-box{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:9px;padding:14px 18px;margin-top:12px;text-align:center;position:relative;overflow:hidden;}
+.citacao-txt{font-size:14.5px;font-weight:600;font-style:italic;color:white;line-height:1.6;}
+.citacao-autor-nome{font-size:12px;color:rgba(255,255,255,.65);margin-top:7px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.modulo-stat{background:white;border:1.5px solid var(--borda);border-radius:9px;padding:10px 13px;text-align:center;}
+.modulo-stat-n{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--verde);}
+.modulo-stat-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-top:2px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+
+</style>
+</head>
+<body>
+<div class="deck">
+<div class="slide active" data-title="Capa — Literatura ESA CFGS" id="slide-0">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(212,160,23,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#D4A017;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(212,160,23,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">LITERATURA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(16px,3vw,28px);font-weight:800;color:#D4A017;line-height:1.2;text-transform:uppercase;text-align:center;">QUESTÕES COMENTADAS<br>ESA - CFGS</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA DE SARGENTOS DAS ARMAS</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.2vw,13px);font-weight:700;color:rgba(212,160,23,.6);letter-spacing:.1em;text-transform:uppercase;">ESA - CFGS · 2026–2027</div>
+</div>
+</div>
+<div class="slide" data-title="Apresentação — Capitão Valdir" id="slide-intro-1">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Literatura ESA CFGS · Questões Comentadas</span>
+      <span class="topbar-title">APRESENTAÇÃO — O CAPITÃO VALDIR</span>
+      <span class="topbar-sub">Conheça o professor por trás deste material</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="apres-banner" style="margin-bottom:13px;">
+      <div class="apres-titulo">Bem-vindo ao material que vai transformar seu desempenho em Literatura!</div>
+      <div class="apres-sub"><b>61 questões de Literatura</b> da ESA/CFGS (EsSA 2016–2025), comentadas, analisadas e organizadas por escola literária — para você dominar cada tema do edital e chegar à prova com confiança total.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0A2E10,#1B5E20,#2E7D32);border-radius:12px;padding:20px 24px;margin-bottom:13px;display:flex;gap:20px;align-items:center;position:relative;overflow:hidden;">
+      <div style="position:absolute;right:0;top:0;bottom:0;width:100px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;"></div>
+      <div style="flex-shrink:0;width:88px;height:88px;background:rgba(255,255,255,.13);border-radius:50%;border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:40px;">🎖️</div>
+      <div style="flex:1;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;">SEU PROFESSOR</div>
+        <div style="font-size:26px;font-weight:800;color:white;line-height:1;margin-bottom:4px;">Capitão Valdir</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.72);margin-bottom:8px;">Capitão da Reserva do Exército Brasileiro · QCO (Quadro Complementar de Oficiais)</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🎓 Letras — UNICAMP</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">⭐ Formado pela ESFCEx</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">📜 Pós-grad. Magistério Português</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🏆 20+ anos de experiência</span>
+        </div>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:13px;">
+      <div class="card">
+        <div class="card-head verde"><div class="card-head-icon">📋</div><div class="card-head-title">Formação Acadêmica e Militar</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">🎓</span><div class="it">Licenciado em <b>Letras pela UNICAMP</b> (Universidade Estadual de Campinas)</div></div>
+          <div class="item"><span class="dot">⭐</span><div class="it"><b>Formou-se Oficial de carreira</b> pela Escola de Administração do Exército (EsAEx), atual Escola de Saúde e Formação Complementar do Exército (ESFCEx)</div></div>
+          <div class="item"><span class="dot">📜</span><div class="it"><b>Pós-graduado pela ESFCEx</b> — área de Magistério em Língua Portuguesa e Literatura</div></div>
+          <div class="item"><span class="dot">🏆</span><div class="it"><b>Especialista em Ensino</b> — há <b>duas décadas</b> ensinando, formando e preparando <b>ALUNOS</b> com excelência!</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">🏫</div><div class="card-head-title">Experiência Docente Militar</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">🟢</span><div class="it"><b>Colégio Militar de Fortaleza</b></div></div>
+          <div class="item"><span class="dot">🟢</span><div class="it"><b>Colégio Militar de Manaus</b></div></div>
+          <div class="item"><span class="dot">🟢</span><div class="it"><b>Escola de Aperfeiçoamento de Sargentos das Armas (EASA)</b></div></div>
+          <div class="item"><span class="dot">🟢</span><div class="it"><b>Centro de Instrução de Aviação do Exército (CIAvEx)</b></div></div>
+          <div class="item"><span class="dot">🟢</span><div class="it">Preparatórios para concursos militares — <b>especialidade ESA/CFGS · EsSA</b></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="alerta azul" style="margin-bottom:12px;">
+      <div class="alerta-icon">💬</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Mensagem do Capitão Valdir — Para cada aluno que usa este material</div>
+        <div class="alerta-text">Resolvi cada uma dessas questões pensando em você, futuro Sargento. Literatura não é decoreba — é entendimento de padrões. Não me preocupei apenas em dar o gabarito: me preocupei em explicar <b>por que cada alternativa errada está errada</b>. É aí que a banca te pega. Estude com método, identifique as escolas literárias e seus autores. <b>Bons estudos! E te vejo na lista de aprovados...</b></div>
+      </div>
+    </div>
+    <div class="citacao-box">
+      <div class="citacao-txt">"O conhecimento literário não é luxo para o militar — é arma. Prepare-se com método, disciplina e estratégia."</div>
+      <div class="citacao-autor-nome">— Capitão Valdir · QCO · Formado pela ESFCEx · Especialista em Ensino</div>
+    </div>
+    <div style="text-align:center;margin-top:13px;">
+      <button onclick="goTo(2)" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Continuar: Método e Prioridades →</button>
+    </div>
+  </div>
+</div>
+<div class="slide" data-title="Apresentação — Método e Prioridades" id="slide-intro-2">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Literatura ESA CFGS · Questões Comentadas</span>
+      <span class="topbar-title">MÉTODO · PRIORIDADES · COMO USAR</span>
+      <span class="topbar-sub">O roteiro de estudo e o mapa de prioridades para a ESA CFGS</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="metodo-grid" style="margin-bottom:13px;">
+      <div class="metodo-step">
+        <div class="metodo-icon">📋</div><div class="metodo-passo">Passo 1</div><div class="metodo-nome">RESOLVER</div>
+        <div class="metodo-desc">Tente resolver cada questão antes de ver o gabarito. Simule a prova real da ESA.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">🔍</div><div class="metodo-passo">Passo 2</div><div class="metodo-nome">ANALISAR</div>
+        <div class="metodo-desc">Leia o comentário de TODAS as alternativas — as erradas ensinam tanto quanto as certas.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">🎯</div><div class="metodo-passo">Passo 3</div><div class="metodo-nome">IDENTIFICAR</div>
+        <div class="metodo-desc">Observe o padrão da ESA. A banca repete escolas literárias e autores cobrados há anos.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">⚡</div><div class="metodo-passo">Passo 4</div><div class="metodo-nome">ACERTAR</div>
+        <div class="metodo-desc">Aplique os gatilhos automáticos e estratégias de eliminação na hora da prova.</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:13px;">
+      <div class="card">
+        <div class="card-head laranja"><div class="card-head-icon">⚠️</div><div class="card-head-title">Como usar este e-book</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">📌</span><div class="it">Navegue pelas escolas literárias <b>em ordem cronológica</b> — do Trovadorismo ao Modernismo</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Marque os erros e <b>revise pelo menos 3 vezes</b> os temas em que vacilar</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Leia a <b>Análise Estratégica Final</b> na véspera da prova</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Use <b>← →</b> no teclado ou swipe no celular para navegar</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head verde"><div class="card-head-icon">📚</div><div class="card-head-title">O que este e-book contém</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">✅</span><div class="it"><b>61 questões</b> das provas EsSA 2016–2025</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>12 escolas literárias</b> cobertas do Trovadorismo ao Modernismo</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Gabarito justificado</b> — análise de todas as alternativas</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Dica estratégica</b> em cada questão — padrão de pegadinhas da ESA</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Análise Estratégica Final</b> — gatilhos e mapa de prioridades</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head verde"><div class="card-head-icon">🗺️</div><div class="card-head-title">Grau de Prioridade das Escolas Literárias — ESA CFGS</div></div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:11px;">
+          <div style="background:#FFEBEE;border:2px solid #EF9A9A;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🔴</div>
+            <div style="font-size:12px;font-weight:800;color:#B71C1C;text-align:center;margin-bottom:7px;">ALTA PRIORIDADE</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Cobradas em <b>80–100%</b> das provas 2016–2025<br><br>· Romantismo (3 gerações)<br>· Barroco (Gregório de Matos)<br>· Modernismo (Semana de 22)<br>· Arcadismo (Gonzaga/Dirceu)<br>· Pré-Modernismo (transição)</div>
+          </div>
+          <div style="background:#FFF8E1;border:2px solid #FFD54F;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🟡</div>
+            <div style="font-size:12px;font-weight:800;color:#E65100;text-align:center;margin-bottom:7px;">MÉDIA PRIORIDADE</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Cobradas em <b>50–80%</b> das provas 2016–2025<br><br>· Parnasianismo (Olavo Bilac)<br>· Simbolismo (Cruz e Sousa)<br>· Realismo/Naturalismo<br>· Quinhentismo (Pero Vaz)<br>· Fundamentos Literários</div>
+          </div>
+          <div style="background:#E8F5E9;border:2px solid #A5D6A7;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🟢</div>
+            <div style="font-size:12px;font-weight:800;color:#1B5E20;text-align:center;margin-bottom:7px;">MENOR FREQUÊNCIA</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Cobradas em <b>&lt;50%</b> das provas 2016–2025<br><br>· Trovadorismo (Portugal)<br>· Classicismo (Camões)<br><br><br><br></div>
+          </div>
+        </div>
+        <div class="alerta ouro">
+          <div class="alerta-icon">⭐</div>
+          <div class="alerta-content">
+            <div class="alerta-title">Foco estratégico para a reta final</div>
+            <div class="alerta-text">🟢 Menor frequência <b>não significa ignorar</b> — significa que os 🔴 devem receber mais horas. Com questões de Literatura na prova da ESA, <b>dominar Romantismo, Barroco e Modernismo é obrigatório para a aprovação!</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:13px;">
+      <button onclick="goTo(3)" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Ver Sumário →</button>
+    </div>
+  </div>
+</div>
+</div><div class="slide" data-title="Sumário — Escolas Literárias" id="slide-sumario">
+  <div class="topbar cinza">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Literatura ESA · CFGS</span>
+      <span class="topbar-title">SUMÁRIO — ESCOLAS LITERÁRIAS</span>
+      <span class="topbar-sub">Selecione a escola literária para navegar diretamente</span>
+    </div>
+    <div class="topbar-right">≡</div>
+  </div>
+  <div class="sb">
+    <div class="alerta verde" style="margin-bottom:14px;">
+      <div class="alerta-icon">📖</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Como usar este material</div>
+        <div class="alerta-text">Questões organizadas por <b>escola literária</b> em ordem cronológica, do Trovadorismo ao Modernismo. Dentro de cada escola, as questões estão ordenadas por ano de prova. Clique em "Ver Gabarito" apenas após tentar responder — simule a prova real!</div>
+      </div>
+    </div>
+
+<div class="sumario-section">
+  <div class="sumario-titulo" style="background:var(--verde-bg);color:var(--verde);border-left:4px solid var(--verde-l);">📖 Introdução</div>
+  <div class="sumario-item" onclick="goTo(1)" style="margin-bottom:4px;border-left:4px solid var(--verde);"><div class="sumario-item-num" style="color:var(--verde);">01</div><div class="sumario-item-txt"><div class="sumario-item-nome">Apresentação — Capitão Valdir</div><div class="sumario-item-desc">Biografia e mensagem</div></div><div class="sumario-item-arrow">→</div></div>
+  <div class="sumario-item" onclick="goTo(2)" style="margin-bottom:4px;border-left:4px solid var(--verde);"><div class="sumario-item-num" style="color:var(--verde);">02</div><div class="sumario-item-txt"><div class="sumario-item-nome">Método, Prioridades e Como Usar</div><div class="sumario-item-desc">Roteiro de estudo + mapa de prioridades</div></div><div class="sumario-item-arrow">→</div></div>
+</div>
+<div class="sumario-section">
+  <div class="sumario-titulo">📚 Escolas Literárias</div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(4)" style="border-left:4px solid #1B3A5A;background:#E8EEF5;">
+    <div class="sumario-item-num" style="color:#1B3A5A">📖</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome" style="color:#1B3A5A;">Módulo 1 — Introdução à Literatura</div>
+      <div class="sumario-item-desc">A arte literária, os gêneros literários e a evolução da arte literária, em Portugal e no Brasil · 7 questões · Fundamentos · Trovadorismo · Classicismo</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#1B3A5A">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(15)" style="border-left:4px solid #0A2540">
+    <div class="sumario-item-num" style="color:#0A2540">⛵</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Quinhentismo</div>
+      <div class="sumario-item-desc">Séc. XVI — 1500–1601 · 4 questões · EsSA 2017–2021</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#0A2540">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(20)" style="border-left:4px solid #6B4400">
+    <div class="sumario-item-num" style="color:#6B4400">🌀</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Barroco</div>
+      <div class="sumario-item-desc">Séc. XVII — 1601–1768 · 6 questãoões · EsSA 2016–2022</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#6B4400">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(20)" style="border-left:4px solid #1B5E20">
+    <div class="sumario-item-num" style="color:#1B5E20">🌿</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Arcadismo</div>
+      <div class="sumario-item-desc">Séc. XVIII — 1768–1836 · 5 questãoões · EsSA 2018–2024</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#1B5E20">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(20)" style="border-left:4px solid #B71C1C">
+    <div class="sumario-item-num" style="color:#B71C1C">💜</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Romantismo</div>
+      <div class="sumario-item-desc">Séc. XIX — 1836–1881 · 9 questãoões · EsSA 2016–2024</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#B71C1C">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(20)" style="border-left:4px solid #37474F">
+    <div class="sumario-item-num" style="color:#37474F">🔬</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Realismo/Naturalismo</div>
+      <div class="sumario-item-desc">Séc. XIX — 1881–1893 · 5 questãoões · EsSA 2017–2022</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#37474F">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(20)" style="border-left:4px solid #0D47A1">
+    <div class="sumario-item-num" style="color:#0D47A1">🏺</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Parnasianismo</div>
+      <div class="sumario-item-desc">Séc. XIX — 1882–1902 · 6 questãoões · EsSA 2016–2023</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#0D47A1">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(20)" style="border-left:4px solid #4A148C">
+    <div class="sumario-item-num" style="color:#4A148C">🌙</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Simbolismo</div>
+      <div class="sumario-item-desc">Séc. XIX–XX — 1893–1922 · 5 questãoões · EsSA 2016–2025</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#4A148C">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(20)" style="border-left:4px solid #BF4A00">
+    <div class="sumario-item-num" style="color:#BF4A00">🌵</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Pré-Modernismo</div>
+      <div class="sumario-item-desc">1902–1922 (Transição) · 6 questãoões · EsSA 2016–2025</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#BF4A00">→</div>
+  </div>
+</div>
+
+<div class="sumario-section">
+  <div class="sumario-item mod" onclick="goTo(20)" style="border-left:4px solid #1B5E20">
+    <div class="sumario-item-num" style="color:#1B5E20">🎨</div>
+    <div class="sumario-item-txt">
+      <div class="sumario-item-nome">Modernismo</div>
+      <div class="sumario-item-desc">1922–1945 e além · 8 questãoões · EsSA 2016–2025</div>
+    </div>
+    <div class="sumario-item-arrow" style="color:#1B5E20">→</div>
+  </div>
+</div>
+    <div style="text-align:center;margin-top:14px;">
+      <button onclick="goTo(4)" style="background:#1B3A5A;color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 24px;border-radius:8px;cursor:pointer;">Começar: Módulo 1 →</button>
+    <div class="sumario-section" style="margin-top:14px;">
+      <div class="sumario-item" onclick="goTo(20)" style="border-left:4px solid var(--laranja-l);background:var(--laranja-bg);"><div class="sumario-item-num" style="color:var(--laranja);">★</div><div class="sumario-item-txt"><div class="sumario-item-nome">Análise Estratégica Final</div><div class="sumario-item-desc">Tendências · Gatilhos · Como se preparar para a Prova de Literatura</div></div><div class="sumario-item-arrow">→</div></div>
+    </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Módulo 1 — Introdução à Literatura" id="slide-mod1-intro">
+  <div style="flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;background:linear-gradient(160deg,#1B2A3Bee,#1B3A5Abb,#1B4A7099);">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 28px;flex:1;text-align:center;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);">GUIA CAPITÃO VALDIR · LITERATURA ESA · CFGS</div>
+      <div style="font-size:56px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">📖</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);">MÓDULO 1</div>
+      <div style="font-family:'Sora',sans-serif;font-size:clamp(17px,2.8vw,28px);font-weight:800;color:white;line-height:1.2;text-transform:uppercase;max-width:580px;">Introdução à Literatura</div>
+      <div style="width:60px;height:3px;background:rgba(255,255,255,.4);border-radius:2px;"></div>
+      <div style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 22px;max-width:560px;">
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;">A arte literária, os gêneros literários e a evolução da arte literária, em Portugal e no Brasil</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.88);line-height:1.7;">Fundamentos Literários · Trovadorismo (sécs. XII–XV) · Classicismo (séc. XVI)</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <span style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;color:white;">7 questões</span>
+        <span style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.88);">EsSA 2016–2025</span>
+        <span style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.88);">3 partes integradas</span>
+      </div>
+      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 16px;max-width:540px;text-align:left;">
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Este módulo contém:</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.85);line-height:1.8;">
+          📚 <b>Parte A — Fundamentos Literários:</b> gêneros, formas poéticas, métricas, versificação e classificação de escolas<br>
+          🎵 <b>Parte B — Trovadorismo:</b> poesia medieval galego-portuguesa (sécs. XII–XV) — escola que NÃO ocorreu no Brasil<br>
+          🏛️ <b>Parte C — Classicismo:</b> Renascimento português, Humanismo e Os Lusíadas de Camões (séc. XVI)
+        </div>
+      </div>
+      <button onclick="goTo(5)" style="background:rgba(255,255,255,.95);color:#1B3A5A;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:11px 36px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 4px 18px rgba(0,0,0,.25);">Começar Módulo 1 →</button>
+      <button onclick="goTo(3)" style="background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.25);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:6px 20px;border-radius:6px;cursor:pointer;">⬆ Voltar ao Sumário</button>
+    </div>
+  </div>
+</div><div class="slide" data-title="Fundamentos Literários — Introdução" id="slide-esc-2">
+  <div style="flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;background:linear-gradient(160deg,#37474Fee,#37474Fbb,#37474F99);">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 28px;flex:1;text-align:center;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);">GUIA CAPITÃO VALDIR · LITERATURA ESA · CFGS</div>
+      <div style="font-size:56px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">📚</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);">ESCOLA LITERÁRIA</div>
+      <div style="font-family:'Sora',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;text-transform:uppercase;max-width:540px;">Fundamentos Literários</div>
+      <div style="width:60px;height:3px;background:rgba(255,255,255,.4);border-radius:2px;"></div>
+      <div style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 20px;max-width:520px;">
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Conceitos Transversais</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.88);line-height:1.65;">Gêneros literários, métricas, formas poéticas, versificação e classificação</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <span style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;color:white;">5 questãoões</span>
+        <span style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.88);">EsSA 2016–2025</span>
+      </div>
+      <button onclick="goTo(6)" style="background:rgba(255,255,255,.95);color:#37474F;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:11px 36px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 4px 18px rgba(0,0,0,.25);">Ver Questões →</button>
+      <button onclick="goTo(3)" style="background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.25);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:6px 20px;border-radius:6px;cursor:pointer;">⬆ Voltar ao Sumário</button>
+    </div>
+  </div>
+</div><div class="slide" data-title="Fundamentos Literários — Q1: Classificação de gêneros" id="slide-3">
+  <div class="topbar cinza">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Fundamentos Literários · Literatura ESA</span>
+      <span class="topbar-title">📚 FUNDAMENTOS LITERÁRIOS</span>
+      <span class="topbar-sub">Classificação de gêneros · EsSA 2016</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #37474F22;background:#ECEFF1;">
+        <div class="qnum" style="color:#37474F;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2016</div>
+        <div class="qinfo">
+          <div class="qtitulo">Classificação de gêneros</div>
+          <div class="qsub">Questão 1 de 61 · Fundamentos Literários</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2016</span>
+            <span class="qchip assunto">Fundamentos Literários</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">Sobre os gêneros literários, assinale a alternativa que apresenta a correlação CORRETA entre o gênero e sua definição:</div>
+        <div class="alternativas" id="alts-q3">
+          <div class="alt" id="alts-q3-A" onclick="selAlt('q3','A',this)">
+  <span class="alt-letra">A</span>
+  <span>No gênero épico, o texto apresenta uma "voz particular" que manifesta a expressão do mundo interior do eu-lírico.</span>
+</div><div class="alt" id="alts-q3-B" onclick="selAlt('q3','B',this)">
+  <span class="alt-letra">B</span>
+  <span>No gênero dramático, a "voz narrativa" exalta os feitos de um povo e seus heróis por meio de um narrador onisciente.</span>
+</div><div class="alt" id="alts-q3-C" onclick="selAlt('q3','C',this)">
+  <span class="alt-letra">C</span>
+  <span>No gênero lírico, a "voz narrativa" está entregue às personagens que contam uma história por meio de diálogos.</span>
+</div><div class="alt" id="alts-q3-D" onclick="selAlt('q3','D',this)">
+  <span class="alt-letra">D</span>
+  <span>No gênero dramático, a "voz narrativa" está entregue às personagens, atores que contam uma história por meio de diálogos e monólogos para serem apresentados a uma plateia.</span>
+</div><div class="alt" id="alts-q3-E" onclick="selAlt('q3','E',this)">
+  <span class="alt-letra">E</span>
+  <span>No gênero narrativo, predomina a expressão subjetiva de estados interiores com função emotiva da linguagem.</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q3','D')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q3">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra D</div>
+            <div class="gab-texto">No gênero dramático, a "voz" pertence às personagens que se expressam por diálogos e monólogos, destinados à encenação para uma plateia.
+
+        
+          📚 Conceito — Teoria dos Gêneros Literários
+          Ulisses Infante apresenta a divisão clássica dos gêneros literários como fundamento da teoria literária. O gênero lírico expressa o mundo interior do eu-lírico com subjetividade e emoção — é a "voz do eu". O gênero épico/narrativo tem um narrador que conta fatos e feitos de personagens — é a "voz do outro". O gênero dramático suprime o narrador: as próprias personagens falam diretamente ao público por meio de diálogos e monólogos, criando a ilusão de que a história acontece diante dos olhos do espectador. Essa distinção é a mais cobrada nas provas da EsSA.
+        
+
+        
+        </div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Fundamentos Literários — Q2: Soneto e forma fixa" id="slide-4">
+  <div class="topbar cinza">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Fundamentos Literários · Literatura ESA</span>
+      <span class="topbar-title">📚 FUNDAMENTOS LITERÁRIOS</span>
+      <span class="topbar-sub">Soneto e forma fixa · EsSA 2018</span>
+    </div>
+    <div class="topbar-right">02</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #37474F22;background:#ECEFF1;">
+        <div class="qnum" style="color:#37474F;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2018</div>
+        <div class="qinfo">
+          <div class="qtitulo">Soneto e forma fixa</div>
+          <div class="qsub">Questão 2 de 61 · Fundamentos Literários</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2018</span>
+            <span class="qchip assunto">Fundamentos Literários</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">A forma fixa de poesia caracterizada por dois quartetos e dois tercetos, com versos geralmente decassílabos, muito explorada no Classicismo e no Parnasianismo, chama-se:</div>
+        <div class="alternativas" id="alts-q4">
+          <div class="alt" id="alts-q4-A" onclick="selAlt('q4','A',this)">
+  <span class="alt-letra">A</span>
+  <span>Ode</span>
+</div><div class="alt" id="alts-q4-B" onclick="selAlt('q4','B',this)">
+  <span class="alt-letra">B</span>
+  <span>Elegia</span>
+</div><div class="alt" id="alts-q4-C" onclick="selAlt('q4','C',this)">
+  <span class="alt-letra">C</span>
+  <span>Soneto</span>
+</div><div class="alt" id="alts-q4-D" onclick="selAlt('q4','D',this)">
+  <span class="alt-letra">D</span>
+  <span>Epopeia</span>
+</div><div class="alt" id="alts-q4-E" onclick="selAlt('q4','E',this)">
+  <span class="alt-letra">E</span>
+  <span>Décima</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q4','C')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q4">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra C</div>
+            <div class="gab-texto">O soneto é a forma fixa mais cobrada na EsSA: 14 versos em dois quartetos (4+4) e dois tercetos (3+3), geralmente decassílabos.
+
+        
+          📚 Conceito — Formas Fixas da Poesia
+          O soneto é a mais nobre das formas fixas da tradição ocidental. Estruturado em 14 versos divididos em dois quartetos e dois tercetos, o soneto impõe ao poeta uma disciplina formal rígida: deve conduzir o tema pelos quartetos (exposição e desenvolvimento) e resolvê-lo nos tercetos (volta, ou "chave de ouro"). Os versos são preferencialmente decassílabos (10 sílabas poéticas) ou alexandrinos (12 sílabas). A forma exige rimas ricas e alternadas ou interpoladas.
+        
+
+        
+          📗 Base em Ulisses Infante
+          Infante aborda o soneto como a forma fixa por excelência da tradição literária</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Fundamentos Literários — Q3: Escansão e métricas poéticas" id="slide-5">
+  <div class="topbar cinza">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Fundamentos Literários · Literatura ESA</span>
+      <span class="topbar-title">📚 FUNDAMENTOS LITERÁRIOS</span>
+      <span class="topbar-sub">Escansão e métricas poéticas · EsSA 2022</span>
+    </div>
+    <div class="topbar-right">03</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #37474F22;background:#ECEFF1;">
+        <div class="qnum" style="color:#37474F;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2022</div>
+        <div class="qinfo">
+          <div class="qtitulo">Escansão e métricas poéticas</div>
+          <div class="qsub">Questão 3 de 61 · Fundamentos Literários</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2022</span>
+            <span class="qchip assunto">Fundamentos Literários</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">Em poesia, para determinar a medida de um verso, divide-se o verso em sílabas poéticas. Esse procedimento tem o nome de:</div>
+        <div class="alternativas" id="alts-q5">
+          <div class="alt" id="alts-q5-A" onclick="selAlt('q5','A',this)">
+  <span class="alt-letra">A</span>
+  <span>Redondilha</span>
+</div><div class="alt" id="alts-q5-B" onclick="selAlt('q5','B',this)">
+  <span class="alt-letra">B</span>
+  <span>Dístico</span>
+</div><div class="alt" id="alts-q5-C" onclick="selAlt('q5','C',this)">
+  <span class="alt-letra">C</span>
+  <span>Escansão</span>
+</div><div class="alt" id="alts-q5-D" onclick="selAlt('q5','D',this)">
+  <span class="alt-letra">D</span>
+  <span>Métrica</span>
+</div><div class="alt" id="alts-q5-E" onclick="selAlt('q5','E',this)">
+  <span class="alt-letra">E</span>
+  <span>Quintilha</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q5','C')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q5">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra C</div>
+            <div class="gab-texto">A escansão é o processo de divisão do verso em sílabas poéticas para determinar sua medida (número de sílabas métricas).
+
+        
+          📚 Conceito — Escansão e Sílabas Poéticas
+          A escansão é a técnica de contagem das sílabas de um verso poético. Na poesia, a contagem de sílabas segue regras diferentes da contagem gramatical: conta-se apenas até a última sílaba tônica do verso; vogais em contato entre palavras podem se fundir (elisão) ou se separar (hiato poético); ditongos podem ser contados como uma ou duas sílabas. O resultado da escansão é a métrica (ou medida do verso). Versos de 10 sílabas = decassílabos; de 7 = redondilha maior; de 5 = redondilha menor; de 12 = alexandrinos.
+        
+
+        
+          📗 Base em Ulisses Infante
+          Infante dedica seção específica</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Fundamentos Literários — Q4: Identificação de escolas por contexto" id="slide-6">
+  <div class="topbar cinza">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Fundamentos Literários · Literatura ESA</span>
+      <span class="topbar-title">📚 FUNDAMENTOS LITERÁRIOS</span>
+      <span class="topbar-sub">Identificação de escolas por contexto · EsSA 2023</span>
+    </div>
+    <div class="topbar-right">04</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #37474F22;background:#ECEFF1;">
+        <div class="qnum" style="color:#37474F;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2023</div>
+        <div class="qinfo">
+          <div class="qtitulo">Identificação de escolas por contexto</div>
+          <div class="qsub">Questão 4 de 61 · Fundamentos Literários</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2023</span>
+            <span class="qchip assunto">Fundamentos Literários</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">Sobre as escolas literárias brasileiras, assinale a alternativa INCORRETA:</div>
+        <div class="alternativas" id="alts-q6">
+          <div class="alt" id="alts-q6-A" onclick="selAlt('q6','A',this)">
+  <span class="alt-letra">A</span>
+  <span>O racionalismo é uma característica presente tanto no Arcadismo quanto no Realismo, em contraposição ao Barroco e ao Romantismo.</span>
+</div><div class="alt" id="alts-q6-B" onclick="selAlt('q6','B',this)">
+  <span class="alt-letra">B</span>
+  <span>A publicação de Memórias Póstumas de Brás Cubas, de Machado de Assis, em 1881, marca oficialmente o início do Realismo no Brasil.</span>
+</div><div class="alt" id="alts-q6-C" onclick="selAlt('q6','C',this)">
+  <span class="alt-letra">C</span>
+  <span>A linguagem objetiva, a perfeição formal e o universalismo são características presentes na poesia parnasiana.</span>
+</div><div class="alt" id="alts-q6-D" onclick="selAlt('q6','D',this)">
+  <span class="alt-letra">D</span>
+  <span>A linguagem objetiva, a perfeição formal e o universalismo são características presentes na poesia barroca.</span>
+</div><div class="alt" id="alts-q6-E" onclick="selAlt('q6','E',this)">
+  <span class="alt-letra">E</span>
+  <span>Amor, solidão, pátria e índio são temas igualmente presentes na poesia de Gonçalves Dias.</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q6','D')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q6">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra D</div>
+            <div class="gab-texto">Linguagem objetiva, perfeição formal e universalismo são características do Parnasianismo, não do Barroco. O Barroco é rebuscado, tenso e profundamente subjetivo.
+
+        
+          📚 O Erro da Alternativa D — Barroco vs. Parnasianismo
+          A alternativa D comete um erro de substituição: pega as características corretas do Parnasianismo (linguagem objetiva, perfeição formal, universalismo) e as atribui ao Barroco — o que é o oposto da realidade.
+          Barroco: linguagem rebuscada (culteranismo) ou argumentativa (conceptismo) — nunca objetiva; forma expressiva do conflito interno — não é "perfeita" no sentido frio parnasiano; temas existenciais, religiosos e pessoais — não universais no sentido grego-clássico.
+          Parnasianismo: linguagem objetiva e precisa; forma perfeita c</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Fundamentos Literários — Q5: Tabela escolas × características" id="slide-7">
+  <div class="topbar cinza">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Fundamentos Literários · Literatura ESA</span>
+      <span class="topbar-title">📚 FUNDAMENTOS LITERÁRIOS</span>
+      <span class="topbar-sub">Tabela escolas × características · EsSA 2025</span>
+    </div>
+    <div class="topbar-right">05</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #37474F22;background:#ECEFF1;">
+        <div class="qnum" style="color:#37474F;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2025</div>
+        <div class="qinfo">
+          <div class="qtitulo">Tabela escolas × características</div>
+          <div class="qsub">Questão 5 de 61 · Fundamentos Literários</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2025</span>
+            <span class="qchip assunto">Fundamentos Literários</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">Associe cada escola literária à sua característica e assinale a sequência CORRETA:</div>
+        <div class="alternativas" id="alts-q7">
+          <div class="alt" id="alts-q7-A" onclick="selAlt('q7','A',this)">
+  <span class="alt-letra">A</span>
+  <span>I – II – III</span>
+</div><div class="alt" id="alts-q7-B" onclick="selAlt('q7','B',this)">
+  <span class="alt-letra">B</span>
+  <span>II – I – III</span>
+</div><div class="alt" id="alts-q7-C" onclick="selAlt('q7','C',this)">
+  <span class="alt-letra">C</span>
+  <span>III – II – I</span>
+</div><div class="alt" id="alts-q7-D" onclick="selAlt('q7','D',this)">
+  <span class="alt-letra">D</span>
+  <span>I – III – II</span>
+</div><div class="alt" id="alts-q7-E" onclick="selAlt('q7','E',this)">
+  <span class="alt-letra">E</span>
+  <span>II – III – I</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q7','A')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q7">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra A</div>
+            <div class="gab-texto">Gabarito: A (I – II – III) — Evasão/sentimentalismo = Romantismo (I) · Efemeridade/memento mori/angústia = Barroco (II) · carpe diem sereno/bucolismo = Arcadismo (III).
+
+        
+          📚 Decodificando cada descrição
+          1ª descrição → Romantismo (I): "Evasão e devaneio" = fuga da realidade para o mundo da imaginação, típica do Romantismo; "erotismo difuso" = o amor romântico idealizado, frequentemente platônico e não realizado; "sentimentalismo e idealização" = as marcas mais reconhecíveis do Romantismo.
+          2ª descrição → Barroco (II): "Efemeridade da beleza física" = vanitas barroca, a beleza que passa; "memento mori" (lembra-te de que vais morrer) = frase latina símbolo do pensamento barroco; "angústia existencial" = o drama do conflito fé × razão e da consciência da mor</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Módulo 1 — Parte B: Trovadorismo" id="slide-mod1-trov">
+  <div style="flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;background:linear-gradient(160deg,#4A148Cee,#4A148Cbb,#4A148C99);">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 28px;flex:1;text-align:center;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);">MÓDULO 1 · PARTE B · GUIA CAPITÃO VALDIR</div>
+      <div style="font-size:56px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">🎵</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);">EVOLUÇÃO LITERÁRIA — PORTUGAL E BRASIL</div>
+      <div style="font-family:'Sora',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;text-transform:uppercase;max-width:540px;">Trovadorismo</div>
+      <div style="width:60px;height:3px;background:rgba(255,255,255,.4);border-radius:2px;"></div>
+      <div style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 20px;max-width:520px;">
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Séculos XII–XV · Portugal (escola que NÃO ocorreu no Brasil)</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.88);line-height:1.65;">Poesia medieval galego-portuguesa · Cantiga de amor · Cantiga de amigo · Cantiga de escárnio e maldizer</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <span style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;color:white;">1 questão</span>
+        <span style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.88);">EsSA 2018</span>
+      </div>
+      <button onclick="goTo(12)" style="background:rgba(255,255,255,.95);color:#4A148C;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:11px 36px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 4px 18px rgba(0,0,0,.25);">Ver Questão →</button>
+      <button onclick="goTo(3)" style="background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.25);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:6px 20px;border-radius:6px;cursor:pointer;">⬆ Voltar ao Sumário</button>
+    </div>
+  </div>
+</div><div class="slide" data-title="Trovadorismo — Q1: Trovadorismo: escola que NÃO ocorreu no " id="slide-9">
+  <div class="topbar roxo">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Trovadorismo · Literatura ESA</span>
+      <span class="topbar-title">🎵 TROVADORISMO</span>
+      <span class="topbar-sub">Trovadorismo: escola que NÃO ocorreu no Brasil · EsSA 2018</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #4A148C22;background:#F3E5F5;">
+        <div class="qnum" style="color:#4A148C;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2018</div>
+        <div class="qinfo">
+          <div class="qtitulo">Trovadorismo: escola que NÃO ocorreu no Brasil</div>
+          <div class="qsub">Questão 6 de 61 · Trovadorismo</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2018</span>
+            <span class="qchip assunto">Trovadorismo</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">Dentre as escolas literárias abaixo, assinale aquela que NÃO aconteceu no Brasil:</div>
+        <div class="alternativas" id="alts-q9">
+          <div class="alt" id="alts-q9-A" onclick="selAlt('q9','A',this)">
+  <span class="alt-letra">A</span>
+  <span>Barroco</span>
+</div><div class="alt" id="alts-q9-B" onclick="selAlt('q9','B',this)">
+  <span class="alt-letra">B</span>
+  <span>Romantismo</span>
+</div><div class="alt" id="alts-q9-C" onclick="selAlt('q9','C',this)">
+  <span class="alt-letra">C</span>
+  <span>Modernismo</span>
+</div><div class="alt" id="alts-q9-D" onclick="selAlt('q9','D',this)">
+  <span class="alt-letra">D</span>
+  <span>Trovadorismo</span>
+</div><div class="alt" id="alts-q9-E" onclick="selAlt('q9','E',this)">
+  <span class="alt-letra">E</span>
+  <span>Arcadismo</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q9','D')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q9">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra D</div>
+            <div class="gab-texto">O Trovadorismo (sécs. XII–XIV) foi um movimento da Idade Média ibérica, anterior ao descobrimento do Brasil. Nunca existiu como escola no Brasil.
+
+        
+          📚 O Trovadorismo — Por Que Nunca Chegou ao Brasil
+          O Trovadorismo foi o movimento literário da Idade Média galego-portuguesa (aproximadamente sécs. XII–XIV), marcado pelas cantigas de amor, de amigo, de escárnio e de maldizer. Os trovadores eram poetas-músicos que compunham e cantavam em galego-português para as cortes nobres ibéricas.
+          O Brasil foi "descoberto" em 1500 — quando o Trovadorismo já havia terminado há mais de um século, cedendo lugar ao Classicismo/Humanismo renascentista. Portanto, o Brasil nunca teve Trovadorismo: quando começou a ter literatura, o estilo medieval já era passado histórico em P</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Módulo 1 — Parte C: Classicismo" id="slide-mod1-class">
+  <div style="flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;background:linear-gradient(160deg,#0D47A1ee,#0D47A1bb,#0D47A199);">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 28px;flex:1;text-align:center;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);">MÓDULO 1 · PARTE C · GUIA CAPITÃO VALDIR</div>
+      <div style="font-size:56px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">🏛️</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);">EVOLUÇÃO LITERÁRIA — PORTUGAL E BRASIL</div>
+      <div style="font-family:'Sora',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;text-transform:uppercase;max-width:540px;">Classicismo</div>
+      <div style="width:60px;height:3px;background:rgba(255,255,255,.4);border-radius:2px;"></div>
+      <div style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 20px;max-width:520px;">
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Séc. XVI — Portugal · Renascimento e Humanismo</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.88);line-height:1.65;">Luís de Camões · Os Lusíadas · Racionalismo · Mitologia greco-latina · Universalismo</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <span style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;color:white;">1 questão</span>
+        <span style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.88);">EsSA 2023</span>
+      </div>
+      <button onclick="goTo(14)" style="background:rgba(255,255,255,.95);color:#0D47A1;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:11px 36px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 4px 18px rgba(0,0,0,.25);">Ver Questão →</button>
+      <button onclick="goTo(3)" style="background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.25);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:6px 20px;border-radius:6px;cursor:pointer;">⬆ Voltar ao Sumário</button>
+    </div>
+  </div>
+</div><div class="slide" data-title="Classicismo — Q1: Os Lusíadas e o Classicismo português" id="slide-16">
+  <div class="topbar azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Classicismo · Literatura ESA</span>
+      <span class="topbar-title">🏛️ CLASSICISMO</span>
+      <span class="topbar-sub">Os Lusíadas e o Classicismo português · EsSA 2023</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #0D47A122;background:#E3F2FD;">
+        <div class="qnum" style="color:#0D47A1;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2023</div>
+        <div class="qinfo">
+          <div class="qtitulo">Os Lusíadas e o Classicismo português</div>
+          <div class="qsub">Questão 11 de 61 · Classicismo</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2023</span>
+            <span class="qchip assunto">Classicismo</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">Os Lusíadas, de Luís Vaz de Camões, publicados em 1572, são considerados a maior obra do Classicismo português. Sobre essa obra e o movimento literário ao qual pertence, é CORRETO afirmar:</div>
+        <div class="alternativas" id="alts-q16">
+          <div class="alt" id="alts-q16-A" onclick="selAlt('q16','A',this)">
+  <span class="alt-letra">A</span>
+  <span>A obra pertence ao gênero lírico e trata da experiência amorosa de Camões em suas viagens.</span>
+</div><div class="alt" id="alts-q16-B" onclick="selAlt('q16','B',this)">
+  <span class="alt-letra">B</span>
+  <span>O Classicismo valoriza a subjetividade e o individualismo emocional acima da razão e da forma.</span>
+</div><div class="alt" id="alts-q16-C" onclick="selAlt('q16','C',this)">
+  <span class="alt-letra">C</span>
+  <span>A obra é escrita em prosa e narra a trajetória dos descobridores do Brasil em 1500.</span>
+</div><div class="alt" id="alts-q16-D" onclick="selAlt('q16','D',this)">
+  <span class="alt-letra">D</span>
+  <span>Os Lusíadas pertencem ao gênero épico e narram a viagem de Vasco da Gama às Índias, com uso abundante da mitologia greco-latina.</span>
+</div><div class="alt" id="alts-q16-E" onclick="selAlt('q16','E',this)">
+  <span class="alt-letra">E</span>
+  <span>A obra representa o início do Romantismo em Portugal, com suas características de nacionalismo e sentimentalismo.</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q16','D')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q16">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra D</div>
+            <div class="gab-texto">Os Lusíadas pertencem ao gênero épico, narram a viagem de Vasco da Gama às Índias (1497–1499) e fazem uso extensivo da mitologia greco-latina — características centrais do Classicismo renascentista.
+        
+          📚 Os Lusíadas — Estrutura e Características Épicas
+          Os Lusíadas é uma epopeia composta por 10 cantos e 1.102 estrofes em oitava rima (estrofes de 8 versos decassílabos). O título remete aos "Lusíadas" — os filhos de Luso, nome mitológico dos portugueses. A obra narra oficialmente a expedição de Vasco da Gama, mas seu tema central é a glorificação de Portugal e de sua história. Como toda epopeia clássica, segue os elementos da tradição homérica: invocação às Musas, proposição (apresentação do tema), narração do herói, intervenção de deuses (mitologia greco-latina — Vê</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Quinhentismo — Introdução" id="slide-esc-10">
+  <div style="flex:1;display:flex;flex-direction:column;position:relative;overflow-y:auto;background:linear-gradient(160deg,#0A2540ee,#0A2540bb,#0A254099);">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 40px,rgba(255,255,255,.03) 40px,rgba(255,255,255,.03) 41px);pointer-events:none;"></div>
+    <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 28px;flex:1;text-align:center;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);">GUIA CAPITÃO VALDIR · LITERATURA ESA · CFGS</div>
+      <div style="font-size:56px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3));">⛵</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.65);">ESCOLA LITERÁRIA</div>
+      <div style="font-family:'Sora',sans-serif;font-size:clamp(22px,3.5vw,36px);font-weight:800;color:white;line-height:1.15;text-transform:uppercase;max-width:540px;">Quinhentismo</div>
+      <div style="width:60px;height:3px;background:rgba(255,255,255,.4);border-radius:2px;"></div>
+      <div style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:9px;padding:10px 20px;max-width:520px;">
+        <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Séc. XVI — 1500–1601</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.88);line-height:1.65;">Literatura de Informação, Literatura Jesuítica, Carta de Pero Vaz de Caminha</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+        <span style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;color:white;">4 questãoões</span>
+        <span style="background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:12px;color:rgba(255,255,255,.88);">EsSA 2016–2025</span>
+      </div>
+      <button onclick="goTo(16)" style="background:rgba(255,255,255,.95);color:#0A2540;border:none;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:11px 36px;border-radius:8px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;box-shadow:0 4px 18px rgba(0,0,0,.25);">Ver Questões →</button>
+      <button onclick="goTo(3)" style="background:transparent;color:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.25);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:6px 20px;border-radius:6px;cursor:pointer;">⬆ Voltar ao Sumário</button>
+    </div>
+  </div>
+</div><div class="slide" data-title="Quinhentismo — Q1: Escola Literária de Informação" id="slide-11">
+  <div class="topbar azul-esc">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Quinhentismo · Literatura ESA</span>
+      <span class="topbar-title">⛵ QUINHENTISMO</span>
+      <span class="topbar-sub">Escola Literária de Informação · EsSA 2017</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #0A254022;background:#E3F2FD;">
+        <div class="qnum" style="color:#0A2540;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2017</div>
+        <div class="qinfo">
+          <div class="qtitulo">Escola Literária de Informação</div>
+          <div class="qsub">Questão 7 de 61 · Quinhentismo</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2017</span>
+            <span class="qchip assunto">Quinhentismo</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">A escola literária chamada "Literatura de Informação" caracterizou-se por crônicas de viagem, textos descritivos e informativos sobre as novas terras, além de obras de conquista material e espiritual, com linguagem simples. Esse movimento literário ficou conhecido como:</div>
+        <div class="alternativas" id="alts-q11">
+          <div class="alt" id="alts-q11-A" onclick="selAlt('q11','A',this)">
+  <span class="alt-letra">A</span>
+  <span>Quinhentismo</span>
+</div><div class="alt" id="alts-q11-B" onclick="selAlt('q11','B',this)">
+  <span class="alt-letra">B</span>
+  <span>Arcadismo</span>
+</div><div class="alt" id="alts-q11-C" onclick="selAlt('q11','C',this)">
+  <span class="alt-letra">C</span>
+  <span>Barroco</span>
+</div><div class="alt" id="alts-q11-D" onclick="selAlt('q11','D',this)">
+  <span class="alt-letra">D</span>
+  <span>Trovadorismo</span>
+</div><div class="alt" id="alts-q11-E" onclick="selAlt('q11','E',this)">
+  <span class="alt-letra">E</span>
+  <span>Simbolismo</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q11','A')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q11">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra A</div>
+            <div class="gab-texto">O Quinhentismo brasileiro (séc. XVI) divide-se em Literatura de Informação (relatos de viagem) e Literatura de Catequese (textos jesuíticos). É o primeiro movimento literário associado ao Brasil.
+
+        
+          📚 Contexto Histórico-Literário
+          O Quinhentismo corresponde ao século XVI, período das Grandes Navegações portuguesas. No Brasil, essa literatura divide-se em dois ramos: Literatura de Informação — relatos, cartas e crônicas de viagem que descrevem a nova terra e seus povos (ex.: Carta de Pero Vaz de Caminha, 1500; os relatos de Hans Staden e Jean de Léry); Literatura de Catequese — textos jesuíticos voltados à evangelização dos indígenas, principalmente auto teatrais e poesias didáticas (ex.: os autos e cantigas do Pe. José de Anchieta; as cartas do Pe. Manuel da Nóbre</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Quinhentismo — Q2: Quinhentismo: Literatura de Informação v" id="slide-12">
+  <div class="topbar azul-esc">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Quinhentismo · Literatura ESA</span>
+      <span class="topbar-title">⛵ QUINHENTISMO</span>
+      <span class="topbar-sub">Quinhentismo: Literatura de Informação vs. Jesuítica · EsSA 2017</span>
+    </div>
+    <div class="topbar-right">02</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #0A254022;background:#E3F2FD;">
+        <div class="qnum" style="color:#0A2540;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2017</div>
+        <div class="qinfo">
+          <div class="qtitulo">Quinhentismo: Literatura de Informação vs. Jesuítica</div>
+          <div class="qsub">Questão 8 de 61 · Quinhentismo</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2017</span>
+            <span class="qchip assunto">Quinhentismo</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">A literatura quinhentista no Brasil divide-se em dois grupos distintos. O primeiro abrange os relatos de viagem e as descrições da nova terra, produzidos por cronistas e navegadores. O segundo abrange os textos produzidos pelos jesuítas com objetivo de catequizar os povos indígenas. Esses dois grupos recebem, respectivamente, as denominações de:</div>
+        <div class="alternativas" id="alts-q12">
+          <div class="alt" id="alts-q12-A" onclick="selAlt('q12','A',this)">
+  <span class="alt-letra">A</span>
+  <span>Literatura épica e literatura dramática</span>
+</div><div class="alt" id="alts-q12-B" onclick="selAlt('q12','B',this)">
+  <span class="alt-letra">B</span>
+  <span>Literatura colonial e literatura religiosa</span>
+</div><div class="alt" id="alts-q12-C" onclick="selAlt('q12','C',this)">
+  <span class="alt-letra">C</span>
+  <span>Literatura de informação e literatura de catequese (ou jesuítica)</span>
+</div><div class="alt" id="alts-q12-D" onclick="selAlt('q12','D',this)">
+  <span class="alt-letra">D</span>
+  <span>Literatura barroca e literatura clássica</span>
+</div><div class="alt" id="alts-q12-E" onclick="selAlt('q12','E',this)">
+  <span class="alt-letra">E</span>
+  <span>Literatura indianista e literatura colonialista</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q12','C')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q12">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra C</div>
+            <div class="gab-texto">A literatura quinhentista divide-se em Literatura de Informação (relatos de viagem, como a Carta de Caminha) e Literatura Jesuítica ou de Catequese (produzida pelos padres da Companhia de Jesus para converter os indígenas).
+        
+          📚 Os Dois Ramos do Quinhentismo
+          A Literatura de Informação compreende textos de caráter descritivo-informativo: cartas, relatos, crônicas de viagem escritas por navegadores, cronistas e administradores coloniais. O objetivo era comunicar à Coroa portuguesa as características da nova terra — fauna, flora, povos e possibilidades comerciais. Pero Vaz de Caminha (Carta ao Rei D. Manuel, 1500) é o texto fundador. Pero de Magalhães Gândavo escreveu a primeira gramática da língua tupi e a História da Província de Santa Cruz.
+          A Literatura </div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Quinhentismo — Q3: Anchieta, Vieira e Gonzaga" id="slide-13">
+  <div class="topbar azul-esc">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Quinhentismo · Literatura ESA</span>
+      <span class="topbar-title">⛵ QUINHENTISMO</span>
+      <span class="topbar-sub">Anchieta, Vieira e Gonzaga · EsSA 2019</span>
+    </div>
+    <div class="topbar-right">03</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #0A254022;background:#E3F2FD;">
+        <div class="qnum" style="color:#0A2540;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2019</div>
+        <div class="qinfo">
+          <div class="qtitulo">Anchieta, Vieira e Gonzaga</div>
+          <div class="qsub">Questão 9 de 61 · Quinhentismo</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2019</span>
+            <span class="qchip assunto">Quinhentismo</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">A obra catequética de José de Anchieta, os sermões do Padre Antônio Vieira e a lírica de Tomás Antônio Gonzaga:</div>
+        <div class="alternativas" id="alts-q13">
+          <div class="alt" id="alts-q13-A" onclick="selAlt('q13','A',this)">
+  <span class="alt-letra">A</span>
+  <span>Representam gêneros e estilos diversos da literatura do período colonial.</span>
+</div><div class="alt" id="alts-q13-B" onclick="selAlt('q13','B',this)">
+  <span class="alt-letra">B</span>
+  <span>Constituem o que se costuma caracterizar como literatura de informação.</span>
+</div><div class="alt" id="alts-q13-C" onclick="selAlt('q13','C',this)">
+  <span class="alt-letra">C</span>
+  <span>Constituem obras do mesmo gênero, distribuídas em períodos diversos.</span>
+</div><div class="alt" id="alts-q13-D" onclick="selAlt('q13','D',this)">
+  <span class="alt-letra">D</span>
+  <span>Representam os momentos mais altos do estilo barroco na literatura brasileira.</span>
+</div><div class="alt" id="alts-q13-E" onclick="selAlt('q13','E',this)">
+  <span class="alt-letra">E</span>
+  <span>Constituem obras de gêneros diferentes, produzidas exclusivamente no século XVII.</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q13','A')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q13">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra A</div>
+            <div class="gab-texto">Os três autores pertencem a períodos, escolas e gêneros distintos da literatura colonial brasileira.
+
+        
+          📚 Os Três Autores Coloniais — Situação Correta
+          José de Anchieta (1534–1597) — jesuíta; Quinhentismo/Literatura de Catequese (séc. XVI); gênero: autos teatrais, poemas e cantigas didáticas em tupi, espanhol e português para catequizar indígenas. Obra mais conhecida: Auto de São Lourenço.
+          Padre Antônio Vieira (1608–1697) — jesuíta; Barroco (séc. XVII); gênero: sermões e cartas. Maior sermonista da língua portuguesa. Obra mais conhecida: Sermão da Sexagésima, Sermões do Mandato.
+          Tomás Antônio Gonzaga (1744–1810) — poeta; Arcadismo (séc. XVIII); gênero: lírica amorosa pastoral. Obra mais conhecida: Marília de Dirceu. Envolvido na Inconfidência M</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Quinhentismo — Q4: Carta de Pero Vaz de Caminha" id="slide-14">
+  <div class="topbar azul-esc">
+    <div class="topbar-left">
+      <span class="topbar-tag">GUIA PREPARATÓRIO CAPITÃO VALDIR · Quinhentismo · Literatura ESA</span>
+      <span class="topbar-title">⛵ QUINHENTISMO</span>
+      <span class="topbar-sub">Carta de Pero Vaz de Caminha · EsSA 2021</span>
+    </div>
+    <div class="topbar-right">04</div>
+  </div>
+  <div class="sb">
+    <div class="qbloco">
+      <div class="qbloco-header" style="border-bottom:3px solid #0A254022;background:#E3F2FD;">
+        <div class="qnum" style="color:#0A2540;font-size:13px;font-weight:800;letter-spacing:.04em;">EsSA 2021</div>
+        <div class="qinfo">
+          <div class="qtitulo">Carta de Pero Vaz de Caminha</div>
+          <div class="qsub">Questão 10 de 61 · Quinhentismo</div>
+          <div class="qmeta">
+            <span class="qchip ano">EsSA 2021</span>
+            <span class="qchip assunto">Quinhentismo</span>
+          </div>
+        </div>
+      </div>
+      <div class="qbloco-body">
+        
+        <div class="qenunciado">Sobre a Carta de Pero Vaz de Caminha e a Literatura Quinhentista, assinale a alternativa CORRETA:</div>
+        <div class="alternativas" id="alts-q14">
+          <div class="alt" id="alts-q14-A" onclick="selAlt('q14','A',this)">
+  <span class="alt-letra">A</span>
+  <span>Os textos dessa época têm grande valor literário, sendo considerados pela crítica como a melhor produção poética do Brasil.</span>
+</div><div class="alt" id="alts-q14-B" onclick="selAlt('q14','B',this)">
+  <span class="alt-letra">B</span>
+  <span>A carta registra apenas o choque cultural entre colonizadores e colonizados sem qualquer valor literário.</span>
+</div><div class="alt" id="alts-q14-C" onclick="selAlt('q14','C',this)">
+  <span class="alt-letra">C</span>
+  <span>Toda a produção quinhentista está diretamente relacionada à intenção de catequizar os selvagens.</span>
+</div><div class="alt" id="alts-q14-D" onclick="selAlt('q14','D',this)">
+  <span class="alt-letra">D</span>
+  <span>Os textos quinhentistas fazem parte do movimento literário intitulado "Poesia Pau-Brasil".</span>
+</div><div class="alt" id="alts-q14-E" onclick="selAlt('q14','E',this)">
+  <span class="alt-letra">E</span>
+  <span>A literatura da época está relacionada ao espírito aventureiro da expansão marítima e comercial portuguesa, descrevendo as novas terras e povos a partir do olhar europeu.</span>
+</div>
+        </div>
+        <button class="btn-gab" onclick="mostrarGab('q14','E')">↓ Ver Gabarito Comentado</button>
+        <div class="gabarito-area" id="gab-q14">
+          <div class="gab-box">
+            <div class="gab-title">✅ Gabarito — Letra E</div>
+            <div class="gab-texto">O Quinhentismo está inserido no contexto das Grandes Navegações: a Literatura de Informação descreve as novas terras sob o olhar eurocêntrico do colonizador.
+
+        
+          📚 A Carta de Caminha — Análise do Texto
+          O trecho da questão ilustra perfeitamente o olhar eurocêntrico quinhentista: a nudez dos indígenas é descrita com espanto e curiosidade, mas sem julgamento moral explícito — Caminha oscila entre a admiração ("rostos regulares", "narizes bem feitos") e a estranheza cultural ("nem se importam de cobrir"). Esse olhar do Outro sobre a terra nova é o traço fundamental da Literatura de Informação: descrever, inventariar, maravilhar-se. Não há projeto literário consciente — Caminha era escrivão da expedição de Pedro Álvares Cabral, e sua Carta tinha função administrativa e</div>
+            <div class="gab-estrategia">
+              <span style="font-size:16px;flex-shrink:0;">💡</span>
+              <div class="gab-estrategia-txt">Dica estratégica: Memorize a escola literária pelo <b>período histórico</b> e pelos <b>autores representativos</b>. A ESA frequentemente cobra a identificação de características e autores de cada escola.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><div class="slide" data-title="Acesso Completo" id="slide-cta">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:40px 24px;text-align:center;height:100%;background:linear-gradient(135deg,#0A1C12 0%,#0d2016 100%);">
+  <div style="font-size:40px;">🔒</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#ffffff;">Conteúdo Completo</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(18px,3vw,26px);font-weight:800;color:#D4A017;">Módulos Seguintes</div>
+  <div style="font-size:clamp(13px,1.8vw,15px);color:rgba(255,255,255,.65);line-height:1.7;max-width:480px;">Para ter acesso ao material completo, entre em contato com o Guia Preparatório Capitão Valdir.</div>
+  <a href="mailto:guiaprepcapvaldir@gmail.com" style="display:inline-block;background:#D4A017;color:#0A1C12;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;letter-spacing:.06em;padding:14px 32px;border-radius:8px;text-decoration:none;margin-top:8px;">📧 Quero Acesso ao Material Completo</a>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(255,255,255,.3);letter-spacing:.08em;text-transform:uppercase;">guiaprepcapvaldir@gmail.com</div>
+</div>
+</div>
+
+<div class="nav" id="nav">
+  <button class="nbtn" onclick="goTo(0)">🏠 Início</button>
+  <button class="nbtn" id="btn-prev" onclick="prev()" disabled>← Ant.</button>
+  <div class="pw"><div class="pb" id="pb"></div></div>
+  <span class="ntitle" id="ntitle">Capa</span>
+  <span class="ncnt" id="ncnt">1 / 21</span>
+  <span id="ctx-btns" style="display:flex;gap:5px;flex-shrink:0;"></span>
+  <button class="nbtn" id="btn-next" onclick="next()">Próx. →</button>
+</div>
+<script>
+const ctxMap = {
+  0: [],
+  1: [],
+  2: [],
+  3: [],
+  4: [[3, "⬆ Sumário"]],
+  5: [[3, "⬆ Sumário"]],
+  6: [[3, "⬆ Sumário"], [5, "↩ Fundamentos"]],
+  7: [[3, "⬆ Sumário"], [5, "↩ Fundamentos"]],
+  8: [[3, "⬆ Sumário"], [5, "↩ Fundamentos"]],
+  9: [[3, "⬆ Sumário"], [5, "↩ Fundamentos"]],
+  10: [[3, "⬆ Sumário"], [5, "↩ Fundamentos"]],
+  11: [[3, "⬆ Sumário"]],
+  12: [[3, "⬆ Sumário"], [11, "↩ Trovadorismo"]],
+  13: [[3, "⬆ Sumário"]],
+  14: [[3, "⬆ Sumário"], [13, "↩ Classicismo"]],
+  15: [[3, "⬆ Sumário"]],
+  16: [[3, "⬆ Sumário"], [15, "↩ Quinhentismo"]],
+  17: [[3, "⬆ Sumário"], [15, "↩ Quinhentismo"]],
+  18: [[3, "⬆ Sumário"], [15, "↩ Quinhentismo"]],
+  19: [[3, "⬆ Sumário"], [15, "↩ Quinhentismo"]],
+  20: [[3, "⬆ Sumário"]],
+};
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let cur = 0;
+function goTo(n) {
+  if (n < 0 || n >= total) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  const pc = cur;
+  setTimeout(() => { if(slides[pc]) slides[pc].classList.remove('out'); }, 360);
+  cur = n;
+  slides[cur].classList.remove('out');
+  slides[cur].classList.add('active');
+  const sb = slides[cur].querySelector('.sb');
+  if (sb) sb.scrollTop = 0;
+  document.getElementById('ntitle').textContent = slides[cur].dataset.title || '';
+  document.getElementById('ncnt').textContent = (cur+1) + ' / ' + total;
+  document.getElementById('pb').style.width = ((cur+1)/total*100)+'%';
+  document.getElementById('btn-prev').disabled = cur===0;
+  document.getElementById('btn-next').disabled = cur===total-1;
+  // Botões contextuais
+  const ctxEl = document.getElementById('ctx-btns');
+  if (ctxEl) {
+    ctxEl.innerHTML = '';
+    (ctxMap[cur] || []).forEach(([idx, label]) => {
+      const b = document.createElement('button');
+      b.className = 'nbtn';
+      b.style.cssText = 'font-size:9px;padding:4px 9px;opacity:.75;';
+      b.textContent = label;
+      b.onclick = () => goTo(idx);
+      ctxEl.appendChild(b);
+    });
+  }
+}
+function next() { goTo(cur+1); }
+function prev() { goTo(cur-1); }
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); next(); }
+  if (e.key==='ArrowLeft') { e.preventDefault(); prev(); }
+  if (e.key==='Home') { e.preventDefault(); goTo(0); }
+  if (e.key==='End') { e.preventDefault(); goTo(total-1); }
+});
+let tx = 0;
+const deck = document.querySelector('.deck');
+if (deck) {
+  deck.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+  deck.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (dx < -50) next();
+    if (dx > 50) prev();
+  }, {passive:true});
+}
+function mostrarGab(id, gabLetra) {
+  const area = document.getElementById('gab-' + id);
+  if (!area) return;
+  const isShow = area.classList.contains('show');
+  area.classList.toggle('show');
+  const btn = area.previousElementSibling;
+  if (btn && btn.classList.contains('btn-gab')) {
+    btn.textContent = isShow ? '↓ Ver Gabarito Comentado' : '↑ Ocultar Gabarito';
+    btn.style.background = isShow ? 'var(--verde)' : '#37474F';
+  }
+  if (!isShow) {
+    const alts = area.closest('.qbloco-body').querySelectorAll('.alt');
+    alts.forEach((alt, i) => {
+      const letra = ['A','B','C','D','E'][i];
+      alt.classList.remove('certa','errada');
+      if (letra === gabLetra) alt.classList.add('certa');
+      else alt.classList.add('errada');
+    });
+  } else {
+    const alts = area.closest('.qbloco-body').querySelectorAll('.alt');
+    alts.forEach(alt => alt.classList.remove('certa','errada'));
+  }
+}
+function selAlt(qid, letra, el) {
+  const alts = el.parentElement.querySelectorAll('.alt');
+  alts.forEach(a => { a.style.borderColor=''; a.style.background=''; });
+  el.style.borderColor = 'var(--azul-l)';
+  el.style.background = 'var(--azul-bg)';
+}
+goTo(1);
+</script>
+</body>
