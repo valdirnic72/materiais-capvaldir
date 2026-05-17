@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Língua Portuguesa ESA — Questões Comentadas · Cunha &amp; Cintra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-l:#43A047;
+  --verde-bg:#E8F5E9;--verde-xbg:#F1F8F1;
+  --ouro:#B8860B;--ouro-l:#D4A017;--ouro-bg:#FFF9E6;
+  --laranja:#BF4A00;--laranja-l:#F57F17;--laranja-bg:#FFF3E0;
+  --azul:#0D47A1;--azul-l:#1565C0;--azul-bg:#E3F2FD;
+  --verm:#B71C1C;--verm-l:#C62828;--verm-bg:#FFEBEE;
+  --cinza:#37474F;--cinza-l:#546E7A;--cinza-bg:#ECEFF1;
+  --roxo:#4A148C;--roxo-l:#6A1B9A;--roxo-bg:#F3E5F5;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:14px;background:#111C24;color:var(--texto);}
+
+/* ── DECK / SLIDE SYSTEM ── */
+.deck{position:fixed;top:0;left:0;right:0;bottom:46px;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .32s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+
+/* ── BOTTOM NAV ── */
+.nav{background:#0D1820;padding:6px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--verde-l);position:fixed;bottom:0;left:0;right:0;height:46px;z-index:100;}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.07em;padding:5px 13px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);}
+.nbtn:disabled{opacity:.22;cursor:default;}
+.pw{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--verde-l);border-radius:2px;transition:width .32s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.65);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap;}
+
+/* ── TOP MODULE MENU ── */
+.modmenu{background:#0A1520;padding:5px 12px;display:none;align-items:center;gap:5px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.07);scrollbar-width:none;}
+.modmenu::-webkit-scrollbar{display:none;}
+.modchip{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-family:'Sora',sans-serif;font-size:9px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;flex-shrink:0;}
+.modchip:hover{background:rgba(255,255,255,.14);color:white;}
+.modchip.active{background:var(--verde-l);border-color:var(--verde-l);color:white;}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--verde);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:3px solid var(--verde-l);position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:160px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;}
+.topbar.azul{background:var(--azul);border-color:#42A5F5;}
+.topbar.verm{background:var(--verm);border-color:#EF9A9A;}
+.topbar.cinza{background:var(--cinza);border-color:#90A4AE;}
+.topbar.roxo{background:var(--roxo);border-color:#CE93D8;}
+.topbar.laranja{background:var(--laranja);border-color:#FF9955;}
+.topbar.ouro{background:#6B4400;border-color:var(--ouro-l);}
+.topbar-left{display:flex;flex-direction:column;gap:1px;flex:1;}
+.topbar-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(13px,2vw,19px);font-weight:800;color:white;line-height:1.1;}
+.topbar-sub{font-size:10px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:rgba(255,255,255,.15);flex-shrink:0;line-height:1;}
+
+/* ── SCROLL BODY ── */
+.sb{flex:1;overflow-y:auto;padding:14px 20px 20px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+
+/* ── SLIDE FOOTER ── */
+.slide-footer{height:34px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;z-index:10;}
+.slide-footer-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:10.5px;font-weight:700;color:var(--verde);letter-spacing:.04em;padding:3px 10px;border-radius:5px;transition:all .2s;}
+.slide-footer-btn:hover{background:var(--verde-bg);}
+
+/* ── QUESTION META ── */
+.qmeta-bar{padding:6px 20px;display:flex;gap:7px;flex-shrink:0;background:rgba(0,0,0,.025);border-bottom:1px solid var(--borda);flex-wrap:wrap;}
+.qchip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.qchip.assunto{background:var(--azul-bg);color:var(--azul-l);border:1px solid #90CAF9;}
+.qchip.ano{background:var(--cinza-bg);color:var(--cinza);border:1px solid #B0BEC5;}
+
+/* ── QUESTION CONTENT ── */
+.qtitulo{font-size:11.5px;font-weight:800;color:var(--verde-m);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+.qenunciado{font-size:13.5px;font-weight:600;line-height:1.6;color:var(--texto);margin-bottom:12px;}
+
+/* ── QBLOCO (Literatura-style) ── */
+.qbloco{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;}
+.qbloco-header{padding:10px 15px;display:flex;align-items:center;gap:11px;border-bottom:3px solid var(--borda);background:var(--fundo);}
+.qnum{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;line-height:1;flex-shrink:0;}
+.qinfo{flex:1;}
+.qsub{font-size:11px;color:var(--sub);margin-top:2px;}
+.qmeta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;}
+.qbloco-body{padding:14px 16px;}
+
+/* ── ALTERNATIVES ── */
+.alternativas{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.alt{display:flex;align-items:flex-start;gap:9px;padding:9px 13px;border:1.5px solid var(--borda);border-radius:7px;cursor:pointer;transition:all .15s;background:white;font-size:13px;line-height:1.55;user-select:none;}
+.alt:hover{border-color:var(--verde-l);background:var(--verde-xbg);}
+.alt.certa{border-color:var(--verde-m)!important;background:var(--verde-bg)!important;}
+.alt.errada{border-color:#EF9A9A!important;background:var(--verm-bg)!important;opacity:.7;}
+.alt-letra{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--verde);flex-shrink:0;width:18px;}
+.alt-txt{flex:1;}
+
+/* ── GABARITO ── */
+.btn-gab{background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .2s;width:100%;margin-bottom:10px;}
+.btn-gab:hover{background:var(--verde-m);}
+.btn-gab.open{background:var(--cinza);}
+.gab-area{display:none;animation:gabfade .2s ease;}
+.gab-area.show{display:block;}
+@keyframes gabfade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.gab-box{background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:9px;padding:13px 15px;}
+.gab-title{font-size:13px;font-weight:800;color:var(--verde);margin-bottom:9px;}
+.gab-texto{font-size:12.5px;line-height:1.72;color:var(--texto);}
+.gab-estrategia{display:flex;gap:7px;background:var(--laranja-bg);border:1.5px dashed var(--laranja-l);border-radius:7px;padding:8px 12px;margin-top:10px;align-items:flex-start;}
+.gab-estrategia-txt{font-size:12px;line-height:1.55;color:var(--cinza);font-style:italic;}
+
+/* ── PASSAGE / TEXT BLOCK ── */
+.passagem-block{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;margin-bottom:13px;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.passagem-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--azul-l);padding:8px 13px;background:var(--azul-bg);border-bottom:1px solid #90CAF9;}
+.passagem-block>p{padding:8px 13px 0;font-size:13px;line-height:1.75;}
+.passagem-block>p:last-of-type{padding-bottom:10px;}
+.passagem-block>pre{padding:11px 13px;font-family:Georgia,serif;white-space:pre-wrap;font-size:13px;line-height:1.75;}
+.passagem-block>table{margin:8px 13px;width:calc(100% - 26px);}
+.passagem-block>blockquote{border-left:3px solid var(--ouro-l);padding:6px 13px;font-style:italic;margin:6px 0;}
+.passagem-note{font-size:11px;color:var(--sub);font-style:italic;padding:6px 13px 8px;border-top:1px solid var(--borda);}
+
+/* ── CARDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.card{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:9px 13px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid var(--borda);}
+.card-head.verde{background:var(--verde-bg);border-color:#A5D6A7;}
+.card-head.azul{background:var(--azul-bg);border-color:#90CAF9;}
+.card-head.verm{background:var(--verm-bg);border-color:#EF9A9A;}
+.card-head.ouro{background:var(--ouro-bg);border-color:#F9D878;}
+.card-head.cinza{background:var(--cinza-bg);border-color:#B0BEC5;}
+.card-head.laranja{background:var(--laranja-bg);border-color:#FFCC80;}
+.card-head.roxo{background:var(--roxo-bg);border-color:#CE93D8;}
+.card-head-icon{font-size:17px;flex-shrink:0;}
+.card-head-title{font-size:13px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:11px 13px;flex:1;font-size:13px;line-height:1.65;color:var(--texto);}
+
+/* ── ALERTS ── */
+.alerta{border-radius:8px;padding:10px 13px;margin-bottom:10px;display:flex;gap:9px;align-items:flex-start;}
+.alerta:last-child{margin-bottom:0;}
+.alerta.verde{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.alerta.verm{background:var(--verm-bg);border-left:4px solid var(--verm-l);}
+.alerta.azul{background:var(--azul-bg);border-left:4px solid var(--azul-l);}
+.alerta.ouro{background:var(--ouro-bg);border-left:4px solid var(--ouro-l);}
+.alerta.cinza{background:var(--cinza-bg);border-left:4px solid var(--cinza-l);}
+.alerta-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;color:var(--verde);}
+.alerta.verm .alerta-title{color:var(--verm-l);}
+.alerta.azul .alerta-title{color:var(--azul-l);}
+.alerta.ouro .alerta-title{color:var(--ouro);}
+.alerta-text{font-size:13px;line-height:1.62;color:var(--texto);}
+
+/* ── ITEMS ── */
+.item{display:flex;gap:7px;margin-bottom:7px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:13px;flex-shrink:0;margin-top:1px;line-height:1.55;}
+.it{font-size:13px;line-height:1.62;color:var(--texto);}
+.it b{font-weight:700;color:var(--verde);}
+
+/* ── SUMÁRIO ── */
+.sumario-section{margin-bottom:8px;}
+.sumario-titulo{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--verde);padding:7px 13px;background:var(--verde-bg);border-left:4px solid var(--verde-l);border-radius:0 7px 7px 0;margin-bottom:7px;}
+.sumario-item{display:flex;align-items:center;gap:9px;padding:8px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:4px;}
+.sumario-item:hover{border-color:var(--verde-l);background:var(--verde-xbg);transform:translateX(3px);}
+.sumario-item-num{font-family:'Sora',sans-serif;font-size:18px;flex-shrink:0;min-width:28px;}
+.sumario-item-txt{flex:1;}
+.sumario-item-nome{font-size:13px;font-weight:700;color:var(--texto);}
+.sumario-item-desc{font-size:11px;color:var(--sub);margin-top:1px;}
+.sumario-item-arrow{font-size:14px;color:var(--verde-l);}
+.sumario-item.mod{border-left:4px solid var(--verde);}
+
+/* ── METODO / APRES ── */
+.apres-banner{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:11px;padding:18px 22px;margin-bottom:13px;color:white;position:relative;overflow:hidden;}
+.apres-titulo{font-size:20px;font-weight:800;margin-bottom:5px;}
+.apres-sub{font-size:13px;color:rgba(255,255,255,.78);line-height:1.6;}
+.metodo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:13px;}
+.metodo-step{background:white;border-radius:9px;padding:13px;text-align:center;border:2px solid var(--borda);}
+.metodo-step:nth-child(1){border-top:4px solid var(--azul-l);}
+.metodo-step:nth-child(2){border-top:4px solid var(--verde-l);}
+.metodo-step:nth-child(3){border-top:4px solid var(--laranja-l);}
+.metodo-step:nth-child(4){border-top:4px solid var(--verm-l);}
+.metodo-icon{font-size:26px;margin-bottom:6px;}
+.metodo-passo{font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--sub);margin-bottom:3px;text-transform:uppercase;}
+.metodo-nome{font-size:16px;font-weight:800;color:var(--texto);}
+.metodo-desc{font-size:11.5px;line-height:1.5;color:var(--sub);margin-top:4px;}
+.citacao-box{background:linear-gradient(135deg,#1B5E20,#2E7D32);border-radius:9px;padding:14px 18px;margin-top:12px;text-align:center;}
+.citacao-txt{font-size:14.5px;font-weight:600;font-style:italic;color:white;line-height:1.6;}
+.citacao-autor-nome{font-size:12px;color:rgba(255,255,255,.65);margin-top:7px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.modulo-stat{background:white;border:1.5px solid var(--borda);border-radius:9px;padding:10px 13px;text-align:center;}
+.modulo-stat-n{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--verde);}
+.modulo-stat-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-top:2px;}
+
+/* ── TABLES ── */
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;}
+td,th{padding:7px 10px;border:1px solid var(--borda);}
+th{background:var(--cinza-bg);font-weight:700;color:var(--texto);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .topbar{padding:8px 12px;}
+  .topbar-title{font-size:clamp(13px,3.8vw,18px)!important;}
+  .sb{padding:10px 10px 56px;}
+  .g2{grid-template-columns:1fr!important;}
+  .g3{grid-template-columns:1fr!important;}
+  .g4{grid-template-columns:1fr 1fr!important;}
+  .metodo-grid{grid-template-columns:1fr 1fr!important;}
+  .nbtn{font-size:9px;padding:4px 9px;}
+  .nav{padding:5px 8px;gap:6px;}
+  .ntitle{max-width:120px;font-size:10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- MODULE CHIP MENU -->
+<div class="modmenu" id="modmenu">
+  <div class="modchip active" onclick="goMod(0)" id="mc0">Todos</div>
+  <div class="modchip" onclick="goMod(1)" id="mc1">M1 · Interpretação</div>
+  <div class="modchip" onclick="goMod(2)" id="mc2" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M2</div>
+  <div class="modchip" onclick="goMod(3)" id="mc3" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M3</div>
+  <div class="modchip" onclick="goMod(4)" id="mc4" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M4</div>
+  <div class="modchip" onclick="goMod(5)" id="mc5" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M5</div>
+  <div class="modchip" onclick="goMod(6)" id="mc6" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M6</div>
+  <div class="modchip" onclick="goMod(7)" id="mc7" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M7</div>
+  <div class="modchip" onclick="goMod(8)" id="mc8" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M8</div>
+  <div class="modchip" onclick="goMod(9)" id="mc9" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M9</div>
+  <div class="modchip" onclick="goMod(10)" id="mc10" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M10</div>
+  <div class="modchip" onclick="goMod(11)" id="mc11" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M11</div>
+  <div class="modchip" onclick="goMod(12)" id="mc12" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M12</div>
+  <div class="modchip" onclick="goMod(13)" id="mc13" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M13</div>
+  <div class="modchip" onclick="goMod(14)" id="mc14" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M14</div>
+  <div class="modchip" onclick="goMod(15)" id="mc15" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M15</div>
+  <div class="modchip" onclick="goMod(16)" id="mc16" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M16</div>
+  <div class="modchip" onclick="goMod(17)" id="mc17" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M17</div>
+  <div class="modchip" onclick="goMod(18)" id="mc18" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M18</div>
+  <div class="modchip" onclick="goMod(19)" id="mc19" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M19</div>
+  <div class="modchip" onclick="goMod(20)" id="mc20" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 M20</div>
+</div>
+
+<div class="deck" id="deck">
+
+<!-- ═══════════════════════════════════════
+  SLIDE 0 — CAPA
+═══════════════════════════════════════ -->
+<div class="slide active" data-title="Capa — Língua Portuguesa ESA CFGS" id="s-capa">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(212,160,23,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#D4A017;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(212,160,23,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">GRAMÁTICA NORMATIVA E INTERPRETAÇÃO DE TEXTOS</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(16px,3vw,28px);font-weight:800;color:#D4A017;line-height:1.2;text-transform:uppercase;text-align:center;">QUESTÕES COMENTADAS<br>ESA - CFGS</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA DE SARGENTOS DAS ARMAS</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.2vw,13px);font-weight:700;color:rgba(212,160,23,.6);letter-spacing:.1em;text-transform:uppercase;">ESA - CFGS · 2026–2027</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════
+  SLIDE 1 — APRESENTAÇÃO
+═══════════════════════════════════════ -->
+<div class="slide" data-title="Apresentação — Capitão Valdir" id="s-apres">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-tag">Guia Preparatório Capitão Valdir · Língua Portuguesa ESA CFGS</span>
+      <span class="topbar-title">APRESENTAÇÃO — O CAPITÃO VALDIR</span>
+      <span class="topbar-sub">Conheça o professor por trás deste material</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="apres-banner">
+      <div class="apres-titulo">Bem-vindo ao material que vai transformar seu desempenho em Língua Portuguesa!</div>
+      <div class="apres-sub"><b>129 questões de Língua Portuguesa</b> da ESA/CFGS (2007–2025), comentadas, analisadas e organizadas em 20 módulos temáticos — para você dominar cada tópico do edital e chegar à prova com confiança total.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0A2E10,#1B5E20,#2E7D32);border-radius:12px;padding:20px 24px;margin-bottom:13px;display:flex;gap:20px;align-items:center;position:relative;overflow:hidden;">
+      <div style="position:absolute;right:0;top:0;bottom:0;width:100px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;"></div>
+      <div style="flex-shrink:0;width:88px;height:88px;background:rgba(255,255,255,.13);border-radius:50%;border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:40px;">🎖️</div>
+      <div style="flex:1;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;">SEU PROFESSOR</div>
+        <div style="font-size:26px;font-weight:800;color:white;line-height:1;margin-bottom:4px;">Capitão Valdir</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.72);margin-bottom:8px;">Capitão da Reserva do Exército Brasileiro · QCO (Quadro Complementar de Oficiais)</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🎓 Letras — UNICAMP</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">⭐ Formado pela ESFCEx</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">📜 Pós-grad. Magistério Português</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🏆 20+ anos de experiência</span>
+        </div>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:13px;">
+      <div class="card">
+        <div class="card-head verde"><div class="card-head-icon">📋</div><div class="card-head-title">Formação Acadêmica e Militar</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">🎓</span><div class="it">Licenciado em <b>Letras pela UNICAMP</b> (Universidade Estadual de Campinas)</div></div>
+          <div class="item"><span class="dot">⭐</span><div class="it"><b>Formou-se Oficial de carreira</b> pela Escola de Saúde e Formação Complementar do Exército (ESFCEx)</div></div>
+          <div class="item"><span class="dot">📜</span><div class="it"><b>Pós-graduado pela ESFCEx</b> — área de Magistério em Língua Portuguesa e Literatura</div></div>
+          <div class="item"><span class="dot">🏆</span><div class="it"><b>Especialista em Ensino</b> — há <b>duas décadas</b> formando e preparando candidatos com excelência!</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">🏫</div><div class="card-head-title">Experiência Docente Militar</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">🟢</span><div class="it"><b>Colégio Militar de Fortaleza</b></div></div>
+          <div class="item"><span class="dot">🟢</span><div class="it"><b>Colégio Militar de Manaus</b></div></div>
+          <div class="item"><span class="dot">🟢</span><div class="it"><b>Escola de Aperfeiçoamento de Sargentos das Armas (EASA)</b></div></div>
+          <div class="item"><span class="dot">🟢</span><div class="it"><b>Centro de Instrução de Aviação do Exército (CIAvEx)</b></div></div>
+          <div class="item"><span class="dot">🟢</span><div class="it">Preparatórios para concursos militares — <b>especialidade ESA/CFGS</b></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="alerta azul" style="margin-bottom:12px;">
+      <div class="alerta-icon">💬</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Mensagem do Capitão Valdir — Para cada aluno que usa este material</div>
+        <div class="alerta-text">Resolvi cada uma dessas questões pensando em você, futuro Sargento. Língua Portuguesa não é decoreba — é entendimento de padrões gramaticais e semânticos. Não me preocupei apenas em dar o gabarito: me preocupei em explicar <b>por que cada alternativa errada está errada</b>. É aí que a banca te pega. Estude com método, sob a ótica de Cunha &amp; Cintra, e domine as regras que mais caem. <b>Bons estudos! E te vejo na lista de aprovados...</b></div>
+      </div>
+    </div>
+    <div class="citacao-box">
+      <div class="citacao-txt">"O domínio da gramática não é luxo para o militar — é arma. Prepare-se com método, disciplina e estratégia."</div>
+      <div class="citacao-autor-nome">— Capitão Valdir · QCO · Formado pela ESFCEx · Especialista em Ensino</div>
+    </div>
+    <div style="text-align:center;margin-top:13px;">
+      <button onclick="goTo(2)" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Continuar: Método e Prioridades →</button>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+  SLIDE 2 — MÉTODO E PRIORIDADES
+═══════════════════════════════════════ -->
+<div class="slide" data-title="Método · Prioridades · Como Usar" id="s-metodo">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-tag">Guia Preparatório Capitão Valdir · Língua Portuguesa ESA CFGS</span>
+      <span class="topbar-title">MÉTODO · PRIORIDADES · COMO USAR</span>
+      <span class="topbar-sub">O roteiro de estudo e o mapa de prioridades para a ESA CFGS</span>
+    </div>
+    <div class="topbar-right">02</div>
+  </div>
+  <div class="sb">
+    <div class="metodo-grid">
+      <div class="metodo-step">
+        <div class="metodo-icon">📋</div><div class="metodo-passo">Passo 1</div><div class="metodo-nome">RESOLVER</div>
+        <div class="metodo-desc">Tente resolver cada questão antes de ver o gabarito. Simule a prova real da ESA.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">🔍</div><div class="metodo-passo">Passo 2</div><div class="metodo-nome">ANALISAR</div>
+        <div class="metodo-desc">Leia o comentário de todas as alternativas — as erradas ensinam tanto quanto as certas.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">🎯</div><div class="metodo-passo">Passo 3</div><div class="metodo-nome">IDENTIFICAR</div>
+        <div class="metodo-desc">Observe o padrão da ESA. A banca repete os mesmos tópicos gramaticais há anos.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">⚡</div><div class="metodo-passo">Passo 4</div><div class="metodo-nome">ACERTAR</div>
+        <div class="metodo-desc">Aplique os gatilhos automáticos e estratégias de eliminação na hora da prova.</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:13px;">
+      <div class="card">
+        <div class="card-head laranja"><div class="card-head-icon">⚠️</div><div class="card-head-title">Como usar este e-book</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">📌</span><div class="it">Navegue pelos módulos <b>em ordem temática</b> — do M1 (Interpretação) ao M20 (Semântica)</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Marque os erros e <b>revise pelo menos 3 vezes</b> os módulos em que vacilar</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Leia a <b>Análise Estratégica Final</b> na véspera da prova</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Use <b>← →</b> no teclado ou swipe no celular para navegar; chips do menu para filtrar módulos</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head verde"><div class="card-head-icon">📚</div><div class="card-head-title">O que este e-book contém</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">✅</span><div class="it"><b>129 questões</b> das provas ESA 2007–2025</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>20 módulos temáticos</b> — do M1 ao M20 completos</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Gabarito justificado</b> sob a ótica de Cunha &amp; Cintra</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Dica de Prova</b> em cada questão — padrão de pegadinhas da ESA</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Análise Estratégica Final</b> — gatilhos e mapa de prioridades</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head verde"><div class="card-head-icon">🗺️</div><div class="card-head-title">Grau de Prioridade dos Módulos — ESA CFGS · Língua Portuguesa</div></div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:11px;">
+          <div style="background:#FFEBEE;border:2px solid #EF9A9A;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🔴</div>
+            <div style="font-size:12px;font-weight:800;color:#B71C1C;text-align:center;margin-bottom:7px;">ALTA PRIORIDADE</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Presença em <b>80–100%</b> das provas ESA<br><br>· M1 · Interpretação de Textos<br>· M8 · Análise Sintática<br>· M10 · Orações Subordinadas<br>· M14 · Concordância Verbal<br>· M13 · Crase</div>
+          </div>
+          <div style="background:#FFF8E1;border:2px solid #FFD54F;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🟡</div>
+            <div style="font-size:12px;font-weight:800;color:#E65100;text-align:center;margin-bottom:7px;">MÉDIA PRIORIDADE</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Presença em <b>50–80%</b> das provas ESA<br><br>· M7 · Classes de Palavras<br>· M12 · Regência Verbal<br>· M9 · Orações Coordenadas<br>· M5 · Pontuação<br>· M15 · Concordância Nominal</div>
+          </div>
+          <div style="background:#E8F5E9;border:2px solid #A5D6A7;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🟢</div>
+            <div style="font-size:12px;font-weight:800;color:#1B5E20;text-align:center;margin-bottom:7px;">MENOR FREQUÊNCIA</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Presença em <b>&lt;50%</b> das provas ESA<br><br>· M2 · Fonética<br>· M3 · Ortografia<br>· M16 · Colocação Pronominal<br>· M17 · Versificação<br>· M19 · Funções da Linguagem</div>
+          </div>
+        </div>
+        <div class="alerta ouro">
+          <div class="alerta-icon">⭐</div>
+          <div class="alerta-content">
+            <div class="alerta-title">Foco estratégico para a reta final</div>
+            <div class="alerta-text">🟢 Menor frequência <b>não significa ignorar</b> — significa que os 🔴 devem receber mais horas. Na ESA, <b>dominar Interpretação, Sintaxe e Concordância é obrigatório para a aprovação!</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:13px;">
+      <button onclick="goTo(3)" style="background:var(--verde);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Ver Sumário →</button>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+
+<!-- ═══════════════════════════════════════
+  SLIDE 3 — SUMÁRIO
+═══════════════════════════════════════ -->
+<div class="slide" data-title="Sumário — 20 Módulos" id="s-sumario">
+  <div class="topbar cinza">
+    <div class="topbar-left">
+      <span class="topbar-tag">Guia Preparatório Capitão Valdir · Língua Portuguesa ESA · CFGS</span>
+      <span class="topbar-title">SUMÁRIO — 20 MÓDULOS TEMÁTICOS</span>
+      <span class="topbar-sub">Selecione o módulo para navegar diretamente às questões</span>
+    </div>
+    <div class="topbar-right">≡</div>
+  </div>
+  <div class="sb">
+    <div class="alerta verde" style="margin-bottom:14px;">
+      <div class="alerta-icon">📖</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Como usar este material</div>
+        <div class="alerta-text">129 questões organizadas em <b>20 módulos temáticos</b>, com comentários sob a ótica de Cunha &amp; Cintra. Clique em "Ver Gabarito" apenas após tentar responder — simule a prova real! Use os chips no topo para filtrar por módulo.</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-titulo" style="background:var(--verde-bg);color:var(--verde);border-left:4px solid var(--verde-l);">📖 Introdução</div>
+      <div class="sumario-item" onclick="goTo(1)" style="border-left:4px solid var(--verde);"><div class="sumario-item-num" style="color:var(--verde);">01</div><div class="sumario-item-txt"><div class="sumario-item-nome">Apresentação — Capitão Valdir</div><div class="sumario-item-desc">Biografia e mensagem do professor</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item" onclick="goTo(2)" style="border-left:4px solid var(--verde);"><div class="sumario-item-num" style="color:var(--verde);">02</div><div class="sumario-item-txt"><div class="sumario-item-nome">Método, Prioridades e Como Usar</div><div class="sumario-item-desc">Roteiro de estudo + mapa de prioridades dos 20 módulos</div></div><div class="sumario-item-arrow">→</div></div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-titulo">📚 Os 20 Módulos Temáticos</div>
+      <div class="sumario-item mod" onclick="goMod(1)" style="border-left:4px solid var(--azul);"><div class="sumario-item-num" style="color:var(--azul);">📖</div><div class="sumario-item-txt"><div class="sumario-item-nome" style="color:var(--azul-l);">M1 — Leitura, Interpretação e Análise de Textos</div><div class="sumario-item-desc">Compreensão global · textos verbais e não verbais · charges · tirinhas · 23 questões</div></div><div class="sumario-item-arrow" style="color:var(--azul);">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(2)" style="border-left:4px solid var(--cinza);"><div class="sumario-item-num" style="color:var(--cinza);">🔊</div><div class="sumario-item-txt"><div class="sumario-item-nome">M2 — Fonética</div><div class="sumario-item-desc">Fonemas · sílabas · encontros vocálicos · dígrafos · tonicidade · 4 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(3)" style="border-left:4px solid var(--cinza);"><div class="sumario-item-num" style="color:var(--cinza);">✍️</div><div class="sumario-item-txt"><div class="sumario-item-nome">M3 — Ortografia</div><div class="sumario-item-desc">Grafia correta · parônimos · homônimos · novo acordo · 5 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(4)" style="border-left:4px solid var(--ouro);"><div class="sumario-item-num" style="color:var(--ouro);">´</div><div class="sumario-item-txt"><div class="sumario-item-nome">M4 — Acentuação Gráfica</div><div class="sumario-item-desc">Regras de acentuação · monossílabos · hiatos · reforma ortográfica · 7 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(5)" style="border-left:4px solid var(--azul);"><div class="sumario-item-num" style="color:var(--azul);">,</div><div class="sumario-item-txt"><div class="sumario-item-nome">M5 — Pontuação</div><div class="sumario-item-desc">Vírgula · ponto e vírgula · dois-pontos · elipse · os quatro porquês · 5 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(6)" style="border-left:4px solid var(--verde);"><div class="sumario-item-num" style="color:var(--verde);">🔤</div><div class="sumario-item-txt"><div class="sumario-item-nome">M6 — Formação e Estrutura das Palavras</div><div class="sumario-item-desc">Radical · afixos · derivação · composição · parassíntese · 6 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(7)" style="border-left:4px solid var(--laranja);"><div class="sumario-item-num" style="color:var(--laranja);">📝</div><div class="sumario-item-txt"><div class="sumario-item-nome">M7 — Classes de Palavras e Empregos</div><div class="sumario-item-desc">Dez classes gramaticais · pronomes · verbos · advérbios · flexões · 9 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(8)" style="border-left:4px solid var(--roxo);"><div class="sumario-item-num" style="color:var(--roxo);">🔬</div><div class="sumario-item-txt"><div class="sumario-item-nome">M8 — Termos da Oração (Análise Sintática)</div><div class="sumario-item-desc">Sujeito · predicado · OD · OI · adjuntos · complemento nominal · 13 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(9)" style="border-left:4px solid var(--azul);"><div class="sumario-item-num" style="color:var(--azul);">🔗</div><div class="sumario-item-txt"><div class="sumario-item-nome">M9 — Orações Coordenadas</div><div class="sumario-item-desc">Assindéticas · sindéticas · conjunções coordenativas · 6 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(10)" style="border-left:4px solid var(--verde);"><div class="sumario-item-num" style="color:var(--verde);">📚</div><div class="sumario-item-txt"><div class="sumario-item-nome">M10 — Orações Subordinadas</div><div class="sumario-item-desc">Substantivas · adjetivas · adverbiais · reduzidas · 8 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(11)" style="border-left:4px solid var(--laranja);"><div class="sumario-item-num" style="color:var(--laranja);">🔄</div><div class="sumario-item-txt"><div class="sumario-item-nome">M11 — Funções Sintáticas do Pronome Relativo</div><div class="sumario-item-desc">que · quem · onde · cujo · o qual — funções · 7 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(12)" style="border-left:4px solid var(--roxo);"><div class="sumario-item-num" style="color:var(--roxo);">➡️</div><div class="sumario-item-txt"><div class="sumario-item-nome">M12 — Regência Verbal</div><div class="sumario-item-desc">Verbos transitivos · complementos com e sem preposição · 3 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(13)" style="border-left:4px solid var(--ouro);"><div class="sumario-item-num" style="color:var(--ouro);">à</div><div class="sumario-item-txt"><div class="sumario-item-nome">M13 — Crase</div><div class="sumario-item-desc">Casos obrigatórios · facultativos · proibidos · locuções · 4 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(14)" style="border-left:4px solid var(--verde);"><div class="sumario-item-num" style="color:var(--verde);">✅</div><div class="sumario-item-txt"><div class="sumario-item-nome">M14 — Concordância Verbal</div><div class="sumario-item-desc">Sujeito composto · inversão · coletivo · verbos impessoais · 6 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(15)" style="border-left:4px solid var(--azul);"><div class="sumario-item-num" style="color:var(--azul);">🅰️</div><div class="sumario-item-txt"><div class="sumario-item-nome">M15 — Concordância Nominal</div><div class="sumario-item-desc">Adjetivo + substantivos · casos especiais · 3 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(16)" style="border-left:4px solid var(--roxo);"><div class="sumario-item-num" style="color:var(--roxo);">↔️</div><div class="sumario-item-txt"><div class="sumario-item-nome">M16 — Sintaxe de Colocação</div><div class="sumario-item-desc">Próclise · mesóclise · ênclise · atração e repulsão pronominal · 3 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(17)" style="border-left:4px solid var(--cinza);"><div class="sumario-item-num" style="color:var(--cinza);">🎵</div><div class="sumario-item-txt"><div class="sumario-item-nome">M17 — Noções de Versificação</div><div class="sumario-item-desc">Metrificação · escansão · rimas · estrofes · soneto · 3 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(18)" style="border-left:4px solid var(--verm);"><div class="sumario-item-num" style="color:var(--verm);">🌈</div><div class="sumario-item-txt"><div class="sumario-item-nome">M18 — Figuras de Linguagem</div><div class="sumario-item-desc">Metáfora · metonímia · hipérbole · antítese · ironia · anáfora · 5 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(19)" style="border-left:4px solid var(--azul);"><div class="sumario-item-num" style="color:var(--azul);">💬</div><div class="sumario-item-txt"><div class="sumario-item-nome">M19 — Funções da Linguagem e Níveis de Linguagem</div><div class="sumario-item-desc">Referencial · emotiva · fática · metalinguística · 3 questões</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item mod" onclick="goMod(20)" style="border-left:4px solid var(--verde);"><div class="sumario-item-num" style="color:var(--verde);">💡</div><div class="sumario-item-txt"><div class="sumario-item-nome">M20 — Semântica e Significado das Palavras</div><div class="sumario-item-desc">Polissemia · homonímia · denotação · conotação · os quatro porquês · 6 questões</div></div><div class="sumario-item-arrow">→</div></div>
+    </div>
+    <div class="sumario-section" style="margin-top:14px;">
+      <div class="sumario-item" onclick="goTo(IDX_ANALISE)" style="border-left:4px solid var(--laranja-l);background:var(--laranja-bg);"><div class="sumario-item-num" style="color:var(--laranja);">★</div><div class="sumario-item-txt"><div class="sumario-item-nome">Análise Estratégica Final</div><div class="sumario-item-desc">Tendências · Gatilhos · Como se preparar para a Prova de Língua Portuguesa</div></div><div class="sumario-item-arrow">→</div></div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+  SLIDES DE QUESTÕES (s1 – s129) — CONTEÚDO ORIGINAL INTACTO
+═══════════════════════════════════════════════════════════ -->
+<div class="slide" id="s1">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 1/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO II — Sargento do Exército Brasileiro: responsabilidades e desafios (ESA-2024)</div><p>Parte integrante e fundamental da estrutura organizacional da Força Terrestre, sobre o sargento recai grande responsabilidade pela manutenção da solidez do Exército Brasileiro. A ele, cabe a missão de servir como "referência imediata" para cabos e soldados e para Sargentos mais jovens e recém-egressos das Escolas. Essa referência se concretiza pelos exemplos de profissionalismo e correção de atitudes demonstrados no dia a dia dos quartéis, desde o cumprimento das ordens dos superiores até a atuação pautada na disciplina consciente.</p>
+<p>A responsabilidade cresce de importância pela proximidade funcional entre os graduados e inicia-se desde cedo na formação militar dos mais modernos. A forja das escolas militares intensifica-se com a apresentação na organização militar dos Corpos de Tropa. É ali onde tudo é posto à prova. A tutela e a constante vigília dos instrutores e monitores que dão o amálgama inicial da formação cessam, e o sargento precisa seguir o seu próprio caminho, atento às referências positivas dos oficiais e graduados mais antigos e experientes.</p>
+<p>O Exército Brasileiro possui diferentes níveis de comando e organização. Neste sentido, o pleno entendimento dessas camadas é vital para o funcionamento das pequenas frações. Ao compreender seu espaço e a amplitude de suas responsabilidades, o sargento coopera para que essa estrutura de comando funcione melhor ajustada, contribuindo para reforçar as bases de trabalho da Força Terrestre.</p>
+<p>Ao sargento, cabe conhecer muito bem sua profissão e, principalmente, seus subordinados. Deve comunicar-se eficazmente e estar sempre pronto para corrigir com sereno rigor, apoiá-los nas dificuldades, e, não menos importante, emprestar bons exemplos em todas as oportunidades. [...] Por fim, a Força Terrestre entende que atribuir maiores responsabilidades ao sargento é fortalecer a própria instituição, com uma base sólida e eficaz.</p><div class="passagem-note">BERNADINO, E. C. Sargento do Exército Brasileiro: responsabilidades e desafios. EBLOG, 21 out. 2020. (Adaptado).</div></div>
+<div class="qtitulo">Interpretação — Sargento do EB</div>
+<div class="qenunciado">Fundamentado no Texto II ("Sargento do Exército Brasileiro: responsabilidades e desafios"), é INCORRETO afirmar que:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,4)"><span class="alt-letra">A</span><span class="alt-txt">Ao atribuir maiores responsabilidades ao sargento, a instituição é fortalecida.</span></div>
+<div class="alt" onclick="sa(this,1,4)"><span class="alt-letra">B</span><span class="alt-txt">Sobre o sargento, incide o dever de resguardar a solidez da instituição à qual pertence.</span></div>
+<div class="alt" onclick="sa(this,2,4)"><span class="alt-letra">C</span><span class="alt-txt">O pleno entendimento dos níveis de comando e organização do Exército é essencial.</span></div>
+<div class="alt" onclick="sa(this,3,4)"><span class="alt-letra">D</span><span class="alt-txt">O sargento deve conhecer suas atribuições e contribuir para que as bases de comando funcionem adequadamente.</span></div>
+<div class="alt" onclick="sa(this,4,4)"><span class="alt-letra">E</span><span class="alt-txt">O sargento deve exigir profissionalismo e correção das atitudes de seus subordinados por meio do cumprimento de suas ordens.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>E</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">O texto afirma que o sargento deve ser <b>referência pelo próprio exemplo</b> — profissionalismo e correção de atitudes. A alternativa E distorce o sentido ao dizer que ele deve "exigir por meio do cumprimento de ordens", invertendo o valor semântico central do texto.<br><br>📚 <b>Cunha &amp; Cintra:</b> A interpretação correta exige identificar a tese central e os valores semânticos. "Referência" indica modelo comportamental, não autoridade coercitiva. As alternativas A, B, C e D reproduzem fielmente o texto.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Em questões 'é INCORRETO afirmar', elimine as que reproduzem o texto. O gabarito distorce, exagera ou inverte o sentido original.</div>
+</div></div></div>
+<div class="slide" id="s2">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 2/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TIRINHA — Calvin & Haroldo (ESA-2024)</div><p><b>Contexto da tirinha:</b> Calvin questiona o pai sobre uma estatística que ouviu — de que as crianças assistem muita TV. O pai concorda que os pais deveriam controlar mais. Calvin, então, rebate: <em>"Você nem sabe disso, você acha que os pais acham que…"</em> — ao que o pai responde com ironia: <em>"Boa tentativa."</em></p>
+<p>A tirinha explora como Calvin tenta usar dados para convencer o pai, mas é desacreditado. As expressões <strong>"saber disso"</strong>, <strong>"acham que"</strong> e <strong>"boa tentativa"</strong> são marcas do tipo textual argumentativo/persuasivo.</p><div class="passagem-note">WATTERSON, B. Calvin & Haroldo. 18 out. 2022. (Adaptado). Acesso em: 11 abr. 2024.</div></div>
+<div class="qtitulo">Tipo Textual — Tirinha Calvin &amp; Haroldo</div>
+<div class="qenunciado">Tendo em vista o contexto geral da tirinha (Calvin &amp; Haroldo) e expressões como "saber disso", "acham que" e "boa tentativa", depreende-se que o tipo textual predominante na construção persuasiva do discurso é:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Informativo.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Publicitário.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">Argumentativo.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Expositivo.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Descritivo.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">A tirinha usa recursos de <b>persuasão e contra-argumentação</b>: Calvin apresenta dados, refuta o argumento do pai com ironia ("boa tentativa") e tenta convencer. Cunha &amp; Cintra: o texto argumentativo organiza o discurso com a finalidade de convencer o interlocutor.<br><br>❌ A) Informativo = relata fatos sem intenção de convencer; B) Publicitário = promove produto; D) Expositivo = dados neutros; E) Descritivo = caracteriza seres/objetos.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Marcadores do argumentativo: verbos de opinião ('acham que'), conectores lógicos, refutação ('boa tentativa' = ironia de descredenciamento do argumento adversário).</div>
+</div></div></div>
+<div class="slide" id="s3">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 3/129</span><span class="qchip assunto">2023 · ESA-2023</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTOS IV e V — Oswald de Andrade e Gonçalves Dias (ESA-2024)</div><table style="width:100%;border-collapse:collapse;font-size:.83rem">
+<tr>
+<td style="width:50%;vertical-align:top;padding-right:12px;border-right:1px solid #c8960c">
+<strong>TEXTO IV — Canto de Regresso à Pátria</strong><br>
+<em>(Oswald de Andrade)</em>
+<pre style="font-family:Georgia,serif;white-space:pre-wrap;line-height:1.8;margin-top:8px">Minha terra tem palmares
+Onde gorjeia o mar
+Os passarinhos daqui
+Não cantam como os de lá
+
+Minha terra tem mais rosas
+E quase que mais amores
+Minha terra tem mais ouro
+Minha terra tem mais terra
+Ouro terra amor e rosas
+Eu quero tudo de lá
+
+Não permita Deus que eu morra
+Sem que volte para lá
+Não permita Deus que eu morra
+Sem que volte pra São Paulo
+Sem que veja a Rua 15
+E o progresso de São Paulo</pre>
+<em style="font-size:.75rem">DE ANDRADE, O. Canto de Regresso à Pátria. 1925.</em>
+</td>
+<td style="width:50%;vertical-align:top;padding-left:12px">
+<strong>TEXTO V — Canção do Exílio</strong><br>
+<em>(Gonçalves Dias)</em>
+<pre style="font-family:Georgia,serif;white-space:pre-wrap;line-height:1.8;margin-top:8px">Minha terra tem palmeiras,
+Onde canta o Sabiá,
+As aves, que aqui gorjeiam,
+Não gorjeiam como lá.
+
+Nosso céu tem mais estrelas,
+Nossas várzeas têm mais flores,
+Nossos bosques têm mais vida,
+Nossa vida mais amores.
+
+Em cismar, sozinho, à noite,
+Mais prazer encontro eu lá;
+Minha terra tem palmeiras,
+Onde canta o Sabiá.
+
+Não permita Deus que eu morra,
+Sem que eu volte para lá;
+Sem que desfrute os primores
+Que não encontro por cá.</pre>
+<em style="font-size:.75rem">DIAS, G. Canção do Exílio. 1843.</em>
+</td>
+</tr>
+</table></div>
+<div class="qtitulo">Tema Central — Oswald de Andrade / Gonçalves Dias</div>
+<div class="qenunciado">Com base nas poesias "Canto de Regresso à Pátria" (Oswald de Andrade) e "Canção do Exílio" (Gonçalves Dias), identifique a temática comum central dos dois textos:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Nacionalismo utópico.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Inspiração em valores europeus.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">Ufanismo nacionalista.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Exploração crítica nacional.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Todas as alternativas anteriores estão incorretas.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">Ambos os textos celebram a terra natal com <b>exaltação dos elementos naturais brasileiros</b> — traço do ufanismo. A "Canção do Exílio" exalta as belezas naturais; o "Canto de Regresso" retoma esse sentimento ironicamente.<br><br>📚 <b>Cunha &amp; Cintra:</b> A interpretação intertextual exige identificar o ponto de convergência temática. O eixo comum é a celebração da pátria, independente do tom.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Para questões de tema central entre dois textos, identifique o que ambos celebram ou exploram em comum. O tom pode divergir, mas o tema converge.</div>
+</div></div></div>
+<div class="slide" id="s4">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 4/129</span><span class="qchip assunto">2023 · ESA-2023</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO — Clarice Lispector: sobre a angústia (ESA-2023)</div><p>Um rapaz fez-me essa pergunta difícil para ser respondida. Pois depende do angustiado. Para alguns incautos, inclusive, é palavra que se orgulham de pronunciar como se com ela subissem de categoria — o que também é uma forma de angústia.</p>
+<p>A angústia não tem hora certa de aparecer. Ela surge quando a gente menos espera, e às vezes não se sabe bem o motivo. Para alguns é uma sensação de vazio; para outros, de sufocamento. Resignar-se a ela pode parecer derrota, mas é, muitas vezes, o primeiro passo para compreendê-la.</p>
+<p>O desamparo que a angústia provoca é real — real como a falta de chão sob os pés. Mas é preciso lembrar que ela também é humana, compartilhada, e nessa partilha encontra-se, às vezes, algum alívio.</p><div class="passagem-note">LISPECTOR, C. (Adaptado). Disponível em diversas coletâneas. Acesso em out. 2023.</div></div>
+<div class="qtitulo">Interpretação — Clarice Lispector (Angústia)</div>
+<div class="qenunciado">"Um rapaz fez-me essa pergunta difícil para ser respondida. Pois depende do angustiado..." [Clarice Lispector]. Com a leitura deste texto, pode-se concluir que:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Angústia é um sentimento simplório.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">O ser humano não passa por momento de angústia.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">O sentimento de angústia, na prática, é complexo para ser compreendido.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Somente alguns homens possuem este sentimento.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">O sentimento de angústia é um sentimento para se ter orgulho.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">Clarice apresenta a angústia como subjetiva, variável e de difícil definição ("depende do angustiado"). A <b>complexidade</b> é a tese central.<br><br>📚 <b>Cunha &amp; Cintra:</b> O advérbio "depende" e o uso de "angustiado" como substantivo indicam variação subjetiva — incompatível com alternativas que generalizam ou simplificam.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Em textos de Clarice Lispector, a resposta correta quase sempre aponta para a complexidade ou a subjetividade. Fuja de alternativas com 'somente', 'nunca', 'sempre'.</div>
+</div></div></div>
+<div class="slide" id="s5">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 5/129</span><span class="qchip assunto">2022 · ESA-2022</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO — D. Carolina (Machado de Assis, ESA-2022)</div><p>D. Carolina é o prazer em ebulição. Tem vinte e poucos anos; é bonita, viva, alegre. Dança com uma espécie de frenesim alegre; ri com gosto; fala com entusiasmo. Aquele corpinho, ligeiro como a abelha, perderia metade do que vale sem esta inquietação perpétua, que é a vida, o movimento, a graça feita pessoa.</p>
+<p>E, como tudo nela é natural, não afeta gravidade, nem compõe as palavras com estudo. O que ela sente, diz; o que vê, exprime. É uma criança crescida, ou uma criatura que o destino poupou às amarguras que amadurecem cedo e vergam a alma.</p><div class="passagem-note">DE ASSIS, M. Conto. (Adaptado). ESA-2022.</div></div>
+<div class="qtitulo">Interpretação — D. Carolina (Machado de Assis)</div>
+<div class="qenunciado">"D. Carolina é o prazer em ebulição [...] aquele corpinho, ligeiro como a abelha, perderia metade do que vale sem esta inquietação perpétua, que é a vida, o movimento, a graça feita pessoa." Esse trecho revela principalmente:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Uma personagem inibida e retraída.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Uma personagem sem vivacidade.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">A simbiose da personagem com a natureza, expressa nas metáforas com o beija-flor e a abelha.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Uma crítica à impulsividade da personagem.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Que a personagem é fria e calculista.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">As metáforas com "abelha" exprimem a <b>simbiose da personagem com a natureza</b> e evidenciam sua vitalidade.<br><br>📚 <b>Cunha &amp; Cintra:</b> Metáfora = transferência de significado por semelhança. D. Carolina é como a abelha — leve, ágil, cheia de vida. A caracterização é indireta, por comparação implícita.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Machado constrói personagens por metáforas com a natureza. Identifique os termos comparativos e extraia as qualidades atribuídas. 'Como a abelha' = comparação (símile) com presença de 'como'.</div>
+</div></div></div>
+<div class="slide" id="s6">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 6/129</span><span class="qchip assunto">2021 · ESA-2021</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO — Memórias Póstumas de Brás Cubas (Machado de Assis, ESA-2021)</div><p>Algum tempo hesitei se devia abrir estas memórias pelo princípio ou pelo fim, isto é, se poria em primeiro lugar o meu nascimento ou a minha morte. Suposto o uso vulgar seja começar pelo nascimento, duas considerações me levaram a adotar diferente método: a primeira é que eu não sou propriamente um autor defunto, mas um defunto autor, para quem a campa foi outro berço; a segunda é que o escrito ficaria assim mais galante e mais novo.</p>
+<p>Moisés, que também contou a sua morte, não a pôs no introito, mas no cabo: diferença radical entre este livro e o Pentateuco. Dito isto, expirei às duas horas da tarde de uma sexta-feira do mês de agosto de 1869, na minha bela chácara de Catumbi.</p><div class="passagem-note">DE ASSIS, M. Memórias Póstumas de Brás Cubas. Cap. 1. (Fragmento). ESA-2021.</div></div>
+<div class="qtitulo">Interpretação — Memórias Póstumas (Machado)</div>
+<div class="qenunciado">"Algum tempo hesitei se devia abrir estas memórias pelo princípio ou pelo fim [...] o escrito ficaria assim mais galante e mais novo." O autor-personagem decidiu iniciar pelo fim porque:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">todos gostam de ouvir sobre a morte de alguém.</span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">escritor que é escritor sempre faz dessa forma.</span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">é comum para esse tipo de narrativa.</span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">ninguém tinha feito assim antes (com exceção de Moisés, que o fez de forma diferente).</span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">a história é de terror.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">Brás Cubas compara seu método ao de Moisés, diferenciando-os: Moisés pôs a morte ao fim; Brás a coloca no início — novidade que torna o escrito "mais galante e mais novo".<br><br>📚 <b>Cunha &amp; Cintra:</b> A interpretação literal deve identificar o argumento explícito do enunciador. Dois argumentos: distinção da estratégia de Moisés e busca pela originalidade.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Em Machado, o narrador sempre justifica suas escolhas com argumento lógico-humorístico. Localize o argumento antes de marcar. O humor não elimina a lógica — reforça-a.</div>
+</div></div></div>
+<div class="slide" id="s7">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 7/129</span><span class="qchip assunto">2021 · ESA-2021</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TIRINHA — Calvin & Haroldo: Teste de Comunicação (ESA-2024)</div><p><b>Contexto da tirinha:</b> Calvin usa dois copinhos ligados por um barbante como "telefone" e chama Haroldo: <em>"Alô? Está me ouvindo?"</em> — testando se o canal de comunicação está funcionando. Haroldo responde que sim.</p>
+<p>A tirinha ilustra a função fática da linguagem (Jakobson): o foco está em testar e manter o <strong>canal de comunicação</strong>, e não em transmitir uma mensagem de conteúdo.</p><div class="passagem-note">Tirinha de B. Watterson — Calvin & Haroldo. (Adaptado).</div></div>
+<div class="qtitulo">Função da Linguagem — Tirinha Calvin (Canal)</div>
+<div class="qenunciado">Em uma tira em que Calvin testa o canal de comunicação com Haroldo ("Alô? Está me ouvindo?"), a função da linguagem predominante é:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,4)"><span class="alt-letra">A</span><span class="alt-txt">conativa (apelativa).</span></div>
+<div class="alt" onclick="sa(this,1,4)"><span class="alt-letra">B</span><span class="alt-txt">metalinguística.</span></div>
+<div class="alt" onclick="sa(this,2,4)"><span class="alt-letra">C</span><span class="alt-txt">poética.</span></div>
+<div class="alt" onclick="sa(this,3,4)"><span class="alt-letra">D</span><span class="alt-txt">denotativa (referencial).</span></div>
+<div class="alt" onclick="sa(this,4,4)"><span class="alt-letra">E</span><span class="alt-txt">fática.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>E</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">A <b>função fática</b> (Jakobson) é centrada no canal — verifica se está funcionando. "Alô?", "Está me ouvindo?" são exemplos clássicos.<br><br>📚 <b>Cunha &amp; Cintra:</b> As 6 funções de Jakobson: Fática (canal), Emotiva (emissor), Conativa (receptor), Referencial (contexto), Metalinguística (código), Poética (mensagem).</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Fática = canal. Sempre que o enunciado verifica se a comunicação funciona (alô, pronto, você me ouve?), é função fática. Conativa = receptor (imperativo/vocativo).</div>
+</div></div></div>
+<div class="slide" id="s8">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 8/129</span><span class="qchip assunto">2023 · ESA-2023</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO I — Duelo de Gigantes: Pelé x Maradona (ESA-2023)</div><p>O camisa 10 recebe a bola no meio do campo. Jogadores do time adversário o cercam e tentam pará-lo de qualquer maneira. O primeiro marcador se aproxima e vê a bola passar por debaixo das pernas. Vem o segundo e também leva no meio das canetas. Aparece mais um para dar o bote e, olé!, também passa batido. Não, essa não é a descrição do célebre lance que fez a fama do argentino Diego Maradona. Na partida contra a Inglaterra, pela Copa do Mundo de 1986, no México, ele driblou quatro jogadores, deixou o goleiro no chão e mandou a bola para o fundo das redes, marcando aquele que é considerado, por muitos, o gol mais bonito de todos os tempos.</p>
+<p>Mas o camisa 10 de que estamos falando é o homem que transformou esse número em sinônimo de arte e genialidade no futebol: Pelé. Enquanto o golaço de Maradona foi visto e revisto em todo o mundo, ao vivo e em cores, pouca gente testemunhou um lance parecido de Pelé durante um amistoso do Santos nos anos 60. O craque argentino explodiu numa época em que a televisão já chegava a todos os rincões do planeta. Já o brasileiro conseguiu se tornar uma lenda viva, praticamente só com a ajuda das ondas do rádio.</p>
+<p>Agora, algumas de suas jogadas mais espetaculares foram resgatadas pelo filme <em>Pelé Eterno</em>, que estreou em junho. Segundo o próprio Pelé, o filme, dirigido por Aníbal Massaini, vai acabar, de uma vez por todas, com uma questão que vem dividindo os fãs de futebol nas últimas duas décadas. Afinal, quem foi melhor: Pelé ou Maradona?</p><div class="passagem-note">GUILHERME, Paulo. Disponível em: https://super.abril.com.br/sociedade/duelo-de-gigantes-pele-x-maradona/. (Adaptado).</div></div>
+<div class="qtitulo">Interpretação — Pelé x Maradona</div>
+<div class="qenunciado">Com a leitura do Texto I ("Duelo de gigantes — Pelé x Maradona"), pode-se concluir que:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">Pelé e Maradona são iguais em suas habilidades.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">O camisa 10 brasileiro se destacou sem televisão; o argentino explodiu com o advento televisivo.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">O argentino ficou mais conhecido pelo rádio e o brasileiro pela televisão.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">Maradona é melhor que Pelé em todos os aspectos esportivos.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">Pelé é melhor que Maradona em todos os aspectos esportivos.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">O texto afirma que Pelé tornou-se lenda com as ondas do rádio, enquanto Maradona explodiu com a televisão já acessível a todos.<br><br>❌ <b>C inverte os meios</b> atribuídos a cada atleta — armadilha clássica. D e E emitem juízo de valor não presente no texto.<br><br>📚 <b>Cunha &amp; Cintra:</b> Confronte alternativas com o texto palavra a palavra. Inversões de dados são a principal armadilha em interpretação.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Sempre confronte alternativas com o texto. Inversões de dados (quem usou rádio/TV) são a armadilha mais frequente em questões de interpretação da ESA.</div>
+</div></div></div>
+<div class="slide" id="s9">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 9/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO I — Canção do Expedicionário (ESA-2024)</div><pre style="font-family:Georgia,serif;white-space:pre-wrap;font-size:.85rem;line-height:1.8">Você sabe de onde eu venho?
+Venho do morro, do engenho
+Das selvas, dos cafezais
+Da boa terra do coco
+Da choupana onde um é pouco
+Dois é bom, três é demais
+
+Venho das praias sedosas
+Das montanhas alterosas
+Dos pampas, do seringal
+Das margens crespas dos rios
+Dos verdes mares bravios
+Da minha terra natal
+
+Por mais terras que eu percorra
+Não permita Deus que eu morra
+Sem que volte para lá
+Sem que leve por divisa
+Esse V que simboliza
+A vitória que virá
+
+Nossa vitória final
+Que é a mira do meu fuzil
+A ração do meu bornal
+A água do meu cantil
+As asas do meu ideal
+A glória do meu Brasil
+
+[...] Eu venho da minha terra
+Da casa branca da serra
+E do luar do meu sertão
+Venho da minha Maria
+Cujo nome principia
+Na palma de minha mão
+
+Venho do além desse monte
+Que ainda azula no horizonte
+Onde o nosso amor nasceu
+Do rancho que tinha ao lado
+Um coqueiro que, coitado
+De saudade já morreu
+
+Venho do verde mais belo
+Do mais dourado amarelo
+Do azul mais cheio de luz
+Cheio de estrelas prateadas
+Que se ajoelham deslumbradas
+Fazendo o sinal da cruz</pre><div class="passagem-note">DE ALMEIDA, G.; ROSSI, S. Canção do Expedicionário. 1944.</div></div>
+<div class="qtitulo">Incorreção — Canção do Expedicionário</div>
+<div class="qenunciado">Observando a Canção do Expedicionário, identifique a alternativa INCORRETA:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">Retrata sentimento saudosista em relação à Pátria.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">Identifica-se o uso da antítese recorrentemente.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">Existe regularidade na rima.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">É uma obra intertextual.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">Possui regularidade sintática dos termos.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">A antítese (oposição de ideias contrárias) <b>não aparece recorrentemente</b> — predominam anáfora, enumeração e imagens saudosistas.<br><br>📚 <b>Cunha &amp; Cintra:</b> Antítese exige pares de opostos explícitos e sistemáticos (vida/morte, luz/trevas). A ausência de recorrência invalida a afirmação.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Antítese exige pares de opostos EXPLÍCITOS e RECORRENTES. 'Recorrentemente' é a palavra-armadilha: verifique se a figura aparece sistematicamente no texto antes de marcá-la.</div>
+</div></div></div>
+<div class="slide" id="s10">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 10/129</span><span class="qchip assunto">2025 · ESA-2025</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO IV — Canção Sargento Max Wolff Filho (ESA-2025)</div><pre style="font-family:Georgia,serif;white-space:pre-wrap;font-size:.85rem;line-height:1.8">I
+Em mil novecentos e onze,
+no interior do Paraná,
+nasceu um herói de guerra
+para o Brasil se orgulhar.
+
+Fiel e audaz voluntário,
+intrépido nas decisões,
+o guerreiro ardoroso não teme,
+cumpre sempre as suas missões.
+
+II
+No campo ardil da batalha,
+o infante empunha o fuzil,
+carrega no peito estandarte,
+glória do nosso Brasil.
+
+Deixou para nós o legado
+repleto de fé e ações
+do soldado até o comandante,
+somos todos fiéis guardiões.
+
+Estribilho
+A Pátria enaltece
+seu bravo tão querido,
+sargento Max Wolff Filho,
+valoroso e aguerrido!</pre><div class="passagem-note">FIGUEIREDO, Denir; TONIOLO, Marcos Cesar. Canção Sargento Max Wolff Filho. 2021.</div></div>
+<div class="qtitulo">Estratégia Textual — Canção Sargento Max Wolff</div>
+<div class="qenunciado">Após a leitura da Canção Sargento Max Wolff Filho, observa-se que a letra tem como estratégia:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">Dirimir seus grandes feitos em missões de modo que o brasileiro se orgulhe.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">Demonstrar sentimento de altivez pelo soldado que deixou um legado de bravura por suas ações.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">Desestimar um herói de guerra que lutou bravamente pelo Brasil.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">Salientar que o guerreiro esmoreceu e teve sua memória ofuscada.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">Retificar a importância do Sargento, corroborando que sua influência foi minimizada.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">A canção exalta o Sargento Max Wolff com sentimento de <b>altivez (orgulho)</b> e reconhecimento por seu legado de bravura. A estratégia central é enaltecer o herói.<br><br>❌ C e D contradizem o tom laudatório; E pressupõe que a influência foi minimizada — ao contrário, é celebrada.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Em textos militares laudatórios (hinos, canções), a estratégia quase sempre é enaltecer e perpetuar. Elimine alternativas que sugerem crítica, rebaixamento ou esquecimento.</div>
+</div></div></div>
+<div class="slide" id="s11">
+<div class="topbar laranja"><div class="topbar-left"><div class="topbar-tag">Módulo 11</div><div class="topbar-title">Módulo 11 — Funções Sintáticas do Pronome Relativo</div><div class="topbar-sub">Que · quem · onde · cujo · o qual · funções sintáticas nas orações adjetivas</div></div><div class="topbar-right">M11</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 11/129</span><span class="qchip assunto">2023 · ESA-2023</span></div>
+<div class="sb">
+<div class="qtitulo">Uso de 'onde' — Norma Padrão</div>
+<div class="qenunciado">Identifique, em "Cedo revelou interesse pela carreira militar, onde galgou postos por merecimento", qual expressão NÃO está de acordo com a norma padrão:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">interesse pela</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">onde</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">postos por merecimento</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">graças a</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">demonstrações de bravura, de tenacidade e de inteligência</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content"><b>"Onde"</b> refere-se a lugar físico. "Carreira militar" não é lugar; o correto seria "na qual" ou "em que".<br><br>📚 <b>Cunha &amp; Cintra:</b> São categóricos: "onde" refere-se exclusivamente a lugar. Para antecedentes abstratos (carreira, ideia, situação), usa-se "em que" ou "no qual/na qual".</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> "Onde" = lugar físico concreto. Para antecedentes abstratos (carreira, período, situação), use 'em que' ou 'no qual/na qual'. Questão clássica e recorrente da ESA.</div>
+</div></div></div>
+<div class="slide" id="s12">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 12/129</span><span class="qchip assunto">2023 · ESA-2023</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TIRINHA — Evolução da Comunicação (ESA-2023)</div><p><b>Descrição da tirinha:</b> A tirinha mostra uma sequência em linha do tempo: <strong>homem das cavernas</strong> fazendo pinturas rupestres → <strong>escriba egípcio</strong> registrando em papiro → <strong>homem lendo jornal</strong> → <strong>homem moderno com celular</strong>, mas com expressão e postura primitiva, semelhante à do primeiro quadro.</p>
+<p>A ironia central está no último quadro: apesar do avanço tecnológico (celular), o comportamento humano regrediu ao nível primitivo. A tirinha critica que o homem <em>não evoluiu</em> na mesma medida que a tecnologia.</p>
+<p>Assertivas da questão:<br>
+<strong>I.</strong> A tirinha mostra uma linha do tempo da evolução da comunicação. ✔<br>
+<strong>II.</strong> A ironia está no último personagem, que se assemelha ao primeiro, embora esteja com artefato moderno. ✔<br>
+<strong>III.</strong> O homem evoluiu tanto quanto a tecnologia. ✗ (ERRADO — a tirinha critica que ele <em>não</em> evoluiu)</p><div class="passagem-note">Disponível em: http://www.ojornalista.com/2009/08/tirinha-a-evolucao-da-comunicacao. Acesso em 19 de dezembro de 2023.</div></div>
+<div class="qtitulo">Assertivas — Tirinha Evolução da Comunicação</div>
+<div class="qenunciado">Tirinha: homem das cavernas → escriba → jornal → homem moderno com celular e expressão primitiva. I. A tirinha mostra linha do tempo da evolução da comunicação. II. A ironia está no último personagem que se assemelha ao primeiro. III. O homem evoluiu na mesma medida da tecnologia. Marque o item correto:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Apenas a assertiva I está correta.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Apenas a assertiva III está correta.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">Estão corretas as assertivas I e II.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Estão corretas as assertivas I e III.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Todas as assertivas estão corretas.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">I ✔ A tirinha exibe linha do tempo. II ✔ A ironia central: o homem com celular regride ao comportamento primitivo.<br><br>❌ <b>III está ERRADA:</b> A tirinha critica que o homem NÃO evoluiu na mesma medida da tecnologia.<br><br>📚 <b>Cunha &amp; Cintra:</b> Ironia = dissonância entre o que se mostra e o que se quer comunicar. Tecnologia avança; comportamento regride.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Em questões com assertivas sobre tirinhas, a que contradiz a mensagem crítica ou irônica central será a incorreta. A ironia pressupõe inversão de expectativa.</div>
+</div></div></div>
+<div class="slide" id="s13">
+<div class="topbar roxo"><div class="topbar-left"><div class="topbar-tag">Módulo 8</div><div class="topbar-title">Módulo 8 — Termos da Oração (Análise Sintática)</div><div class="topbar-sub">Sujeito · predicado · OD · OI · adjuntos · complemento nominal · aposto</div></div><div class="topbar-right">M8</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 13/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="qtitulo">Análise Morfossintática — 'além desse monte'</div>
+<div class="qenunciado">Observe o trecho "Venho do além desse monte". Assinale a análise morfossintática CORRETA:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">O sujeito da oração é indeterminado.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">"Venho do além desse monte" é predicado verbal.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">"além desse monte" é adjunto adverbial.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">"do além" é núcleo do adjunto adverbial.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">"desse" é complemento nominal do adjunto adverbial.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">"além desse monte" = <b>adjunto adverbial de lugar</b> (responde a "onde venho"). O sujeito está oculto (eu), não indeterminado.<br><br>📚 <b>Cunha &amp; Cintra:</b> Adjunto adverbial modifica o verbo indicando circunstância (lugar, tempo, modo, causa). Sujeito oculto ≠ sujeito indeterminado.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Sujeito oculto = identificável pela desinência verbal ou contexto. Sujeito indeterminado = impossível identificar ('Dizem que...', 'Precisa-se de...'). Aqui, a desinência '-o' em 'venho' identifica o sujeito: eu.</div>
+</div></div></div>
+<div class="slide" id="s14">
+<div class="topbar laranja"><div class="topbar-left"><div class="topbar-tag">Módulo 7</div><div class="topbar-title">Módulo 7 — Classes de Palavras e Empregos</div><div class="topbar-sub">Substantivo · adjetivo · pronome · verbo · advérbio · conjunção · preposição</div></div><div class="topbar-right">M7</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 14/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="qtitulo">Classificação — 'nos' reflexivo</div>
+<div class="qenunciado">Assinale a alternativa que classifica corretamente o "nos" em "tornávamo-nos inquietos":</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Pronome apassivador.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Pronome pessoal do caso reto.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">Pronome reflexivo.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Objeto direto.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Sujeito.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">O "nos" em "tornávamo-nos" tem valor reflexivo: eles tornavam a si mesmos inquietos. Pronome oblíquo reflexivo de 1ª pessoa do plural.<br><br>📚 <b>Cunha &amp; Cintra:</b> Pronome reflexivo = o sujeito pratica e recebe a ação ao mesmo tempo. Formas: me/te/se/nos/vos.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Teste do reflexivo: substitua por 'a nós mesmos'. 'Tornávamo-nos inquietos' = 'tornávamos a nós mesmos inquietos' ✔ = reflexivo.</div>
+</div></div></div>
+<div class="slide" id="s15">
+<div class="topbar roxo"><div class="topbar-left"><div class="topbar-tag">Módulo 8</div><div class="topbar-title">Módulo 8 — Termos da Oração (Análise Sintática)</div><div class="topbar-sub">Sujeito · predicado · OD · OI · adjuntos · complemento nominal · aposto</div></div><div class="topbar-right">M8</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 15/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="qtitulo">Função Sintática de '-lo' — OD</div>
+<div class="qenunciado">Qual a função sintática de "-LO" em "Como o Otto pode ajudá-LO a ler revistas?"</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Classe morfológica: pronome oblíquo.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Objeto indireto.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">Objeto direto.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Agente da passiva.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Substantivo.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">"Ajudar" é VTD. "Lo" (=o) = pronome oblíquo exercendo função de <b>objeto direto</b> — complemento sem preposição.<br><br>📚 <b>Cunha &amp; Cintra:</b> Não confunda CLASSE (pronome oblíquo) com FUNÇÃO (objeto direto). A questão pede a função sintática.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> CLASSE ≠ FUNÇÃO. 'Lo' = pronome oblíquo (classe morfológica). Objeto direto = função sintática. Sempre responda com a função quando a questão pede função sintática.</div>
+</div></div></div>
+<div class="slide" id="s16">
+<div class="topbar verde"><div class="topbar-left"><div class="topbar-tag">Módulo 10</div><div class="topbar-title">Módulo 10 — Orações Subordinadas</div><div class="topbar-sub">Substantivas · adjetivas · adverbiais · reduzidas · conjunções subordinativas</div></div><div class="topbar-right">M10</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 16/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="qtitulo">Classificação da Oração — 'para corrigir'</div>
+<div class="qenunciado">Em "...estar sempre pronto para corrigir com sereno rigor", a oração "para corrigir com sereno rigor" é:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">Subordinada adverbial final reduzida de infinitivo.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">Subordinada adverbial condicional reduzida de infinitivo.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">Subordinada adjetiva restritiva reduzida de infinitivo.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">Subordinada substantiva completiva nominal reduzida de infinitivo.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">Subordinada substantiva objetiva indireta reduzida de infinitivo.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">"para corrigir" = <b>a fim de corrigir</b> = finalidade. Oração reduzida de infinitivo introduzida por "para".<br><br>📚 <b>Cunha &amp; Cintra:</b> "Para + infinitivo" = finalidade = adverbial final reduzida. Forma desenvolvida: "para que + subjuntivo".</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> "Para + infinitivo" = finalidade = adverbial final reduzida. Teste: substitua por 'a fim de que corrigisse'. Se funcionar, é final.</div>
+</div></div></div>
+<div class="slide" id="s17">
+<div class="topbar verde"><div class="topbar-left"><div class="topbar-tag">Módulo 6</div><div class="topbar-title">Módulo 6 — Formação e Estrutura das Palavras</div><div class="topbar-sub">Derivação · composição · prefixos · sufixos · processos de formação</div></div><div class="topbar-right">M6</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 17/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TIRINHA — Recruta Zero (ESA-2024)</div><p><b>Descrição da tira:</b> O Recruta Zero diz a um colega: <em>"Eu me sinto <strong>completamente</strong> perdido aqui no Exército!"</em> O colega responde: <em>"Calma! Você vai se acostumar."</em></p>
+<p>A questão foca na palavra <strong>"completamente"</strong> no segundo balão da tira, pedindo análise morfológica do processo de formação da palavra.</p><div class="passagem-note">WALKER, M.; WALKER, G. Recruta Zero. (Adaptado). Acesso em: 12 abr. 2024.</div></div>
+<div class="qtitulo">'completamente' — Sufixo Adverbial</div>
+<div class="qenunciado">Sobre a palavra "completamente", presente na tira do Recruta Zero, é correto afirmar que:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">Possui um sufixo adverbial.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">É composta por dois afixos.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">Possui um prefixo de origem grega.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">Apresenta uma derivação parassintética.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">Foi formada por meio da derivação prefixal.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content"><b>"Completamente"</b> = completa + <em>-mente</em> (sufixo adverbial que transforma adjetivo em advérbio). Um único afixo: sufixo.<br><br>📚 <b>Cunha &amp; Cintra:</b> O sufixo <em>-mente</em> junta-se à forma feminina do adjetivo para formar advérbios de modo: completa→completamente, rápida→rapidamente.<br><br>❌ B: dois afixos implica prefixo + sufixo (parassíntese); C: não há prefixo grego; D: parassíntese exige prefixo E sufixo simultâneos; E: foi derivação sufixal, não prefixal.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Derivação sufixal simples: apenas um sufixo. '-mente' = sufixo adverbial (o único afixo de 'completamente'). Não confundir com parassíntese (prefixo + sufixo simultâneos).</div>
+</div></div></div>
+<div class="slide" id="s18">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 18/129</span><span class="qchip assunto">2023 · ESA-2023</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO I — Duelo de Gigantes: Pelé x Maradona (ESA-2023)</div><p>O camisa 10 recebe a bola no meio do campo. Jogadores do time adversário o cercam e tentam pará-lo de qualquer maneira. O primeiro marcador se aproxima e vê a bola passar por debaixo das pernas. Vem o segundo e também leva no meio das canetas. Aparece mais um para dar o bote e, olé!, também passa batido. Não, essa não é a descrição do célebre lance que fez a fama do argentino Diego Maradona. Na partida contra a Inglaterra, pela Copa do Mundo de 1986, no México, ele driblou quatro jogadores, deixou o goleiro no chão e mandou a bola para o fundo das redes, marcando aquele que é considerado, por muitos, o gol mais bonito de todos os tempos.</p>
+<p>Mas o camisa 10 de que estamos falando é o homem que transformou esse número em sinônimo de arte e genialidade no futebol: Pelé. Enquanto o golaço de Maradona foi visto e revisto em todo o mundo, ao vivo e em cores, pouca gente testemunhou um lance parecido de Pelé durante um amistoso do Santos nos anos 60. O craque argentino explodiu numa época em que a televisão já chegava a todos os rincões do planeta. Já o brasileiro conseguiu se tornar uma lenda viva, praticamente só com a ajuda das ondas do rádio.</p>
+<p>Agora, algumas de suas jogadas mais espetaculares foram resgatadas pelo filme <em>Pelé Eterno</em>, que estreou em junho. Segundo o próprio Pelé, o filme, dirigido por Aníbal Massaini, vai acabar, de uma vez por todas, com uma questão que vem dividindo os fãs de futebol nas últimas duas décadas. Afinal, quem foi melhor: Pelé ou Maradona?</p><div class="passagem-note">GUILHERME, Paulo. Disponível em: https://super.abril.com.br/sociedade/duelo-de-gigantes-pele-x-maradona/. (Adaptado).</div></div>
+<div class="qtitulo">Interpretação — Pelé x Maradona (Texto I)</div>
+<div class="qenunciado">Com a leitura do Texto I ("Duelo de gigantes — Pelé x Maradona"), pode-se concluir que:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">Pelé e Maradona são iguais em suas habilidades.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">O camisa 10 brasileiro se destacou sem televisão; o argentino ficou conhecido com o advento televisivo.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">O argentino ficou mais conhecido pelo rádio e o brasileiro pela televisão.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">Maradona é melhor que Pelé em todos os aspectos esportivos.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">Pelé é melhor que Maradona em todos os aspectos esportivos.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">O texto afirma que Pelé tornou-se lenda com as ondas do rádio, enquanto Maradona explodiu com a televisão já acessível a todos.<br><br>❌ <b>C inverte os meios</b> — armadilha clássica da ESA. D e E emitem juízo de valor não presente no texto.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Inversões de dados (rádio/TV para cada atleta) são a armadilha mais frequente em questões de interpretação. Sempre confronte as alternativas com o texto palavra a palavra.</div>
+</div></div></div>
+<div class="slide" id="s19">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 19/129</span><span class="qchip assunto">2023 · ESA-2023</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TIRINHA — Evolução da Comunicação (ESA-2023)</div><p><b>Descrição da tirinha:</b> A tirinha mostra uma sequência em linha do tempo: <strong>homem das cavernas</strong> fazendo pinturas rupestres → <strong>escriba egípcio</strong> registrando em papiro → <strong>homem lendo jornal</strong> → <strong>homem moderno com celular</strong>, mas com expressão e postura primitiva, semelhante à do primeiro quadro.</p>
+<p>A ironia central está no último quadro: apesar do avanço tecnológico (celular), o comportamento humano regrediu ao nível primitivo. A tirinha critica que o homem <em>não evoluiu</em> na mesma medida que a tecnologia.</p>
+<p>Assertivas da questão:<br>
+<strong>I.</strong> A tirinha mostra uma linha do tempo da evolução da comunicação. ✔<br>
+<strong>II.</strong> A ironia está no último personagem, que se assemelha ao primeiro, embora esteja com artefato moderno. ✔<br>
+<strong>III.</strong> O homem evoluiu tanto quanto a tecnologia. ✗ (ERRADO — a tirinha critica que ele <em>não</em> evoluiu)</p><div class="passagem-note">Disponível em: http://www.ojornalista.com/2009/08/tirinha-a-evolucao-da-comunicacao. Acesso em 19 de dezembro de 2023.</div></div>
+<div class="qtitulo">Assertivas — Tirinha Evolução da Comunicação (Q111)</div>
+<div class="qenunciado">I. A tirinha mostra uma ideia de linha do tempo da evolução da comunicação. II. A ironia está no último personagem que se assemelha ao primeiro, embora esteja com artefato moderno. III. O homem evoluiu na mesma medida da tecnologia. Marque o item correto:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Apenas a assertiva I está correta.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Apenas a assertiva III está correta.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">Estão corretas as assertivas I e II.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Estão corretas as assertivas I e III.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Todas as assertivas estão corretas.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">I ✔ linha do tempo da comunicação. II ✔ ironia: o homem com celular regride ao comportamento primitivo.<br><br>❌ <b>III ERRADA:</b> a tirinha critica que o homem NÃO evoluiu na mesma medida da tecnologia.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Nas tirinhas com assertivas, a que contradiz a crítica ou ironia central será a incorreta. A ironia pressupõe inversão de expectativa.</div>
+</div></div></div>
+<div class="slide" id="s20">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 20/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO I — Canção do Expedicionário (ESA-2024)</div><pre style="font-family:Georgia,serif;white-space:pre-wrap;font-size:.85rem;line-height:1.8">Você sabe de onde eu venho?
+Venho do morro, do engenho
+Das selvas, dos cafezais
+Da boa terra do coco
+Da choupana onde um é pouco
+Dois é bom, três é demais
+
+Venho das praias sedosas
+Das montanhas alterosas
+Dos pampas, do seringal
+Das margens crespas dos rios
+Dos verdes mares bravios
+Da minha terra natal
+
+Por mais terras que eu percorra
+Não permita Deus que eu morra
+Sem que volte para lá
+Sem que leve por divisa
+Esse V que simboliza
+A vitória que virá
+
+Nossa vitória final
+Que é a mira do meu fuzil
+A ração do meu bornal
+A água do meu cantil
+As asas do meu ideal
+A glória do meu Brasil
+
+[...] Eu venho da minha terra
+Da casa branca da serra
+E do luar do meu sertão
+Venho da minha Maria
+Cujo nome principia
+Na palma de minha mão
+
+Venho do além desse monte
+Que ainda azula no horizonte
+Onde o nosso amor nasceu
+Do rancho que tinha ao lado
+Um coqueiro que, coitado
+De saudade já morreu
+
+Venho do verde mais belo
+Do mais dourado amarelo
+Do azul mais cheio de luz
+Cheio de estrelas prateadas
+Que se ajoelham deslumbradas
+Fazendo o sinal da cruz</pre><div class="passagem-note">DE ALMEIDA, G.; ROSSI, S. Canção do Expedicionário. 1944.</div></div>
+<div class="qtitulo">INCORRETO — Canção do Expedicionário (Q112)</div>
+<div class="qenunciado">Observando a Canção do Expedicionário (Texto I), identifique a alternativa INCORRETA:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">Retrata um sentimento saudosista em relação à Pátria.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">Identifica-se o uso da antítese recorrentemente.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">Existe uma regularidade na rima.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">É uma obra intertextual.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">Possui regularidade sintática dos termos.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">A antítese <b>não aparece recorrentemente</b> — predominam anáfora, enumeração e imagens saudosistas.<br><br>📚 <b>Cunha &amp; Cintra:</b> Antítese exige pares de opostos explícitos e sistemáticos.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> 'Recorrentemente' é a palavra-armadilha: verifique se a figura aparece sistematicamente antes de marcar.</div>
+</div></div></div>
+<div class="slide" id="s21">
+<div class="topbar roxo"><div class="topbar-left"><div class="topbar-tag">Módulo 8</div><div class="topbar-title">Módulo 8 — Termos da Oração (Análise Sintática)</div><div class="topbar-sub">Sujeito · predicado · OD · OI · adjuntos · complemento nominal · aposto</div></div><div class="topbar-right">M8</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 21/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO I — Canção do Expedicionário (ESA-2024) — Trecho para análise</div><p>Trecho do Texto I (Canção do Expedicionário) referenciado nesta questão:</p>
+<blockquote style="border-left:3px solid #c8960c;padding:6px 12px;margin:8px 0;font-style:italic;font-size:.9rem">
+"Venho do além desse monte<br>
+Que ainda azula no horizonte<br>
+Onde o nosso amor nasceu"
+</blockquote>
+<p>Neste trecho, "além" está sendo usado como <strong>substantivo</strong> (precedido de artigo: "do além"), exercendo a função de núcleo do adjunto adverbial de lugar.</p><div class="passagem-note">DE ALMEIDA, G.; ROSSI, S. Canção do Expedicionário. 1944.</div></div>
+<div class="qtitulo">Análise Morfossintática — 'além desse monte' (Q113)</div>
+<div class="qenunciado">"Observe o trecho do Texto I: 'Venho do além desse monte'. Assinale a alternativa que faz a análise morfossintática CORRETA:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">O sujeito da oração é indeterminado.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">"Venho do além desse monte" é predicado verbal.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">"além desse monte" é adjunto adverbial.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">"do além" é núcleo do adjunto adverbial.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">"desse" é complemento nominal do adjunto adverbial.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content"><b>"além desse monte"</b> = adjunto adverbial de lugar. O sujeito está oculto (eu), não indeterminado.<br><br>📚 <b>Cunha &amp; Cintra:</b> Sujeito oculto = identificável pela desinência verbal. Sujeito indeterminado = impossível identificar.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Sujeito oculto ≠ indeterminado. Em 'venho' a desinência -o identifica o sujeito eu. Indeterminado = 'Dizem que...' (sem como identificar).</div>
+</div></div></div>
+<div class="slide" id="s22">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 22/129</span><span class="qchip assunto">2024 · ESA-2024</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TIRINHA — Calvin & Haroldo (ESA-2024)</div><p><b>Contexto da tirinha:</b> Calvin questiona o pai sobre uma estatística que ouviu — de que as crianças assistem muita TV. O pai concorda que os pais deveriam controlar mais. Calvin, então, rebate: <em>"Você nem sabe disso, você acha que os pais acham que…"</em> — ao que o pai responde com ironia: <em>"Boa tentativa."</em></p>
+<p>A tirinha explora como Calvin tenta usar dados para convencer o pai, mas é desacreditado. As expressões <strong>"saber disso"</strong>, <strong>"acham que"</strong> e <strong>"boa tentativa"</strong> são marcas do tipo textual argumentativo/persuasivo.</p><div class="passagem-note">WATTERSON, B. Calvin & Haroldo. 18 out. 2022. (Adaptado). Acesso em: 11 abr. 2024.</div></div>
+<div class="qtitulo">Tipo Textual — Calvin &amp; Haroldo (Q114)</div>
+<div class="qenunciado">Tendo em vista o contexto geral da tirinha (Calvin &amp; Haroldo) e expressões como "saber disso", "acham que" e "boa tentativa", o tipo textual predominante é:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Informativo.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Publicitário.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">Argumentativo.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Expositivo.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Descritivo.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">Recursos de persuasão e contra-argumentação ("boa tentativa" = ironia de refutação). Tipo textual predominante = <b>argumentativo</b>.<br><br>📚 <b>Cunha &amp; Cintra:</b> Argumentativo = organizado para convencer, com tese, argumentos e refutação.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Pistas do argumentativo: 'acham que' (descredencia adversário), 'boa tentativa' (ironia = refutação), 'saber disso' (apelo à autoridade).</div>
+</div></div></div>
+<div class="slide" id="s23">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo 1</div><div class="topbar-title">Módulo 1 — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · textos verbais e não verbais · charges · tirinhas</div></div><div class="topbar-right">M1</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 23/129</span><span class="qchip assunto">2025 · ESA-2025</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">TEXTO IV — Canção Sargento Max Wolff Filho (ESA-2025)</div><pre style="font-family:Georgia,serif;white-space:pre-wrap;font-size:.85rem;line-height:1.8">I
+Em mil novecentos e onze,
+no interior do Paraná,
+nasceu um herói de guerra
+para o Brasil se orgulhar.
+
+Fiel e audaz voluntário,
+intrépido nas decisões,
+o guerreiro ardoroso não teme,
+cumpre sempre as suas missões.
+
+II
+No campo ardil da batalha,
+o infante empunha o fuzil,
+carrega no peito estandarte,
+glória do nosso Brasil.
+
+Deixou para nós o legado
+repleto de fé e ações
+do soldado até o comandante,
+somos todos fiéis guardiões.
+
+Estribilho
+A Pátria enaltece
+seu bravo tão querido,
+sargento Max Wolff Filho,
+valoroso e aguerrido!</pre><div class="passagem-note">FIGUEIREDO, Denir; TONIOLO, Marcos Cesar. Canção Sargento Max Wolff Filho. 2021.</div></div>
+<div class="qtitulo">Estratégia Textual — Sargento Max Wolff (Q127)</div>
+<div class="qenunciado">Após a leitura da Canção Sargento Max Wolff Filho (Texto IV), a letra tem como estratégia:</div>
+<div class="alternativas"><div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">Dirimir seus grandes feitos em missões de modo que o brasileiro se orgulhe.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">Demonstrar sentimento de altivez pelo soldado renitente que deixou um legado de bravura por suas ações.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">Desestimar um herói de guerra que lutou bravamente pelo Brasil.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">Salientar que o guerreiro esmoreceu e teve sua memória ofuscada.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">Retificar a importância do Sargento Max Wolff, corroborando que sua influência foi minimizada.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cunha &amp; Cintra</div>
+<div class="gab-content">A canção exalta o Sargento Max Wolff com <b>sentimento de altivez</b> e reconhecimento por seu legado de bravura.<br><br>❌ C e D contradizem o tom laudatório; E pressupõe que a influência foi minimizada.</div>
+<div class="gab-dica">💡 <strong>Dica de Prova:</strong> Em textos laudatórios militares, a estratégia é enaltecer e perpetuar. Elimine alternativas que sugerem crítica ou esquecimento.</div>
+</div></div></div>
+
+<!-- ═══════════════════════════════════════
+  SLIDE BLOQUEIO — ACESSO COMPLETO
+═══════════════════════════════════════ -->
+<div class="slide" data-title="Conteúdo Completo — Módulos Seguintes" id="s-fim">
+  <div class="topbar" style="background:linear-gradient(135deg,#1a1a2e,#16213e);border-color:#4a4a8a;">
+    <div class="topbar-left">
+      <div class="topbar-tag" style="color:rgba(255,255,255,.45);">Guia Preparatório Capitão Valdir</div>
+      <div class="topbar-title" style="color:white;">🔒 Conteúdo Completo — Módulos Seguintes</div>
+      <div class="topbar-sub" style="color:rgba(255,255,255,.6);">Acesso ao material integral · Módulos 2 a 20</div>
+    </div>
+    <div class="topbar-right" style="color:rgba(255,255,255,.15);">🔒</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);overflow-y:auto;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:18px;padding:36px 24px;max-width:520px;width:100%;text-align:center;">
+
+      <div style="font-size:64px;line-height:1;filter:drop-shadow(0 4px 18px rgba(0,0,0,.5));">🔒</div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#ffffff;line-height:1.25;">
+        Conteúdo Completo<br>— Módulos Seguintes
+      </div>
+
+      <div style="width:50px;height:3px;background:#D4A017;border-radius:2px;"></div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:400;color:rgba(255,255,255,.75);line-height:1.7;max-width:400px;">
+        Para ter acesso ao material completo, entre em contato com o <strong style="color:#D4A017;">Guia Preparatório Capitão Valdir</strong>.
+      </div>
+
+      <a href="mailto:guiaprepcapvaldir@gmail.com"
+         style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#B8860B,#D4A017);color:#1a0e00;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:14px 28px;border-radius:10px;text-decoration:none;box-shadow:0 4px 20px rgba(212,160,23,.35);letter-spacing:.02em;margin-top:4px;">
+        📧 Quero Acesso ao Material Completo
+      </a>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:rgba(212,160,23,.65);letter-spacing:.06em;">
+        guiaprepcapvaldir@gmail.com
+      </div>
+
+      <div style="width:100%;height:1px;background:rgba(255,255,255,.08);margin:4px 0;"></div>
+
+      <button onclick="goTo(0)" style="background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:8px 22px;border-radius:7px;cursor:pointer;letter-spacing:.03em;">
+        ⬆ Voltar à Capa
+      </button>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- BOTTOM NAV -->
+<div class="nav" id="nav">
+  <button class="nbtn" onclick="goTo(0)">🏠 Início</button>
+  <button class="nbtn" id="btn-prev" onclick="prev()" disabled>← Ant.</button>
+  <div class="pw"><div class="pb" id="pb"></div></div>
+  <span class="ntitle" id="ntitle">Capa</span>
+  <span class="ncnt" id="ncnt"></span>
+  <span style="font-size:10px;color:rgba(255,255,255,.2);white-space:nowrap;">← →</span>
+  <button class="nbtn" id="btn-next" onclick="next()">Próx. →</button>
+</div>
+
+<script>
+// === MODULE MAP (questão 1-129 → módulo 1-20) ===
+const SM={1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1};
+
+// === GLOBAL SLIDE REGISTRY ===
+// Named slides (fixed positions): capa=0, apres=1, metodo=2, sumario=3
+// Question slides: s1..s129 → IDs 4..132
+// analise-capa=133, analise=134, fim=135
+// Total = 136 slides
+
+const NAMED = ['s-capa','s-apres','s-metodo','s-sumario'];
+const Q_OFFSET = 4; // question s1 is at position 4
+
+function qSlideId(n) { return 's' + n; }
+function qPos(n) { return Q_OFFSET + (n - 1); } // s1=4, s2=5...s129=132
+// ANALISE_CAPA_POS removed
+// ANALISE_POS removed
+const FIM_POS = 27;
+const TOTAL_SLIDES = 28;
+
+// Fix sumário link → aponta para slide de acesso bloqueado
+(function patchSumario(){
+  const link = document.querySelector('[onclick="goTo(IDX_ANALISE)"]');
+  if(link) link.setAttribute('onclick', 'goTo(' + FIM_POS + ')');
+})();
+
+// Build ordered list of all slide elements
+function getAllSlideEls() {
+  const arr = [];
+  // 0-3: named intro slides
+  NAMED.forEach(id => arr.push(document.getElementById(id)));
+  // 4-26: question slides s1..s23
+  for(let i=1; i<=23; i++) arr.push(document.getElementById('s'+i));
+  // 27: fim / acesso bloqueado
+  arr.push(document.getElementById('s-fim'));
+  return arr;
+}
+
+let ALL_ELS;
+let filteredList = [], cur = 0, activeMod = 0;
+
+function buildFilteredList(mod) {
+  if (mod === 0) return Array.from({length: TOTAL_SLIDES}, (_, i) => i);
+  // Módulo 1: intro(0-3) + questões + fim(27)
+  if (mod === 1) {
+    const qs = Object.entries(SM).filter(([k,v])=>v===mod).map(([k])=>parseInt(k)).sort((a,b)=>a-b).map(qPos);
+    return [0, 1, 2, 3, ...qs, FIM_POS];
+  }
+  // Módulos 2-20: intro + slide de acesso bloqueado
+  return [0, 1, 2, 3, FIM_POS];
+}
+
+function getEl(pos) { return ALL_ELS[pos] || null; }
+
+function getTitle(pos) {
+  const el = getEl(pos);
+  if (!el) return '';
+  return el.dataset.title || '';
+}
+
+function goTo(pos) {
+  if (pos < 0 || pos >= TOTAL_SLIDES) return;
+  const prevEl = getEl(cur);
+  const nextEl = getEl(pos);
+  if (!nextEl) return;
+
+  if (prevEl && prevEl !== nextEl) {
+    prevEl.classList.remove('active');
+    prevEl.classList.add('out');
+    const pE = prevEl;
+    setTimeout(() => pE.classList.remove('out'), 360);
+  }
+  cur = pos;
+  nextEl.classList.remove('out');
+  nextEl.classList.add('active');
+  const sb = nextEl.querySelector('.sb');
+  if (sb) sb.scrollTop = 0;
+  updateNav();
+}
+
+function updateNav() {
+  const posInList = filteredList.indexOf(cur);
+  const total = filteredList.length;
+  document.getElementById('ntitle').textContent = getTitle(cur);
+  document.getElementById('ncnt').textContent = (posInList + 1) + ' / ' + total;
+  document.getElementById('pb').style.width = ((posInList + 1) / total * 100) + '%';
+  document.getElementById('btn-prev').disabled = posInList <= 0;
+  document.getElementById('btn-next').disabled = posInList >= total - 1;
+}
+
+function next() {
+  const pos = filteredList.indexOf(cur);
+  if (pos < filteredList.length - 1) goTo(filteredList[pos + 1]);
+}
+function prev() {
+  const pos = filteredList.indexOf(cur);
+  if (pos > 0) goTo(filteredList[pos - 1]);
+}
+
+function goMod(mod) {
+  activeMod = mod;
+  document.querySelectorAll('.modchip').forEach(c => c.classList.remove('active'));
+  const mc = document.getElementById('mc' + mod);
+  if (mc) { mc.classList.add('active'); mc.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+  filteredList = buildFilteredList(mod);
+  goTo(filteredList[0]);
+}
+
+// === GABARITO FUNCTIONS ===
+// mgBtn: used by btn-gab in converted slides (index-based, letter auto-detected)
+function mgBtn(btn) {
+  const area = btn.nextElementSibling;
+  if (!area) return;
+  const isOpen = area.classList.contains('show');
+  area.classList.toggle('show');
+  btn.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? '↓ Ver Gabarito Comentado' : '↑ Ocultar Gabarito';
+
+  const container = btn.closest('.sb');
+  const alts = container ? container.querySelectorAll('.alternativas .alt') : [];
+
+  if (!isOpen) {
+    // Find correct letter from gab-title
+    const gabTitle = area.querySelector('.gab-title');
+    if (gabTitle) {
+      const m = gabTitle.textContent.match(/Gabarito:\s*([A-E])/);
+      if (m) {
+        const letter = m[1];
+        alts.forEach((alt, i) => {
+          const l = ['A','B','C','D','E'][i];
+          alt.classList.remove('certa','errada');
+          if (l === letter) alt.classList.add('certa');
+          else alt.classList.add('errada');
+        });
+      }
+    }
+  } else {
+    alts.forEach(alt => alt.classList.remove('certa','errada'));
+  }
+}
+
+// selAltIdx: used by onclick="selAltIdx(this,idx,correctIdx)"
+function selAltIdx(el, idx, correctIdx) {
+  const alts = el.parentElement.querySelectorAll('.alt');
+  alts.forEach(a => a.classList.remove('certa','errada'));
+  if (idx === correctIdx) el.classList.add('certa');
+  else {
+    el.classList.add('errada');
+    if (alts[correctIdx]) alts[correctIdx].classList.add('certa');
+  }
+}
+
+// === KEYBOARD + TOUCH ===
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); next(); }
+  if (e.key==='ArrowLeft') { e.preventDefault(); prev(); }
+  if (e.key==='Home') { e.preventDefault(); goTo(0); }
+  if (e.key==='End') { e.preventDefault(); goTo(FIM_POS); }
+});
+let tx=0;
+const deck = document.getElementById('deck');
+if (deck) {
+  deck.addEventListener('touchstart', e => { tx=e.touches[0].clientX; },{passive:true});
+  deck.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (dx<-50) next();
+    if (dx>50) prev();
+  },{passive:true});
+}
+
+// Adjust deck top for modmenu height
+function adjustDeck() {
+  const mm = document.getElementById('modmenu');
+  const mmH = mm ? mm.offsetHeight : 0;
+  deck.style.top = mmH + 'px';
+  deck.style.bottom = '46px';
+}
+window.addEventListener('resize', adjustDeck);
+
+// === INIT ===
+window.addEventListener('DOMContentLoaded', () => {
+  ALL_ELS = getAllSlideEls();
+  // Verify count
+  const missing = ALL_ELS.filter(e => !e);
+  if (missing.length) console.warn('Missing slides:', missing.length);
+  filteredList = buildFilteredList(0);
+  goTo(0);
+  adjustDeck();
+});
+// sa() → alias de selAltIdx (alternativas com índice e gabarito)
+function sa(el, idx, correctIdx) { selAltIdx(el, idx, correctIdx); }
+</script>
+</body>
+</html>

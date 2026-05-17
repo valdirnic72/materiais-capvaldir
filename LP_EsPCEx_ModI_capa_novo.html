@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Língua Portuguesa EsPCEx — Guia Capitão Valdir · Questões Comentadas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-l:#43A047;
+  --verde-bg:#E8F5E9;--verde-xbg:#F1F8F1;
+  --ouro:#B8860B;--ouro-l:#D4A017;--ouro-bg:#FFF9E6;
+  --laranja:#BF4A00;--laranja-l:#F57F17;--laranja-bg:#FFF3E0;
+  --azul:#0D47A1;--azul-l:#1565C0;--azul-bg:#E3F2FD;
+  --verm:#B71C1C;--verm-l:#C62828;--verm-bg:#FFEBEE;
+  --cinza:#37474F;--cinza-l:#546E7A;--cinza-bg:#ECEFF1;
+  --roxo:#4A148C;--roxo-l:#6A1B9A;--roxo-bg:#F3E5F5;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:14px;background:#111C24;color:var(--texto);}
+
+/* ── DECK / SLIDE SYSTEM ── */
+.deck{position:fixed;top:0;left:0;right:0;bottom:46px;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .32s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+
+/* ── BOTTOM NAV ── */
+.nav{background:#0D1820;padding:6px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--azul-l);position:fixed;bottom:0;left:0;right:0;height:46px;z-index:100;}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:10px;font-weight:700;letter-spacing:.07em;padding:5px 13px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);}
+.nbtn:disabled{opacity:.22;cursor:default;}
+.pw{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--azul-l);border-radius:2px;transition:width .32s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.65);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);white-space:nowrap;}
+
+/* ── TOP MODULE MENU — hidden by default, shown only on question slides ── */
+.modmenu{background:#0A1520;padding:5px 12px;display:none;align-items:center;gap:5px;overflow-x:auto;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.07);scrollbar-width:none;position:fixed;top:0;left:0;right:0;z-index:90;}
+.modmenu::-webkit-scrollbar{display:none;}
+.modmenu.visible{display:flex;}
+.modchip{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);font-family:'Sora',sans-serif;font-size:9px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:20px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;flex-shrink:0;}
+.modchip:hover{background:rgba(255,255,255,.14);color:white;}
+.modchip.active{background:var(--azul-l);border-color:var(--azul-l);color:white;}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--azul);padding:10px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:3px solid #42A5F5;position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:160px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;}
+.topbar.azul{background:var(--azul);border-color:#42A5F5;}
+.topbar.verm{background:var(--verm);border-color:#EF9A9A;}
+.topbar.cinza{background:var(--cinza);border-color:#90A4AE;}
+.topbar.roxo{background:var(--roxo);border-color:#CE93D8;}
+.topbar.laranja{background:var(--laranja);border-color:#FF9955;}
+.topbar.ouro{background:#6B4400;border-color:var(--ouro-l);}
+.topbar.verde{background:var(--verde);border-color:var(--verde-l);}
+.topbar-left{display:flex;flex-direction:column;gap:1px;flex:1;}
+.topbar-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(13px,2vw,19px);font-weight:800;color:white;line-height:1.1;}
+.topbar-sub{font-size:10px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:rgba(255,255,255,.15);flex-shrink:0;line-height:1;}
+
+/* ── SCROLL BODY ── */
+.sb{flex:1;overflow-y:auto;padding:14px 20px 20px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+
+/* ── SLIDE FOOTER ── */
+.slide-footer{height:34px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;flex-shrink:0;z-index:10;}
+.slide-footer-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:10.5px;font-weight:700;color:var(--azul);letter-spacing:.04em;padding:3px 10px;border-radius:5px;transition:all .2s;}
+.slide-footer-btn:hover{background:var(--azul-bg);}
+
+/* ── QUESTION META ── */
+.qmeta-bar{padding:6px 20px;display:flex;gap:7px;flex-shrink:0;background:rgba(0,0,0,.025);border-bottom:1px solid var(--borda);flex-wrap:wrap;}
+.qchip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.qchip.assunto{background:var(--azul-bg);color:var(--azul-l);border:1px solid #90CAF9;}
+.qchip.ano{background:var(--cinza-bg);color:var(--cinza);border:1px solid #B0BEC5;}
+
+/* ── QUESTION CONTENT ── */
+.qtitulo{font-size:11.5px;font-weight:800;color:var(--azul-l);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+.qenunciado{font-size:13.5px;font-weight:600;line-height:1.6;color:var(--texto);margin-bottom:12px;}
+
+/* ── ALTERNATIVES ── */
+.alternativas{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+.alt{display:flex;align-items:flex-start;gap:9px;padding:9px 13px;border:1.5px solid var(--borda);border-radius:7px;cursor:pointer;transition:all .15s;background:white;font-size:13px;line-height:1.55;user-select:none;}
+.alt:hover{border-color:var(--azul-l);background:var(--azul-bg);}
+.alt.certa{border-color:#1565C0!important;background:var(--azul-bg)!important;}
+.alt.errada{border-color:#EF9A9A!important;background:var(--verm-bg)!important;opacity:.7;}
+.alt-letra{font-family:'Sora',sans-serif;font-size:13px;font-weight:800;color:var(--azul);flex-shrink:0;width:18px;}
+.alt-txt{flex:1;}
+
+/* ── GABARITO ── */
+.btn-gab{background:var(--azul);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:8px 16px;border-radius:7px;cursor:pointer;transition:all .2s;width:100%;margin-bottom:10px;}
+.btn-gab:hover{background:var(--azul-l);}
+.btn-gab.open{background:var(--cinza);}
+.gab-area{display:none;animation:gabfade .2s ease;}
+.gab-area.show{display:block;}
+@keyframes gabfade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.gab-title{font-size:13px;font-weight:800;color:var(--azul);margin-bottom:9px;}
+.gab-content{font-size:12.5px;line-height:1.72;color:var(--texto);}
+.gab-content p{margin-bottom:8px;}
+.gab-content p:last-child{margin-bottom:0;}
+.gab-estrategia{display:flex;gap:7px;background:var(--laranja-bg);border:1.5px dashed var(--laranja-l);border-radius:7px;padding:8px 12px;margin-top:10px;align-items:flex-start;}
+.gab-estrategia-txt{font-size:12px;line-height:1.55;color:var(--cinza);font-style:italic;}
+
+/* ── PASSAGE / TEXT BLOCK ── */
+.passagem-block{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;margin-bottom:13px;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.passagem-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--azul-l);padding:8px 13px;background:var(--azul-bg);border-bottom:1px solid #90CAF9;}
+.passagem-block>p{padding:8px 13px 0;font-size:13px;line-height:1.75;}
+.passagem-block>p:last-of-type{padding-bottom:10px;}
+.passagem-block>pre{padding:11px 13px;font-family:Georgia,serif;white-space:pre-wrap;font-size:13px;line-height:1.75;}
+.passagem-block>table{margin:8px 13px;width:calc(100% - 26px);}
+.passagem-block>blockquote{border-left:3px solid var(--ouro-l);padding:6px 13px;font-style:italic;margin:6px 0;}
+.passagem-note{font-size:11px;color:var(--sub);font-style:italic;padding:6px 13px 8px;border-top:1px solid var(--borda);}
+
+/* ── CARDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.card{background:white;border:1.5px solid var(--borda);border-radius:9px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:9px 13px;display:flex;align-items:center;gap:8px;border-bottom:1.5px solid var(--borda);}
+.card-head.verde{background:var(--verde-bg);border-color:#A5D6A7;}
+.card-head.azul{background:var(--azul-bg);border-color:#90CAF9;}
+.card-head.verm{background:var(--verm-bg);border-color:#EF9A9A;}
+.card-head.ouro{background:var(--ouro-bg);border-color:#F9D878;}
+.card-head.cinza{background:var(--cinza-bg);border-color:#B0BEC5;}
+.card-head.laranja{background:var(--laranja-bg);border-color:#FFCC80;}
+.card-head.roxo{background:var(--roxo-bg);border-color:#CE93D8;}
+.card-head-icon{font-size:17px;flex-shrink:0;}
+.card-head-title{font-size:13px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:11px 13px;flex:1;font-size:13px;line-height:1.65;color:var(--texto);}
+
+/* ── ALERTS ── */
+.alerta{border-radius:8px;padding:10px 13px;margin-bottom:10px;display:flex;gap:9px;align-items:flex-start;}
+.alerta:last-child{margin-bottom:0;}
+.alerta.verde{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.alerta.verm{background:var(--verm-bg);border-left:4px solid var(--verm-l);}
+.alerta.azul{background:var(--azul-bg);border-left:4px solid var(--azul-l);}
+.alerta.ouro{background:var(--ouro-bg);border-left:4px solid var(--ouro-l);}
+.alerta.cinza{background:var(--cinza-bg);border-left:4px solid var(--cinza-l);}
+.alerta-icon{font-size:17px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;color:var(--azul);}
+.alerta.verm .alerta-title{color:var(--verm-l);}
+.alerta.ouro .alerta-title{color:var(--ouro);}
+.alerta-text{font-size:13px;line-height:1.62;color:var(--texto);}
+
+/* ── ITEMS ── */
+.item{display:flex;gap:7px;margin-bottom:7px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:13px;flex-shrink:0;margin-top:1px;line-height:1.55;}
+.it{font-size:13px;line-height:1.62;color:var(--texto);}
+.it b{font-weight:700;color:var(--azul);}
+
+/* ── SUMÁRIO ── */
+.sumario-section{margin-bottom:8px;}
+.sumario-titulo{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--azul);padding:7px 13px;background:var(--azul-bg);border-left:4px solid var(--azul-l);border-radius:0 7px 7px 0;margin-bottom:7px;}
+.sumario-item{display:flex;align-items:center;gap:9px;padding:8px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:4px;}
+.sumario-item:hover{border-color:var(--azul-l);background:var(--azul-bg);transform:translateX(3px);}
+.sumario-item-num{font-family:'Sora',sans-serif;font-size:18px;flex-shrink:0;min-width:28px;}
+.sumario-item-txt{flex:1;}
+.sumario-item-nome{font-size:13px;font-weight:700;color:var(--texto);}
+.sumario-item-desc{font-size:11px;color:var(--sub);margin-top:1px;}
+.sumario-item-arrow{font-size:14px;color:var(--azul-l);}
+.sumario-item.mod{border-left:4px solid var(--azul);}
+.modulo-stat{background:white;border:1.5px solid var(--borda);border-radius:9px;padding:10px 13px;text-align:center;}
+.modulo-stat-n{font-family:'Sora',sans-serif;font-size:28px;font-weight:800;color:var(--azul);}
+.modulo-stat-l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--sub);margin-top:2px;}
+.apres-banner{background:linear-gradient(135deg,#0A2040,#0D47A1,#1565C0);border-radius:11px;padding:18px 22px;margin-bottom:13px;color:white;position:relative;overflow:hidden;}
+.apres-titulo{font-size:20px;font-weight:800;margin-bottom:5px;}
+.apres-sub{font-size:13px;color:rgba(255,255,255,.78);line-height:1.6;}
+.citacao-box{background:linear-gradient(135deg,#0A2040,#0D47A1);border-radius:9px;padding:14px 18px;margin-top:12px;text-align:center;}
+.citacao-txt{font-size:14.5px;font-weight:600;font-style:italic;color:white;line-height:1.6;}
+.citacao-autor-nome{font-size:12px;color:rgba(255,255,255,.65);margin-top:7px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+.metodo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:13px;}
+.metodo-step{background:white;border-radius:9px;padding:13px;text-align:center;border:2px solid var(--borda);}
+.metodo-step:nth-child(1){border-top:4px solid var(--azul-l);}
+.metodo-step:nth-child(2){border-top:4px solid var(--verde-l);}
+.metodo-step:nth-child(3){border-top:4px solid var(--laranja-l);}
+.metodo-step:nth-child(4){border-top:4px solid var(--verm-l);}
+.metodo-icon{font-size:26px;margin-bottom:6px;}
+.metodo-passo{font-size:9.5px;font-weight:700;letter-spacing:.12em;color:var(--sub);margin-bottom:3px;text-transform:uppercase;}
+.metodo-nome{font-size:16px;font-weight:800;color:var(--texto);}
+.metodo-desc{font-size:11.5px;line-height:1.5;color:var(--sub);margin-top:4px;}
+
+/* ── TABLES ── */
+table{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0;}
+td,th{padding:7px 10px;border:1px solid var(--borda);}
+th{background:var(--cinza-bg);font-weight:700;color:var(--texto);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .topbar{padding:8px 12px;}
+  .topbar-title{font-size:clamp(13px,3.8vw,18px)!important;}
+  .sb{padding:10px 10px 56px;}
+  .g2{grid-template-columns:1fr!important;}
+  .g3{grid-template-columns:1fr!important;}
+  .g4{grid-template-columns:1fr 1fr!important;}
+  .metodo-grid{grid-template-columns:1fr 1fr!important;}
+  .nbtn{font-size:9px;padding:4px 9px;}
+  .nav{padding:5px 8px;gap:6px;}
+  .ntitle{max-width:120px;font-size:10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- MODULE CHIP MENU — shown only on question slides via JS -->
+<div class="modmenu" id="modmenu">
+<div class="modchip active" onclick="goMod(0)" id="mc0">Todos</div>
+<div class="modchip" onclick="goMod(1)" id="mc1">MI · Leitura, Interpret</div>
+<div class="modchip" onclick="goTo(34)" id="mc2" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MII</div>
+<div class="modchip" onclick="goTo(34)" id="mc3" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MIII</div>
+<div class="modchip" onclick="goTo(34)" id="mc4" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MIV</div>
+<div class="modchip" onclick="goTo(34)" id="mc5" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MV</div>
+<div class="modchip" onclick="goTo(34)" id="mc6" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MVI</div>
+<div class="modchip" onclick="goTo(34)" id="mc7" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MVII</div>
+<div class="modchip" onclick="goTo(34)" id="mc8" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MVIII</div>
+<div class="modchip" onclick="goTo(34)" id="mc9" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MX</div>
+<div class="modchip" onclick="goTo(34)" id="mc10" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MXI</div>
+<div class="modchip" onclick="goTo(34)" id="mc11" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MXII</div>
+<div class="modchip" onclick="goTo(34)" id="mc12" style="opacity:.45;cursor:pointer;" title="Acesso ao material completo">🔒 MXIII</div>
+</div>
+
+<div class="deck" id="deck">
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 0 — CAPA  (estrutura idêntica à ESA)
+═══════════════════════════════════════════════ -->
+<div class="slide active" data-title="Capa — Língua Portuguesa EsPCEx" id="s-capa">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1420 0%,#0D1C33 60%,#091428 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(100,160,255,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#4A90D9;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(100,160,255,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">GRAMÁTICA NORMATIVA E INTERPRETAÇÃO DE TEXTOS</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(16px,3vw,28px);font-weight:800;color:#64A0FF;line-height:1.2;text-transform:uppercase;text-align:center;">QUESTÕES COMENTADAS<br>EsPCEx</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA PREPARATÓRIA DE CADETES DO EXÉRCITO</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(10px,1.2vw,13px);font-weight:700;color:rgba(100,160,255,.6);letter-spacing:.1em;text-transform:uppercase;">EsPCEx · 2026–2027</div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 1 — APRESENTAÇÃO CAPITÃO VALDIR
+═══════════════════════════════════════════════ -->
+<div class="slide" data-title="Apresentação — Capitão Valdir" id="s-apres">
+  <div class="topbar azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">Guia Preparatório Capitão Valdir · Língua Portuguesa EsPCEx</span>
+      <span class="topbar-title">APRESENTAÇÃO — O CAPITÃO VALDIR</span>
+      <span class="topbar-sub">Conheça o professor por trás deste material</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="apres-banner">
+      <div class="apres-titulo">Bem-vindo ao material que vai transformar seu desempenho em Língua Portuguesa!</div>
+      <div class="apres-sub"><b>125 questões de Língua Portuguesa</b> da EsPCEx (2018–2025), comentadas, analisadas e organizadas em 12 módulos temáticos — para você dominar cada tópico do edital e chegar à prova com confiança total.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#0A2040,#0D1C33,#0D47A1);border-radius:12px;padding:20px 24px;margin-bottom:13px;display:flex;gap:20px;align-items:center;position:relative;overflow:hidden;">
+      <div style="position:absolute;right:0;top:0;bottom:0;width:100px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2));pointer-events:none;"></div>
+      <div style="flex-shrink:0;width:88px;height:88px;background:rgba(255,255,255,.13);border-radius:50%;border:3px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:40px;">🎖️</div>
+      <div style="flex:1;">
+        <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:3px;">SEU PROFESSOR</div>
+        <div style="font-size:26px;font-weight:800;color:white;line-height:1;margin-bottom:4px;">Capitão Valdir</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.72);margin-bottom:8px;">Capitão da Reserva do Exército Brasileiro · QCO (Quadro Complementar de Oficiais)</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🎓 Letras — UNICAMP</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">⭐ Formado pela ESFCEx</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">📜 Pós-grad. Magistério Português</span>
+          <span style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.88);">🏆 20+ anos de experiência</span>
+        </div>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:13px;">
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">📋</div><div class="card-head-title">Formação Acadêmica e Militar</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">🎓</span><div class="it">Licenciado em <b>Letras pela UNICAMP</b> (Universidade Estadual de Campinas)</div></div>
+          <div class="item"><span class="dot">⭐</span><div class="it"><b>Formou-se Oficial de carreira</b> pela Escola de Saúde e Formação Complementar do Exército (ESFCEx)</div></div>
+          <div class="item"><span class="dot">📜</span><div class="it"><b>Pós-graduado pela ESFCEx</b> — área de Magistério em Língua Portuguesa e Literatura</div></div>
+          <div class="item"><span class="dot">🏆</span><div class="it"><b>Especialista em Ensino</b> — há <b>duas décadas</b> formando e preparando candidatos com excelência!</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">🏫</div><div class="card-head-title">Experiência Docente Militar</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">🔵</span><div class="it"><b>Colégio Militar de Fortaleza</b></div></div>
+          <div class="item"><span class="dot">🔵</span><div class="it"><b>Colégio Militar de Manaus</b></div></div>
+          <div class="item"><span class="dot">🔵</span><div class="it"><b>Escola de Aperfeiçoamento de Sargentos das Armas (EASA)</b></div></div>
+          <div class="item"><span class="dot">🔵</span><div class="it"><b>Centro de Instrução de Aviação do Exército (CIAvEx)</b></div></div>
+          <div class="item"><span class="dot">🔵</span><div class="it">Preparatórios para concursos militares — <b>especialidade EsPCEx / EsSA</b></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="alerta azul" style="margin-bottom:12px;">
+      <div class="alerta-icon">💬</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Mensagem do Capitão Valdir — Para cada aluno que usa este material</div>
+        <div class="alerta-text">Resolvi cada uma dessas questões pensando em você, futuro Cadete. Língua Portuguesa não é decoreba — é entendimento de padrões gramaticais e semânticos. Não me preocupei apenas em dar o gabarito: me preocupei em explicar <b>por que cada alternativa errada está errada</b>. É aí que a banca te pega. Estude com método, sob a ótica de Cegalla e Cunha &amp; Cintra, e domine as regras que mais caem. <b>Bons estudos! E te vejo na lista de aprovados...</b></div>
+      </div>
+    </div>
+    <div class="citacao-box">
+      <div class="citacao-txt">"O domínio da gramática não é luxo para o militar — é arma. Prepare-se com método, disciplina e estratégia."</div>
+      <div class="citacao-autor-nome">— Capitão Valdir · QCO · Formado pela ESFCEx · Especialista em Ensino</div>
+    </div>
+    <div style="text-align:center;margin-top:13px;">
+      <button onclick="goTo(2)" style="background:var(--azul);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Continuar: Método e Prioridades →</button>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 2 — MÉTODO E PRIORIDADES
+═══════════════════════════════════════════════ -->
+<div class="slide" data-title="Método · Prioridades · Como Usar — EsPCEx" id="s-metodo">
+  <div class="topbar azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">Guia Preparatório Capitão Valdir · Língua Portuguesa EsPCEx</span>
+      <span class="topbar-title">MÉTODO · PRIORIDADES · COMO USAR</span>
+      <span class="topbar-sub">O roteiro de estudo e o mapa de prioridades para a EsPCEx</span>
+    </div>
+    <div class="topbar-right">02</div>
+  </div>
+  <div class="sb">
+    <div class="metodo-grid">
+      <div class="metodo-step">
+        <div class="metodo-icon">📋</div><div class="metodo-passo">Passo 1</div><div class="metodo-nome">RESOLVER</div>
+        <div class="metodo-desc">Tente resolver cada questão antes de ver o gabarito. Simule a prova real da EsPCEx.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">🔍</div><div class="metodo-passo">Passo 2</div><div class="metodo-nome">ANALISAR</div>
+        <div class="metodo-desc">Leia o comentário de todas as alternativas — as erradas ensinam tanto quanto as certas.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">🎯</div><div class="metodo-passo">Passo 3</div><div class="metodo-nome">IDENTIFICAR</div>
+        <div class="metodo-desc">Observe o padrão da EsPCEx. A banca repete os mesmos tópicos gramaticais há anos.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">⚡</div><div class="metodo-passo">Passo 4</div><div class="metodo-nome">ACERTAR</div>
+        <div class="metodo-desc">Aplique os gatilhos automáticos e estratégias de eliminação na hora da prova.</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:13px;">
+      <div class="card">
+        <div class="card-head laranja"><div class="card-head-icon">⚠️</div><div class="card-head-title">Como usar este e-book</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">📌</span><div class="it">Navegue pelos módulos <b>em ordem temática</b> — do M.I (Interpretação) ao M.XIII (Figuras)</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Marque os erros e <b>revise pelo menos 3 vezes</b> os módulos em que vacilar</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Leia a <b>Análise Estratégica Final</b> na véspera da prova</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Use <b>← →</b> no teclado ou swipe no celular para navegar; chips do menu para filtrar módulos</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">📚</div><div class="card-head-title">O que este e-book contém</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">✅</span><div class="it"><b>125 questões</b> das provas EsPCEx 2018–2025</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>12 módulos temáticos</b> — do M.I ao M.XIII</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Gabarito justificado</b> sob a ótica de Cegalla &amp; Cunha e Cintra</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Textos-base</b> com vocabulário contextual em cada série</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Análise Estratégica Final</b> — gatilhos e mapa de prioridades</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head azul"><div class="card-head-icon">🗺️</div><div class="card-head-title">Grau de Prioridade dos Módulos — EsPCEx · Língua Portuguesa</div></div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:11px;">
+          <div style="background:#FFEBEE;border:2px solid #EF9A9A;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🔴</div>
+            <div style="font-size:12px;font-weight:800;color:#B71C1C;text-align:center;margin-bottom:7px;">ALTA PRIORIDADE</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Presença em <b>80–100%</b> das provas EsPCEx<br><br>· M.I · Interpretação de Textos<br>· M.VI · Período Composto<br>· M.V · Período Simples<br>· M.VII · Concordância</div>
+          </div>
+          <div style="background:#FFF8E1;border:2px solid #FFD54F;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🟡</div>
+            <div style="font-size:12px;font-weight:800;color:#E65100;text-align:center;margin-bottom:7px;">MÉDIA PRIORIDADE</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Presença em <b>50–80%</b> das provas EsPCEx<br><br>· M.II · Ortografia<br>· M.III · Morfologia<br>· M.VIII · Regência e Crase<br>· M.XI · Verbos</div>
+          </div>
+          <div style="background:#E8F5E9;border:2px solid #A5D6A7;border-radius:9px;padding:12px;">
+            <div style="font-size:20px;text-align:center;margin-bottom:5px;">🟢</div>
+            <div style="font-size:12px;font-weight:800;color:#1B5E20;text-align:center;margin-bottom:7px;">MENOR FREQUÊNCIA</div>
+            <div style="font-size:11px;line-height:1.65;color:#37474F;">Presença em <b>&lt;50%</b> das provas EsPCEx<br><br>· M.IV · Pontuação<br>· M.XII · Teoria da Linguagem<br>· M.XIII · Figuras<br>· M.X · Casos Especiais</div>
+          </div>
+        </div>
+        <div class="alerta ouro">
+          <div class="alerta-icon">⭐</div>
+          <div class="alerta-content">
+            <div class="alerta-title">Foco estratégico para a reta final</div>
+            <div class="alerta-text">🟢 Menor frequência <b>não significa ignorar</b> — significa que os 🔴 devem receber mais horas. Na EsPCEx, <b>dominar Interpretação, Período Composto e Concordância é obrigatório para a aprovação!</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:13px;">
+      <button onclick="goTo(3)" style="background:var(--azul);color:white;border:none;font-family:'Sora',sans-serif;font-size:13px;font-weight:700;padding:9px 28px;border-radius:8px;cursor:pointer;">Ver Sumário →</button>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+  SLIDE 3 — SUMÁRIO
+═══════════════════════════════════════════════ -->
+<div class="slide" data-title="Sumário — 12 Módulos EsPCEx" id="s-sumario">
+  <div class="topbar cinza">
+    <div class="topbar-left">
+      <span class="topbar-tag">Guia Preparatório Capitão Valdir · Língua Portuguesa EsPCEx</span>
+      <span class="topbar-title">SUMÁRIO — 12 MÓDULOS TEMÁTICOS</span>
+      <span class="topbar-sub">Selecione o módulo para navegar diretamente às questões</span>
+    </div>
+    <div class="topbar-right">≡</div>
+  </div>
+  <div class="sb">
+    <div class="alerta azul" style="margin-bottom:14px;">
+      <div class="alerta-icon">📖</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Como usar este material</div>
+        <div class="alerta-text">125 questões organizadas em <b>12 módulos temáticos</b>, com comentários sob a ótica de Cegalla &amp; Cunha e Cintra. Clique em "Ver Gabarito" apenas após tentar responder — simule a prova real! Use os chips no topo para filtrar por módulo.</div>
+      </div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-titulo" style="background:var(--azul-bg);color:var(--azul);border-left:4px solid var(--azul-l);">📖 Introdução</div>
+      <div class="sumario-item" onclick="goTo(1)" style="border-left:4px solid var(--azul);"><div class="sumario-item-num" style="color:var(--azul);">01</div><div class="sumario-item-txt"><div class="sumario-item-nome">Apresentação — Capitão Valdir</div><div class="sumario-item-desc">Biografia e mensagem do professor</div></div><div class="sumario-item-arrow">→</div></div>
+      <div class="sumario-item" onclick="goTo(2)" style="border-left:4px solid var(--azul);"><div class="sumario-item-num" style="color:var(--azul);">02</div><div class="sumario-item-txt"><div class="sumario-item-nome">Método, Prioridades e Como Usar</div><div class="sumario-item-desc">Roteiro de estudo + mapa de prioridades dos 12 módulos</div></div><div class="sumario-item-arrow">→</div></div>
+    </div>
+    <div class="sumario-section">
+      <div class="sumario-titulo">📚 Os 12 Módulos Temáticos</div>
+<div class="sumario-item mod" onclick="goModFromSumario(1)" style="border-left:4px solid var(--azul)"><div class="sumario-item-num" style="color:var(--azul)">📖</div><div class="sumario-item-txt"><div class="sumario-item-nome">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="sumario-item-desc">Compreensão global · inferência · vocabulário contextual · intertextualidade · 30 questões</div></div><div class="sumario-item-arrow">→</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo II — Ortografia e Acentuação Gráfica</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo III — Morfologia e Formação de Palavras</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo IV — Sinais de Pontuação</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo V — Sintaxe do Período Simples</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo VI — Sintaxe do Período Composto</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo VII — Sintaxe de Concordância</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo VIII — Sintaxe de Regência e Crase</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo X — Pontuação — Casos Especiais</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo XI — Modos e Tempos Verbais</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo XII — Teoria da Linguagem</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+<div class="sumario-item mod" onclick="goTo(34)" style="border-left:4px solid rgba(255,255,255,.15);opacity:.55;cursor:pointer;"><div class="sumario-item-num" style="color:rgba(255,255,255,.3);">🔒</div><div class="sumario-item-txt" style="filter:blur(2.5px);user-select:none;"><div class="sumario-item-nome">Módulo XIII — Estilística e Figuras de Linguagem</div><div class="sumario-item-desc">Conteúdo bloqueado · Acesse o material completo</div></div><div class="sumario-item-arrow" style="opacity:.3;">🔒</div></div>
+    </div>
+    <div class="sumario-section" style="margin-top:14px;">
+      <div class="sumario-item-txt"><div class="sumario-item-nome">Análise Estratégica Final</div><div class="sumario-item-desc">Padrões da prova · módulos prioritários · gatilhos de eliminação</div></div><div class="sumario-item-arrow">→</div></div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="slide-footer-btn" onclick="goTo(0)">⬆ Voltar ao Início</button></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+  SLIDES DE QUESTÕES (s1 – s125)
+═══════════════════════════════════════════════════════════ -->
+<div class="slide" id="s1" data-mod="I" data-title="Módulo I · Questão 01 (2022)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 1/125</span><span class="qchip assunto">EsPCEx · 2022</span></div>
+<div class="sb">
+<div class="card" style="margin-bottom:12px"><div class="card-head azul"><div class="card-head-icon">📚</div><div class="card-head-title">Fundamentação Teórica — Cegalla &amp; Cunha e Cintra</div></div><div class="card-body" style="font-size:13px;line-height:1.65">
+  <p><strong>Cegalla</strong> e <strong>Cunha &amp; Cintra</strong> ensinam que a leitura produtiva exige domínio de:</p>
+  <ul>
+    <li><strong>Denotação vs. conotação:</strong> sentido literal (objetivo) e sentido figurado (contextual).</li>
+    <li><strong>Inferência:</strong> construção de sentidos a partir de pistas textuais e do contexto.</li>
+    <li><strong>Progressão temática:</strong> como o texto desenvolve seu assunto central por meio de campos semânticos.</li>
+    <li><strong>Coesão e coerência:</strong> mecanismos de unidade textual.</li>
+    <li><strong>Intertextualidade:</strong> relação entre o texto lido e outros textos ou conhecimentos.</li>
+  </ul>
+  <p><em>Para a EsPCEx, o candidato deve: (a) identificar a ideia central; (b) distinguir fato de opinião; (c) reconhecer o sentido contextual de palavras e expressões; (d) inferir informações implícitas.</em></p>
+</div></div>
+<div class="passagem-block"><div class="passagem-label">Texto-base — Questões 01 a 05 (EsPCEx 2022)</div><p><strong>Assiste à demolição</strong></p>
+  <p>– Morou mais de vinte anos nesta casa? Então vai sentir "uma coisa" quando ela for demolida.</p>
+  <p>Começou a demolição. Passando pela rua, ele viu a casa já sem telhado, e operários, na poeira, removendo caibros. Aquele telhado que lhe dera tanto trabalho por causa das goteiras, tapadas aqui, reaparecendo ali. Seu quarto de dormir estava exposto ao céu, no calor da manhã. Ao fundo, no terraço, tinham desaparecido as colunas da pérgula, e a cobertura de ramos de buganvília – dois troncos subindo do pátio lá embaixo e enchendo de florinhas vermelhas o chão de ladrilho, onde gatos da vizinhança amavam fazer sesta e surpreender tico-ticos.</p>
+  <p>Passou nos dias seguintes e viu o progressivo desfazer-se das paredes, que escancarava a casa de frente e de flancos jogando-a por assim dizer na rua. Os marcos das portas apareciam emoldurando o vazio. O azul e as nuvens circulavam pelos cômodos, em composição surrealista. E o pequeno balcão da fachada, cercado de ar, parecia um mirante espacial, baixado ao nível dos míopes.</p>
+  <p>A demolição prosseguiu à noite, espontaneamente. Um lanço de parede desabou sozinho, para fora do tapume, quando já cessara na rua o movimento dos lotações. Caiu discreto, sem ferir ninguém, apenas avariando – desculpem – a rede telefônica.</p>
+  <p>A casa encolhera-se, em processo involutivo. Já agora de um só pavimento, sem teto, aspirava mesmo à desintegração. Chegou a vez da pequena sala de estar, da sala de jantar com seu lambri envernizado a preto, que ele passara meses raspando a poder de gilete, para recuperar a cor da madeira. E a vez do escritório, parte pensante e sentinte de seu mecanismo individual, do eu mais íntimo e simultaneamente mais público, eu de gavetas sigilosas, manuseadas por um profissional da escrita. De todo o tempo que vivera na casa, fora ali que passara o maior número de horas, sentado, meio corcunda, desligado de acontecimentos, ouvindo, sem escutar, rumores que chegavam de outro mundo – cantoria de bêbados, motor de avião, chorinho de bebê, galo na madrugada.</p>
+  <p>E não sentiu dor vendo esfarinharem-se esses compartimentos de sua história pessoal. Nem sequer a melancolia do desvanecimento das coisas físicas. Elas tinham durado, cumprido a tarefa. Chega o instante em que compreendemos a demolição como um resgate de formas cansadas, sentença de liberdade. Talvez sejamos levados a essa compreensão pelo trabalho similar, mais surdo, que se vai desenvolvendo em nós. E não é preciso imaginar a alegria de formas novas, mais claras, a surgirem constantemente de formas caducas, para aceitar de coração sereno o fim das coisas que se ligaram à nossa vida.</p>
+  <p>Fitou tranquilo o que tinha sido sua casa e era um amontoado de caliça e tijolo, a ser removido. Em breve restaria o lote, à espera de outra casa maior, sem sinal dele e dos seus, mas destinada a concentrar outras vivências. Uma ordem, um estatuto pairava sobre os destroços, e tudo era como devia ser, sem ilusão de permanência.</p>
+  <div class="passagem-note">ANDRADE, Carlos Drummond de. <em>Cadeira de balanço</em>. 12. ed. Rio de Janeiro: Livraria José Olympio Editora, 1979.</div>
+</div>
+<div class="alerta ouro"><div class="alerta-icon">📖</div><div class="alerta-content"><div class="alerta-title">Vocabulário</div><div class="alerta-text"><strong>Vocabulário</strong>
+  <strong>caibro</strong> — elemento estrutural do telhado (peças de madeira) | <strong>pérgula</strong> — galeria coberta de barrotes espaçados, guarnecida de trepadeiras | <strong>buganvília</strong> — trepadeira ornamental do gênero <em>bougainvillea</em> | <strong>tapume</strong> — anteparo de madeira que veda uma construção | <strong>lambri</strong> — revestimento interno de parede (madeira, mármore ou estuque) | <strong>caliça</strong> — resíduos de obra demolida (pó, fragmentos de reboco e tijolos)
+</div></div></div>
+
+<div class="qtitulo">Questão 01 — EsPCEx 2022</div>
+<div class="qenunciado">Nos trechos <em>"– Morou mais de vinte anos nesta casa? Então vai sentir 'uma coisa' quando ela for demolida."</em>, <em>"Aquele telhado que lhe dera tanto trabalho por causa das goteiras…"</em> e <em>"Ao fundo, no terraço, tinham desaparecido as colunas da pérgula, e a cobertura de ramos de buganvília – dois troncos subindo do pátio lá embaixo e enchendo de florinhas vermelhas o chão de ladrilho, onde gatos da vizinhança amavam fazer sesta e surpreender tico-ticos."</em>, a ideia predominante remete a:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">satisfação.</span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">ira.</span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">indiferença.</span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">reminiscência.</span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">felicidade.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Os três trechos evocam <strong>memórias específicas</strong> do protagonista: a goteira que ele consertava, a pérgula com buganvília, os gatos que faziam sesta. Não há satisfação (ele não demonstra alegria), nem ira (não há raiva), nem indiferença (ao contrário, a narrativa é carregada de detalhes afetivos), nem felicidade explícita.</p>
+      <p>A palavra <strong>reminiscência</strong> (= recordação, lembrança de algo vivido) é exatamente o que os fragmentos expressam: o ex-morador <em>rememorava</em> detalhes cotidianos da vida naquela casa.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: a progressão temática ancora-se nos campos semânticos de memória e saudade; Cegalla: distinção denotativa/conotativa das escolhas lexicais revela o campo emocional do texto.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s2" data-mod="I" data-title="Módulo I · Questão 02 (2022)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 2/125</span><span class="qchip assunto">EsPCEx · 2022</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 02 — EsPCEx 2022</div>
+<div class="qenunciado">De forma literal, a palavra <strong>"demolição"</strong>, no texto, está para <em>"destruição"</em> e, figurativamente, está para:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,4)"><span class="alt-letra">A</span><span class="alt-txt">experiência.</span></div>
+<div class="alt" onclick="sa(this,1,4)"><span class="alt-letra">B</span><span class="alt-txt">encontro.</span></div>
+<div class="alt" onclick="sa(this,2,4)"><span class="alt-letra">C</span><span class="alt-txt">esperança.</span></div>
+<div class="alt" onclick="sa(this,3,4)"><span class="alt-letra">D</span><span class="alt-txt">introspecção.</span></div>
+<div class="alt" onclick="sa(this,4,4)"><span class="alt-letra">E</span><span class="alt-txt">transformação.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>E</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Literalmente, <em>demolição</em> = destruição física de uma edificação. No plano conotativo/figurado, Drummond usa a demolição como <strong>metáfora do processo de transformação</strong> — o fim de uma forma velha que cede lugar a formas novas, como explicita o próprio texto: <em>"alegria de formas novas, mais claras, a surgirem constantemente de formas caducas"</em> e <em>"sentença de liberdade"</em>.</p>
+      <p>O texto não sugere introspecção, esperança ou encontro como sentido figurado central — o fio condutor é a <strong>transformação</strong> inevitável, cíclica e serena.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: a conotação amplia o sentido original conforme o contexto textual; Cunha &amp; Cintra: campo semântico da renovação (formas caducas → formas novas).</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s3" data-mod="I" data-title="Módulo I · Questão 03 (2022)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 3/125</span><span class="qchip assunto">EsPCEx · 2022</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 03 — EsPCEx 2022</div>
+<div class="qenunciado">Com a leitura do texto, depreende-se que o quarto de dormir:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,4)"><span class="alt-letra">A</span><span class="alt-txt">era o lugar onde o protagonista passava a maior parte do tempo.</span></div>
+<div class="alt" onclick="sa(this,1,4)"><span class="alt-letra">B</span><span class="alt-txt">era decorado com lambri envernizado a preto.</span></div>
+<div class="alt" onclick="sa(this,2,4)"><span class="alt-letra">C</span><span class="alt-txt">era o lugar de seu eu mais íntimo e ao mesmo tempo mais público.</span></div>
+<div class="alt" onclick="sa(this,3,4)"><span class="alt-letra">D</span><span class="alt-txt">ficava exposto ao sol da manhã, que entrava pelas janelas.</span></div>
+<div class="alt" onclick="sa(this,4,4)"><span class="alt-letra">E</span><span class="alt-txt">ficava no segundo andar da casa.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>E</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O texto informa: <em>"Seu quarto de dormir estava <strong>exposto ao céu</strong>, no calor da manhã"</em> — após a retirada do telhado, o quarto apareceu a céu aberto. Isso pressupõe que ficava no <strong>pavimento superior</strong> (segundo andar), pois era o telhado, diretamente sobre ele, que o cobria.</p>
+      <p>As demais características atribuídas a outros espaços: o <em>lambri envernizado a preto</em> pertence à sala de jantar; o lugar onde <em>passava a maior parte do tempo</em> e o <em>eu mais íntimo/público</em> referem-se ao escritório.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Habilidade: inferência textual a partir de informação implícita (Cunha &amp; Cintra, cap. compreensão).</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s4" data-mod="I" data-title="Módulo I · Questão 04 (2022)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 4/125</span><span class="qchip assunto">EsPCEx · 2022</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 04 — EsPCEx 2022</div>
+<div class="qenunciado">Com base no trecho <em>"Os marcos das portas apareciam emoldurando o vazio. O azul e as nuvens circulavam pelos cômodos, em composição surrealista."</em>, é correto afirmar:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Da rua, o protagonista podia ver a pintura (quadro), de composição surrealista, que havia permanecido na casa.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Como havia nas portas pinturas surrealistas que retratavam o céu e as nuvens, os marcos das portas eram utilizados como molduras.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">De onde observava, o protagonista via o azul do céu e as nuvens circulando pelos cômodos do pavimento superior, algo que se assemelhava a uma composição surrealista.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Tendo em vista a derrubada dos marcos e das portas, o personagem percebe, gravadas nas paredes que ainda restavam de pé, imagens surrealistas do céu azul e das nuvens.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">O vazio emoldurado pelos marcos das portas causou tamanha impressão no ex-morador que ele desejou produzir uma tela que expressasse a beleza surrealista do azul do céu e das nuvens.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Com as paredes demolidas e o telhado retirado, o protagonista observava da rua o interior da casa: os marcos das portas permaneciam de pé, mas agora <strong>"emolduravam o vazio"</strong> — não havia mais porta nem parede ao fundo, apenas o céu azul e as nuvens visíveis através dos cômodos. Essa justaposição de interior/exterior lembrava uma composição surrealista.</p>
+      <p>Não há quadro algum (elimina A e E); os marcos não foram derrubados — permaneceram (elimina D); não há pinturas surrealistas nas portas (elimina B).</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: interpretação do sentido figurado contextual; imagem visual construída pelo texto (Cunha &amp; Cintra).</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s5" data-mod="I" data-title="Módulo I · Questão 01 (2023)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 5/125</span><span class="qchip assunto">EsPCEx · 2023</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">Texto-base — Questões 01 a 20 (EsPCEx 2023)</div><p><strong>Texto I — Inteligência artificial e os desafios da educação contemporânea</strong></p>
+  <p>A inteligência artificial (IA) tem sido apresentada como uma das maiores revoluções tecnológicas do século XXI. No campo da educação, ferramentas baseadas em IA prometem personalizar o aprendizado, identificar dificuldades dos alunos e oferecer suporte individualizado em escala antes impossível. Entretanto, o uso acrítico dessas ferramentas por estudantes e profissionais levanta preocupações legítimas: o risco de dependência tecnológica, o esvaziamento do raciocínio autônomo e a dificuldade de verificar a confiabilidade das informações geradas.</p>
+  <p><strong>Texto II — A burocratização dos serviços digitais</strong></p>
+  <p>Em teoria, a digitalização deveria simplificar a vida dos cidadãos. Na prática, porém, observa-se um fenômeno paradoxal: a burocratização crescente da oferta de serviços por meio de aplicativos. Plataformas digitais — originalmente criadas para oferecer praticidade — passam a exigir dos usuários um número crescente de etapas, cadastros, verificações e confirmações, tornando os serviços <strong>indistinguíveis</strong> entre si em termos de complexidade burocrática. O que era para ser solução converte-se, assim, em novo problema.</p>
+  <div class="passagem-note"><em>Textos adaptados dos textos-base da prova EsPCEx 2023, Modelo A (primeiro dia de prova).</em></div>
+</div>
+
+<div class="qtitulo">Questão 01 — EsPCEx 2023</div>
+<div class="qenunciado">Com base nos textos apresentados na prova de 2023, assinale a alternativa que apresenta o tema central abordado:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">Os prejuízos causados pela automatização total dos serviços públicos ao funcionalismo.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">Os desafios e as implicações do uso da tecnologia na sociedade contemporânea.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">A superioridade dos sistemas digitais em relação aos sistemas analógicos.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">A necessidade de substituição completa do trabalho humano por inteligência artificial.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">A ineficiência dos governos em adaptar legislações às novas tecnologias.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Os textos de 2023 abordavam a tecnologia em múltiplas dimensões — inteligência artificial, burocratização digital, uso na educação — sem se restringir a aspectos exclusivamente negativos ou positivos. O tema central que unifica todos os textos é o conjunto de <strong>desafios e implicações</strong> que o uso da tecnologia traz à sociedade contemporânea.</p>
+      <p>[A] restringe demais (funcionalismo). [C] toma partido positivo que o texto não assume. [D] extrapola as conclusões dos textos. [E] focaliza apenas legislação, aspecto secundário.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: tema central = assunto de maior abrangência que articula e unifica os textos.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s6" data-mod="I" data-title="Módulo I · Questão 02 (2023)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 6/125</span><span class="qchip assunto">EsPCEx · 2023</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 02 — EsPCEx 2023</div>
+<div class="qenunciado">Com base no texto de 2023, pode-se inferir que a expressão <strong>"burocratização da oferta de serviços de aplicativos"</strong> remete a:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">a simplificação excessiva dos processos digitais em detrimento da segurança.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">o aumento desnecessário de etapas e exigências no uso de serviços digitais.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">a substituição de documentos físicos por documentos digitais nos órgãos públicos.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">a padronização dos serviços digitais segundo normas internacionais.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">a criação de aplicativos específicos para serviços públicos.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p><em>Burocratização</em> designa o acúmulo de regras, formalidades e etapas que tornam os processos mais lentos e difíceis. Quando aplicada a serviços de aplicativos — que deveriam ser ágeis —, a expressão indica que esses serviços passaram a exigir um número excessivo e desnecessário de etapas dos usuários.</p>
+      <p><strong>[B] ✔</strong> — capta precisamente o sentido da expressão no contexto: excesso de etapas e exigências em serviços digitais.</p>
+      <p>[A] ✗ — a burocratização é o oposto de simplificação. [C], [D] e [E] ✗ — trazem informações não pertinentes ao conceito.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: leitura contextual; o prefixo <em>burocrat-</em> remete ao excesso de formalidades administrativas.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s7" data-mod="I" data-title="Módulo I · Questão 03 (2023)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 7/125</span><span class="qchip assunto">EsPCEx · 2023</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 03 — EsPCEx 2023</div>
+<div class="qenunciado">Com base nos textos da prova de 2023, é correto afirmar que a inteligência artificial é apresentada como:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">uma ameaça definitiva ao aprendizado humano nas instituições de ensino.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">uma solução completa e sem riscos para os desafios educacionais contemporâneos.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">uma ferramenta com potencial de apoio e, ao mesmo tempo, com riscos associados ao uso acrítico.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">um instrumento exclusivamente criado para substituir professores no processo de ensino.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">uma tecnologia irrelevante para os serviços públicos e para a educação formal.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Os textos de 2023 apresentam a inteligência artificial de forma equilibrada: reconhecem seus <strong>benefícios potenciais</strong> como ferramenta de suporte à educação e aos serviços públicos, mas também apontam os <strong>riscos do uso acrítico</strong> por estudantes e profissionais.</p>
+      <p>[A] e [D] restringem demais. [B] ignora os riscos mencionados. [E] contraria explicitamente o texto.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: identificação da ideia central por meio da progressão temática do texto.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s8" data-mod="I" data-title="Módulo I · Questão 04 (2023)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 8/125</span><span class="qchip assunto">EsPCEx · 2023</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 04 — EsPCEx 2023</div>
+<div class="qenunciado">De acordo com os textos da prova de 2023, é possível inferir que a tendência à burocratização dos serviços digitais:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">é exclusiva dos serviços prestados pelos governos, não afetando empresas privadas.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">foi completamente eliminada com a adoção de novas tecnologias de inteligência artificial.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">representa uma contradição em relação à promessa original de praticidade e agilidade das plataformas digitais.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">é um fenômeno restrito a países em desenvolvimento, sem impacto nas nações mais avançadas tecnologicamente.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">surge apenas quando as empresas tentam aumentar a segurança dos dados dos usuários.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Os textos de 2023 mostram que as plataformas digitais foram <strong>originalmente criadas para oferecer praticidade</strong>, mas passaram a exigir dos usuários um número crescente de etapas — tornando-se paradoxalmente mais complexas. Isso configura uma contradição com a promessa inicial.</p>
+      <p>[A] limita o fenômeno ao setor público. [B] afirma que a IA eliminou o problema. [D] restringe geograficamente. [E] apresenta causa específica não mencionada.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: inferência a partir da leitura global do texto, captando as contradições apontadas.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s9" data-mod="I" data-title="Módulo I · Questão 01 (2021)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 9/125</span><span class="qchip assunto">EsPCEx · 2021</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">Texto-base — Questões 01 a 13 (EsPCEx 2021)</div><p><strong>E a indústria de alimentos na pandemia?</strong></p>
+  <p>O editorial da edição de 10 de junho do <em>British Medical Journal</em>, assinado por professores da Queen Mary University of London, na Inglaterra, propõe uma reflexão tão interessante que vale provocá-la entre nós, aqui também: a pandemia de Covid-19 deveria tornar ainda mais urgente o combate à outra pandemia, a de obesidade.</p>
+  <p>O excesso de peso, por si só, já é um fator de risco importante para o agravamento da infecção pelo Sars-CoV 2, como lembram os autores. A probabilidade de uma pessoa com obesidade severa morrer de Covid-19 chega a ser 27% maior do que a de indivíduos com obesidade grau 1, isto é, com um índice de massa corporal entre 30 e 34,9 quilos por metro quadrado, de acordo com a plataforma de registros OpenSAFELY.</p>
+  <p>O editorial cita uma série de outros dados e possíveis razões para a associação entre a má evolução de certos casos de Covid-19 e a obesidade. No entanto, o que mais destaca é o ambiente obesogênico que o novo coronavírus encontrou no planeta.</p>
+  <p>Nos Estados Unidos e no Reino Unido, para citar dois exemplos, entre 65% e 70% da população apresentam um peso maior do que o recomendado para o bem da saúde. E, assim, os autores apontam o dedo para a indústria de alimentos que, em sua opinião, em todo o globo não parou de promover produtos ultraprocessados, com muito açúcar, uma quantidade excessiva de sódio e gorduras além da conta.</p>
+  <p>A crítica do editorial é mesmo cortante: "Fica claro que a indústria de alimentos divide a culpa não apenas pela pandemia de obesidade como pelos casos mais graves de Covid-19 e suas consequências devastadoras", está escrito.</p>
+  <p>E os autores cobram medidas, lembrando que o confinamento exigido pela Covid-19 aparentemente piorou o estado nutricional das pessoas, em parte pela falta de acesso a alimentos frescos, em outra parte porque o pânico fez muita gente estocar itens ultraprocessados em casa, já que esses costumam ter maior vida de prateleira, inclusive na despensa.</p>
+  <p>Mas o que deixou os autores realmente desconfortáveis foram as ações de marketing de algumas marcas nesses tempos desafiadores. Todas, claro, querendo demonstrar o seu envolvimento com iniciativas de responsabilidade social, mas dando tiros que, para olhos mais atentos, decididamente saíram pela culatra. Por exemplo, quando uma indústria bem popular na Inglaterra distribuiu nada menos do que meio milhão de calóricos donuts para profissionais na linha de frente do National Health Service britânico.</p>
+  <p>A impressão é de que as indústrias de alimentos verdadeiramente preocupadas com a população, cada vez mais acometida pela obesidade, deveriam aproveitar a crise atual para botar a mão na consciência, parar de promover itens pouco saudáveis e reformular boa parte do seu portfólio. As mortes por Covid-19 dão a pista de que essa é a maior causa que elas poderiam abraçar no momento.</p>
+  <div class="passagem-note">Adaptado de https://abeso.org.br/e-a-industria-de-alimentos-na-pandemia. Publicado em 30 de junho de 2020.</div>
+</div>
+<div class="alerta ouro"><div class="alerta-icon">📖</div><div class="alerta-content"><div class="alerta-title">Vocabulário</div><div class="alerta-text"><strong>Glossário</strong>
+  <strong>ambiente obesogênico</strong> — criado pelo prof. Bruce Blumberg (Univ. da Califórnia): são os Obesogênicos os responsáveis por contribuir no ganho de peso sem que o indivíduo tenha consciência de que está engordando.
+</div></div></div>
+
+<div class="qtitulo">Questão 01 — EsPCEx 2021</div>
+<div class="qenunciado">Após a leitura, pode-se inferir que o termo <strong>"ambiente obesogênico"</strong> refere-se a um local que:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">propicia melhores condições financeiras, o que leva as pessoas a ter maior facilidade para comprar alimentos, levando-as inevitavelmente à obesidade, como é o caso do Reino Unido.</span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">apresenta mais de 60% de sua população com peso maior do que o recomendado pela Organização Mundial de Saúde, como acontece com os Estados Unidos, por exemplo.</span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">leva as pessoas a estocar alimentos ultraprocessados por motivos de força maior, como guerras e epidemias, em que as pessoas são obrigadas ao confinamento para conseguirem sobreviver.</span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">favorece a maior ingestão extra de alimentos pobres em nutrientes, mas ricos em açúcares e gorduras em comidas processadas e geralmente de baixo custo.</span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">possui habitantes cuja obesidade severa é causada principalmente por causas ligadas à genética e que piora com a ingestão de alimentos ultraprocessados e com grandes quantidades de açúcar.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O glossário define: <em>"são os Obesogênicos os responsáveis por contribuir no ganho de peso <strong>sem que o indivíduo tenha consciência</strong>"</em>. O contexto do texto associa esse ambiente à promoção de <strong>produtos ultraprocessados, ricos em açúcar, sódio e gorduras</strong> pela indústria alimentícia.</p>
+      <p>[A] mistura condições financeiras — não é o que o texto define. [B] confunde o ambiente com uma estatística populacional. [C] restringe aos motivos de força maior (pandemia, guerra) — o texto é mais amplo. [E] inventa a causa genética, inexistente no texto.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: leitura referencial com base no glossário e no contexto; Cunha &amp; Cintra: inferência a partir de dados explícitos e implícitos.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s10" data-mod="I" data-title="Módulo I · Questão 02 (2021)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 10/125</span><span class="qchip assunto">EsPCEx · 2021</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 02 — EsPCEx 2021</div>
+<div class="qenunciado">Segundo o texto, o editorial do <em>British Medical Journal</em> mostra que a indústria de alimentos:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">revela-se verdadeiramente preocupada com a saúde da população e cita o exemplo de uma empresa que distribuiu alimentos aos profissionais na linha de frente do tratamento de saúde.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">é responsável, em parte, pelos casos mais graves de Covid-19 e suas consequências devastadoras, já que continua a promover produtos ultraprocessados, com muito açúcar e excesso de gorduras.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">aproveitou a pandemia para promover itens um pouco saudáveis e reformulou boa parte de seu portfólio, pois as mortes por Covid-19 deram a pista de que essa causa precisava ser abraçada.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">mostra seu envolvimento com excelentes iniciativas de responsabilidade social a partir de ações de marketing, como o oferecimento de calóricos donuts aos profissionais de saúde.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">é a principal culpada não somente pela pandemia de obesidade, mas também pelos casos mais graves de Covid-19, pois muita gente passou a estocar itens ultraprocessados em casa.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O editorial afirma: <em>"Fica claro que a indústria de alimentos <strong>divide</strong> a culpa não apenas pela pandemia de obesidade como pelos casos mais graves de Covid-19"</em>. A alternativa [B] reproduz fielmente essa ideia.</p>
+      <p>[E] usa <em>"principal culpada"</em> e <em>"não somente"</em>, exagerando o texto que fala em <em>"divide a culpa"</em>. [A] e [D] invertem o sentido crítico do texto. [C] afirma o oposto — o texto diz que a indústria <em>não</em> reformulou seu portfólio.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: atenção às gradações semânticas; Cunha &amp; Cintra: distinção entre o que o texto afirma e o que é exagero ou inversão.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s11" data-mod="I" data-title="Módulo I · Questão 03 (2021)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 11/125</span><span class="qchip assunto">EsPCEx · 2021</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 03 — EsPCEx 2021</div>
+<div class="qenunciado">De acordo com o texto, a probabilidade de uma pessoa morrer de Covid-19 chega a ser 27% maior entre os indivíduos com:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">obesidade grau 1 em comparação com os indivíduos com obesidade severa, isto é, com índice de massa corporal entre 30 e 34,9 quilos por metro quadrado.</span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">índice de massa corporal entre 30 e 34,9 quilos por metro quadrado em comparação com os indivíduos com obesidade grau 1.</span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">índice de massa corporal maior do que 34,9 quilos por metro quadrado em comparação com os indivíduos com obesidade severa.</span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">obesidade severa em comparação com indivíduos com índice de massa corporal entre 30 e 34,9 quilos por metro quadrado (obesidade grau 1).</span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">índice de massa corporal bem superior a 34,9 quilos por metro quadrado em comparação com indivíduos com obesidade grau 1.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Trecho do texto: <em>"A probabilidade de uma pessoa com <strong>obesidade severa</strong> morrer de Covid-19 chega a ser 27% maior do que a de indivíduos com <strong>obesidade grau 1</strong>, isto é, com um índice de massa corporal entre 30 e 34,9 quilos por metro quadrado."</em></p>
+      <p>Leitura direta: a base de comparação (grupo com 27% a mais de risco) é a <strong>obesidade severa</strong>; o parâmetro é a <strong>obesidade grau 1 (IMC 30–34,9)</strong>. A alternativa [D] expressa exatamente isso. As demais invertem ou distorcem a relação comparativa.</p></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s12" data-mod="I" data-title="Módulo I · Questão 04 (2021)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 12/125</span><span class="qchip assunto">EsPCEx · 2021</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 04 — EsPCEx 2021</div>
+<div class="qenunciado">O editorial de edição de 10 de junho, assinado pelos professores da Queen Mary University of London, foi publicado pelo:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,4)"><span class="alt-letra">A</span><span class="alt-txt">site https://abeso.org.br/e-a-industria-na-pandemia.</span></div>
+<div class="alt" onclick="sa(this,1,4)"><span class="alt-letra">B</span><span class="alt-txt">National Health Service britânico.</span></div>
+<div class="alt" onclick="sa(this,2,4)"><span class="alt-letra">C</span><span class="alt-txt">site da Organização Mundial da Saúde (OMS).</span></div>
+<div class="alt" onclick="sa(this,3,4)"><span class="alt-letra">D</span><span class="alt-txt">OpenSAFELY.</span></div>
+<div class="alt" onclick="sa(this,4,4)"><span class="alt-letra">E</span><span class="alt-txt"><em>British Medical Journal</em>.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>E</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Primeira linha do texto: <em>"O editorial da edição de 10 de junho <strong>do British Medical Journal</strong>, assinado por professores da Queen Mary University of London…"</em></p>
+      <p>Localização de informação explícita: o editorial foi publicado no <strong>British Medical Journal</strong>. As demais entidades (abeso.org.br, NHS, OMS, OpenSAFELY) são mencionadas no texto com outras funções.</p></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s13" data-mod="I" data-title="Módulo I · Questão 01 (2024)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 13/125</span><span class="qchip assunto">EsPCEx · 2024</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">Texto-base — Questões 01 a 20 (EsPCEx 2024)</div><p><strong>No princípio eram as árvores</strong></p>
+  <p>Os livros são filhos das árvores, que foram o primeiro lar da nossa espécie e, talvez, o mais antigo receptáculo das palavras escritas. A etimologia da palavra contém um velho relato sobre os primórdios. Em latim, <em>liber</em>, que significa "livro", originariamente dava nome à casca da árvore ou, mais exatamente, à película fibrosa que separa a casca da madeira do tronco. Plínio, o Velho, afirma que os romanos escreviam em cascas de árvore antes de conhecer os rolos egípcios. Durante muitos séculos, diversos materiais – o papiro, o pergaminho – ocuparam o lugar daquelas antigas páginas de madeira, mas, numa viagem de ida e volta, com adoção do papel, os livros voltaram a nascer das árvores.</p>
+  <p>Como eu já expliquei, os gregos chamavam o livro de <em>biblíon</em>, rememorando a cidade fenícia de Biblos, famosa pela exportação de papiro. Atualmente o emprego dessa palavra, em sua evolução, ficou reduzido ao título de uma única obra, a Bíblia. Para os romanos, <em>liber</em> não evocava cidades nem rotas comerciais, mas o mistério do bosque onde seus antepassados começaram a escrever, em meio aos sussurros do vento nas folhas. Os nomes germânicos – <em>book, Buch, boek</em> – também descendem de uma palavra arbórea: a faia de tronco esbranquiçado.</p>
+  <p>Em latim, o termo que significa "livro" tem quase o mesmo som que o adjetivo que significa "livre", embora as raízes indo-europeias de ambos os vocábulos tenham origens diferentes. Muitas línguas neolatinas, como o espanhol, o francês, o italiano e o português, herdaram a coincidência dessa semelhança fonética, que convida ao jogo de palavras, identificando leitura e liberdade. Para os iluministas de todas as épocas, são duas paixões que sempre acabam confluindo.</p>
+  <p>Hoje aprendemos a escrever com luz sobre telas de cristal líquido ou de plasma, mas ainda ouvimos o chamado originário das árvores. Em suas cascas redigimos um disperso inventário amoroso da humanidade. Antonio Machado, em seus passeios pelos Campos de Castela, costumava parar junto ao rio para ler algumas linhas desse livro dos amantes:</p>
+  <p style="margin-left:24px; font-style:italic;">
+    Voltei a ver os álamos dourados,<br>
+    álamos do caminho na ribeira<br>
+    do Douro, entre San Polo e San Saturio,<br>
+    atrás das muralhas velhas de Soria […].<br>
+    Estes choupos do rio, que acompanham<br>
+    com o som de suas folhas secas<br>
+    o som da água, quando o vento sopra,<br>
+    têm em suas cascas<br>
+    gravadas iniciais que são nomes<br>
+    de apaixonados, números que são datas.
+  </p>
+  <p>Quando um adolescente risca duas iniciais com a ponta do canivete na casca prateada de um álamo, reproduz, sem saber, um gesto muito antigo. Calímaco, o bibliotecário de Alexandria, já menciona no século III a.C. uma mensagem amorosa numa árvore. Não é o único. Um personagem de Virgílio imagina como a casca, com o passar dos anos, irá se alargar e corroer seu nome e o dela: "E gravar meus amores nas jovens árvores; crescerão as árvores e com elas crescerão vocês, amores meus." Talvez o costume, ainda vivo, de tatuar letras na pele de uma árvore para conservar a lembrança de alguém que viveu e amou tenha sido um dos episódios mais antigos de escrita na Europa. Talvez, à beira de um rio que corre e passa e sonha, como dizia Machado, os antigos gregos e romanos tenham escrito os seus primeiros pensamentos e as primeiras palavras de amor. Sabe-se lá quantas dessas árvores acabaram se transformando em livros.</p>
+  <div class="passagem-note">VALLEJO, Irene. <em>O Infinito em um Junco: A Invenção dos Livros no Mundo Antigo</em>. Tradução de Paulina Wacht e Ari Roitman. 1ª ed. Rio de Janeiro: Intrínseca, 2022.</div>
+</div>
+<div class="alerta ouro"><div class="alerta-icon">📖</div><div class="alerta-content"><div class="alerta-title">Vocabulário</div><div class="alerta-text"><strong>Glossário</strong>
+  <strong>Álamo / Choupo</strong> — árvore ornamental de flores pequenas e casca rugosa |
+  <strong>Papiro</strong> — folha para escrever feita das hastes dos juncos do rio Nilo |
+  <strong>Pergaminho</strong> — pele de cabra ou de ovelha preparada para a escrita |
+  <strong>Faia</strong> — espécie de árvore |
+  <strong>Indo-europeu</strong> — origem comum das línguas europeias
+</div></div></div>
+
+<div class="qtitulo">Questão 01 — EsPCEx 2024</div>
+<div class="qenunciado">De acordo com o texto, assinale a alternativa com a interpretação mais adequada para a frase <em>"A etimologia da palavra contém um velho relato sobre os primórdios."</em>, localizada no primeiro parágrafo:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">A etimologia da palavra latina <em>liber</em> revela que essa palavra originariamente designava a casca da árvore, possibilitando desvendar a relação do homem com a escrita nas cascas das árvores.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">Os primórdios da vida humana encontram-se nas árvores que, como receptáculos da palavra escrita, tornaram-se a verdadeira origem do conhecimento civilizatório.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">O velho relato sobre os primórdios dos livros é revelado pelo uso dos papiros egípcios, obtidos do junco que cresce no Rio Nilo, segundo a etimologia da palavra <em>liber</em>.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">A etimologia da palavra <em>receptáculo</em> conta a história da busca da humanidade por um material que recebesse a palavra escrita e a preservasse no tempo.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">A afirmação é genérica, pois refere-se à etimologia como uma ciência que nos leva a conhecer a história das palavras bem como sua origem.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O parágrafo explica: a palavra <em>liber</em> (= "livro" em latim) <strong>originariamente</strong> designava a <strong>casca da árvore</strong>. Portanto, a etimologia de <em>liber</em> revela um "velho relato sobre os primórdios" da escrita — a relação primitiva do homem com as árvores como suporte para a escrita.</p>
+      <p>[A] capta exatamente essa relação. [B] amplia demais (fala em "origem do conhecimento civilizatório"). [C] confunde com os papiros egípcios (que são mencionados como algo que os romanos conheceram <em>depois</em>). [D] trata da etimologia da palavra "receptáculo", não de "livro". [E] esvazia o sentido específico do trecho, generalizando.</p></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s14" data-mod="I" data-title="Módulo I · Questão 02 (2024)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 14/125</span><span class="qchip assunto">EsPCEx · 2024</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 02 — EsPCEx 2024</div>
+<div class="qenunciado">No título "No princípio eram as árvores", Irene Vallejo coloca o leitor imediatamente a par da sua tese de que a escrita nas árvores é a forma mais antiga de escrita na Europa. Ao longo do texto, traz argumentos que contribuem para essa conclusão. Analise as afirmativas abaixo e marque <strong>apenas as que apresentam argumentos favoráveis à tese da autora</strong>:
+    <br><br>
+    <strong>I</strong> – A etimologia da palavra latina <em>liber</em>.<br>
+    <strong>II</strong> – A afirmação de Plínio, o Velho.<br>
+    <strong>III</strong> – A etimologia da palavra <em>biblíon</em>.<br>
+    <strong>IV</strong> – O poema de Antonio Machado.<br>
+    <strong>V</strong> – O registro de Calímaco, bibliotecário de Alexandria.<br>
+    <strong>VI</strong> – Um personagem de Virgílio.</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">I, II, III e IV.</span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">II, IV, V e VI.</span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">I, III, IV e VI.</span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">I, II, IV e V.</span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">I, II, III, IV, V e VI.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Análise de cada afirmativa:</p>
+      <p><strong>I ✔</strong> — <em>liber</em> = casca da árvore → apoia diretamente a tese (escrita nas árvores).</p>
+      <p><strong>II ✔</strong> — Plínio afirma que <em>"os romanos escreviam em cascas de árvore antes de conhecer os rolos egípcios"</em> → apoia a tese.</p>
+      <p><strong>III ✗</strong> — <em>biblíon</em> remete a Biblos (cidade exportadora de <strong>papiro</strong>, não de escrita em árvores). Argumento lateral, não favorável à tese central.</p>
+      <p><strong>IV ✔</strong> — Machado fala de "gravadas iniciais que são nomes de apaixonados" nas cascas → apoia a tese da escrita nas árvores.</p>
+      <p><strong>V ✔</strong> — Calímaco menciona "mensagem amorosa numa árvore" no séc. III a.C. → apoia.</p>
+      <p><strong>VI ✗</strong> — O personagem de Virgílio <em>imagina</em> gravar na casca → é hipotético/literário, não um argumento histórico-comprobatório direto.</p>
+      <p>Portanto: I, II, IV e V = <strong>[D]</strong>.</p></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s15" data-mod="I" data-title="Módulo I · Questão 03 (2024)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 15/125</span><span class="qchip assunto">EsPCEx · 2024</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 03 — EsPCEx 2024</div>
+<div class="qenunciado">Ao final do texto, a autora cria algumas hipóteses. Uma delas, <strong>a partir de uma fabulação especulativa</strong>, pode ser assim descrita:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">O crescimento das árvores poderá fazer crescer os nomes nelas inscritos com o passar dos anos.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Uma mensagem amorosa em uma árvore pode ser um gesto muito antigo, já mencionado no séc. III a.C.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">Os primeiros pensamentos podem ter sido escritos em árvores que talvez tenham se transformado em livros.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Os gregos e os romanos escreviam em árvores seus pensamentos e depois os transformavam em livros.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Um dos episódios mais antigos de escrita na Europa pode ter sido tatuar letras na pele das árvores que cresciam na beira dos rios.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Trecho do texto: <em>"Talvez, à beira de um rio que corre e passa e sonha, como dizia Machado, os antigos gregos e romanos <strong>tenham escrito os seus primeiros pensamentos</strong> e as primeiras palavras de amor. <strong>Sabe-se lá quantas dessas árvores acabaram se transformando em livros.</strong>"</em></p>
+      <p>Essa é a <strong>fabulação especulativa</strong>: a ideia de que os primeiros pensamentos escritos em árvores possam ter se transformado, literalmente, em livros. [C] é a única alternativa que capta ambas as partes dessa hipótese dupla.</p>
+      <p>[B] é fato comprobatório (Calímaco). [D] afirma como fato o que é hipótese. [E] repete trecho anterior que trata do costume como episódio, mas sem a parte da transformação em livros. [A] refere-se ao personagem de Virgílio, não à fabulação final.</p></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s16" data-mod="I" data-title="Módulo I · Questão 04 (2024)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 16/125</span><span class="qchip assunto">EsPCEx · 2024</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 04 — EsPCEx 2024</div>
+<div class="qenunciado">Segundo o texto, <strong>é correto afirmar</strong> que:<br><br>
+    <strong>I</strong> – as duas paixões dos iluministas de todas as épocas são os jogos de palavras e a semelhança fonética entre as palavras.<br>
+    <strong>II</strong> – as "antigas páginas de madeira" são as cascas das árvores.<br>
+    <strong>III</strong> – a etimologia da palavra "livro" é grega.<br>
+    <strong>IV</strong> – conotativamente, a origem da folha de papel é mais remota que a do papiro.<br><br>
+    Dentre as afirmativas feitas acima, estão corretas apenas:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">I, II e III.</span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">I e IV.</span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">I e III.</span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">II e IV.</span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">II, III e IV.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p><strong>I ✗</strong> — O texto afirma que as paixões dos iluministas são <em>"leitura e liberdade"</em>. Os jogos de palavras e a semelhança fonética são apenas o mecanismo que as aproxima, não as paixões em si. Incorreto.</p>
+      <p><strong>II ✔</strong> — O texto afirma: <em>"Em latim, liber… originariamente dava nome à casca da árvore"</em> e <em>"papiro, pergaminho – ocuparam o lugar daquelas antigas páginas de madeira"</em>. As cascas são as antigas páginas de madeira. Correto.</p>
+      <p><strong>III ✗</strong> — A etimologia de "livro" é <strong>latina</strong> (<em>liber</em>), não grega. A palavra grega equivalente é <em>biblíon</em>. Incorreto.</p>
+      <p><strong>IV ✔</strong> — O texto diz: <em>"numa viagem de ida e volta, com adoção do papel, os livros voltaram a nascer das árvores"</em>. Conotativamente, a folha de papel remete às árvores primitivas, origem mais remota que o papiro. Correto.</p>
+      <p>Corretas: II e IV = <strong>[D]</strong>.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: inferência textual; distinção entre o que o texto afirma explicitamente e o que é inferido do contexto.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s17" data-mod="I" data-title="Módulo I · Questão 01 (2025)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 17/125</span><span class="qchip assunto">EsPCEx · 2025</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">Texto-base — Questões 01 a 05 (EsPCEx 2025)</div><p><strong>Machado e Abel</strong></p>
+  <p>O Almanaque Garnier de 1906 trazia o conto de Machado de Assis <strong>"O Incêndio"</strong>. O conto principia assim: <em>"Não inventei o que vou contar, nem o inventou o meu amigo Abel. Ele ouviu o fato com todas as circunstâncias, e um dia, em conversa, fez resumidamente a narração que me ficou na memória e aqui vai tal qual. Não lhe acharás o pico, a alma própria que este Abel põe a tudo o que exprime…"</em></p>
+  <p>Este Abel era o engenheiro civil Abel Ferreira de Matos, de que falei em minha crônica passada, na verdade o homem mais espirituoso que já vi na minha vida.</p>
+  <p>O caso do conto <em>"O Incêndio"</em> ouviu-o Abel de mim, que por minha vez o ouvi da boca do próprio protagonista, oficial da marinha inglesa, que acabava de curar a sua <em>"perna mal ferida"</em> no Hospital dos Estrangeiros, <strong>onde eu então me achava também internado morre não morre</strong>. A história: um navio inglês em cruzeiro; no porto de Montevidéu, o oficial viu um incêndio; no segundo andar parecia ver-se uma mulher hesitante; o oficial entrou para salvá-la — era um manequim; ao sair, foi atingido por uma trave que lhe pegou a perna.</p>
+  <p>Casos como esse punham o nosso bom Abel, <strong>que era um crente e um espiritista</strong>, completamente desnorteado e infeliz. <strong>Foi o que sucedeu quando lhe narrei a história do inglês.</strong> Primeiro sacudiu a cabeça entre as mãos ambas. Em seguida comentou: <em>"É um conto para Machado de Assis"</em>.</p>
+  <p>E era mesmo. E Machado acaba o conto com o oficial sendo preso pelos bombeiros — era acrescentar à iniquidade divina a iniquidade humana — e <em>"foi mandado a Calcutá, onde descansou da perna quebrada e do desejo de salvar ninguém"</em>.</p>
+  <p>Abel tinha a Machado na conta de materialista. Ficou espantadíssimo quando Machado protestou: <em>"Eu, ma… materialista? Absolutamente!"</em></p>
+  <div class="passagem-note">BANDEIRA, Manuel. <em>Machado e Abel</em>. In: Crônicas da Província do Brasil. Rio de Janeiro: Civilização Brasileira, 1937.</div>
+</div>
+
+<div class="qtitulo">Questão 01 — EsPCEx 2025</div>
+<div class="qenunciado">De acordo com o texto <strong>"Machado e Abel"</strong>, de Manuel Bandeira, assinale a alternativa correta:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,4)"><span class="alt-letra">A</span><span class="alt-txt">Abel era amigo comum de Machado de Assis, de Manuel Bandeira e do oficial da marinha inglesa que contou a história.</span></div>
+<div class="alt" onclick="sa(this,1,4)"><span class="alt-letra">B</span><span class="alt-txt">O oficial da marinha inglesa, que conhecia Manuel Bandeira, passeava pela cidade de Calcutá quando viu o incêndio.</span></div>
+<div class="alt" onclick="sa(this,2,4)"><span class="alt-letra">C</span><span class="alt-txt">Manuel Bandeira conheceu o oficial da marinha inglesa, que não conhecia Abel. Este, por sua vez, conhecia Machado de Assis.</span></div>
+<div class="alt" onclick="sa(this,3,4)"><span class="alt-letra">D</span><span class="alt-txt">Abel, que era crente e espiritualista, conheceu Manuel Bandeira, que era materialista e amigo de Machado de Assis.</span></div>
+<div class="alt" onclick="sa(this,4,4)"><span class="alt-letra">E</span><span class="alt-txt">Manuel Bandeira estava internado no hospital quando contou essa história para Abel, que conhecia Machado de Assis.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>E</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O texto declara que Bandeira estava <em>"internado morre não morre"</em> no Hospital dos Estrangeiros quando ouviu a história do oficial inglês. Foi Bandeira quem, depois, narrou o caso a Abel (<em>"Foi o que sucedeu quando lhe narrei a história do inglês"</em>), e Abel conhecia Machado.</p>
+      <p><strong>[A]</strong> ✗ — o oficial não era amigo de Abel; nunca se encontraram. <strong>[B]</strong> ✗ — o incêndio ocorreu em Montevidéu, não em Calcutá. <strong>[C]</strong> ✗ — parcialmente correto, mas omite o fato central de que Bandeira estava internado. <strong>[D]</strong> ✗ — Bandeira não é descrito como materialista no texto.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: reconhecimento da sequência narrativa e identificação das relações entre personagens.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s18" data-mod="I" data-title="Módulo I · Questão 02 (2025)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 18/125</span><span class="qchip assunto">EsPCEx · 2025</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 02 — EsPCEx 2025</div>
+<div class="qenunciado">Da leitura de <u><strong>"foi mandado a Calcutá, onde descansou da perna quebrada e do desejo de salvar ninguém"</strong></u>, trecho escrito por Machado de Assis e transcrito por Manuel Bandeira, escolha a alternativa que traz a <strong>interpretação mais completa</strong>.</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,4)"><span class="alt-letra">A</span><span class="alt-txt">Calcutá era um lugar aonde Abel ia para se curar do desencanto e da iniquidade humana, conhecido por oficiais da marinha inglesa à época da crônica, quando faziam viagens em navios de guerra pelo sul do Atlântico.</span></div>
+<div class="alt" onclick="sa(this,1,4)"><span class="alt-letra">B</span><span class="alt-txt">A falta de paralelismo semântico, observado na escolha das palavras <strong>"perna"</strong> e <strong>"desejo"</strong> em complemento ao verbo <strong>"descansou"</strong>, leva o leitor a tratar o resultado do heroísmo desastrado do protagonista como apenas uma perna ferida, de que também precisa se recuperar.</span></div>
+<div class="alt" onclick="sa(this,2,4)"><span class="alt-letra">C</span><span class="alt-txt">Usar a palavra <strong>"ninguém"</strong> no lugar de <strong>"alguém"</strong> remete à empreitada de um salvamento dirigido a um ser inanimado, "o manequim". Interpreta-se o sarcasmo ao ligar esse salvamento ao vocábulo <strong>"desejo"</strong>, como se o oficial desejasse realmente "salvar ninguém", o que obviamente está fora de cogitação.</span></div>
+<div class="alt" onclick="sa(this,3,4)"><span class="alt-letra">D</span><span class="alt-txt">Descansar da perna é uma metáfora para o merecido descanso do heroico oficial, que, mesmo sem conhecer as circunstâncias da situação presenciada, mostrou-se pronto para o serviço, com a coragem e a determinação intrínsecas à profissão.</span></div>
+<div class="alt" onclick="sa(this,4,4)"><span class="alt-letra">E</span><span class="alt-txt">Machado surpreende o leitor tanto pela <strong>quebra de paralelismo semântico</strong> — que consiste em colocar lado a lado elementos de significados díspares, como <strong>"perna"</strong> (concreto/físico) e <strong>"desejo"</strong> (abstrato/emocional) — quanto pelo uso do indefinido negativo <strong>"ninguém"</strong>, que leva a uma série de interpretações sarcásticas em relação à história do oficial.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>E</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p><strong>[E]</strong> é a mais completa, pois aponta os <em>dois</em> recursos simultâneos de Machado: (1) o <strong>paralelismo semântico heterogêneo</strong> — "perna" (concreto/físico) ao lado de "desejo" (abstrato/emocional) — criando estranhamento irônico; (2) o uso de <strong>"ninguém"</strong> em lugar de "alguém", que transforma o ato heroico em ato vazio de sentido, amplificando o sarcasmo machadiano.</p>
+      <p><strong>[B]</strong> capta apenas o paralelismo, ignorando o "ninguém". <strong>[C]</strong> capta apenas o "ninguém", ignorando o paralelismo. <strong>[D]</strong> interpreta erroneamente o heroísmo como mérito, ignorando a ironia. <strong>[A]</strong> confunde os personagens — Abel não vai a Calcutá.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: efeitos de sentido e interpretação textual; Cegalla: paralelismo e figuras de construção.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s19" data-mod="I" data-title="Módulo I · Questão 03 (2025)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 19/125</span><span class="qchip assunto">EsPCEx · 2025</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 03 — EsPCEx 2025</div>
+<div class="qenunciado">No <strong>penúltimo parágrafo</strong> do texto, qual é o efeito expressivo do <u>polissíndeto</u> usado por Bandeira?<br><br>
+    <em>("E era mesmo. E Machado de Assis não deixou de agravar o caso inventando por sua conta que os bombeiros iam prendendo o oficial na suposição de que fosse um ladrão; era acrescentar à iniquidade divina a iniquidade humana. E Machado acaba o conto instalando o seu desencanto dos homens na alma do oficial…")</em></div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">O emprego reiterado das conjunções coordenativas sugere os movimentos contínuos e vigorosos da criatividade machadiana, que se remete também ao estilo do texto bíblico.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">As quebras rítmicas e pausas servem para mostrar um Machado inventivo e materialista na condução dos acontecimentos e do destino dos personagens.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">A figura, que consiste na <u>antecipação de termos da oração</u>, serve para adiantar o final do conto de Machado com detalhes que não existiam na história original, adquirindo excepcional realce.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">A <u>inversão de termos</u> propõe-se a enfatizar a genialidade de Machado e a maneira pela qual ele consegue destruir um personagem essencialmente bom e puro.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">A construção, baseada na <u>omissão de termos sintáticos</u> numa espécie de economia de palavras, tem o fim de destacar os elementos desagregadores inseridos por Machado na história.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O polissíndeto — <em>"E era mesmo. E Machado não deixou… E Machado acaba…"</em> — cria ritmo acumulativo e encadeado, sugerindo os passos sucessivos e vigorosos da criatividade machadiana. A repetição de <strong>"E"</strong> no início das orações remete ao estilo paratático bíblico (<em>Gênesis</em>: "E disse Deus… E havia luz… E viu Deus…").</p>
+      <p><strong>[B]</strong> descreve o assíndeto (ausência de conjunções). <strong>[C]</strong> descreve a anástrofe (antecipação de termos). <strong>[D]</strong> descreve o hipérbato (inversão). <strong>[E]</strong> descreve a elipse (omissão). Nenhuma dessas figuras é o polissíndeto.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: polissíndeto — repetição de conjunções coordenativas além do necessário; Cunha &amp; Cintra: funções estilísticas da coordenação.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s20" data-mod="I" data-title="Módulo I · Questão 04 (2025)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 20/125</span><span class="qchip assunto">EsPCEx · 2025</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 04 — EsPCEx 2025</div>
+<div class="qenunciado">No trecho de Machado de Assis, transcrito por Bandeira: <em>"…fez resumidamente a narração <u>que me ficou na memória</u> e <u>aqui vai tal qual</u>."</em> — Machado omite o elemento comparativo. Com base na leitura do texto, marque a alternativa que completa e explica corretamente a comparação: <strong>"e vai tal qual ______"</strong>.</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">a narração aconteceu. <em>[Machado exime-se da responsabilidade quanto aos fatos ou ao compromisso com a verdade da história.]</em></span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">a narração feita resumidamente por Abel. <em>[Machado mostra que deve ser fiel ao que o amigo contou, mas sem o brilho narrativo que Abel colocava em tudo o que exprimia.]</em></span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">ele [Abel] ouviu o fato. <em>[Machado mostra que o amigo Abel foi fiel ao que ouviu, sem fazer nenhum adendo ou exclusão.]</em></span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">a narração que me ficou na memória. <em>[Machado mostra-se um autor fiel aos detalhes de que se lembra, reverenciando sua capacidade de contar, mas reconhece que o amigo faria melhor.]</em></span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">os fatos sucederam-se. <em>[Machado mostra que a história foi contada sem acréscimos ou decréscimos.]</em></span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>A frase completa seria: <em>"aqui vai tal qual <strong>a narração que me ficou na memória</strong>"</em> — o próprio início da frase fornece o elemento comparativo omitido pela elipse. Machado reproduz a história exatamente como ficou em sua memória, sem alterações.</p>
+      <p>A frase seguinte confirma: <em>"Não lhe acharás o pico, a alma própria que este Abel põe…"</em> — reconhece que a versão dele, fiel à memória, não terá o brilho que Abel emprestaria à narrativa.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: na comparação elíptica, o elemento omitido deve ser recuperado no contexto imediato; Cunha &amp; Cintra: relações de identidade semântica na oração.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s21" data-mod="I" data-title="Módulo I · Questão 05 (2025)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 21/125</span><span class="qchip assunto">EsPCEx · 2025</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 05 — EsPCEx 2025</div>
+<div class="qenunciado">Podemos depreender que o comentário de Abel — <em>"É um conto para Machado de Assis"</em> — baseia-se na seguinte característica de Machado de Assis:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">sarcasmo.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">ciúmes.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">denúncia da hipocrisia e do egoísmo.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">análise psicológica do personagem.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">pessimismo.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>Abel percebe que a situação do oficial — heroísmo rigorosamente punido pelo acaso e pela sociedade — é exatamente o tipo de ironia amarga que Machado domina: o <strong>sarcasmo</strong> diante da iniquidade do destino. O próprio narrador confirma: Machado "inventou que os bombeiros prenderam o oficial", acrescentando mais uma camada de ironia cruel ao episódio.</p>
+      <p>Não é pessimismo genérico <strong>[E]</strong> — o pessimismo é difuso; o sarcasmo é pontual, irônico e com alvo definido. Não é análise psicológica <strong>[D]</strong> — Abel não faz referência a nenhum estado interior do personagem, mas à crueldade cômica da situação.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: interpretação do discurso e contexto pragmático.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s22" data-mod="I" data-title="Módulo I · Questão 01 (2018)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 22/125</span><span class="qchip assunto">EsPCEx · 2018</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">Texto-base — Questões 01 a 02 (EsPCEx 2018)</div><p><strong>Política pública de saneamento básico: as bases do saneamento como direito de cidadania e os debates sobre novos modelos de gestão</strong></p>
+  <p><em>A Assembleia Geral da ONU reconheceu em 2010 que o acesso à água potável e ao esgotamento sanitário é indispensável para o pleno gozo do direito à vida.</em> É preciso, para tanto, fazê-lo de modo financeiramente acessível e com qualidade para todos, sem discriminação. Também obriga os Estados a eliminarem progressivamente as desigualdades na distribuição de água e esgoto entre populações das zonas rurais ou urbanas, ricas ou pobres.</p>
+  <p>No Brasil, dados do Ministério das Cidades indicam que cerca de 35 milhões de brasileiros não são atendidos com abastecimento de água potável, mais da metade da população não tem acesso à coleta de esgoto, e apenas 39% de todo o esgoto gerado são tratados. Aproximadamente 70% da população que compõe o déficit de acesso ao abastecimento de água possuem renda domiciliar mensal de até ½ salário mínimo por morador, ou seja, apresentam baixa capacidade de pagamento, o que coloca em pauta o tema do saneamento financeiramente acessível.</p>
+  <div class="passagem-note">BRITTO, Ana Lucia. In: HELLER, Léo; CASTRO, José Esteban (org.). <em>Política pública e gestão de serviços de saneamento</em>. Belo Horizonte: UFMG, 2013. (Adaptado)</div>
+</div>
+
+<div class="qtitulo">Questão 01 — EsPCEx 2018</div>
+<div class="qenunciado">No texto <strong>"Política pública de saneamento básico"</strong>, a fundamentação que desencadeia todo o debate proposto é o:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,4)"><span class="alt-letra">A</span><span class="alt-txt">abastecimento de água potável própria e de qualidade, como direito de todos.</span></div>
+<div class="alt" onclick="sa(this,1,4)"><span class="alt-letra">B</span><span class="alt-txt">aumento do tratamento do esgoto coletado, que chega a apenas 39% do total.</span></div>
+<div class="alt" onclick="sa(this,2,4)"><span class="alt-letra">C</span><span class="alt-txt">acesso à coleta de esgoto nas zonas rurais ou urbanas, ricas ou pobres.</span></div>
+<div class="alt" onclick="sa(this,3,4)"><span class="alt-letra">D</span><span class="alt-txt">saneamento financeiramente acessível para a população mais pobre.</span></div>
+<div class="alt" onclick="sa(this,4,4)"><span class="alt-letra">E</span><span class="alt-txt">reconhecimento em 2010 do direito ao esgotamento sanitário como indispensável à vida.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>E</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O <strong>primeiro parágrafo</strong> apresenta a resolução da ONU de 2010 como o ponto de partida fundador de toda a argumentação: o acesso à água potável e ao esgotamento sanitário é direito indispensável à vida. É essa base que ancora os dados do segundo parágrafo e todos os desdobramentos do texto.</p>
+      <p>Os demais itens são consequências ou aspectos parciais desse argumento central, não o fundamento que desencadeia o debate.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: identificação do argumento-chave e da estrutura dissertativa.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s23" data-mod="I" data-title="Módulo I · Questão 02 (2018)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 23/125</span><span class="qchip assunto">EsPCEx · 2018</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 02 — EsPCEx 2018</div>
+<div class="qenunciado">Segundo a pesquisadora, o tema do <u>saneamento financeiramente acessível</u> é colocado em pauta porque:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">uma parcela equivalente a setenta por cento da população compõe o déficit de acesso ao abastecimento de água.</span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">mais da metade da população não tem acesso à coleta de esgoto e apenas trinta e nove por cento de todo o esgoto gerado são tratados.</span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">trinta e cinco milhões de brasileiros não são atendidos com abastecimento de água potável e mais da metade da população não dispõe de saneamento básico.</span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">aproximadamente dois terços da população que não têm acesso regular ao abastecimento de água ganham até meio salário mínimo.</span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">dispor de água potável própria e de instalações sanitárias é um direito do homem, indispensável para o pleno gozo do direito à vida.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O texto informa que <em>70%</em> dos que compõem o déficit têm renda de até ½ salário mínimo por morador — ou seja, baixa capacidade de pagamento. A alternativa [D] expressa essa mesma realidade como causa da pauta do saneamento <em>financeiramente acessível</em> (70% ≈ "aproximadamente dois terços"). A <strong>razão</strong> para o tema entrar em pauta é justamente a pobreza dessa parcela.</p>
+      <p>As demais alternativas citam dados do texto, mas não identificam o argumento causal específico que explica por que o acesso <em>financeiro</em> é o foco.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: leitura inferencial; relação entre dados estatísticos e argumento causal.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s24" data-mod="I" data-title="Módulo I · Questão 01 (2019)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 24/125</span><span class="qchip assunto">EsPCEx · 2019</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">Texto-base — Questões 01 a 04 (EsPCEx 2019)</div><p><strong>O fim do canudinho de plástico</strong></p>
+  <p>Em 2015, um vídeo perturbador de uma tartaruga marinha oliva sofrendo com um canudo plástico preso em sua narina viralizou, mudando a atitude de muitos espectadores quanto ao utensílio plástico tão conveniente para muitos.</p>
+  <p>Mas, como pode o canudo plástico, um item insignificante utilizado brevemente antes de ser descartado, causar tanto estrago? Primeiramente, ele consegue chegar facilmente aos oceanos devido a sua leveza. Ao chegar lá, o canudo não se decompõe. Pelo contrário, ele se fragmenta lentamente em pedaços cada vez menores, conhecidos como microplásticos, que são frequentemente confundidos com comida pelos animais marinhos.</p>
+  <p>E, em segundo lugar, ele não pode ser reciclado. "Infelizmente, a maioria dos canudos plásticos são leves demais para os separadores manuais de reciclagem, indo parar em aterros sanitários, cursos d'água e, por fim, nos oceanos", explica Dune Ives, diretor executivo da organização Lonely Whale.</p>
+  <p>Nos Estados Unidos, milhões de canudos de plástico são descartados todos os dias. No Reino Unido, estima-se que pelo menos 4,4 bilhões de canudos sejam jogados fora anualmente.</p>
+  <p>Mas é claro que os canudos são apenas parte da quantidade monumental de resíduos que vão parar em nossos oceanos. "Nos últimos 10 anos, produzimos mais plástico do que em todo o século passado e 50% do plástico que utilizamos é de uso único e descartado imediatamente", diz Tessa Hempson, gerente de operações do Oceans Without Borders. "Um milhão de aves marinhas e 100 mil mamíferos marinhos são mortos anualmente pelo plástico nos oceanos."</p>
+  <p>Mas, agora, o próprio canudo plástico começou a finalmente se tornar uma espécie ameaçada, com algumas cidades nos Estados Unidos banindo seu uso, além de outros países que limitam itens de plástico descartável. Belize, Taiwan e Inglaterra estão entre os mais recentes países a proporem a proibição.</p>
+  <p>Embora utilizar um canudo não seja a melhor das hipóteses, algumas pessoas ainda os preferem ou até necessitam deles, como aqueles com deficiências ou dentes e gengivas sensíveis. Se quiser usar um canudo, os reutilizáveis de metal ou vidro são a alternativa ideal.</p>
+  <p>"A maioria das pessoas não pensa nas consequências que o simples ato de pegar ou aceitar um canudo plástico tem em suas vidas e nas vidas das futuras gerações", diz David Laris, diretor de criação e chef do Cachet Hospitality Group, que não utiliza canudos de plástico. "A indústria hoteleira tem a obrigação de começar a reduzir a quantidade de resíduos plásticos que gera."</p>
+  <div class="passagem-note">Adaptado de National Geographic Brasil, jul. 2018.</div>
+</div>
+
+<div class="qtitulo">Questão 01 — EsPCEx 2019</div>
+<div class="qenunciado">Marque a alternativa <strong>correta</strong> de acordo com o texto <em>"O fim do canudinho de plástico"</em>:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,2)"><span class="alt-letra">A</span><span class="alt-txt">Em nossos oceanos, os resíduos plásticos são compostos praticamente por canudos.</span></div>
+<div class="alt" onclick="sa(this,1,2)"><span class="alt-letra">B</span><span class="alt-txt">Pessoas com deficiências ou indivíduos com dentes e gengivas sensíveis são o fator responsável por ainda não ter ocorrido proibição do uso de canudos plásticos.</span></div>
+<div class="alt" onclick="sa(this,2,2)"><span class="alt-letra">C</span><span class="alt-txt">O descarte indiscriminado de canudos plásticos constitui uma ameaça para a vida marinha, mas já existem iniciativas para a solução desse problema.</span></div>
+<div class="alt" onclick="sa(this,3,2)"><span class="alt-letra">D</span><span class="alt-txt">Estados Unidos e Reino Unido são os países que mais lançam canudos plásticos nos oceanos.</span></div>
+<div class="alt" onclick="sa(this,4,2)"><span class="alt-letra">E</span><span class="alt-txt">Os canudos vão parar nos oceanos por serem uma quantidade monumental de resíduos plásticos.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>C</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p><strong>[C]</strong> é a única alternativa que sintetiza as duas dimensões do texto: a ameaça ambiental (mortes de animais, microplásticos) e as iniciativas em curso (campanhas, proibições municipais, redes hoteleiras).</p>
+      <p><strong>[A]</strong> ✗ — o texto afirma: <em>"os canudos são apenas parte da quantidade monumental de resíduos"</em> — não são a composição principal. <strong>[B]</strong> ✗ — essas pessoas são mencionadas como usuárias que ainda necessitam do utensílio, nunca como responsáveis pela não-proibição. <strong>[D]</strong> ✗ — o texto cita dados sobre EUA e Reino Unido, mas jamais os classifica como "os que mais lançam". <strong>[E]</strong> ✗ — inverte a lógica: os canudos chegam aos oceanos pela leveza e pela impossibilidade de reciclagem, não pela quantidade monumental.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: distinção entre informação explícita, inferência e extrapolação indevida.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s25" data-mod="I" data-title="Módulo I · Questão 02 (2019)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 25/125</span><span class="qchip assunto">EsPCEx · 2019</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 02 — EsPCEx 2019</div>
+<div class="qenunciado">O fragmento <em>"Mas é claro que os canudos são <u><strong>apenas parte</strong></u> da quantidade monumental de resíduos plásticos que vão parar em nossos oceanos"</em> permite concluir que:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">além dos canudos, há outros resíduos plásticos que vão parar em nossos oceanos.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">os canudos caracterizam a maior parte dos resíduos plásticos que vão parar em nossos oceanos.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">apenas os canudos que se tornam resíduos plásticos vão parar em nossos oceanos.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">os resíduos plásticos que vão parar em nossos oceanos são compostos essencialmente por canudos.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">há uma quantidade monumental de canudos plásticos em nossos oceanos que são compostos de resíduos plásticos.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>A expressão-chave é <strong>"apenas parte"</strong>: os canudos são <em>apenas uma parte</em> do total de resíduos, o que implica necessariamente que existem <em>outros resíduos além dos canudos</em> — exatamente o que <strong>[A]</strong> enuncia.</p>
+      <p><strong>[B]</strong> e <strong>[D]</strong> ✗ — contradizem o fragmento ao sugerir que canudos seriam a maior parte ou a essência dos resíduos, o oposto de "apenas parte". <strong>[C]</strong> ✗ — restringe indevidamente o alcance da afirmação. <strong>[E]</strong> ✗ — inverte a relação lógica entre canudos e oceanos.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: interpretação semântica de operadores argumentativos de restrição ("apenas", "somente").</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s26" data-mod="I" data-title="Módulo I · Questão 03 (2019)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 26/125</span><span class="qchip assunto">EsPCEx · 2019</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 03 — EsPCEx 2019</div>
+<div class="qenunciado">Marque a alternativa <strong>correta</strong> de acordo com o texto:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,1)"><span class="alt-letra">A</span><span class="alt-txt">O vídeo da tartaruga marinha oliva foi o que levou as grandes redes hoteleiras a proporem o fim dos canudos de plástico.</span></div>
+<div class="alt" onclick="sa(this,1,1)"><span class="alt-letra">B</span><span class="alt-txt">Os canudos plásticos são muito leves e, por isso, acabam escapando dos separadores manuais de reciclagem.</span></div>
+<div class="alt" onclick="sa(this,2,1)"><span class="alt-letra">C</span><span class="alt-txt">Nos Estados Unidos, estima-se que pelo menos 4,4 bilhões de canudos sejam jogados fora anualmente.</span></div>
+<div class="alt" onclick="sa(this,3,1)"><span class="alt-letra">D</span><span class="alt-txt">Pessoas com alguma deficiência ou com gengivas sensíveis são os principais causadores da epidemia de uso de canudos plásticos.</span></div>
+<div class="alt" onclick="sa(this,4,1)"><span class="alt-letra">E</span><span class="alt-txt">David Laris, principal produtor de canudos plásticos no mundo, pensa nas consequências de sua atitude.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>B</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p><strong>[B]</strong> ✔ — afirmação explícita no texto: <em>"a maioria dos canudos plásticos são leves demais para os separadores manuais de reciclagem"</em>.</p>
+      <p><strong>[A]</strong> ✗ — o vídeo "mudou a atitude de muitos espectadores", não foi o fator determinante para as redes hoteleiras. <strong>[C]</strong> ✗ — os 4,4 bilhões anuais referem-se ao <em>Reino Unido</em>, não aos Estados Unidos. <strong>[D]</strong> ✗ — o texto não as aponta como causadoras do problema. <strong>[E]</strong> ✗ — David Laris é descrito como quem <em>não</em> utiliza canudos; não é produtor de canudos.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: localização e distinção de informações no texto; cuidado com trocas de referente.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s27" data-mod="I" data-title="Módulo I · Questão 04 (2019)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 27/125</span><span class="qchip assunto">EsPCEx · 2019</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 04 — EsPCEx 2019</div>
+<div class="qenunciado">No trecho <em>"…diz David Laris, diretor de criação e chef do Cachet Hospitality Group, <u><strong>que não utiliza canudos de plástico</strong></u>"</em>, a oração adjetiva sublinhada refere-se a qual elemento, de acordo com o contexto do texto?</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">David Laris.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">Diretor de criação.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">Chef.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">A maioria das pessoas.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">Cachet Hospitality Group.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>A questão articula <strong>interpretação textual</strong> e <strong>análise sintática</strong>. O pronome relativo "que" aparece após "Cachet Hospitality Group" — o termo imediatamente anterior. No entanto, o <em>contexto semântico</em> determina o antecedente correto: é uma <em>pessoa</em> quem pode "não utilizar canudos", não uma empresa. O texto usa a construção para caracterizar o perfil pessoal de <strong>David Laris</strong>, apresentado como porta-voz contra o uso de canudos.</p>
+      <p>Cegalla alerta que, em casos de ambiguidade sintática, o sentido do texto é o árbitro final na identificação do antecedente do relativo.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cegalla: pronome relativo e determinação do antecedente pelo critério semântico.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s28" data-mod="I" data-title="Módulo I · Questão 05 (2020)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 28/125</span><span class="qchip assunto">EsPCEx · 2020</span></div>
+<div class="sb">
+<div class="passagem-block"><div class="passagem-label">Texto-base — Questões 05 a 07 (EsPCEx 2020)</div><p><strong>Sobre a importância da ciência</strong></p>
+  <p>Parece paradoxal que, no início deste milênio, durante o que chamamos com orgulho de "era da ciência", tantos ainda acreditem em profecias de fim de mundo.</p>
+  <p>Existe um cinismo cada vez maior com relação à ciência, um senso de que fomos traídos, de que promessas não foram cumpridas. Afinal, lutamos para curar doenças apenas para descobrir outras novas. Criamos tecnologias que pretendem simplificar nossas vidas, mas passamos cada vez mais tempo no trabalho. Pior ainda: tem sempre tanta coisa nova e tentadora no mercado que fica impossível acompanhar o passo da tecnologia.</p>
+  <p>Os mais jovens se comunicam de modo quase que incompreensível aos mais velhos, com Facebook, Twitter e textos em celulares. Podemos ir à Lua, mas a maior parte da população continua mal nutrida. Consumimos o planeta com um apetite insaciável, criando uma devastação ecológica sem precedentes. Isso tudo graças à ciência? Ao menos, é assim que pensam os descontentes, mas não é nada disso.</p>
+  <p>Primeiro, a ciência não promete a redenção humana. Ela simplesmente se ocupa de compreender como funciona a natureza, ela é um corpo de conhecimento sobre o Universo e seus habitantes, vivos ou não, acumulado através de um processo constante de refinamento e testes conhecido como método científico.</p>
+  <p>A prática da ciência provê um modo de interagir com o mundo, expondo a essência criativa da natureza. Disso, aprendemos que a natureza é transformação, que a vida e a morte são parte de uma cadeia de criação e destruição perpetuada por todo o cosmo, dos átomos às estrelas e à vida.</p>
+  <p>A ciência pode não oferecer a salvação eterna, mas oferece a possibilidade de vivermos livres do medo irracional do desconhecido. Ao dar ao indivíduo a autonomia de pensar por si mesmo, ela oferece a liberdade da escolha informada. Ao transformar mistério em desafio, a ciência adiciona uma nova dimensão à vida, abrindo a porta para um novo tipo de espiritualidade, livre do dogmatismo das religiões organizadas.</p>
+  <p>A ciência não diz o que devemos fazer com o conhecimento que acumulamos. Essa decisão é nossa, em geral tomada pelos políticos que elegemos, ao menos numa sociedade democrática. A culpa dos usos mais nefastos da ciência deve ser dividida por toda a sociedade. Afinal, devemos culpar o inventor da pólvora pelas mortes por tiros e explosivos ao longo da história? Ou o inventor do microscópio pelas armas biológicas?</p>
+  <p>A culpa do que fazemos com o planeta é nossa, não da ciência. Apenas uma sociedade versada na ciência pode escolher o seu destino responsavelmente. Nosso futuro depende disso.</p>
+  <div class="passagem-note">GLEISER, Marcelo. <em>Sobre a importância da ciência.</em> Disponível em: www.ufrgs.br/blogdabc. (Adaptado)</div>
+</div>
+
+<div class="qtitulo">Questão 05 — EsPCEx 2020</div>
+<div class="qenunciado">De acordo com o texto, nesta chamada "era da ciência" em que nos orgulhamos de viver, pode-se inferir que é paradoxal acreditar em profecias de fim de mundo porque a ciência:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,3)"><span class="alt-letra">A</span><span class="alt-txt">se ocupa de compreender como funciona a natureza, mas não promete a redenção humana.</span></div>
+<div class="alt" onclick="sa(this,1,3)"><span class="alt-letra">B</span><span class="alt-txt">é um corpo de conhecimento sobre o Universo e seus habitantes, vivos ou não.</span></div>
+<div class="alt" onclick="sa(this,2,3)"><span class="alt-letra">C</span><span class="alt-txt">provê um modo de interagir com o mundo, expondo a essência criativa da natureza.</span></div>
+<div class="alt" onclick="sa(this,3,3)"><span class="alt-letra">D</span><span class="alt-txt">oferece a possibilidade de vivermos livres do medo irracional do desconhecido.</span></div>
+<div class="alt" onclick="sa(this,4,3)"><span class="alt-letra">E</span><span class="alt-txt">não diz o que devemos fazer com o conhecimento que acumulamos.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>D</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>A questão pede a inferência que justifica o paradoxo. Se a ciência oferece a possibilidade de <em>vivermos livres do medo irracional do desconhecido</em>, então acreditar em profecias de fim do mundo — manifestação exatamente desse medo irracional — contraria o que a ciência propicia. Daí o caráter paradoxal de se estar na "era da ciência" e ainda nutrir tais temores.</p>
+      <p>As alternativas <strong>[A], [B], [C] e [E]</strong> são afirmações verdadeiras sobre o texto, mas descrevem o que a ciência é ou faz sem conectar esse atributo à <em>irracionalidade das profecias</em>, que é o núcleo do paradoxo.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: inferência contextual e articulação temática do texto argumentativo.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s29" data-mod="I" data-title="Módulo I · Questão 06 (2020)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 29/125</span><span class="qchip assunto">EsPCEx · 2020</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 06 — EsPCEx 2020</div>
+<div class="qenunciado">Ao comentar sobre o cinismo, o autor faz menção a uma falta de compreensão geral em relação à ciência, que consiste, de acordo com o texto, em:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">entender a ciência como uma espécie de religião, que faz promessas de cura e redenção.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">acreditar que a ciência deveria ter se ocupado das profecias de fim do mundo com o objetivo de evitar as consequências ali descritas.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">julgar a ciência pelo método científico por ela utilizado.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">reduzir a ciência a um número limitado de respostas que ela pode dar sobre a natureza.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">culpar os seres humanos pelos usos indevidos e desastrosos da ciência.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>O autor explica que o cinismo nasce de quem sente que <em>"fomos traídos, de que promessas não foram cumpridas"</em> — como se a ciência tivesse prometido curar todas as doenças e resolver todos os problemas humanos. O erro de compreensão consiste em <strong>tratar a ciência como uma espécie de religião</strong>, esperando dela promessas de salvação e redenção que ela nunca assumiu: <em>"a ciência não promete a redenção humana"</em>, clarifica o autor.</p>
+      <p><strong>[B], [C], [D] e [E]</strong> ✗ — não correspondem ao argumento específico desenvolvido pelo autor sobre a origem do cinismo.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: leitura argumentativa e identificação da tese implícita.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" id="s30" data-mod="I" data-title="Módulo I · Questão 07 (2020)">
+<div class="topbar azul"><div class="topbar-left"><div class="topbar-tag">Módulo I · EsPCEx · Guia Capitão Valdir</div><div class="topbar-title">Módulo I — Leitura, Interpretação e Análise de Textos</div><div class="topbar-sub">Compreensão global · inferência · vocabulário contextual · intertextualidade</div></div><div class="topbar-right">M.I</div></div>
+<div class="qmeta-bar"><span class="qchip ano">Questão 30/125</span><span class="qchip assunto">EsPCEx · 2020</span></div>
+<div class="sb">
+<div class="qtitulo">Questão 07 — EsPCEx 2020</div>
+<div class="qenunciado">Depois de ler o texto, compreende-se que a importância da ciência está, principalmente, em poder:</div>
+<div class="alternativas">
+<div class="alt" onclick="sa(this,0,0)"><span class="alt-letra">A</span><span class="alt-txt">escolher, enquanto sociedade, nosso destino de forma responsável.</span></div>
+<div class="alt" onclick="sa(this,1,0)"><span class="alt-letra">B</span><span class="alt-txt">estabelecer as diferenças principais entre a ciência e o charlatanismo.</span></div>
+<div class="alt" onclick="sa(this,2,0)"><span class="alt-letra">C</span><span class="alt-txt">explicar que a ciência não pode oferecer a salvação eterna, porque não prova a existência divina.</span></div>
+<div class="alt" onclick="sa(this,3,0)"><span class="alt-letra">D</span><span class="alt-txt">abrir a porta para um novo tipo de espiritualidade.</span></div>
+<div class="alt" onclick="sa(this,4,0)"><span class="alt-letra">E</span><span class="alt-txt">direcionar a conduta humana em relação ao conhecimento obtido.</span></div>
+</div>
+<button class="btn-gab" onclick="mgBtn(this)">↓ Ver Gabarito Comentado</button>
+<div class="gab-area">
+<div class="gab-title">✅ Gabarito: <strong>A</strong> — Comentário sob a ótica de Cegalla &amp; Cunha e Cintra</div>
+<div class="gab-content"><p>A tese conclusiva do texto é explícita: <em>"Apenas uma sociedade versada na ciência pode escolher o seu destino responsavelmente."</em> Essa é a ideia central do artigo — a ciência habilita a sociedade a fazer escolhas conscientes e responsáveis. A alternativa <strong>[A]</strong> reproduz fielmente essa ideia.</p>
+      <p><strong>[D]</strong> ✗ — ideia secundária, não a principal. <strong>[B], [C] e [E]</strong> ✗ — distorções sem respaldo no texto como tese central.</p>
+      <div class="gab-estrategia"><div class="gab-estrategia-txt">📚 Cunha &amp; Cintra: identificação da ideia central em texto argumentativo; distinção entre tese e argumento de apoio.</div></div></div>
+</div>
+</div>
+</div>
+<div class="slide" data-title="Conteúdo Completo — Módulos Seguintes" id="s-fim">
+  <div class="topbar" style="background:linear-gradient(135deg,#1a1a2e,#16213e);border-color:#4a4a8a;">
+    <div class="topbar-left">
+      <div class="topbar-tag" style="color:rgba(255,255,255,.45);">Guia Preparatório Capitão Valdir</div>
+      <div class="topbar-title" style="color:white;">🔒 Conteúdo Completo — Módulos Seguintes</div>
+      <div class="topbar-sub" style="color:rgba(255,255,255,.6);">Acesso ao material integral · Módulos II a XIII</div>
+    </div>
+    <div class="topbar-right" style="color:rgba(255,255,255,.15);">🔒</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);overflow-y:auto;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:18px;padding:36px 24px;max-width:520px;width:100%;text-align:center;">
+
+      <div style="font-size:64px;line-height:1;filter:drop-shadow(0 4px 18px rgba(0,0,0,.5));">🔒</div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#ffffff;line-height:1.25;">
+        Conteúdo Completo<br>— Módulos Seguintes
+      </div>
+
+      <div style="width:50px;height:3px;background:#D4A017;border-radius:2px;"></div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:400;color:rgba(255,255,255,.75);line-height:1.7;max-width:400px;">
+        Para ter acesso ao material completo, entre em contato com o <strong style="color:#D4A017;">Guia Preparatório Capitão Valdir</strong>.
+      </div>
+
+      <a href="mailto:guiaprepcapvaldir@gmail.com"
+         style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#B8860B,#D4A017);color:#1a0e00;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:14px 28px;border-radius:10px;text-decoration:none;box-shadow:0 4px 20px rgba(212,160,23,.35);letter-spacing:.02em;margin-top:4px;">
+        📧 Quero Acesso ao Material Completo
+      </a>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:rgba(212,160,23,.65);letter-spacing:.06em;">
+        guiaprepcapvaldir@gmail.com
+      </div>
+
+      <div style="width:100%;height:1px;background:rgba(255,255,255,.08);margin:4px 0;"></div>
+
+      <button onclick="goTo(0)" style="background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:8px 22px;border-radius:7px;cursor:pointer;letter-spacing:.03em;">
+        ⬆ Voltar à Capa
+      </button>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- BOTTOM NAV -->
+<div class="nav" id="nav">
+  <button class="nbtn" onclick="goTo(0)">🏠 Início</button>
+  <button class="nbtn" id="btn-prev" onclick="prev()" disabled>← Ant.</button>
+  <div class="pw"><div class="pb" id="pb"></div></div>
+  <span class="ntitle" id="ntitle">Capa</span>
+  <span class="ncnt" id="ncnt"></span>
+  <span style="font-size:10px;color:rgba(255,255,255,.2);white-space:nowrap;">← →</span>
+  <button class="nbtn" id="btn-next" onclick="next()">Próx. →</button>
+</div>
+
+<script>
+// === MODULE MAP — apenas Módulo I (questões 1–30) ===
+const SM={1:1,2:1,3:1,4:1,5:1,6:1,7:1,8:1,9:1,10:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,23:1,24:1,25:1,26:1,27:1,28:1,29:1,30:1};
+
+// slide positions:
+// 0=capa, 1=apres, 2=metodo, 3=sumario, 4..33=s1..s30, 34=s-fim
+const NAMED = ['s-capa','s-apres','s-metodo','s-sumario'];
+const Q_OFFSET = 4;
+const FIM_POS = 34;
+const TOTAL_SLIDES = 35;
+const TOTAL_QUESTIONS = 30;
+
+const QUESTION_RANGE_START = Q_OFFSET;
+const QUESTION_RANGE_END = Q_OFFSET + TOTAL_QUESTIONS - 1; // 33
+
+function getAllSlideEls() {
+  const arr = [];
+  NAMED.forEach(id => arr.push(document.getElementById(id)));
+  for(let i=1; i<=TOTAL_QUESTIONS; i++) arr.push(document.getElementById('s'+i));
+  arr.push(document.getElementById('s-fim'));
+  return arr;
+}
+
+let ALL_ELS;
+let filteredList = [], cur = 0, activeMod = 0;
+const modmenu = document.getElementById('modmenu');
+
+function isQuestionSlide(pos) {
+  return pos >= QUESTION_RANGE_START && pos <= QUESTION_RANGE_END;
+}
+
+function updateModMenu(pos) {
+  if (isQuestionSlide(pos)) {
+    modmenu.classList.add('visible');
+    const mmH = modmenu.offsetHeight;
+    document.getElementById('deck').style.top = mmH + 'px';
+  } else {
+    modmenu.classList.remove('visible');
+    document.getElementById('deck').style.top = '0px';
+  }
+}
+
+function buildFilteredList(mod) {
+  if (mod === 0) return Array.from({length: TOTAL_SLIDES}, (_, i) => i);
+  const qs = Object.entries(SM).filter(([k,v])=>v===mod).map(([k])=>parseInt(k)).sort((a,b)=>a-b).map(n=>Q_OFFSET+(n-1));
+  return [0, 1, 2, 3, ...qs, FIM_POS];
+}
+
+function getEl(pos) { return ALL_ELS[pos] || null; }
+function getTitle(pos) { const el = getEl(pos); return el ? (el.dataset.title || '') : ''; }
+
+function goTo(pos) {
+  if (pos < 0 || pos >= TOTAL_SLIDES) return;
+  const prevEl = getEl(cur);
+  const nextEl = getEl(pos);
+  if (!nextEl) return;
+  if (prevEl && prevEl !== nextEl) {
+    prevEl.classList.remove('active');
+    prevEl.classList.add('out');
+    const pE = prevEl;
+    setTimeout(() => pE.classList.remove('out'), 360);
+  }
+  cur = pos;
+  nextEl.classList.remove('out');
+  nextEl.classList.add('active');
+  const sb = nextEl.querySelector('.sb');
+  if (sb) sb.scrollTop = 0;
+  updateNav();
+  updateModMenu(pos);
+}
+
+function updateNav() {
+  const posInList = filteredList.indexOf(cur);
+  const total = filteredList.length;
+  document.getElementById('ntitle').textContent = getTitle(cur);
+  document.getElementById('ncnt').textContent = (posInList + 1) + ' / ' + total;
+  document.getElementById('pb').style.width = ((posInList + 1) / total * 100) + '%';
+  document.getElementById('btn-prev').disabled = posInList <= 0;
+  document.getElementById('btn-next').disabled = posInList >= total - 1;
+}
+
+function next() {
+  const pos = filteredList.indexOf(cur);
+  if (pos < filteredList.length - 1) goTo(filteredList[pos + 1]);
+}
+function prev() {
+  const pos = filteredList.indexOf(cur);
+  if (pos > 0) goTo(filteredList[pos - 1]);
+}
+
+function goMod(mod) {
+  activeMod = mod;
+  document.querySelectorAll('.modchip').forEach(c => c.classList.remove('active'));
+  const mc = document.getElementById('mc' + mod);
+  if (mc) { mc.classList.add('active'); mc.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+  filteredList = buildFilteredList(mod);
+  goTo(filteredList[0]);
+}
+
+function goModFromSumario(mod) {
+  activeMod = mod;
+  document.querySelectorAll('.modchip').forEach(c => c.classList.remove('active'));
+  const mc = document.getElementById('mc' + mod);
+  if (mc) { mc.classList.add('active'); mc.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+  filteredList = buildFilteredList(mod);
+  const firstQ = filteredList.find(pos => pos >= Q_OFFSET && pos < FIM_POS);
+  goTo(firstQ !== undefined ? firstQ : filteredList[0]);
+}
+
+// === GABARITO ===
+function mgBtn(btn) {
+  const area = btn.nextElementSibling;
+  if (!area) return;
+  const isOpen = area.classList.contains('show');
+  area.classList.toggle('show');
+  btn.classList.toggle('open', !isOpen);
+  btn.textContent = isOpen ? '↓ Ver Gabarito Comentado' : '↑ Ocultar Gabarito';
+  const container = btn.closest('.sb');
+  const alts = container ? container.querySelectorAll('.alternativas .alt') : [];
+  if (!isOpen) {
+    const gabTitle = area.querySelector('.gab-title');
+    if (gabTitle) {
+      const m = gabTitle.textContent.match(/Gabarito:\s*([A-E])/);
+      if (m) {
+        const letter = m[1];
+        alts.forEach((alt, i) => {
+          const l = ['A','B','C','D','E'][i];
+          alt.classList.remove('certa','errada');
+          if (l === letter) alt.classList.add('certa');
+          else alt.classList.add('errada');
+        });
+      }
+    }
+  } else {
+    alts.forEach(alt => alt.classList.remove('certa','errada'));
+  }
+}
+
+function sa(el, idx, correctIdx) {
+  const alts = el.parentElement.querySelectorAll('.alt');
+  alts.forEach(a => a.classList.remove('certa','errada'));
+  if (idx === correctIdx) el.classList.add('certa');
+  else {
+    el.classList.add('errada');
+    if (alts[correctIdx]) alts[correctIdx].classList.add('certa');
+  }
+}
+
+// === KEYBOARD + TOUCH ===
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); next(); }
+  if (e.key==='ArrowLeft') { e.preventDefault(); prev(); }
+  if (e.key==='Home') { e.preventDefault(); goTo(0); }
+  if (e.key==='End') { e.preventDefault(); goTo(FIM_POS); }
+});
+let tx=0;
+const deck = document.getElementById('deck');
+if (deck) {
+  deck.addEventListener('touchstart', e => { tx=e.touches[0].clientX; },{passive:true});
+  deck.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (dx<-50) next();
+    if (dx>50) prev();
+  },{passive:true});
+}
+
+// === INIT ===
+window.addEventListener('DOMContentLoaded', () => {
+  ALL_ELS = getAllSlideEls();
+  filteredList = buildFilteredList(0);
+  goTo(0);
+});
+</script>
+</body>
+</html>
