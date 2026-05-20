@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livro-Texto de Literatura — ESA-CFGS | Guia Capitão Valdir</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul-esc:#0c1d38;--azul-m:#1a3a6c;--azul-c:#2d5fa8;
+  --azul-bg:#edf3fb;--azul-borda:#7aaad8;
+  --ouro:#b8860b;--ouro-l:#d4a017;--ouro-bg:#fdf6e3;--ouro-borda:#c9a227;
+  --vinho:#6b1a2a;--vinho-m:#8b2535;--vinho-bg:#fdf0f2;--vinho-borda:#c08090;
+  --verde:#1a5c2a;--verde-m:#237a38;--verde-bg:#edf5ee;--verde-borda:#7cbc8a;
+  --roxo:#3d1a70;--roxo-bg:#f3eeff;--roxo-borda:#a07ac0;
+  --laranja:#b84000;--laran-bg:#fff3ea;--laran-borda:#d4724a;
+  --cinza:#3a3a3a;--cinza-m:#555;--cinza-c:#888;
+  --fundo:#f4f2eb;--papel:#fffef9;--borda:#d4c89a;--txt:#1e1e1e;
+  --mg:clamp(18px,4vw,60px);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:"Sora",sans-serif;font-size:17px;line-height:1.90;color:var(--txt);background:var(--fundo);}
+.page{max-width:940px;margin:0 auto;background:var(--papel);box-shadow:0 0 60px rgba(0,0,0,.15);}
+.cover{background:linear-gradient(160deg,#06111e 0%,#0d1f3c 45%,#1a0a0e 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px var(--mg);position:relative;overflow:hidden;}
+.cover::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(184,134,11,.03) 0,rgba(184,134,11,.03) 1px,transparent 1px,transparent 48px);}
+.c-ico{font-size:54px;margin-bottom:20px;filter:drop-shadow(0 0 18px rgba(184,134,11,.6));position:relative;}
+.c-pre{font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--ouro-l);margin-bottom:14px;position:relative;}
+.c-tit{font-family:"Playfair Display",serif;font-size:clamp(26px,4.5vw,42px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:8px;position:relative;}
+.c-mat{font-family:"Playfair Display",serif;font-size:clamp(38px,6.5vw,62px);font-weight:900;color:var(--ouro-l);letter-spacing:.04em;text-shadow:0 0 50px rgba(184,134,11,.5);margin-bottom:8px;position:relative;}
+.c-sub2{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:40px;position:relative;}
+.c-linha{width:90px;height:3px;background:linear-gradient(90deg,transparent,var(--ouro),transparent);margin:0 auto 36px;position:relative;}
+.c-desc{font-family:"Playfair Display",serif;font-size:clamp(14px,2vw,18px);font-weight:400;font-style:italic;color:rgba(255,255,255,.55);margin-bottom:40px;position:relative;max-width:680px;line-height:1.6;}
+.c-badges{display:flex;gap:11px;flex-wrap:wrap;justify-content:center;margin-bottom:50px;position:relative;}
+.c-badge{background:rgba(184,134,11,.12);border:1px solid rgba(184,134,11,.33);border-radius:5px;padding:6px 16px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(184,134,11,.9);}
+.c-rod{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.22);position:relative;}
+.sumario{padding:var(--mg);border-bottom:2px solid var(--borda);}
+.s-tit{font-family:"Playfair Display",serif;font-size:30px;font-weight:700;color:var(--azul-m);margin-bottom:34px;padding-bottom:14px;border-bottom:3px solid var(--ouro);display:inline-block;}
+.s-item{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px dotted var(--borda);}
+.s-item a{display:flex;align-items:baseline;gap:10px;width:100%;text-decoration:none;color:inherit;}
+.s-item a:hover .s-nome{color:var(--azul-c);}
+.s-num{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:var(--ouro);min-width:36px;letter-spacing:.06em;}
+.s-nome{font-size:16px;color:var(--cinza);flex:1;line-height:1.5;}
+.s-nome b{color:var(--azul-m);}
+.s-sub{font-size:13.5px;color:var(--cinza-c);font-style:italic;padding-left:36px;margin-top:2px;margin-bottom:6px;}
+.chapter{padding:var(--mg);border-bottom:1px solid #e5dfc8;}
+.ch-header{margin-bottom:40px;padding-bottom:26px;border-bottom:2px solid var(--borda);}
+.ch-num{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px;}
+.ch-tit{font-family:"Playfair Display",serif;font-size:clamp(24px,4vw,38px);font-weight:900;color:var(--azul-esc);line-height:1.15;margin-bottom:8px;}
+.ch-per{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--cinza-m);letter-spacing:.12em;}
+h2{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:var(--azul-m);margin:40px 0 16px;padding-left:16px;border-left:5px solid var(--ouro);line-height:1.3;}
+h3{font-family:"Playfair Display",serif;font-size:18px;font-weight:600;color:var(--vinho-m);margin:28px 0 12px;line-height:1.3;}
+p{margin-bottom:16px;text-align:justify;text-indent:2em;font-size:17px;line-height:1.90;color:var(--txt);}
+.box-infante p,.box-at p,.box-esa p,.box-aut p,.box-peg p,.box-res p,.box-dic p,.box-cron p,.intro p,.vs p,.nota p,li>p{text-indent:0;}
+strong{font-weight:700;color:var(--cinza);}em{font-style:italic;}
+ul,ol{margin:12px 0 16px 28px;}
+li{margin-bottom:8px;font-size:16.5px;line-height:1.78;color:var(--txt);}
+.intro{background:linear-gradient(135deg,var(--azul-bg) 0%,var(--verde-bg) 100%);border:2px solid var(--borda);border-left:7px solid var(--ouro);border-radius:10px;padding:26px clamp(16px,3vw,32px);margin:0 0 34px;}
+.intro h3{color:var(--azul-m);margin:0 0 12px;font-size:19px;}
+.intro p{color:#1a2a2e;font-size:16px;line-height:1.82;margin-bottom:10px;}
+.intro p:last-child{margin-bottom:0;}
+.box-infante{background:#f0f4ff;border:2px solid var(--azul-borda);border-left:6px solid var(--azul-c);border-radius:8px;padding:20px clamp(14px,2.5vw,24px);margin:24px 0;}
+.box-infante .bt{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--azul-m);margin-bottom:14px;}
+.box-infante p,.box-infante li{color:#0a1e3a;font-size:16px;line-height:1.78;}
+.box-infante strong{color:#1a3060;}
+.box-at{background:#fefce8;border:2px solid var(--ouro-borda);border-left:6px solid var(--ouro);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-at .bt{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#7a5a00;margin-bottom:12px;}
+.box-at p,.box-at li{color:#2a1e00;font-size:16px;line-height:1.78;}
+.box-at strong{color:#5a3a00;}
+.box-esa{background:#fff8ee;border:2px solid var(--laran-borda);border-left:6px solid var(--laranja);border-radius:8px;padding:20px clamp(14px,2.5vw,24px);margin:24px 0;}
+.box-esa .bt{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#8b3000;margin-bottom:14px;}
+.box-esa p,.box-esa li{color:#2a1400;font-size:16px;line-height:1.78;}
+.box-esa strong{color:#6b2000;}
+.box-aut{background:#f6f0ff;border-left:6px solid var(--roxo);border-radius:0 8px 8px 0;padding:18px clamp(14px,2.5vw,24px) 18px clamp(16px,3vw,28px);margin:24px 0;}
+.box-aut .autor{font-style:normal;font-size:11.5px;font-weight:800;color:var(--roxo);margin-bottom:10px;font-family:"JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;}
+.box-aut p{color:#1a0a30;font-style:italic;font-size:16.5px;line-height:1.82;margin-bottom:8px;}
+.box-aut strong{color:var(--roxo);font-style:normal;}
+.box-peg{background:var(--vinho-bg);border:2px solid var(--vinho-borda);border-left:6px solid var(--vinho-m);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-peg .bt{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--vinho);margin-bottom:12px;}
+.box-peg p,.box-peg li{color:#3a0a14;font-size:16px;line-height:1.78;}
+.box-peg strong{color:var(--vinho-m);}
+.box-res{background:#f6faf6;border:2px solid var(--verde-borda);border-left:7px solid var(--verde-m);border-radius:8px;padding:24px clamp(16px,3vw,28px);margin:32px 0;}
+.box-res .bt{font-family:"Playfair Display",serif;font-size:17px;font-weight:800;color:var(--verde);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--verde-borda);}
+.box-res li{color:#1a2e1a;font-size:16px;margin-bottom:9px;line-height:1.78;}
+.box-res strong{color:#1a3a1a;}
+.box-dic{background:#f0f6ff;border:2px solid var(--azul-borda);border-left:6px solid var(--azul-c);border-radius:8px;padding:18px clamp(14px,2.5vw,22px);margin:22px 0;}
+.box-dic .bt{font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-m);margin-bottom:12px;}
+.box-dic p,.box-dic li{color:#0a1e44;font-size:16px;line-height:1.78;}
+.box-dic strong{color:var(--azul-m);}
+.box-cron{background:linear-gradient(135deg,var(--ouro-bg) 0%,#f8f8f0 100%);border:3px solid var(--ouro);border-radius:14px;padding:clamp(18px,3vw,32px) clamp(16px,3.5vw,36px);margin:36px 0;}
+.box-cron::before{content:"📅 LINHA DO TEMPO";font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--ouro);display:block;margin-bottom:16px;}
+.ci{display:flex;gap:16px;align-items:flex-start;margin-bottom:12px;padding-bottom:12px;border-bottom:1px dotted var(--borda);}
+.ci:last-child{border-bottom:none;margin-bottom:0;}
+.cd{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:800;color:var(--ouro);min-width:90px;letter-spacing:.04em;}
+.cdesc{font-size:15.5px;line-height:1.75;color:#1a1400;}
+.tabela-wrap{overflow-x:auto;margin:22px 0;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:collapse;font-size:15px;}
+thead tr{background:#1a3a6c;color:#fff;}
+thead th{padding:12px clamp(8px,1.5vw,15px);text-align:left;font-family:"JetBrains Mono",monospace;font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;border-bottom:2px solid var(--ouro);}
+tbody tr:nth-child(even){background:#f4f2eb;}
+tbody tr:hover{background:var(--azul-bg);}
+tbody td{padding:11px clamp(8px,1.5vw,15px);border-bottom:1px solid #ddd8c0;vertical-align:top;color:var(--txt);font-size:15px;line-height:1.68;}
+tbody td:first-child{font-weight:700;color:var(--azul-m);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:18px 0;}
+@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr;}.ci{flex-direction:column;gap:4px;}}
+.sep{display:flex;align-items:center;gap:18px;margin:36px 0;}
+.sep::before,.sep::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--borda),transparent);}
+.sep span{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--cinza-c);letter-spacing:.22em;text-transform:uppercase;}
+.vs{display:flex;align-items:center;justify-content:flex-end;margin:44px 0 0;padding-top:22px;border-top:1px solid var(--borda);}
+.vs a{display:inline-flex;align-items:center;gap:7px;background:var(--ouro-bg);border:2px solid var(--ouro-borda);border-radius:7px;padding:9px 22px;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#5a3a00;text-decoration:none;transition:all .2s;}
+.vs a:hover{background:var(--ouro);color:#fff;}
+@media print{
+  @page{margin:1.5cm;}
+  body{background:#fff;font-size:12pt;}
+  .page{box-shadow:none;max-width:100%;margin:0;background:#fff;}
+  .cover{min-height:auto;page-break-after:always;}
+  .sumario{page-break-after:always;}
+  .chapter{page-break-before:always;padding:20pt 0;}
+  .vs{display:none;}
+  h2,h3{page-break-after:avoid;}
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .tabela-wrap{overflow:visible;}
+}
+@media(max-width:600px){body{font-size:15px;}h2{font-size:19px;}h3{font-size:16px;}.ch-tit{font-size:22px;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<section class="cover" id="topo">
+  <!-- Ícone principal -->
+  <div style="position:relative;margin-bottom:18px;">
+    <div class="c-ico">📖</div>
+    <div style="position:absolute;top:-8px;right:-18px;font-size:22px;">⭐</div>
+  </div>
+  <!-- Série -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.38em;text-transform:uppercase;color:rgba(184,134,11,.7);margin-bottom:6px;position:relative;">GUIA PREPARATÓRIO CAPITÃO VALDIR</div>
+  <!-- Concurso -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:22px;position:relative;">ESA-CFGS · Concurso de Admissão 2026–27</div>
+  <!-- Método -->
+  <div style="font-family:'Playfair Display',serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.38);margin-bottom:6px;position:relative;letter-spacing:.08em;">Método Prático para Aprovação</div>
+  <!-- Título principal -->
+  <div class="c-tit">LIVRO-TEXTO DE</div>
+  <div class="c-mat">LITERATURA</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:36px;position:relative;">Escola de Sargentos das Armas — CFGS 2026–27</div>
+  <!-- Linha decorativa -->
+  <div class="c-linha"></div>
+
+  <!-- Rodapé institucional -->
+  <div class="c-rod">Série Preparatória · Literatura · ESA-CFGS — Guia Capitão Valdir · guiapreparatoriocapvaldir.blogspot.com</div>
+</section>
+
+<section class="sumario" id="sumario">
+  <div class="s-tit">Sumário</div>
+  <div class="s-item"><a href="#cap01"><span class="s-num">I</span><span class="s-nome"><b>Introdução à Literatura — Teoria e Fundamentos</b></span></a></div>
+  <div class="s-sub">Conceito de literatura · Gêneros épico, lírico e dramático · Formas poéticas · Métricas · Figuras de linguagem · Periodização · 5 questões ESA</div>
+  <div class="s-item"><a href="#cap02"><span class="s-num">II</span><span class="s-nome"><b>Trovadorismo e Humanismo</b></span></a></div>
+  <div class="s-sub">Cantigas de amor, amigo, escárnio e maldizer · Os três cancioneiros · Gil Vicente · Fernão Lopes · NÃO ocorreu no Brasil · 1 questão ESA</div>
+  <div class="s-item"><a href="#cap03"><span class="s-num">III</span><span class="s-nome"><b>Classicismo e Quinhentismo</b></span></a></div>
+  <div class="s-sub">Luís de Camões · Os Lusíadas · Renascimento português · Carta de Pero Vaz de Caminha · José de Anchieta · 5 questões ESA</div>
+  <div class="s-item"><a href="#cap04"><span class="s-num">IV</span><span class="s-nome"><b>Barroco</b></span></a></div>
+  <div class="s-sub">Conceptismo vs. Culteranismo · Gregório de Matos · Padre Antônio Vieira · Conflito fé × razão · Memento mori · Vanitas · 6 questões ESA</div>
+  <div class="s-item"><a href="#cap05"><span class="s-num">V</span><span class="s-nome"><b>Arcadismo (Neoclassicismo)</b></span></a></div>
+  <div class="s-sub">Carpe diem · Fugere urbem · Gonzaga · Cláudio Manuel · Caramuru · Inconfidência Mineira · 5 questões ESA</div>
+  <div class="s-item"><a href="#cap06"><span class="s-num">VI</span><span class="s-nome"><b>Romantismo</b></span></a></div>
+  <div class="s-sub">Três gerações · Indianismo · Ultrarromantismo · Condoreirismo · Gonçalves Dias · Álvares de Azevedo · Castro Alves · José de Alencar · 9 questões ESA</div>
+  <div class="s-item"><a href="#cap07"><span class="s-num">VII</span><span class="s-nome"><b>Realismo e Naturalismo</b></span></a></div>
+  <div class="s-sub">Machado de Assis · Duas fases · Aluísio Azevedo · O Cortiço · Zoomorfização · Memórias Póstumas · Dom Casmurro · 6 questões ESA</div>
+  <div class="s-item"><a href="#cap08"><span class="s-num">VIII</span><span class="s-nome"><b>Parnasianismo</b></span></a></div>
+  <div class="s-sub">Art pour l'art · Tríade: Bilac · Correia · Oliveira · Perfeição formal · Hino à Bandeira · Vaso Grego · 7 questões ESA</div>
+  <div class="s-item"><a href="#cap09"><span class="s-num">IX</span><span class="s-nome"><b>Simbolismo e Pré-Modernismo</b></span></a></div>
+  <div class="s-sub">Cruz e Sousa · Missal e Broquéis (1893) · Antífona · Alphonsus · Euclides da Cunha · Os Sertões · Lima Barreto · 13 questões ESA</div>
+  <div class="s-item"><a href="#cap10"><span class="s-num">X</span><span class="s-nome"><b>Modernismo Brasileiro</b></span></a></div>
+  <div class="s-sub">Semana de Arte Moderna 1922 · 1ª e 2ª Gerações · Romance de 30 · Mário · Oswald · Drummond · Graciliano · Clarice · Guimarães Rosa · 8 questões ESA</div>
+</section>
+
+<!-- ═══════════════════════ CAP I ═══════════════════════ -->
+<section class="chapter" id="cap01">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO I</div>
+  <div class="ch-tit">Introdução à Literatura — Teoria e Fundamentos</div>
+  <div class="ch-per">Arte literária · Gêneros · Métricas · Figuras · Periodização · 5 questões ESA (2016–2025)</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia neste capítulo?</h3>
+  <p>Este capítulo cobre a base transversal de toda a prova. A ESA cobra: identificar o gênero literário correto a partir de sua definição (cobrado diretamente em 2016), reconhecer formas poéticas (soneto, ode), associar escola literária a sua característica-chave (cobrado em 2025 com o trio Romantismo × Barroco × Arcadismo), interpretar tabela de escolas e métricas básicas. São competências que reaparecem em questões de todas as escolas literárias.</p>
+</div>
+
+<h2>1.1 O Que é Literatura — Ulisses Infante</h2>
+<p>Para Ulisses Infante, em seu <em>Curso de Literatura de Língua Portuguesa</em> (Scipione, 2001), a literatura não é simplesmente um registro da realidade: ela é uma <strong>forma de conhecimento do mundo e do ser humano por meio da linguagem artisticamente elaborada</strong>. O texto literário distingue-se dos demais por sua <em>literariedade</em> — o conjunto de recursos que o tornam estético: aproveitamento da ambiguidade, conotação, ritmo, imagem poética e intertextualidade.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — Funções da Literatura</div>
+  <p>A literatura cumpre funções <strong>psicológicas</strong> (catarse, identificação), <strong>cognitivas</strong> (conhecimento do mundo e do ser humano), <strong>sociais</strong> (crítica, denúncia, afirmação de identidades) e <strong>estéticas</strong> (prazer da forma bela). Essas funções coexistem em graus variados conforme a escola literária. A grande literatura permanece porque seus sentidos se renovam a cada leitura e geração.</p>
+</div>
+
+<h2>1.2 Os Três Gêneros Literários</h2>
+<p>A divisão em gêneros remonta à <em>Poética</em> de Aristóteles. A ESA cobrou diretamente a distinção em 2016 — a questão apresentava definições trocadas entre os três gêneros e exigia identificar a única correlação correta.</p>
+<div class="tabela-wrap"><table>
+  <thead><tr><th>Gênero</th><th>Voz</th><th>Modo</th><th>Exemplos</th></tr></thead>
+  <tbody>
+    <tr><td>Lírico</td><td>Eu-lírico — voz subjetiva, interior</td><td>Expressão das emoções e estados de espírito do sujeito poético</td><td>Soneto, ode, elegia, hino</td></tr>
+    <tr><td>Épico / Narrativo</td><td>Narrador — voz exterior que conta</td><td>Narração de feitos e acontecimentos; ação no tempo</td><td>Epopeia, conto, romance, novela</td></tr>
+    <tr><td>Dramático</td><td>Personagens — diálogos e monólogos</td><td>Representação cênica para uma plateia; <strong>sem narrador</strong></td><td>Tragédia, comédia, auto, farsa</td></tr>
+  </tbody>
+</table></div>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Gêneros (EsSA 2016, Q5 de 61)</div>
+  <p><strong>Enunciado real:</strong> "Sobre os gêneros literários, assinale a alternativa que apresenta a correlação CORRETA entre o gênero e sua definição." — A banca trocava as definições nas alternativas incorretas. <strong>Gabarito:</strong> Gênero <strong>dramático</strong> = "A voz narrativa está entregue às personagens, atores que contam uma história por meio de diálogos e monólogos para serem apresentados a uma plateia."</p>
+  <p><strong>Regra de ouro:</strong> No dramático <strong>não há narrador</strong>. No lírico a voz é subjetiva e interior (eu-lírico). No épico o narrador conta feitos e ações externas. Memorize: L-E-D = Lírico (interior) · Épico (narrador) · Dramático (sem narrador).</p>
+</div>
+
+<h2>1.3 Formas Poéticas e Versificação</h2>
+<p>O <strong>soneto</strong> — forma fixa de 14 versos em dois quartetos e dois tercetos, geralmente decassílabos — é a forma mais cobrada: aparece no Classicismo, no Parnasianismo e no Modernismo. A EsSA 2016 cobrou a definição do soneto diretamente (Q2 de fundamentos).</p>
+<div class="tabela-wrap"><table>
+  <thead><tr><th>Nº sílabas</th><th>Nome do verso</th><th>Escola típica</th></tr></thead>
+  <tbody>
+    <tr><td>5 sílabas</td><td>Redondilha menor</td><td>Trovadorismo, poesia popular medieval</td></tr>
+    <tr><td>7 sílabas</td><td>Redondilha maior</td><td>Trovadorismo, Gil Vicente</td></tr>
+    <tr><td>10 sílabas</td><td>Decassílabo</td><td>Classicismo, Parnasianismo — verso do soneto</td></tr>
+    <tr><td>12 sílabas</td><td>Alexandrino</td><td>Parnasianismo, épica clássica</td></tr>
+  </tbody>
+</table></div>
+<div class="box-at">
+  <div class="bt">⚠️ Escansão — Como Contar Sílabas Poéticas</div>
+  <p>A contagem vai <strong>até a última sílaba tônica</strong>. Dois fenômenos reduzem a contagem: <strong>elisão</strong> (vogal final da palavra + vogal inicial da seguinte = 1 sílaba poética) e <strong>sinérese</strong> (duas vogais dentro de uma palavra lidas como uma sílaba). Palavras oxítonas: conta normalmente. Proparoxítonas: perde a última sílaba gramatical.</p>
+</div>
+
+<h2>1.4 Figuras de Linguagem — as Mais Cobradas</h2>
+<div class="tabela-wrap"><table>
+  <thead><tr><th>Figura</th><th>Definição</th><th>Exemplo literário</th><th>Escola</th></tr></thead>
+  <tbody>
+    <tr><td>Antítese</td><td>Oposição de ideias</td><td>"É brasa que queima e fogo que não arde" (Camões)</td><td>Classicismo, Barroco</td></tr>
+    <tr><td>Paradoxo</td><td>Contradição aparente mas verdadeira</td><td>"Morro porque não morro" (Gregório de Matos)</td><td>Barroco</td></tr>
+    <tr><td>Hipérbato</td><td>Inversão da ordem direta</td><td>"Das ondas a voz" = a voz das ondas</td><td>Barroco, Classicismo</td></tr>
+    <tr><td>Aliteração</td><td>Repetição de sons consonantais</td><td>"Vozes veladas, veludosas vozes" (Cruz e Sousa)</td><td>Simbolismo</td></tr>
+    <tr><td>Sinestesia</td><td>Fusão de diferentes sentidos</td><td>"Harmonias da Cor e do Perfume" (Cruz e Sousa)</td><td>Simbolismo</td></tr>
+    <tr><td>Hipérbole</td><td>Exagero expressivo</td><td>"Mil anos a esperar"</td><td>Romantismo, Barroco</td></tr>
+  </tbody>
+</table></div>
+
+<h2>1.5 Periodização Literária — O Mapa Geral</h2>
+<div class="box-cron">
+  <div class="ci"><div class="cd">SÉC. XII–XV</div><div class="cdesc"><strong>Trovadorismo</strong> (Portugal) — cantigas galego-portuguesas · <strong>Humanismo</strong> — Gil Vicente, Fernão Lopes</div></div>
+  <div class="ci"><div class="cd">SÉC. XVI</div><div class="cdesc"><strong>Classicismo</strong> (Portugal) — Camões e Os Lusíadas · <strong>Quinhentismo</strong> (Brasil 1500–1601) — Carta de Caminha, Anchieta</div></div>
+  <div class="ci"><div class="cd">SÉC. XVII–XVIII</div><div class="cdesc"><strong>Barroco</strong> (Brasil 1601–1768) — Gregório de Matos, Padre Vieira · <strong>Arcadismo</strong> (1768–1836) — Gonzaga, Cláudio Manuel, Caramuru</div></div>
+  <div class="ci"><div class="cd">SÉC. XIX</div><div class="cdesc"><strong>Romantismo</strong> (1836–1881) — Gonçalves Dias, Álvares de Azevedo, Castro Alves, Alencar · <strong>Realismo/Naturalismo</strong> (1881+) — Machado, Aluísio · <strong>Parnasianismo</strong> (1882+) — Bilac · <strong>Simbolismo</strong> (1893+) — Cruz e Sousa</div></div>
+  <div class="ci"><div class="cd">SÉC. XX</div><div class="cdesc"><strong>Pré-Modernismo</strong> (1902–1922) — Euclides, Lima Barreto · <strong>Modernismo 1ª Ger.</strong> (1922–1930) — Mário, Oswald, Bandeira · <strong>2ª Ger. / Romance de 30</strong> (1930–1945) — Drummond, Graciliano, Rachel</div></div>
+</div>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Periodização (EsSA 2025, Q4 e Q5 de 61)</div>
+  <p><strong>Questão de associação (2025):</strong> "Associe cada escola literária à sua característica." O trio cobrado: <em>Evasão/devaneio/sentimentalismo</em> → <strong>Romantismo</strong> · <em>Efemeridade da beleza/memento mori/angústia</em> → <strong>Barroco</strong> · <em>Carpe diem sereno/bucolismo/natureza idealizada</em> → <strong>Arcadismo</strong>.</p>
+  <p><strong>Atenção:</strong> A afirmação "linguagem objetiva, perfeição formal e universalismo" → <strong>Parnasianismo</strong> — nunca Barroco. Este é o erro mais cobrado de toda a prova. O Barroco é rebuscado e tenso; o Parnasianismo é objetivo e formal.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo I</div>
+  <ul>
+    <li><strong>Lírico:</strong> eu-lírico, mundo interior, subjetividade</li>
+    <li><strong>Épico/Narrativo:</strong> narrador, ação exterior, feitos e acontecimentos</li>
+    <li><strong>Dramático:</strong> personagens em diálogo/monólogo, <em>sem narrador</em>, para plateia</li>
+    <li><strong>Soneto:</strong> 14 versos, 2 quartetos + 2 tercetos, geralmente decassílabos</li>
+    <li><strong>Aliteração + sinestesia → Simbolismo · Antítese + paradoxo → Barroco · Hipérbole + evasão → Romantismo</strong></li>
+    <li><strong>Trio de confusão ESA:</strong> Barroco (angústia/memento mori) × Arcadismo (carpe diem sereno) × Romantismo (sentimentalismo)</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP II ═══════════════════════ -->
+<section class="chapter" id="cap02">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO II</div>
+  <div class="ch-tit">Trovadorismo e Humanismo</div>
+  <div class="ch-per">Sécs. XII–XVI · Cantigas medievais · Gil Vicente · Fernão Lopes · NÃO ocorreu no Brasil · 1 questão ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>O fato mais cobrado: o Trovadorismo <strong>NÃO ocorreu no Brasil</strong>. Quando os portugueses chegaram ao Brasil (1500), o Trovadorismo já havia encerrado havia quase um século. Além disso, a ESA cobra a classificação das cantigas (amor × amigo × escárnio × maldizer), os três cancioneiros medievais e o teatro de Gil Vicente (Trilogia das Barcas).</p>
+</div>
+
+<h2>2.1 Trovadorismo — Contexto Histórico</h2>
+<p>O Trovadorismo é a primeira escola literária em língua portuguesa (sécs. XII–XV). A língua era o <strong>galego-português</strong>. Ulisses Infante situa o início com a <strong>Cantiga da Ribeirinha</strong> de Paio Soares de Taveirós (c. 1189). As cantigas eram musicadas e acompanhadas de alaúde — os <strong>trovadores</strong> compunham; os <strong>jograis</strong> interpretavam e difundiam.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — Os Três Cancioneiros</div>
+  <p>Os textos trovadorescos chegaram até nós por três grandes coleções manuscritas: <strong>Cancioneiro da Ajuda</strong> (séc. XIII, o mais antigo), <strong>Cancioneiro da Biblioteca Nacional</strong> (Colocci-Brancuti) e <strong>Cancioneiro da Vaticana</strong>. Esses três documentos preservam centenas de cantigas de trovadores e jograis da Península Ibérica.</p>
+</div>
+
+<h2>2.2 Classificação das Cantigas</h2>
+<div class="tabela-wrap"><table>
+  <thead><tr><th>Tipo</th><th>Voz</th><th>Tema</th><th>Origem</th><th>Recurso formal</th></tr></thead>
+  <tbody>
+    <tr><td>Cantiga de amor</td><td>Masculina</td><td>Amor idealizado; dama inacessível; sofrimento cortês</td><td>Provençal</td><td>Amor cortês, refrão</td></tr>
+    <tr><td>Cantiga de amigo</td><td>Feminina</td><td>Saudade do amado ausente; natureza como confidente</td><td>Ibérica (popular)</td><td>Paralelismo</td></tr>
+    <tr><td>Cantiga de escárnio</td><td>Satírica — crítica indireta</td><td>Crítica velada sem nomear o alvo; ironia e trocadilhos</td><td>Ibérica</td><td>Duplo sentido</td></tr>
+    <tr><td>Cantiga de maldizer</td><td>Satírica — crítica direta</td><td>Critica e nomeia o alvo abertamente; linguagem chula possível</td><td>Ibérica</td><td>Tom agressivo</td></tr>
+  </tbody>
+</table></div>
+<div class="box-at">
+  <div class="bt">⚠️ O Paralelismo nas Cantigas de Amigo</div>
+  <p>O paralelismo é a marca formal mais importante das cantigas de amigo: versos se repetem em dísticos com pequenas variações de uma estrofe para outra. Exemplo (D. Dinis): "Ai flores, ai flores do verde pino, / se sabedes novas do meu amigo? / Ai flores, ai flores do verde ramo, / se sabedes novas do meu amado?" — a troca de <em>pino/ramo</em> e <em>amigo/amado</em> é o paralelismo. Recurso de origem ibérica, distinto da poesia provençal das cantigas de amor.</p>
+</div>
+
+<h2>2.3 Humanismo — Gil Vicente e Fernão Lopes</h2>
+<p>O Humanismo (séc. XV – início XVI) marca a passagem do teocentrismo medieval para o antropocentrismo renascentista. <strong>Gil Vicente</strong> (c. 1465–1536) inaugurou o teatro em língua portuguesa com o <em>Auto da Visitação</em> (1502). A <strong>Trilogia das Barcas</strong> (<em>Auto da Barca do Inferno</em>, <em>Auto da Barca do Purgatório</em>, <em>Auto da Barca da Glória</em>) é uma alegoria em que figuras da sociedade medieval são julgadas à beira da morte. <strong>Fernão Lopes</strong> (c. 1380–1460) foi o primeiro grande cronista português, inovando ao dar voz ao povo como sujeito histórico.</p>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Trovadorismo (EsSA 2016, Q9 de 61)</div>
+  <p><strong>Enunciado real:</strong> "O Trovadorismo é uma escola que NÃO ocorreu no:" → <strong>Brasil</strong>. A banca oferecia Portugal, Espanha, Brasil e França. O Trovadorismo é exclusivamente português (sécs. XII–XV). O que se produz no Brasil a partir de 1500 é o <strong>Quinhentismo</strong>.</p>
+  <p><strong>Distinção amor × amigo:</strong> Amor → voz masculina, origem provençal. Amigo → voz feminina, origem ibérica, paralelismo. Esta distinção pode aparecer embutida em qualquer módulo sobre o Trovadorismo.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo II</div>
+  <ul>
+    <li><strong>Trovadorismo:</strong> sécs. XII–XV · galego-português · Portugal · NÃO ocorreu no Brasil</li>
+    <li><strong>Marco inicial:</strong> Cantiga da Ribeirinha (c. 1189) · Marco final: c. 1418 (início do Humanismo)</li>
+    <li><strong>Três cancioneiros:</strong> Ajuda · Biblioteca Nacional · Vaticana</li>
+    <li><strong>Cantigas:</strong> amor (masc., provençal) · amigo (fem., ibérica, paralelismo) · escárnio (indireta) · maldizer (direta)</li>
+    <li><strong>Humanismo:</strong> Gil Vicente (Auto da Visitação, 1502 — Trilogia das Barcas) · Fernão Lopes (crônicas históricas)</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP III ═══════════════════════ -->
+<section class="chapter" id="cap03">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO III</div>
+  <div class="ch-tit">Classicismo e Quinhentismo</div>
+  <div class="ch-per">Séc. XVI · Camões · Os Lusíadas · Carta de Caminha · Anchieta · 5 questões ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>O Classicismo é cobrado principalmente por <em>Os Lusíadas</em> de Camões: gênero (épico), estrutura (10 cantos, oitava-rima), episódios-chave e características. O Quinhentismo é cobrado pela distinção dos dois ramos (<strong>literatura de informação</strong> × <strong>literatura de catequese</strong>) e pelos autores: Caminha e Anchieta. Questão de 2017 perguntou os nomes exatos dos dois ramos — cobrado diretamente.</p>
+</div>
+
+<h2>3.1 Classicismo — Características</h2>
+<p>O Classicismo é o Renascimento nas letras portuguesas (séc. XVI). Ulisses Infante identifica a ruptura central: o teocentrismo medieval cede ao antropocentrismo renascentista. O introdutor foi <strong>Sá de Miranda</strong> (1481–1558), que trouxe da Itália o soneto e o verso decassílabo.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — Características do Classicismo</div>
+  <p><strong>Equilíbrio e harmonia formal</strong> (soneto, metros regulares) · <strong>Universalismo</strong> (temas atemporais) · <strong>Imitatio veterum</strong> (imitação dos clássicos greco-latinos) · <strong>Racionalismo</strong> (razão guia a criação artística) · <strong>Objetividade</strong> (contenção emocional) · <strong>Uso da mitologia greco-latina</strong> (deuses e heróis da Antiguidade como referência estética e estrutural).</p>
+</div>
+
+<h2>3.2 Luís de Camões (c. 1524–1580) e Os Lusíadas</h2>
+<p>Camões divide sua obra em <strong>lírica</strong> (sonetos com o tema do amor paradoxal — antíteses e paradoxos são suas marcas) e <strong>épica</strong> (<em>Os Lusíadas</em>, 1572). O soneto camoniano é modelar: decassílabos, rima ABBA/ABBA/CDC/DCD, uso magistral da antítese. "Amor é fogo que arde sem se ver" condensa sua lógica paradoxal.</p>
+<div class="box-aut">
+  <div class="autor">🏛️ Luís de Camões — Os Lusíadas, Canto I (1572)</div>
+  <p>"As armas e os barões assinalados / Que da ocidental praia lusitana / Por mares nunca de antes navegados / Passaram ainda além da Taprobana..."</p>
+  <p><strong>Análise:</strong> A proposição da epopeia anuncia o tema nos primeiros versos: glorificação dos navegadores que passaram por "mares nunca de antes navegados". Gênero: épico. Forma: oitava-rima (8 versos decassílabos, rima ABABABCC). Estrutura: 10 cantos.</p>
+</div>
+<div class="tabela-wrap"><table>
+  <thead><tr><th>Elemento</th><th>Característica</th></tr></thead>
+  <tbody>
+    <tr><td>Forma</td><td>10 cantos · 1102 estrofes · oitava-rima · decassílabos</td></tr>
+    <tr><td>Tema</td><td>Viagem de Vasco da Gama à Índia (1497–1499); glorificação de Portugal</td></tr>
+    <tr><td>Três planos</td><td>Histórico (a viagem) · Mitológico (deuses greco-romanos) · Narrativo (Camões como narrador)</td></tr>
+    <tr><td>Inês de Castro</td><td>Canto III — amor trágico, assassinada por razões políticas</td></tr>
+    <tr><td>Adamastor</td><td>Canto V — gigante símbolo das forças da natureza; o Cabo das Tormentas</td></tr>
+    <tr><td>Velho do Restelo</td><td>Canto IV — voz dissonante que condena as navegações como orgulho e ambição</td></tr>
+    <tr><td>Ilha dos Amores</td><td>Canto IX — recompensa divina aos navegadores; idealização amorosa</td></tr>
+  </tbody>
+</table></div>
+
+<h2>3.3 Quinhentismo (Brasil 1500–1601)</h2>
+<div class="grid2">
+  <div class="box-dic">
+    <div class="bt">📜 Literatura de Informação</div>
+    <p>Relatos, cartas e crônicas que descrevem a nova terra. Linguagem simples e direta. <strong>Autores:</strong> Pero Vaz de Caminha · Hans Staden · Pêro de Magalhães Gândavo.</p>
+  </div>
+  <div class="box-dic">
+    <div class="bt">✝️ Literatura de Catequese (Jesuítica)</div>
+    <p>Textos produzidos pelos jesuítas para a evangelização dos índios. <strong>Autores:</strong> José de Anchieta (autos em tupi, latim e espanhol) · Pe. Manuel da Nóbrega.</p>
+  </div>
+</div>
+<p><strong>Pero Vaz de Caminha</strong> (c. 1450–1500): A <em>Carta ao Rei Dom Manuel</em> (1500) é o documento fundador da literatura brasileira — primeiro texto escrito sobre o Brasil, exemplo máximo da literatura de informação. <strong>José de Anchieta</strong> (1534–1597): jesuíta espanhol, autor em três línguas, principal representante da literatura de catequese. NÃO confundir com Padre Antônio Vieira (Barroco, séc. XVII).</p>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Quinhentismo (EsSA 2017, Q11 e Q12 de 61)</div>
+  <p><strong>Q11 (EsSA 2017):</strong> "A escola literária chamada 'Literatura de Informação' caracterizou-se por crônicas de viagem... Esse movimento literário ficou conhecido como:" → <strong>Quinhentismo</strong>. <strong>As outras alternativas estavam erradas porque:</strong> Arcadismo, Barroco, Trovadorismo, Simbolismo.</p>
+  <p><strong>Q12 (EsSA 2017):</strong> "A literatura quinhentista divide-se em dois grupos... esses dois grupos recebem as denominações de:" → <strong>Literatura de informação e literatura de catequese (ou jesuítica)</strong>.</p>
+  <p><strong>Pegadinha Anchieta × Vieira (EsSA 2017, Q13):</strong> A ESA listou Anchieta, Vieira e Gonzaga numa questão sobre períodos literários. Anchieta = Quinhentismo (séc. XVI). Vieira = Barroco (séc. XVII). Gonzaga = Arcadismo (séc. XVIII). Confundir os três é o erro-armadilha intencional.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo III</div>
+  <ul>
+    <li><strong>Classicismo:</strong> séc. XVI · Portugal · equilíbrio, universalismo, imitação clássica, racionalismo, mitologia greco-romana</li>
+    <li><strong>Camões:</strong> lírica (sonetos paradoxais) + Os Lusíadas (epopeia, 1572, 10 cantos, oitava-rima)</li>
+    <li><strong>Episódios de Os Lusíadas:</strong> Inês de Castro (III) · Adamastor (V) · Velho do Restelo (IV) · Ilha dos Amores (IX)</li>
+    <li><strong>Quinhentismo (Brasil 1500–1601):</strong> informação (Caminha) + catequese (Anchieta)</li>
+    <li><strong>NÃO confundir:</strong> Anchieta (Quinhentismo, séc. XVI) ≠ Vieira (Barroco, séc. XVII) ≠ Gonzaga (Arcadismo, séc. XVIII)</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP IV ═══════════════════════ -->
+<section class="chapter" id="cap04">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO IV</div>
+  <div class="ch-tit">Barroco</div>
+  <div class="ch-per">1601–1768 (Brasil) · Conceptismo · Culteranismo · Gregório de Matos · Padre Vieira · 6 questões ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>O Barroco é cobrado em 6 questões (2016–2022). Foco: as duas vertentes (conceptismo × culteranismo), autores-chave (Gregório de Matos e Padre Vieira), características centrais (antítese, paradoxo, vanitas, memento mori, conflito fé × razão) e a <strong>distinção Barroco × Parnasianismo</strong> — a pegadinha mais recorrente de toda a prova de Literatura.</p>
+</div>
+
+<h2>4.1 Contexto e Características</h2>
+<p>O Barroco nasce no séc. XVII em contexto de crise: a Reforma Protestante (Lutero, 1517) abalou a unidade da Igreja, e a Contrarreforma buscou recuperar a fé por meio da emoção e do impacto sensorial. No Brasil, dura de 1601 a 1768.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — O Barroco como Expressão do Conflito</div>
+  <p>Para Infante, o Barroco é a tradução artística de um ser humano dividido entre dois mundos: o <strong>teocentrismo medieval</strong> (Deus no centro) e o <strong>antropocentrismo renascentista</strong> (o homem e seus prazeres no centro). O artista barroco não resolve esse conflito — ele o <em>performa</em>, tornando-o o próprio tema da obra. Daí: linguagem rebuscada, paradoxos, antíteses, a efemeridade da vida (<em>vanitas</em>), o <em>memento mori</em> (lembra-te que és mortal).</p>
+</div>
+
+<h2>4.2 As Duas Tendências do Barroco — Conforme Ulisses Infante</h2>
+<p>Ulisses Infante denomina as duas tendências barrocas pelo nome dos poetas espanhóis que as originaram: <strong>Gongorismo</strong> (ou Culteranismo) e <strong>Quevedismo</strong> (ou Conceptismo). A distinção é fundamental e pode ser cobrada diretamente pela ESA.</p>
+<div class="grid2">
+  <div class="box-peg">
+    <div class="bt">🖊️ Quevedismo / Conceptismo — Cultismo de Ideias</div>
+    <p><strong>Origem:</strong> influência do poeta espanhol Francisco de Quevedo.</p>
+    <p><strong>O que é:</strong> jogo de <strong>conceitos e ideias</strong> — argumentação elaborada, raciocínio paradoxal, silogismos inesperados. O foco é no <em>o que se diz</em>: a profundidade do pensamento.</p>
+    <p><strong>Onde aparece:</strong> principalmente na <strong>prosa sermônica</strong>.</p>
+    <p><strong>Representante brasileiro:</strong> Padre Antônio Vieira nos sermões.</p>
+  </div>
+  <div class="box-dic">
+    <div class="bt">✍️ Gongorismo / Culteranismo — Cultismo de Palavras</div>
+    <p><strong>Origem:</strong> influência do poeta espanhol Luís de Góngora.</p>
+    <p><strong>O que é:</strong> jogo de <strong>palavras e sons</strong> — vocabulário erudito e latinizado, inversões sintáticas (hipérbato), metáforas inusitadas, neologismos. O foco é no <em>como se diz</em>: o ornamento da forma.</p>
+    <p><strong>Onde aparece:</strong> principalmente na <strong>poesia</strong>.</p>
+    <p><strong>Representante brasileiro:</strong> Gregório de Matos na poesia sacra e satírica.</p>
+  </div>
+</div>
+<div class="box-at">
+  <div class="bt">⚠️ Como Memorizar — Gongorismo × Quevedismo</div>
+  <p><strong>Góngora = Gongorismo = palavras belas = forma ornamentada</strong> → é o que os olhos veem: a "capa" do texto, o vocabulário difícil, as inversões. <strong>Quevedo = Quevedismo = conceitos profundos = argumento paradoxal</strong> → é o que a mente processa: a lógica inesperada por trás das palavras. Na prática: Vieira argumenta como Quevedo; Gregório de Matos ornamenta como Góngora.</p>
+</div>
+
+<h2>4.3 Gregório de Matos (1636–1696) — "Boca do Inferno"</h2>
+<p>Maior poeta do Barroco brasileiro. Três vertentes: poesia sacra (arrependimento e súplica), lírica amorosa e poesia satírica (o apelido "Boca do Inferno" veio da mordacidade crítica à sociedade colonial baiana). Na poesia sacra, o conflito eu-pecador × Deus-misericordioso é o motor expressivo — com paradoxos e antíteses como recursos centrais.</p>
+<div class="box-aut">
+  <div class="autor">🌀 Gregório de Matos — Poesia Sacra (séc. XVII)</div>
+  <p>"Pequei, Senhor; mas não porque hei pecado, / Da vossa alta clemência me despido; / Porque, quanto mais tenho delinquido, / Vos tenho a perdoar mais empenhado..."</p>
+  <p><strong>Características barrocas:</strong> (1) <em>Antítese</em>: pecar × perdoar; delinquir × clemência. (2) <em>Paradoxo</em>: quanto mais pecou, mais obriga Deus a perdoar — lógica invertida. (3) <em>Conflito fé × fraqueza humana.</em> (4) <em>Conceptismo</em>: o raciocínio é uma "prova lógica" da necessidade do perdão divino.</p>
+</div>
+
+<h2>4.4 Padre Antônio Vieira (1608–1697)</h2>
+<p>Maior prosador do Barroco em língua portuguesa. Combina erudição bíblica, argumentação rigorosa (conceptismo) e engajamento político: defendeu os índios da escravidão e criticou o tráfico negreiro — o que lhe valeu perseguição pela Inquisição. O <em>Sermão da Sexagésima</em> é o modelo de argumentação conceptista barroca.</p>
+<div class="box-aut">
+  <div class="autor">⛪ Padre Antônio Vieira — Sermão da Sexagésima (séc. XVII)</div>
+  <p>"A palavra de Deus é semente... O semeador que semeia, semeia por todos; mas nem em todos faz o mesmo efeito."</p>
+  <p><strong>Conceptismo em ação:</strong> Vieira desenvolve a metáfora bíblica da semente por dezenas de páginas com rigor silogístico: "Se a semente é boa e a terra é boa, por que não germina? Porque o semeador é mau." — o raciocínio paradoxal aplicado à defesa da eficácia da pregação. A crítica velada aos pregadores incompetentes é embalada em virtuosismo retórico.</p>
+</div>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Barroco (EsSA 2016–2022, Q18–Q23)</div>
+  <p><strong>Pegadinha mais frequente — Barroco × Parnasianismo (EsSA 2022, Q22):</strong> A banca apresenta "linguagem objetiva e precisa, perfeição formal e universalismo" e pergunta qual escola. Resposta: <strong>Parnasianismo</strong>. Nunca Barroco. O Barroco é o oposto: rebuscado, tenso, vocabulário latinizado, temas existenciais pessoais. Memorize: <em>Barroco = rebuscado + tenso. Parnasianismo = objetivo + frio.</em></p>
+  <p><strong>Memento mori / Vanitas:</strong> Quando a questão descreve "efemeridade da beleza física" ou "lembra-te que vais morrer" → <strong>Barroco</strong>, sempre.</p>
+  <p><strong>Autores (EsSA 2019, Q19):</strong> Gregório de Matos → poesia barroca. Padre Vieira → prosa sermônica barroca, conceptismo. Confundir Vieira com Anchieta (Quinhentismo) ou com Gonzaga (Arcadismo) é armadilha recorrente.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo IV</div>
+  <ul>
+    <li><strong>Período:</strong> 1601–1768 (Brasil)</li>
+    <li><strong>Conflito central:</strong> fé × razão · carne × espírito · vida × morte</li>
+    <li><strong>Conceptismo:</strong> jogo de ideias, argumentação paradoxal → Padre Vieira (sermões)</li>
+    <li><strong>Culteranismo:</strong> jogo de palavras, hipérbato, latinismos → Gregório de Matos (poesia)</li>
+    <li><strong>Características:</strong> antítese · paradoxo · vanitas · memento mori · hipérbato · linguagem rebuscada</li>
+    <li><strong>NÃO confundir:</strong> Barroco (rebuscado, tenso) ≠ Parnasianismo (objetivo, frio)</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP V ═══════════════════════ -->
+<section class="chapter" id="cap05">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO V</div>
+  <div class="ch-tit">Arcadismo (Neoclassicismo)</div>
+  <div class="ch-per">1768–1836 (Brasil) · Carpe diem · Fugere urbem · Gonzaga · Caramuru · Inconfidência · 5 questões ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>O Arcadismo é cobrado em 5 questões (2018–2024). A ESA foca nas características (<em>carpe diem</em>, <em>fugere urbem</em>, racionalismo, bucolismo), nos autores (Gonzaga, Cláudio Manuel, Basílio da Gama, Santa Rita Durão) e num dado específico muito cobrado: o <em>Caramuru</em> é obra do <strong>Arcadismo</strong> (1781) — não do Romantismo, apesar do tema indianista.</p>
+</div>
+
+<h2>5.1 Contexto e Características</h2>
+<p>O Arcadismo emerge no séc. XVIII como reação ao exagero barroco, sob a influência do Iluminismo. Os poetas árcades buscam <strong>simplicidade, clareza e natureza</strong>. O nome deriva da Arcádia — região pastoral da Grécia que simbolizava vida harmoniosa. Usavam <strong>pseudônimos pastoris</strong> (Gonzaga = "Dirceu"; Cláudio = "Glauceste Satúrnio").</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — As Máximas do Arcadismo</div>
+  <p><strong><em>Carpe diem</em></strong> (Horácio): aproveita o dia presente de forma serena — o tempo passa, é preciso gozar a vida agora. <strong><em>Fugere urbem</em></strong>: foge da cidade corrupta para a natureza pura e bucólica. <strong><em>Áurea mediocritas</em></strong>: a virtude do meio-termo, sem excessos. <strong><em>Inutilia truncat</em></strong>: cortar o inútil — simplicidade e clareza formal. O Arcadismo é a escola do <strong>equilíbrio sereno</strong> — o <em>carpe diem</em> árcade não tem angústia (como o barroco <em>memento mori</em>): é uma afirmação tranquila do prazer de viver.</p>
+</div>
+
+<h2>5.2 Autores do Arcadismo Brasileiro</h2>
+<p><strong>Tomás Antônio Gonzaga</strong> (1744–1810) — "Dirceu": autor de <em>Marília de Dirceu</em> (1792), ápice do lirismo árcade brasileiro. Preso e degredado para Moçambique pela Inconfidência Mineira (1789). <strong>Cláudio Manuel da Costa</strong> (1729–1789) — "Glauceste Satúrnio": pioneiro do Arcadismo brasileiro (<em>Obras</em>, 1768); morreu na prisão durante a Inconfidência. <strong>Basílio da Gama</strong> (1741–1795): autor de <em>O Uraguai</em> (1769), epopeia com simpatia ao índio. <strong>Santa Rita Durão</strong> (1722–1784): autor do <em>Caramuru</em> (1781), epopeia sobre Diogo Álvares Correia entre os índios tupinambás.</p>
+<div class="box-peg">
+  <div class="bt">⚡ Pegadinha ESA — Caramuru é Arcadismo, NÃO Romantismo (EsSA 2024)</div>
+  <p>O <em>Caramuru</em> (1781) tem tema indianista — mas é <strong>Arcadismo</strong>, não Romantismo. O que define a escola é o período de publicação (1781) e a estrutura formal (epopeia clássica em decassílabos). O Romantismo só começa em 1836. A ESA cobrou exatamente isso em 2024 (Q28 de 61): "A obra Caramuru, de Santa Rita Durão, pertence ao:" → Arcadismo.</p>
+</div>
+
+<h2>5.3 Arcadismo e a Inconfidência Mineira</h2>
+<p>A <strong>Inconfidência Mineira</strong> (1789) conecta literatura e política: Gonzaga e Cláudio Manuel da Costa foram presos por envolvimento no movimento de independência de Minas Gerais. Cláudio morreu na prisão (possível suicídio); Gonzaga foi degredado para Moçambique, onde morreu em 1810. Esse contexto é cobrado pela ESA para testar o entendimento da dimensão política do Arcadismo brasileiro.</p>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Arcadismo (EsSA 2018–2024, Q25–Q29)</div>
+  <p><strong>Carpe diem sereno × memento mori barroco (EsSA 2018, Q25):</strong> "A característica central do Arcadismo é:" → carpe diem e fugere urbem, valorizando a natureza e a vida simples. Distinguir do <em>memento mori</em> barroco é essencial.</p>
+  <p><strong>Fugere urbem (EsSA 2022, Q26):</strong> A banca apresentou um soneto árcade com a temática do retiro para a natureza e perguntou qual escola representava. A chave era o <em>fugere urbem</em> e o bucolismo sereno → Arcadismo.</p>
+  <p><strong>Caramuru (EsSA 2024):</strong> "A obra Caramuru, de Santa Rita Durão, pertence ao Arcadismo porque:" → foi publicada em 1781, antes do Romantismo (que começa em 1836), e usa a forma épica clássica.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo V</div>
+  <ul>
+    <li><strong>Período:</strong> 1768–1836 (Brasil)</li>
+    <li><strong>Máximas:</strong> <em>carpe diem</em> · <em>fugere urbem</em> · <em>áurea mediocritas</em> · <em>inutilia truncat</em></li>
+    <li><strong>Características:</strong> racionalismo · bucolismo · simplicidade · natureza idealizada · pseudônimos pastoris</li>
+    <li><strong>Autores:</strong> Gonzaga (Marília de Dirceu) · Cláudio Manuel · Basílio da Gama (O Uraguai) · Santa Rita Durão (Caramuru, 1781)</li>
+    <li><strong>Inconfidência Mineira (1789):</strong> Gonzaga degredado · Cláudio Manuel morreu na prisão</li>
+    <li><strong>Caramuru (1781) = Arcadismo</strong> — NÃO Romantismo (Romantismo começa em 1836)</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP VI ═══════════════════════ -->
+<section class="chapter" id="cap06">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO VI</div>
+  <div class="ch-tit">Romantismo</div>
+  <div class="ch-per">1836–1881 · Três gerações · Indianismo · Ultrarromantismo · Condoreirismo · 9 questões ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>O Romantismo é o módulo com <strong>mais questões na ESA: 9 questões</strong> (2016–2024). A banca cobra: as três gerações com autores e características, a distinção Romantismo × Realismo, o intertexto "Canção do Exílio" × "Canção do Expedicionário", os romances de Alencar (Iracema = anagrama de América) e o tratamento do índio em O Guarani e I-Juca-Pirama.</p>
+</div>
+
+<h2>6.1 Contexto e Características</h2>
+<p>O marco inicial no Brasil é <em>Suspiros Poéticos e Saudades</em> (1836) de Gonçalves de Magalhães, publicado em Paris. Ulisses Infante destaca que o Romantismo brasileiro tem uma dimensão política que o europeu não tem: nasce no contexto da <strong>Independência do Brasil</strong> (1822) e é um projeto de construção da identidade nacional — o índio como herói, a natureza tropical como cenário sublime, a história do Brasil como tema épico.</p>
+
+<h2>6.2 As Três Gerações</h2>
+<div class="box-cron">
+  <div class="ci"><div class="cd">1ª GER. 1836–1853</div><div class="cdesc"><strong>Indianista / Nacionalista</strong> — índio como herói nacional, natureza brasileira, história pátria. Autores: <strong>Gonçalves Dias</strong> (I-Juca-Pirama, Canção do Exílio) e <strong>José de Alencar</strong> (Iracema, O Guarani, Senhora).</div></div>
+  <div class="ci"><div class="cd">2ª GER. 1853–1870</div><div class="cdesc"><strong>Ultra-romântica / Byronista</strong> — pessimismo, "mal do século" (spleen), morte como solução, amor impossível e idealizado, cenários noturnos. Influência de Lord Byron. Autores: <strong>Álvares de Azevedo</strong> (Noite na Taverna, Lira dos Vinte Anos), <strong>Casimiro de Abreu</strong> (As Primaveras), Fagundes Varela.</div></div>
+  <div class="ci"><div class="cd">3ª GER. 1870–1881</div><div class="cdesc"><strong>Condoreirista / Social</strong> — poesia comprometida com abolição da escravidão e libertação dos povos. Tom retórico e grandiloquente. Influência de Victor Hugo. Autor central: <strong>Castro Alves</strong> (O Navio Negreiro, Espumas Flutuantes, Vozes d'África).</div></div>
+</div>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — As Três Gerações (EsSA 2016, Q23; EsSA 2019, Q25)</div>
+  <p><strong>EsSA 2016 (Q23):</strong> "Os autores Álvares de Azevedo, Castro Alves e Casimiro de Abreu pertencem à escola literária do:" → <strong>Romantismo</strong> (Letra A). Os três são românticos, mas de gerações distintas: Álvares (2ª), Castro Alves (3ª), Casimiro (2ª). A questão testa se o candidato sabe que existem gerações <em>dentro</em> do Romantismo.</p>
+  <p><strong>EsSA 2019 (Q25):</strong> "Dos poetas românticos abaixo, a indicação dos temas predominantes está CORRETAMENTE indicada em:" → Gabarito: <strong>Álvares de Azevedo — fuga da realidade, idealização da infância e morte</strong>. Alternativas erradas incorretos: Casimiro de Abreu com indianismo; Gonçalves Dias com religiosidade; Castro Alves com fuga da realidade (errado — Castro Alves é social/abolicionista).</p>
+</div>
+
+<h2>6.3 Gonçalves Dias e a Canção do Exílio</h2>
+<div class="box-aut">
+  <div class="autor">💜 Gonçalves Dias — Canção do Exílio (Coimbra, 1843)</div>
+  <p>"Minha terra tem palmeiras / Onde canta o Sabiá; / As aves, que aqui gorjeiam, / Não gorjeiam como lá."</p>
+  <p><strong>Intertexto cobrado — "Canção do Expedicionário" (EsSA 2024, Q30):</strong> A <em>Canção do Expedicionário</em> (Guilherme de Almeida, 1943) é uma paráfrase/intertexto da Canção do Exílio, escrita cem anos depois para os soldados brasileiros que partiam para a 2ª Guerra Mundial. O contraste é inverso: o poeta romântico quer <em>voltar</em> para sua terra; o expedicionário <em>parte</em> com coragem. A ESA perguntou a alternativa <strong>INCORRETA</strong> sobre o poema — gabarito: a afirmação de que o poema <em>identifica-se com a Escola Literária Simbolista</em> é incorreta; o intertexto pertence ao Romantismo (a base) e ao Modernismo tardio (Guilherme de Almeida).</p>
+</div>
+
+<div class="box-esa">
+  <div class="bt">⚔️ Análise Detalhada da Canção do Expedicionário (EsSA 2024, Q15 e Q30)</div>
+  <p>A <em>Canção do Expedicionário</em> (Guilherme de Almeida e Sady Cabral Rossi, 1944) foi cobrada em duas questões na prova de 2024. Conheça cada característica que a ESA avaliou:</p>
+  <ul>
+    <li><strong>Sentimento saudosista em relação à Pátria (alternativa A da Q15 — CORRETA):</strong> O poema é percorrido pelo amor à terra natal — "Venho do morro, do engenho... da minha terra natal... Por mais terras que eu percorra, não permita Deus que eu morra sem que volte para lá." Essa saudade é a principal emoção do texto.</li>
+    <li><strong>Uso da antítese (alternativa B da Q15 — a banca pedia a INCORRETA, mas vejamos):</strong> A antítese aparece, por exemplo, em "Por mais terras que eu percorra / não permita Deus que eu morra" — percorrer × morrer; partir × voltar. Mas não é o recurso dominante do texto.</li>
+    <li><strong>Regularidade na rima (alternativa C da Q15 — CORRETA):</strong> O poema tem esquema de rimas regulares em seus versos — "engenho/longe", "cafezais/natal", "percorra/morra/lá" — o que confere musicalidade regular às estrofes.</li>
+    <li><strong>É obra intertextual (alternativa D da Q15 — CORRETA):</strong> Dialoga diretamente com a <em>Canção do Exílio</em> de Gonçalves Dias — "Onde canta o sabiá" aparece textualmente no poema. O intertexto é de citação e paráfrase.</li>
+    <li><strong>Regularidade sintática (alternativa E da Q15 — CORRETA, logo NÃO é a incorreta):</strong> Os versos repetem estruturas sintáticas paralelas ("Venho do morro... Venho das praias... Venho do verde...") — isso é regularidade sintática pelo paralelismo. ESTÁ CORRETO afirmar que o poema possui regularidade sintática.</li>
+  </ul>
+  <p><strong>Logo, a alternativa INCORRETA na Q15 é a B:</strong> o uso da antítese <em>não</em> é recorrente em "todo o poema" — a antítese aparece pontualmente, mas não como recurso dominante. O recurso dominante é o <strong>paralelismo sintático</strong> ("Venho de...") e a <strong>enumeração</strong> das origens do soldado.</p>
+</div>
+
+<h2>6.4 José de Alencar — Romance Indianista e Regional</h2>
+<p>Três vertentes: <strong>indianistas</strong> — <em>O Guarani</em> (1857), <em>Iracema</em> (1865), <em>Ubirajara</em> (1874); <strong>urbanos</strong> — <em>Senhora</em> (1875), <em>Lucíola</em> (1862); <strong>regionalistas</strong> — <em>O Sertanejo</em> (1875), <em>O Gaúcho</em> (1870).</p>
+<div class="box-peg">
+  <div class="bt">⚡ Iracema = Anagrama de América (EsSA 2020 e 2022)</div>
+  <p><em>Iracema</em> (1865) narra o amor entre Iracema (índia Tabajara, "lábios de mel") e Martim (guerreiro português), fundando simbolicamente o povo brasileiro. O nome <strong>Iracema</strong> é anagrama perfeito de <strong>América</strong> — deliberado de Alencar para simbolizar que a nova nação nasce da fusão do índio com o europeu.</p>
+  <p><strong>EsSA 2020 (Q26):</strong> "O tratamento dado ao elemento indígena em O Guarani e em I-Juca Pirama representa:" → o gabarito é a alternativa que descreve o índio como herói idealizado, símbolo de virtude e nobreza — o indianismo romântico. Não é crítica social nem naturalismo.</p>
+  <p><strong>EsSA 2022 (Q27):</strong> A ESA apresentou trecho de Iracema e pediu identificar característica do Romantismo → gabarito: <strong>idealização da personagem indígena por meio da associação com a natureza e com valores como coragem e pureza</strong>.</p>
+</div>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — O que NÃO é Romantismo (EsSA 2017, Q24)</div>
+  <p><strong>EsSA 2017 (Q24):</strong> "Sobre o Romantismo no Brasil, assinale a afirmativa INCORRETA:" → Gabarito: <strong>"Os escritores românticos buscavam descrever a realidade de forma objetiva e científica."</strong> Essa é característica do Realismo, não do Romantismo. O Romantismo é subjetivo, emocional, idealizador — o oposto da objetividade científica realista. As outras alternativas (valorização do índio, liberdade de criação, nacionalismo) eram todas corretas sobre o Romantismo.</p>
+</div>
+
+<h2>6.5 Ufanismo Nacionalista — Conceito Cobrado na EsSA 2024 (Q22)</h2>
+<p>A questão 22 da prova de 2024 pediu a identificação da "temática comum central" entre o <em>Canto de Regresso à Pátria</em> de Oswald de Andrade e a <em>Canção do Exílio</em> de Gonçalves Dias. A resposta correta foi: <strong>ufanismo nacionalista</strong>. Este conceito não está em nenhum capítulo isolado — atravessa o Romantismo e o Modernismo.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — Ufanismo na Literatura Brasileira</div>
+  <p><strong>Ufanismo</strong> vem de "ufanar" (orgulhar-se excessivamente). Na literatura brasileira, é a tendência de exaltar as belezas, riquezas e virtudes da pátria de forma entusiástica — às vezes acrítica. Manifesta-se na glorificação da natureza tropical, do povo e do território nacional. O ufanismo romântico (Gonçalves Dias, José de Alencar) é sincero e patriótico. O modernismo de Oswald de Andrade <em>parodia</em> o ufanismo romântico — mas mantém o amor pela terra, ainda que com ironia.</p>
+  <p><strong>Canção do Exílio (Gonçalves Dias):</strong> "Minha terra tem palmeiras / Onde canta o Sabiá... Nossos bosques têm mais vida / Nossa vida mais amores" — ufanismo sincero e saudosista. <strong>Canto de Regresso à Pátria (Oswald de Andrade):</strong> "Minha terra tem palmares / Onde gorjeia o mar... Não permita Deus que eu morra / Sem que volte pra São Paulo" — paródia irônica do original, mas ainda ufanista.</p>
+</div>
+<div class="box-peg">
+  <div class="bt">⚡ Por que NÃO são as outras alternativas (EsSA 2024, Q22)</div>
+  <p><strong>Nacionalismo utópico</strong> = projeção de uma pátria ideal futura — não é isso que os dois poemas fazem. <strong>Exploração crítica nacional</strong> = examinar os problemas do Brasil com distanciamento analítico — o que faz Lima Barreto, não Gonçalves Dias. <strong>Inspiração em valores europeus</strong> = o oposto: ambos os poemas rejeitam o exterior e glorificam o brasileiro. A resposta é <strong>ufanismo nacionalista</strong> = amor entusiástico e orgulhoso pela terra natal, presente nos dois textos.</p>
+</div>
+
+<h2>6.6 O Soneto de Fidelidade — Versificação Cobrada na EsSA 2024 (Q27 e Q28)</h2>
+<p>O <em>Soneto de Fidelidade</em> de Vinícius de Moraes (1939) foi cobrado nas questões 27 e 28 da prova de 2024. A banca pediu a identificação da versificação correta e do gênero literário. Este soneto tem uma particularidade importante: seus <strong>tercetos fogem do modelo italiano clássico</strong>.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — O Soneto: Estrutura Clássica e Variações</div>
+  <p><strong>Soneto clássico italiano (Petrarca):</strong> 14 versos decassílabos → 2 quartetos (ABBA ABBA) + 2 tercetos (CDC DCD ou variantes regulares). <strong>Soneto shakespeariano:</strong> 3 quartetos + 1 dístico final.</p>
+  <p><strong>Soneto de Fidelidade (Vinícius, 1939):</strong> 14 versos decassílabos (ou com variação), 2 quartetos + 2 tercetos — mas os tercetos têm esquema de rimas <strong>misto e não tradicional</strong>: os 6 versos dos dois tercetos se organizam em rimas que cruzam as estrofes (URA / IVE / AMA), não seguindo o padrão CDC DCD. Por isso a questão 27 diz que "os versos possuem tercetos não tradicionais aos que se estudam em sonetos italianos" — e essa afirmativa está <strong>correta</strong>.</p>
+  <p><strong>Gênero literário do soneto:</strong> sempre <strong>lírico</strong> — a voz é do eu-lírico expressando emoções internas (amor, fidelidade, medo da morte). A questão 28 da prova de 2024 pede identificar o gênero → resposta correta: Letra D — "É um texto com estrutura fixa clássica, pertence ao gênero lírico, ainda que haja inovação em seu arranjo, pois as rimas dos tercetos comportam-se de forma mista."</p>
+</div>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobrou — Soneto de Fidelidade (EsSA 2024, Q27 e Q28)</div>
+  <p><strong>Q27 — Verificando a versificação:</strong> Quatro afirmativas foram apresentadas. O candidato precisava identificar as corretas. São corretas: <strong>II</strong> ("versos decassílabos, em duas quadras e dois tercetos") · <strong>III</strong> ("três rimas: ento, ure, ama") · <strong>IV</strong> ("tercetos não tradicionais ao soneto italiano"). Está errada apenas a afirmativa I ("redondilha maior, versos de sete sílabas") — o Soneto de Fidelidade tem versos decassílabos, não heptassílabos. Gabarito: alternativa D (opções II, III e IV estão corretas).</p>
+  <p><strong>Q28 — Gênero literário:</strong> O Soneto é um texto fixo e pertence ao gênero <strong>lírico</strong>. As alternativas erradas diziam ser narrativo (errado — soneto não tem narrador que conta feitos externos), dramático (errado — não é texto para ser encenado), épico (errado — épico são epopeias, não sonetos). A correta era: "É um texto com estrutura fixa clássica, pertence ao gênero lírico, ainda que haja inovação em seu arranjo."</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo VI
+  <div class="bt">📚 Síntese do Capítulo VI</div>
+  <ul>
+    <li><strong>Marco:</strong> Suspiros Poéticos e Saudades (Gonçalves de Magalhães, 1836)</li>
+    <li><strong>1ª Geração (Indianista):</strong> Gonçalves Dias · Alencar — índio como herói, natureza brasileira</li>
+    <li><strong>2ª Geração (Ultra-romântica):</strong> Álvares de Azevedo · Casimiro de Abreu — pessimismo, mal do século, morte</li>
+    <li><strong>3ª Geração (Condoreirista):</strong> Castro Alves — abolicionismo, grandiloquência</li>
+    <li><strong>Iracema = anagrama de América</strong> · amor simbólico índia × português = origem do povo brasileiro</li>
+    <li><strong>Canção do Exílio → Canção do Expedicionário:</strong> intertexto, paráfrase com inversão de sentido (1843 → 1943)</li>
+    <li><strong>NÃO é Romantismo:</strong> objetividade científica e determinismo → isso é Realismo/Naturalismo</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP VII ═══════════════════════ -->
+<section class="chapter" id="cap07">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO VII</div>
+  <div class="ch-tit">Realismo e Naturalismo</div>
+  <div class="ch-per">1881–1922 · Machado de Assis · Duas fases · Aluísio Azevedo · O Cortiço · 6 questões ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>O Realismo e Naturalismo somam 6 questões (2017–2024). A ESA cobra: as duas fases de Machado de Assis, a ironia e o ceticismo como características da 2ª fase, a distinção Realismo × Naturalismo (determinismo, zoomorfização, O Cortiço) e a identificação da escola a partir de um trecho literário.</p>
+</div>
+
+<h2>7.1 Características</h2>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — Realismo × Naturalismo</div>
+  <p><strong>Realismo:</strong> foca na psicologia individual burguesa, nos conflitos morais, na ironia crítica. Personagens psicologicamente complexas. <strong>Naturalismo:</strong> aplica determinismo biológico/social; personagens determinadas pelo meio e pela raça; <em>zoomorfização</em> — os personagens são reduzidos a instintos animais. Ambientes marginais (cortiço, bordel). Machado → Realismo. Aluísio Azevedo → Naturalismo.</p>
+</div>
+<div class="tabela-wrap"><table>
+  <thead><tr><th>Aspecto</th><th>Realismo</th><th>Naturalismo</th></tr></thead>
+  <tbody>
+    <tr><td>Foco</td><td>Psicologia individual; conflitos morais burgueses</td><td>Determinismo biológico/social; classes marginalizadas</td></tr>
+    <tr><td>Personagem</td><td>Psicologicamente complexa; moralmente ambígua</td><td>Determinada pelo meio; "zoomorfizada"</td></tr>
+    <tr><td>Cenário</td><td>Salões, cidades, mundo burguês</td><td>Cortiços, bordéis, ambientes degradados</td></tr>
+    <tr><td>Tom</td><td>Irônico, cético, crítico</td><td>Científico, determinista, por vezes mórbido</td></tr>
+    <tr><td>Rep. BR</td><td>Machado de Assis</td><td>Aluísio Azevedo</td></tr>
+  </tbody>
+</table></div>
+
+<h2>7.2 Machado de Assis (1839–1908) — As Duas Fases</h2>
+<div class="grid2">
+  <div class="box-dic">
+    <div class="bt">📖 1ª Fase — Romântica (até 1880)</div>
+    <p>Romances sentimentais, personagens idealizadas, conflitos morais convencionais. Narrador tradicional. Obras: A Mão e a Luva (1874) · Helena (1876) · Iaiá Garcia (1878).</p>
+  </div>
+  <div class="box-at">
+    <div class="bt">⚡ 2ª Fase — Realista (a partir de 1881)</div>
+    <p>Inaugurada com Memórias Póstumas de Brás Cubas (1881). Narrador-defunto, ironia corrosiva, ceticismo filosófico, crítica da burguesia, foco na psicologia dos mecanismos de dominação social. Obras: Quincas Borba (1892) · Dom Casmurro (1900) · Esaú e Jacó (1904).</p>
+  </div>
+</div>
+<p><strong>Memórias Póstumas de Brás Cubas (1881)</strong> — O narrador está morto e narra do além-túmulo, o que permite ironia sem limites morais. O "Humanitismo" — filosofia de Quincas Borba — é paródia do darwinismo social e do positivismo, naturalizando a guerra e o extermínio como lei natural.</p>
+<div class="box-aut">
+  <div class="autor">📖 Machado de Assis — Quincas Borba: O Humanitismo (Texto real da EsSA 2024)</div>
+  <p>"Não há morte. O encontro de duas expansões, ou a expansão de duas formas, pode determinar a supressão de uma delas; mas, rigorosamente, não há morte, há vida, porque a supressão de uma é a condição da sobrevivência da outra... Supõe tu um campo de batatas e duas tribos famintas. As batatas apenas chegam para alimentar uma das tribos... A paz, nesse caso, é a destruição; a guerra é a conservação. Uma das tribos extermina a outra e recolhe os despojos. Ao vencido, ódio ou compaixão; ao vencedor, as batatas."</p>
+  <p><strong>Por que este trecho é claramente Realismo:</strong> (1) A ironia é a chave — Machado não defende a guerra; ele <em>parodia</em> as doutrinas científicas da época (Darwinismo social, Positivismo) que usavam a biologia para justificar o extermínio dos mais fracos. (2) O "Humanitismo" é uma filosofia inventada (absurda, ridícula) que naturaliza a barbárie — isso é o ceticismo realista de Machado em ação: ele critica as ideologias do séc. XIX mostrando até onde elas chegam se levadas ao extremo. (3) Não há idealismo (Romantismo), nem ornamentação formal (Parnasianismo), nem musicalidade sugestiva (Simbolismo), nem ruptura experimental (Modernismo). É observação crítica e irônica da realidade social: Realismo puro.</p>
+</div>
+
+<p><strong>Dom Casmurro (1900)</strong> — narrador não-confiável: Bento Santiago suspeita de traição de Capitu com Escobar. A ambiguidade é total — o leitor nunca sabe se Capitu foi ou não infiel. Machado usa o narrador psicologicamente comprometido como recurso narrativo inovador.</p>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Realismo (EsSA 2017–2024, Q41–Q46)</div>
+  <p><strong>EsSA 2017 (Q41) — Características:</strong> "A escola realista caracteriza-se por:" → gabarito inclui objetividade, crítica à ideologia burguesa, ceticismo, foco na psicologia das personagens. O alternativa errada mais cobrado é incluir "verso livre e linguagem coloquial" como características do Realismo — que são do Modernismo.</p>
+  <p><strong>EsSA 2020 (Q42) — Duas fases de Machado:</strong> "Sobre as fases de Machado de Assis, assinale a CORRETA:" → gabarito: a 2ª fase (a partir de 1881) é marcada por narrador em 1ª pessoa, ironia corrosiva, ceticismo e crítica da burguesia. A 1ª fase é romântica e convencional.</p>
+  <p><strong>EsSA 2021 (Q43) — O Cortiço:</strong> A ESA apresentou trecho de O Cortiço com descrição bestializante e perguntou a escola → <strong>Naturalismo</strong>. As chaves: zoomorfização, determinismo pelo meio, ambiente coletivo degradado.</p>
+  <p><strong>EsSA 2024 (Q46b) — Quincas Borba:</strong> A ESA apresentou trecho de Quincas Borba com ironia filosófica sobre a naturalização da guerra e perguntou a escola → <strong>Realismo</strong>. Chave: ironia machadiana, paródia das doutrinas do séc. XIX.</p>
+</div>
+
+<h2>7.4 Por que Machado de Assis é Realista — e NÃO é Modernista, Parnasianista nem Simbolista (EsSA 2024, Q21)</h2>
+<p>A questão 21 da prova de 2024 foi uma das mais difíceis de toda a prova de literatura: apresentou o trecho do Humanitismo de <em>Quincas Borba</em> e afirmou que "é muito limitador estabelecer uma Escola Literária única para o autor". Em seguida, pediu qual escola deve ser identificada para a obra. A resposta correta é <strong>Realismo</strong> — e saber por que as outras estão erradas é tão importante quanto saber a certa.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — Por que Machado pertence ao Realismo</div>
+  <p>Ulisses Infante classifica Machado de Assis como o maior representante do Realismo brasileiro. Embora a obra machadiana seja rica demais para caber em um rótulo único, suas características dominantes são as do Realismo: objetividade na análise psicológica, ceticismo filosófico, ironia crítica, foco na sociedade burguesa e sua hipocrisia, ausência de idealismo romântico e uso de narradores não-confiáveis que colocam em xeque as certezas do leitor.</p>
+</div>
+<div class="box-peg">
+  <div class="bt">⚡ Por que cada alternativa errada está errada (EsSA 2024, Q21)</div>
+  <p><strong>Modernismo (alternativa A):</strong> Errada porque o Modernismo começa em 1922 — Machado morreu em 1908. Além disso, o Modernismo tem características de ruptura formal (verso livre, linguagem coloquial) que não aparecem em Machado. O enunciado diz "sobriedade dos romances" e "linha humanística" — mas isso é Realismo, não Modernismo.</p>
+  <p><strong>Realismo (alternativa B):</strong> <strong>Correta.</strong> "Princípios objetivos e científicos, filosóficos como marca de grande parte das obras machadianas" — isso é exatamente o Realismo. O Humanitismo (filosofia de Quincas Borba que naturaliza a guerra) é uma paródia das doutrinas científicas e filosóficas do séc. XIX — Darwinismo social, Positivismo — típica do ceticismo realista de Machado.</p>
+  <p><strong>Parnasianismo (alternativa C):</strong> Errada. O Parnasianismo é uma escola poética — não se aplica a romances em prosa. A "arte pela arte" e o "cuidado com as palavras" são características de poesia parnasiana, não de narrativa realista.</p>
+  <p><strong>Simbolismo (alternativa D):</strong> Errada. O Simbolismo é marcado por musicalidade, sinestesia, sugestão e misticismo — nada disso está em Machado. A alternativa confunde "transformações das grandes cidades" com características machadianas, mas o Simbolismo é introspectivo e espiritual, não crítico-social.</p>
+  <p><strong>Pré-Modernismo (alternativa E):</strong> Errada. O Pré-Modernismo (1902–1922) é posterior à maior parte da obra de Machado. Quincas Borba foi publicado em 1892. Além disso, o Pré-Modernismo não tem "Vanguardas Europeias" — isso é confusão com o Modernismo.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo VII</div>
+  <ul>
+    <li><strong>Período:</strong> 1881–1922 (Brasil)</li>
+    <li><strong>Machado 1ª fase:</strong> romântica · personagens idealizadas · até 1880</li>
+    <li><strong>Machado 2ª fase:</strong> realista · ironia · ceticismo · narrador-defunto · a partir de 1881</li>
+    <li><strong>Obras-chave:</strong> Memórias Póstumas (1881) · Quincas Borba (1892) · Dom Casmurro (1900) · O Cortiço (1890)</li>
+    <li><strong>Naturalismo:</strong> determinismo · zoomorfização · ambientes marginais → Aluísio Azevedo</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP VIII ═══════════════════════ -->
+<section class="chapter" id="cap08">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO VIII</div>
+  <div class="ch-tit">Parnasianismo</div>
+  <div class="ch-per">1882–1922 · Art pour l'art · Tríade: Bilac · Correia · Oliveira · 7 questões ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>O Parnasianismo é cobrado em <strong>7 questões</strong> (2016–2023) — o segundo módulo com mais questões. A ESA foca: características (<em>art pour l'art</em>, objetividade, perfeição formal, impassibilidade), a tríade parnasiana (Bilac, Correia, Oliveira), o Hino à Bandeira de Bilac, o "Vaso Grego" e a distinção <strong>Parnasianismo × Barroco</strong> — o maior erro dos candidatos.</p>
+</div>
+
+<h2>8.1 Contexto e Características</h2>
+<p>O Parnasianismo nasce na França (Mont Parnasse) como reação ao sentimentalismo romântico. Coexiste no Brasil com o Realismo a partir de 1882. Ulisses Infante define-o pela tríade: <strong>objetividade, perfeição formal e culto do belo</strong>. A doutrina do <em>art pour l'art</em> (Théophile Gautier): a arte existe pela própria beleza — sem utilidade moral ou social.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — O Programa Estético Parnasiano</div>
+  <p>O poema parnasiano deve ser trabalhado como uma escultura ou joia — com precisão e virtuosismo técnico. A <strong>impassibilidade</strong> é a postura do poeta que não revela emoções, distanciando-se do tema com frieza objetiva. Os parnasianos preferem temas da Antiguidade clássica (mitos greco-romanos, mármore, estátuas) a temas contemporâneos. O vocabulário é científico, técnico e raro. A forma preferida é o soneto em decassílabos ou alexandrinos com rima rica e precisa.</p>
+</div>
+
+<h2>8.2 A Tríade Parnasiana</h2>
+<div class="grid3">
+  <div class="box-dic">
+    <div class="bt">🏛️ Olavo Bilac (1865–1918)</div>
+    <p>Maior parnasiano brasileiro. Musicalidade técnica, amor sensorial. <em>Poesias</em> (1888). "Via Láctea" ("Ora (direis) ouvir estrelas..."). Cofundador da Academia Brasileira de Letras. Autor do <strong>Hino à Bandeira</strong> (com Francisco Braga).</p>
+  </div>
+  <div class="box-dic">
+    <div class="bt">🏛️ Raimundo Correia (1859–1911)</div>
+    <p>Parnasiano com traços simbolistas, mais pessimista. <em>Sinfonias</em> (1883). Famoso pelo soneto "As Pombas" — sobre a impermanência da felicidade.</p>
+  </div>
+  <div class="box-dic">
+    <div class="bt">🏛️ Alberto de Oliveira (1857–1937)</div>
+    <p>O mais "puro" dos parnasianos. Fundador e 1º presidente da ABL. <em>Meridionais</em> (1884). Vocabulário mais raro e erudito. A "arte pela arte" em forma mais rigorosa.</p>
+  </div>
+</div>
+
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Parnasianismo (EsSA 2016–2023, Q37–Q43)</div>
+  <p><strong>EsSA 2016 (Q37) — Culto da forma:</strong> "A característica mais marcante do _______ é o culto da forma, representado pelas formas fixas, como o soneto, pela metrificação rigorosa e pelas rimas perfeitas. A beleza do poema deveria ser alcançada a qualquer custo." → <strong>Parnasianismo</strong>.</p>
+  <p><strong>EsSA 2016 (Q38) — Vaso Grego:</strong> A ESA apresentou o poema "Vaso Grego" (Vicente de Carvalho) com vocabulário culto, referências mitológicas greco-latinas e culto à forma, e perguntou a escola → <strong>Parnasianismo</strong>. <strong>As outras alternativas estavam erradas porque:</strong> Romantismo (sentimentalismo), Simbolismo (musicalidade sugestiva), Naturalismo (objetividade científica de objetos), Modernismo (ruptura).</p>
+  <p><strong>EsSA 2018 (Q39) — Tríade:</strong> "O Parnasianismo surgiu na França... No Brasil, os escritores mais destacados foram:" → <strong>Alberto de Oliveira, Raimundo Correia e Olavo Bilac</strong>. Os três nomes são obrigatórios.</p>
+  <p><strong>EsSA 2022 (Q41) — Quem NÃO é parnasiano:</strong> "Não é considerado autor do Parnasianismo:" → <strong>Cláudio Manuel da Costa</strong> (árcade do séc. XVIII). Os demais listados (Bilac, Alberto de Oliveira, Raimundo Correia, Vicente de Carvalho) são todos parnasianos.</p>
+  <p><strong>EsSA 2023 (Q43) — Hino à Bandeira:</strong> A ESA apresentou o Hino à Bandeira de Olavo Bilac e perguntou a escola. <strong>Gabarito: Parnasianismo.</strong> Características identificáveis: vocabulário culto e elevado, exaltação patriótica com tom solene e formal, metrificação rigorosa e rimas perfeitas — típicas do estilo bilaquiano.</p>
+  <p><strong>Pegadinha capital — Barroco × Parnasianismo:</strong> "Linguagem objetiva e precisa, perfeição formal e universalismo" → <strong>Parnasianismo</strong>. Nunca Barroco. O Barroco tem linguagem rebuscada (não objetiva), tensão existencial (não perfeição fria), temas pessoais religiosos (não universalismo greco-clássico). Este erro custou pontos a centenas de candidatos.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo VIII</div>
+  <ul>
+    <li><strong>Período:</strong> 1882–1922 (Brasil)</li>
+    <li><strong>Lema:</strong> <em>art pour l'art</em> — arte pela arte</li>
+    <li><strong>Características:</strong> objetividade · perfeição formal · impassibilidade · vocabulário científico/raro · temas greco-romanos</li>
+    <li><strong>Tríade:</strong> Olavo Bilac · Raimundo Correia · Alberto de Oliveira</li>
+    <li><strong>Forma preferida:</strong> soneto em decassílabos ou alexandrinos, rima rica</li>
+    <li><strong>Distinção capital:</strong> Parnasianismo (objetivo, frio) ≠ Barroco (rebuscado, tenso) ≠ Simbolismo (musical, sugestivo)</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP IX ═══════════════════════ -->
+<section class="chapter" id="cap09">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO IX</div>
+  <div class="ch-tit">Simbolismo e Pré-Modernismo</div>
+  <div class="ch-per">1893–1922 · Cruz e Sousa · Missal e Broquéis · Antífona · Euclides · Lima Barreto · 13 questões ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>Simbolismo + Pré-Modernismo = <strong>13 questões</strong> — o maior bloco temático da prova. Para o Simbolismo: Cruz e Sousa como fundador (Missal + Broquéis, 1893), análise do poema "Antífona" (EsSA 2025), aliteração como característica central (EsSA 2019). Para o Pré-Modernismo: <em>Os Sertões</em> como obra mais cobrada e a definição que o Pré-Modernismo <strong>NÃO é uma escola literária</strong> (cobrado em 3 edições).</p>
+</div>
+
+<h2>9.1 Simbolismo — Contexto e Características</h2>
+<p>O Simbolismo nasce na França (Verlaine, Mallarmé, Baudelaire) como reação à objetividade parnasiana e ao materialismo científico do Naturalismo. Ulisses Infante define-o: <strong>prioriza a sugestão sobre a descrição</strong> — o poeta simbolista não descreve a realidade, evoca-a por imagens, sons e musicalidade, buscando o transcendente.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — As Cinco Características do Simbolismo</div>
+  <p><strong>1. Musicalidade:</strong> o poema deve "cantar" antes de "dizer" — aliterações, assonâncias e ritmo são essenciais (Verlaine: "a música antes de tudo"). <strong>2. Sinestesia:</strong> fusão de sentidos no mesmo verso: "harmonias da Cor e do Perfume" une audição, visão e olfato. <strong>3. Sugestão e imprecisão:</strong> nunca descrever diretamente — evocação pelo indireto. <strong>4. Espiritualismo:</strong> reação ao materialismo positivista; busca do transcendente. <strong>5. Maiúsculas nas abstrações:</strong> Formas, Amor, Cor, Perfume, Dor — o abstrato elevado ao mítico.</p>
+</div>
+<div class="box-at">
+  <div class="bt">⚠️ Mnemônico — Simbolismo: S.I.M.</div>
+  <p><strong>S</strong>inestesia (fusão de sentidos) · <strong>I</strong>mprecisão/sugestão (nunca descreve diretamente) · <strong>M</strong>usicalidade (aliteração + assonância). Sempre que aparecer aliteração de uma consoante (ex: /v/ em "vozes veladas, veludosas vozes") → <strong>Simbolismo</strong>.</p>
+</div>
+
+<h2>9.2 Cruz e Sousa (1861–1898) — "O Dante Negro"</h2>
+<p>Maior simbolista brasileiro. Filho de escravizados libertos. Em 1893 publicou simultaneamente <em>Missal</em> (prosa poética) e <em>Broquéis</em> (poesia) — obras que inauguram o Simbolismo no Brasil.</p>
+<div class="box-aut">
+  <div class="autor">🌙 Cruz e Sousa — "Antífona" (de Broquéis, 1893) — cobrada EsSA 2025</div>
+  <p>"Ó Formas alvas, brancas, Formas claras / de luares, de neves, de neblinas!… / Ó Formas vagas, fluidas, cristalinas… / Incensos dos turíbulos das aras… // Formas do Amor, constelarmente puras, / de Virgens e de Santas vaporosas… / Brilhos errantes, mádidas frescuras / e dolências de lírios e de rosas… // Indefiníveis músicas supremas, / harmonias da Cor e do Perfume… / Horas do Ocaso, trêmulas, extremas, / Réquiem do Sol que a Dor da Luz resume…"</p>
+  <p><strong>Leitura guiada verso a verso — como um candidato deve pensar ao ler este poema:</strong></p>
+  <ul>
+    <li><strong>"Ó Formas alvas, brancas, Formas claras"</strong> → Note a maiúscula em "Formas" — o Simbolismo eleva as abstrações. "Alvas" e "brancas" são quase sinônimos repetidos: não é redundância, é musicalidade por <em>acumulação</em>.</li>
+    <li><strong>"de luares, de neves, de neblinas"</strong> → Três imagens de luz difusa e imprecisa — típico do Simbolismo que prefere a <em>sugestão</em> à descrição direta.</li>
+    <li><strong>"Incensos dos turíbulos das aras"</strong> → "Turíbulo" é o recipiente de incenso usado em missas. "Ara" é o altar. Vocabulário litúrgico (religioso) — Simbolismo tem espiritualismo.</li>
+    <li><strong>"harmonias da Cor e do Perfume"</strong> → Aqui está a <em>sinestesia</em>: "harmonias" é som + "Cor" é visão + "Perfume" é olfato. Três sentidos num único verso.</li>
+    <li><strong>"Vozes veladas, veludosas vozes"</strong> (se aparecer em questões relacionadas)</strong> → <em>Aliteração</em> do /v/ — repetição do mesmo som consonantal criando efeito musical.</li>
+  </ul>
+  <p><strong>Leitura guiada verso a verso — como pensar ao ler o poema na prova:</strong></p>
+  <ul>
+    <li><strong>"Ó Formas alvas, brancas, Formas claras"</strong> → Maiúscula em "Formas" — o Simbolismo eleva abstrações. "Alvas" e "brancas" quase sinônimos: é musicalidade por acumulação, não repetição vazia.</li>
+    <li><strong>"de luares, de neves, de neblinas"</strong> → Três imagens de luz difusa e imprecisa — sugestão, nunca descrição direta. O Simbolismo <em>evoca</em>, não descreve.</li>
+    <li><strong>"Incensos dos turíbulos das aras"</strong> → Vocabulário litúrgico: turíbulo = recipiente de incenso; ara = altar. Espiritualismo simbólico presente.</li>
+    <li><strong>"harmonias da Cor e do Perfume"</strong> → <em>Sinestesia</em>: "harmonias" (audição) + "Cor" (visão) + "Perfume" (olfato) — três sentidos num único verso.</li>
+    <li><strong>"Vozes veladas, veludosas vozes"</strong> → <em>Aliteração</em> do /v/ — repetição consonantal criando efeito musical.</li>
+  </ul>
+  <p><strong>Análise das características (cobradas na EsSA 2025, Q28):</strong> (1) <em>Musicalidade</em>: sons nasais criam eco melódico ("neblinas", "cristalinas", "vagas"). (2) <em>Sinestesia</em>: "Incensos" (olfato) + "Formas alvas" (visão) + "músicas supremas" (audição) = fusão de sentidos. (3) <em>Sugestão</em>: "Formas vagas, fluidas" evocam pureza e transcendência sem descrever nada concreto. (4) <em>Espiritualismo</em>: "turíbulos das aras" (instrumentos do culto), "Virgens e Santas" — atmosfera sagrada e mística. (5) <em>Maiúsculas nas abstrações</em>: Formas, Amor, Cor, Perfume, Dor.</p>
+</div>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Simbolismo (EsSA 2016–2025, Q54–Q58c)</div>
+  <p><strong>EsSA 2019 (Q56) — Aliteração:</strong> A banca apresentou verso com aliteração do /v/ ("Dos ventos vivas, vãs, vulcanizada") e perguntou a escola → <strong>Simbolismo</strong>. A aliteração é a marca sonora que identifica o Simbolismo nas questões.</p>
+  <p><strong>EsSA 2025 (Q27) — Missal e Broquéis:</strong> "O movimento simbolista se consolida com o lançamento da obra:" → <strong>Missal e Broquéis, de Cruz e Sousa (1893)</strong>. <strong>As outras alternativas estavam erradas porque:</strong> Os Sertões (Pré-Modernismo), Macunaíma (Modernismo), obras parnasianas.</p>
+  <p><strong>EsSA 2025 (Q28) — Antífona:</strong> A banca apresentou o poema e perguntou "As características estéticas deste movimento são:" → <strong>"A musicalidade e as sugestões cromáticas e sinestésicas"</strong>. As alternativas erradas eram as características do Parnasianismo (objetividade), Realismo/Naturalismo (determinismo), Romantismo (sentimentalismo) e Barroco (conflito fé × razão).</p>
+</div>
+
+<div class="box-aut">
+  <div class="autor">📜 Euclides da Cunha — Os Sertões: "O sertanejo é, antes de tudo, um forte"</div>
+  <p>"Aí está o sertanejo. Revela-se num traço singelo. Caminhando ao lado de qualquer animal de carga que vai a passo lento, ou a cavalo, num galope vagaroso, tomando o caminho largo da volta, o sertanejo parece a um observador apressado um valentão, um mau andador, quando é, ao mesmo tempo, um maravilhoso corredor e lutador."</p>
+  <p><strong>O que este trecho revela do Pré-Modernismo:</strong> (1) Olhar científico (influência do determinismo naturalista) — Euclides analisa o sertanejo como um fenômeno sociológico. (2) Mas ao mesmo tempo há admiração — o sertanejo que parece fraco é, na verdade, forte. (3) Isso é o oposto do que a ciência oficial da época dizia: que o sertanejo seria um "degenerado" racial. Euclides usa a ciência para <em>contradizer</em> o preconceito científico. (4) Não é escola literária — é postura crítica diante da realidade brasileira.</p>
+</div>
+
+<h2>9.3 Alphonsus de Guimaraens (1870–1921)</h2>
+<p>Segundo maior simbolista brasileiro. Poesia dominada pela devoção mariana e pela morte da mulher amada, com musicalidade suave e plangente. Obras: <em>Kyriale</em> (1902), <em>Setenário das Dores de Nossa Senhora</em>. Tom mais sereno e religioso que Cruz e Sousa.</p>
+
+<h2>9.4 Pré-Modernismo — NÃO é Escola Literária</h2>
+<div class="box-peg">
+  <div class="bt">⚡ Pegadinha ESA — Pré-Modernismo NÃO é escola literária (EsSA 2016, 2017, 2025)</div>
+  <p><strong>EsSA 2016 (Q48) — INCORRETO sobre Pré-Modernismo:</strong> A alternativa incorreta era "É uma escola literária brasileira que sofreu forte influência do estilo moderno da prosa portuguesa." — O Pré-Modernismo NÃO é uma escola literária.</p>
+  <p><strong>EsSA 2017 (Q49) — CORRETO sobre Pré-Modernismo:</strong> "O Pré-Modernismo não é considerado uma escola literária, mas sim uma fase de transição." → gabarito: A alternativa correta é que os pré-modernistas "voltaram o olhar para a realidade brasileira, denunciando mazelas sociais, sem romper formalmente com as escolas anteriores."</p>
+  <p><strong>EsSA 2025 (Q53) — Postura crítica dos pré-modernistas:</strong> "Uma atitude comum caracteriza os autores pré-modernistas (Lima Barreto, Graça Aranha, Monteiro Lobato e Euclides da Cunha). Pode ela ser definida como:" → gabarito: <strong>preocupação com a observação e crítica da realidade brasileira em suas contradições sociais e regionais</strong>.</p>
+</div>
+
+<h2>9.5 Euclides da Cunha e Os Sertões (1902)</h2>
+<p>A obra mais importante do Pré-Modernismo. Euclides foi correspondente de guerra na Guerra de Canudos (1896–1897). <em>Os Sertões</em> divide-se em três partes: "A Terra", "O Homem" e "A Luta". Tese central: o sertanejo — antes tido como degenerado — é <strong>"antes de tudo um forte"</strong>, a rocha viva da nação. A destruição de Canudos é apresentada como crime da República contra seu próprio povo.</p>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — Os Sertões (EsSA 2021, Q51; EsSA 2022, Q52)</div>
+  <p><strong>EsSA 2021 (Q51):</strong> "O início do Pré-Modernismo data de 1902, com a publicação de uma obra que retrata a Guerra de Canudos. Sobre essa obra, assinale a CORRETA:" → gabarito: <strong>"Trata-se de Os Sertões, de Euclides da Cunha — obra que ultrapassa o regionalismo e apresenta uma análise histórica, geográfica e social da realidade brasileira."</strong></p>
+  <p><strong>EsSA 2022 (Q52):</strong> A ESA cobrou Lima Barreto como representante do Pré-Modernismo, identificando <em>Triste Fim de Policarpo Quaresma</em> como sátira política à República brasileira.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo IX</div>
+  <ul>
+    <li><strong>Simbolismo (1893–1922):</strong> sugestão · musicalidade · sinestesia · aliteração · espiritualismo</li>
+    <li><strong>Cruz e Sousa:</strong> Missal + Broquéis (1893) = marco do Simbolismo BR · "Antífona" = poema mais cobrado (EsSA 2025)</li>
+    <li><strong>Mnemônico S.I.M.:</strong> Sinestesia · Imprecisão/sugestão · Musicalidade</li>
+    <li><strong>Alphonsus de Guimaraens:</strong> devoção mariana, morte, melancolia serena</li>
+    <li><strong>Pré-Modernismo (1902–1922):</strong> período de transição — NÃO é escola literária (cobrado em 3 edições!)</li>
+    <li><strong>Euclides da Cunha:</strong> Os Sertões (1902) — sertanejo é "antes de tudo um forte"</li>
+    <li><strong>Lima Barreto:</strong> crítica social, ironia amarga — Triste Fim de Policarpo Quaresma</li>
+  </ul>
+</div>
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</section>
+
+<!-- ═══════════════════════ CAP X ═══════════════════════ -->
+<section class="chapter" id="cap10">
+<div class="ch-header">
+  <div class="ch-num">CAPÍTULO X</div>
+  <div class="ch-tit">Modernismo Brasileiro</div>
+  <div class="ch-per">1922–1945+ · Semana de Arte Moderna · 1ª e 2ª Gerações · Romance de 30 · 8 questões ESA</div>
+</div>
+<div class="intro">
+  <h3>O que a ESA avalia aqui?</h3>
+  <p>O Modernismo é cobrado em <strong>8 questões</strong> (2016–2025). Duas frentes: (1) <strong>1ª Geração</strong> — Semana de 1922, características (verso livre, linguagem coloquial, humor), quem participou × quem NÃO participou; (2) <strong>2ª Geração / Romance de 30</strong> — autores (Drummond, Graciliano, Rachel, Jorge Amado, José Lins do Rego), e quem NÃO é da 2ª geração. Pegadinha recorrente: Drummond e Clarice NÃO participaram da Semana de 1922.</p>
+</div>
+
+<h2>10.1 A Semana de Arte Moderna (1922)</h2>
+<p>O Modernismo tem como marco simbólico a <strong>Semana de Arte Moderna</strong>, realizada no Teatro Municipal de São Paulo em fevereiro de 1922. O evento reuniu artistas plásticos, músicos, poetas e escritores para apresentações que chocaram o público e anunciaram ruptura radical com o Parnasianismo e os padrões acadêmicos.</p>
+<div class="box-infante">
+  <div class="bt">📚 Ulisses Infante — O Projeto Modernista: Destruir e Construir</div>
+  <p>Os modernistas queriam <strong>destruir</strong> (os modelos importados da Europa, os padrões parnasianos, a língua "correta") e <strong>construir</strong> (arte genuinamente brasileira, incorporando folclore, cotidiano, linguagem popular, vanguardas europeias — Cubismo, Futurismo, Dadaísmo, Surrealismo). O <em>Manifesto Antropofágico</em> de Oswald de Andrade (1928) sintetiza o paradoxo modernista: "devorar" a cultura europeia para transformá-la em algo autenticamente brasileiro.</p>
+</div>
+
+<h2>10.2 Participantes da Semana de 1922</h2>
+<div class="tabela-wrap"><table>
+  <thead><tr><th>Artista</th><th>Área</th><th>Obra de referência</th></tr></thead>
+  <tbody>
+    <tr><td>Mário de Andrade</td><td>Literatura · Música</td><td>Pauliceia Desvairada (1922) · Macunaíma (1928)</td></tr>
+    <tr><td>Oswald de Andrade</td><td>Literatura</td><td>Manifesto Antropofágico (1928) · Pau-Brasil (1925)</td></tr>
+    <tr><td>Manuel Bandeira</td><td>Poesia</td><td>Libertinagem (1930) · "Vou-me embora pra Pasárgada"</td></tr>
+    <tr><td>Menotti del Picchia</td><td>Literatura</td><td>Juca Mulato</td></tr>
+    <tr><td>Anita Malfatti</td><td>Artes Plásticas</td><td>Exposição de 1917 (estopim da Semana)</td></tr>
+    <tr><td>Heitor Villa-Lobos</td><td>Música</td><td>Bachianas Brasileiras · Choros</td></tr>
+    <tr><td>Di Cavalcanti</td><td>Artes Plásticas</td><td>Cartaz da Semana de Arte Moderna</td></tr>
+  </tbody>
+</table></div>
+<div class="box-peg">
+  <div class="bt">⚡ Pegadinha ESA — Quem NÃO participou da Semana de 1922</div>
+  <p><strong>EsSA 2019 (Q57):</strong> "São autores do Modernismo, EXCETO:" → <strong>Machado de Assis</strong> (Letra E) — pertence ao Realismo, morreu em 1908, 14 anos antes da Semana. Os outros (Mário, Oswald, Bandeira, Rachel de Queiroz) são modernistas — embora Rachel seja 2ª geração, ainda é modernista.</p>
+  <p><strong>EsSA 2022 (Q59):</strong> Lista contendo Mário de Andrade, Oswald de Andrade, Manuel Bandeira e Carlos Drummond de Andrade — quem NÃO participou da Semana → <strong>Drummond</strong> (1ª publicação em 1930 — pertence à 2ª geração). Drummond é modernista mas NÃO esteve na Semana de 1922.</p>
+  <p><strong>Regra:</strong> Nunca na Semana de 1922 = Drummond · Clarice Lispector · Graciliano Ramos · Rachel de Queiroz · Jorge Amado.</p>
+</div>
+
+<h2>10.3 Características da 1ª Geração (1922–1930)</h2>
+<ul>
+  <li><strong>Verso livre:</strong> rejeição da métrica e rima obrigatórias do Parnasianismo</li>
+  <li><strong>Linguagem coloquial:</strong> a fala popular brasileira entra na literatura com dignidade estética — a "1ª geração conferiu ao nível coloquial da fala brasileira a categoria de valor literário" (gabarito EsSA 2017)</li>
+  <li><strong>Humor e ironia:</strong> o deboche como instrumento de crítica ao academicismo</li>
+  <li><strong>Ruptura e experimentação:</strong> nenhuma regra estética é sagrada</li>
+  <li><strong>Valorização do folclore e do popular:</strong> o Brasil profundo e real no lugar do importado da Europa</li>
+  <li><strong>Influência das vanguardas europeias:</strong> Cubismo, Futurismo, Dadaísmo, Surrealismo — deglutidos com perspectiva brasileira (Antropofagia)</li>
+</ul>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — 1ª Geração (EsSA 2017–2018, Q55–Q56)</div>
+  <p><strong>EsSA 2017 (Q55):</strong> "A poesia modernista, sobretudo a da primeira fase (1922–1928):" → gabarito: Letra E — <strong>"Confere ao nível coloquial da fala brasileira a categoria de valor literário."</strong> <strong>As outras alternativas estavam erradas porque:</strong> síntese do parnasiano-simbolista (errado), pesquisa formal parnasiana (errado), sintaxe clássica (errado), vocabulário vago e ambíguo (errado — esse é o Simbolismo).</p>
+  <p><strong>EsSA 2018 (Q56):</strong> "A poesia modernista, sobretudo a da primeira fase (1922–1930):" → gabarito: Letra C — <strong>"Rompe com a versificação tradicional, adota o verso livre e a linguagem coloquial, valorizando o cotidiano e o humor."</strong></p>
+</div>
+
+<h2>10.4 Segunda Geração / Romance de 30 (1930–1945)</h2>
+<p>Abandona o tom festivo da 1ª e volta a temas sombrios: seca, pobreza, violência, existencialismo. Na poesia, <strong>Carlos Drummond de Andrade</strong> é central. Na prosa, o "Romance de 30" é dominado pelo Regionalismo crítico nordestino e pela introspecção psicológica.</p>
+<div class="tabela-wrap"><table>
+  <thead><tr><th>Autor</th><th>Obras principais</th><th>Característica</th></tr></thead>
+  <tbody>
+    <tr><td>Carlos Drummond de Andrade</td><td>Alguma Poesia (1930) · A Rosa do Povo (1945)</td><td>Ironia · existencialismo · cotidiano · engajamento</td></tr>
+    <tr><td>Graciliano Ramos</td><td>Vidas Secas (1938) · São Bernardo (1934)</td><td>Narrador psicológico · Nordeste seco · linguagem enxuta</td></tr>
+    <tr><td>Rachel de Queiroz</td><td>O Quinze (1930)</td><td>1ª mulher na ABL · seca nordestina · protagonismo feminino</td></tr>
+    <tr><td>Jorge Amado</td><td>Capitães da Areia (1937) · Gabriela (1958)</td><td>Bahia · classes populares · mestiçagem</td></tr>
+    <tr><td>José Lins do Rego</td><td>Menino de Engenho (1932) · Fogo Morto (1943)</td><td>Ciclo da cana-de-açúcar · memória · Nordeste</td></tr>
+    <tr><td>Érico Veríssimo</td><td>O Tempo e o Vento (1949)</td><td>Rio Grande do Sul · saga familiar épica</td></tr>
+  </tbody>
+</table></div>
+<div class="box-esa">
+  <div class="bt">⚔️ Como a ESA Cobra — 2ª Geração (EsSA 2021 e 2025, Q60–Q61)</div>
+  <p><strong>EsSA 2021 (Q60) — Quem NÃO é da 2ª geração:</strong> A banca listou pares de obras e autores, incluindo um par incorreto. Gabarito: a alternativa que associa <em>Vidas Secas</em> a Jorge Amado é incorreta — Vidas Secas é de <strong>Graciliano Ramos</strong>. O candidato precisa saber qual obra pertence a qual autor dentro da 2ª geração.</p>
+  <p><strong>EsSA 2025 (Q61) — Romance de 30:</strong> "A Segunda Geração Modernista... Assinale a alternativa que apresenta CORRETAMENTE autores e uma característica desse período:" → gabarito: <strong>"Graciliano Ramos, Jorge Amado e José Lins do Rego — retrato do Brasil regional, com enfoque nas desigualdades sociais e nas contradições da modernização."</strong> O alternativa errada mais perigoso era incluir Oswald e Mário de Andrade como 2ª geração — eles são 1ª geração (Semana de 1922).</p>
+</div>
+
+<h2>10.5 Clarice Lispector e Guimarães Rosa — Pós-45</h2>
+<p><strong>Clarice Lispector</strong> (1920–1977): maior escritora brasileira do séc. XX. Prosa inovadora: fluxo de consciência, personagens femininas em crise existencial, linguagem precisa e enigmática. Obras: <em>Perto do Coração Selvagem</em> (1943, 1º romance) · <em>A Paixão Segundo G.H.</em> (1964) · <em>A Hora da Estrela</em> (1977).</p>
+<p><strong>Guimarães Rosa</strong> (1908–1967): maior inovador da prosa brasileira do séc. XX. Em <em>Grande Sertão: Veredas</em> (1956) cria linguagem única: sertanejismos, arcaísmos, neologismos e poesia no monólogo do jagunço Riobaldo. O sertão é espaço geográfico, existencial e metafísico. Ulisses Infante o situa como ápice da prosa modernista brasileira.</p>
+
+<div class="sep"><span>✦ encerramento ✦</span></div>
+
+<div class="box-infante">
+  <div class="bt">📚 Nota Final — Sobre Este Livro-Texto</div>
+  <p>Este livro-texto é fundamentado na periodização e nas análises propostas por <strong>Ulisses Infante</strong> em seu <em>Curso de Literatura de Língua Portuguesa</em> (Editora Scipione, 2001), referência bibliográfica indicada no edital da ESA-CFGS. O conteúdo foi organizado segundo os 10 módulos do arquivo de questões comentadas, com ênfase nos temas mais recorrentes identificados nas <strong>61 questões</strong> de 2016 a 2025.</p>
+  <p>Para cada escola literária, domine: (1) o período cronológico, (2) as características centrais, (3) os autores e obras representativas e (4) o que a distingue das escolas vizinhas. Os pares mais cobrados: <strong>Barroco × Parnasianismo</strong> (a pegadinha nº 1), <strong>Arcadismo × Romantismo</strong>, <strong>Simbolismo × Parnasianismo</strong>, <strong>1ª Geração Modernista × 2ª Geração</strong>. Use este livro-texto em paralelo com o arquivo de Questões Comentadas ESA-CFGS.</p>
+</div>
+<div class="box-res">
+  <div class="bt">📚 Síntese do Capítulo X</div>
+  <ul>
+    <li><strong>Marco:</strong> Semana de Arte Moderna — São Paulo, fevereiro de 1922</li>
+    <li><strong>1ª Geração (1922–1930):</strong> Mário · Oswald · Bandeira — verso livre · linguagem coloquial · humor · ruptura</li>
+    <li><strong>NÃO estavam na Semana de 1922:</strong> Drummond · Graciliano · Rachel · Clarice · Jorge Amado</li>
+    <li><strong>Manifesto Antropofágico (1928):</strong> Oswald de Andrade — devorar a cultura europeia para criar algo brasileiro</li>
+    <li><strong>2ª Geração / Romance de 30 (1930–1945):</strong> Drummond (poesia) · Graciliano · Rachel · Jorge Amado · José Lins do Rego</li>
+    <li><strong>Pós-45:</strong> Clarice Lispector (fluxo de consciência) · Guimarães Rosa (Grande Sertão: Veredas, 1956)</li>
+  </ul>
+</div>
+
+<div class="vs"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+<div class="vs" style="margin-top:16px;"><a href="#topo">↑ Voltar à Capa</a></div>
+</section>
+
+</div><!-- .page -->
+</body>
+</html>

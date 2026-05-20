@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livro-Texto de Literatura — EsPCEx</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul-esc:#08193A; --azul-m:#1A3A6B; --azul-c:#2C5699;
+  --azul-v:#3A7BD5; --azul-bg:#EBF1FB; --azul-borda:#7EB0E8;
+  --ouro:#B8860B; --ouro-l:#D4A017; --ouro-bg:#FDF6E3; --ouro-borda:#C9A227;
+  --verde:#1A5C38; --verde-bg:#E8F5EE; --verde-borda:#7CB87E;
+  --verm:#8B1A1A; --verm-bg:#FFF0F0; --verm-borda:#D08080;
+  --roxo:#4A1A7A; --roxo-bg:#F5F0FF; --roxo-borda:#A07AC0;
+  --cinza:#3A3A3A; --cinza-m:#555; --cinza-c:#888;
+  --fundo:#F2EFE8; --papel:#FFFEF8; --borda:#D0C89A; --txt:#1E1E1E;
+  --mg:clamp(20px,4vw,64px);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Sora',sans-serif;font-size:17px;line-height:1.92;color:var(--txt);background:var(--fundo);}
+.page{max-width:960px;margin:0 auto;background:var(--papel);box-shadow:0 0 60px rgba(0,0,0,.18);}
+
+/* CAPA */
+.cover{background:linear-gradient(160deg,#040E24 0%,#0A1C40 48%,#061530 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px var(--mg);position:relative;overflow:hidden;}
+.cover::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(184,134,11,.03) 0,rgba(184,134,11,.03) 1px,transparent 1px,transparent 48px);}
+.c-ico{font-size:54px;margin-bottom:20px;filter:drop-shadow(0 0 18px rgba(184,134,11,.6));position:relative;}
+.c-pre{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--ouro-l);margin-bottom:14px;position:relative;}
+.c-tit{font-family:'Playfair Display',serif;font-size:clamp(26px,4.5vw,42px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:8px;position:relative;}
+.c-mat{font-family:'Playfair Display',serif;font-size:clamp(38px,6.5vw,62px);font-weight:900;color:var(--ouro-l);letter-spacing:.04em;text-shadow:0 0 50px rgba(184,134,11,.5);margin-bottom:8px;position:relative;}
+.c-sub2{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:40px;position:relative;}
+.c-linha{width:90px;height:3px;background:linear-gradient(90deg,transparent,var(--ouro),transparent);margin:0 auto 36px;position:relative;}
+.c-desc{font-family:'Playfair Display',serif;font-size:clamp(14px,2vw,18px);font-weight:400;font-style:italic;color:rgba(255,255,255,.55);margin-bottom:40px;position:relative;max-width:680px;line-height:1.6;}
+.c-badges{display:flex;flex-wrap:wrap;gap:11px;justify-content:center;margin-bottom:50px;position:relative;}
+.c-badge{background:rgba(184,134,11,.12);border:1px solid rgba(184,134,11,.33);border-radius:5px;padding:6px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(184,134,11,.9);}
+.c-rod{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.22);position:relative;}
+
+/* SUMÁRIO */
+.sumario{padding:var(--mg);border-bottom:2px solid var(--borda);}
+.sum-titulo{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--azul-m);margin-bottom:32px;padding-bottom:14px;border-bottom:3px solid var(--ouro);display:inline-block;}
+.sum-item{display:flex;align-items:baseline;padding:9px 0;border-bottom:1px dotted var(--borda);}
+.sum-item a{display:flex;align-items:baseline;gap:10px;width:100%;text-decoration:none;color:inherit;transition:color .18s;}
+.sum-item a:hover .sum-nome{color:var(--azul-c);}
+.sum-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--ouro);min-width:38px;letter-spacing:.06em;}
+.sum-nome{font-size:16px;color:var(--cinza);flex:1;line-height:1.5;}
+.sum-nome b{color:var(--azul-m);}
+.sum-q{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ouro);font-weight:700;white-space:nowrap;}
+.sum-sub{font-size:13.5px;color:var(--cinza-c);font-style:italic;padding-left:38px;margin-top:2px;margin-bottom:5px;line-height:1.6;}
+
+/* CAPÍTULOS */
+.chapter{padding:var(--mg);border-bottom:1px solid #E0D9C5;}
+.ch-header{background:linear-gradient(135deg,var(--azul-bg) 0%,var(--ouro-bg) 100%);margin:calc(-1*var(--mg)) calc(-1*var(--mg)) 40px;padding:var(--mg);border-bottom:2px solid var(--borda);}
+.ch-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--ouro);margin-bottom:10px;}
+.ch-titulo{font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,36px);font-weight:900;color:var(--azul-esc);line-height:1.15;margin-bottom:8px;}
+.ch-periodo{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cinza-m);letter-spacing:.1em;}
+.ch-qcount{display:inline-flex;align-items:center;gap:8px;background:var(--ouro-bg);border:1.5px solid var(--ouro-borda);border-radius:20px;padding:4px 16px;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:#6B4400;margin-top:14px;}
+
+/* HEADINGS */
+h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--azul-m);margin:44px 0 16px;padding-left:18px;border-left:5px solid var(--ouro);line-height:1.3;}
+h3{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--azul-c);margin:30px 0 14px;line-height:1.3;}
+h4{font-size:15px;font-weight:700;color:var(--azul-m);margin:22px 0 10px;text-transform:uppercase;letter-spacing:.06em;}
+
+/* TEXTO */
+p{margin-bottom:17px;text-align:justify;text-indent:2em;font-size:17px;line-height:1.92;color:var(--txt);}
+.box-atencao p,.box-resumo p,.box-dica p,.box-autor p,.box-clara p,.espcex-box p,
+.intro-clara p,.lt-rail p,.card-lit p,.trecho-lit p,.exemplo p,.nota p,
+li>p,.sumario p,h2+p,h3+p,h4+p{text-indent:0;}
+strong{font-weight:700;color:var(--cinza);}
+em{font-style:italic;}
+ul,ol{margin:12px 0 18px 28px;}
+li{margin-bottom:9px;font-size:16.5px;line-height:1.80;}
+
+/* INTRO AZUL */
+.intro-clara{background:linear-gradient(135deg,var(--azul-bg) 0%,var(--ouro-bg) 100%);border:2px solid var(--borda);border-left:7px solid var(--azul-v);border-radius:10px;padding:26px clamp(16px,3vw,32px);margin-bottom:36px;}
+.intro-clara h3{color:var(--azul-m);margin:0 0 12px;font-size:19px;}
+.intro-clara p{font-size:16px;line-height:1.84;margin-bottom:10px;color:#0A1E3A;}
+.intro-clara p:last-child{margin-bottom:0;}
+
+/* CAIXAS */
+.box-atencao{background:#FEFCE8;border:2px solid var(--ouro-borda);border-left:6px solid var(--ouro);border-radius:8px;padding:18px clamp(14px,2.5vw,24px);margin:24px 0;}
+.box-atencao .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#5A3A00;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.box-atencao p,.box-atencao li{color:#2A1400;font-size:16px;line-height:1.80;}
+
+.box-resumo{background:var(--azul-bg);border:2px solid var(--azul-borda);border-left:6px solid var(--azul-c);border-radius:8px;padding:18px clamp(14px,2.5vw,24px);margin:24px 0;}
+.box-resumo .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-m);margin-bottom:14px;}
+.box-resumo p,.box-resumo li{color:#0A1E3A;font-size:16px;line-height:1.80;}
+.box-resumo strong{color:var(--azul-esc);}
+
+.box-dica{background:#F0F6FF;border:2px solid #AAC4EE;border-left:6px solid var(--azul-v);border-radius:8px;padding:18px clamp(14px,2.5vw,24px);margin:24px 0;}
+.box-dica .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--azul-m);margin-bottom:14px;}
+.box-dica p,.box-dica li{color:#0A1E44;font-size:16px;line-height:1.80;}
+
+.box-autor{background:var(--roxo-bg);border:2px solid var(--roxo-borda);border-left:6px solid var(--roxo);border-radius:8px;padding:18px clamp(14px,2.5vw,24px);margin:24px 0;}
+.box-autor .box-titulo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--roxo);margin-bottom:14px;}
+.box-autor p,.box-autor li{color:#1A0A30;font-size:16px;line-height:1.80;}
+
+/* BOX EsPCEx */
+.espcex-box{background:linear-gradient(135deg,#0A1C40 0%,#1A3A6B 100%);border:2px solid var(--azul-v);border-radius:12px;padding:24px clamp(16px,3vw,30px);margin:34px 0;position:relative;overflow:hidden;}
+.espcex-box::before{content:'EsPCEx';position:absolute;right:18px;top:10px;font-family:'JetBrains Mono',monospace;font-size:48px;font-weight:800;color:rgba(255,255,255,.05);pointer-events:none;}
+.espcex-box-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:var(--azul-v);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.espcex-box-titulo::before{content:'🎯';}
+.espcex-box h4{color:var(--ouro-l);font-size:15.5px;text-transform:none;letter-spacing:0;margin:0 0 12px;font-family:'Playfair Display',serif;font-style:italic;}
+.espcex-box p{color:rgba(255,255,255,.88);font-size:15px;line-height:1.84;margin-bottom:12px;}
+.espcex-box p:last-child{margin-bottom:0;}
+.espcex-box li{color:rgba(255,255,255,.85);font-size:15px;margin-bottom:8px;line-height:1.78;}
+.espcex-box strong{color:var(--ouro-l);font-weight:700;}
+.espcex-box ul{margin:10px 0 14px 22px;}
+.frag{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);border-left:3px solid var(--ouro);border-radius:6px;padding:14px 18px;margin:14px 0;font-style:italic;color:rgba(255,255,255,.78);font-size:14.5px;line-height:1.78;}
+.frag cite{display:block;margin-top:8px;font-style:normal;font-size:12px;color:rgba(255,255,255,.42);font-family:'JetBrains Mono',monospace;letter-spacing:.04em;}
+
+/* LINHA DO TEMPO */
+.linha-tempo{background:linear-gradient(135deg,var(--azul-bg) 0%,var(--ouro-bg) 100%);border:3px solid var(--azul-borda);border-radius:14px;padding:clamp(20px,3vw,36px) clamp(18px,3.5vw,40px);margin:38px 0;}
+.lt-titulo{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--azul-m);margin-bottom:6px;}
+.lt-sub{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--ouro);margin-bottom:30px;}
+.lt-rail{position:relative;padding-left:30px;}
+.lt-rail::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--azul-v),var(--ouro),var(--azul-c),var(--ouro));border-radius:2px;}
+.lt-item{position:relative;margin-bottom:26px;}
+.lt-dot{position:absolute;left:-25px;top:5px;width:18px;height:18px;border-radius:50%;background:var(--azul-v);border:3px solid #fff;box-shadow:0 0 0 2px var(--azul-c);}
+.lt-dot.ouro{background:var(--ouro);box-shadow:0 0 0 2px var(--ouro);}
+.lt-dot.verde{background:var(--verde);box-shadow:0 0 0 2px var(--verde);}
+.lt-periodo{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;color:var(--ouro);letter-spacing:.06em;margin-bottom:3px;}
+.lt-escola{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--azul-esc);margin-bottom:5px;}
+.lt-desc{font-size:14.5px;color:var(--cinza-m);line-height:1.68;}
+.lt-link{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--azul-v);font-weight:700;margin-top:4px;}
+
+/* TRECHO LITERÁRIO */
+.trecho-lit{background:#F5F3EC;border:2px solid var(--borda);border-left:5px solid var(--azul-c);border-radius:8px;padding:18px 22px;margin:18px 0;font-style:italic;font-size:16px;line-height:1.85;color:#2A2010;}
+.trecho-lit cite{display:block;margin-top:10px;font-style:normal;font-size:12.5px;color:var(--cinza-m);font-family:'JetBrains Mono',monospace;letter-spacing:.04em;}
+
+/* EXEMPLO */
+.exemplo{background:#FAFAF5;border:1.5px solid #DDD8C0;border-radius:8px;padding:20px clamp(14px,2.5vw,24px);margin:22px 0;}
+.ex-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--cinza-m);margin-bottom:14px;}
+.exemplo p{font-size:16px;line-height:1.82;margin-bottom:10px;}
+
+/* TABELA */
+.tabela-wrap{overflow-x:auto;margin:24px 0;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:collapse;font-size:15px;}
+thead tr{background:var(--azul-bg);}
+thead th{padding:12px clamp(8px,1.5vw,15px);text-align:left;font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--azul-borda);color:var(--azul-m);}
+tbody tr:nth-child(even){background:#FAFAF5;}
+tbody tr:hover{background:var(--azul-bg);}
+tbody td{padding:11px clamp(8px,1.5vw,15px);border-bottom:1px solid #DDD8C0;vertical-align:top;color:var(--txt);font-size:15px;line-height:1.70;}
+tbody td:first-child{font-weight:700;color:var(--azul-m);}
+
+/* GRID / CARD */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0;}
+@media(max-width:680px){.grid2,.grid3{grid-template-columns:1fr;}}
+.card-lit{background:#fff;border:1.5px solid var(--borda);border-radius:10px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.card-lit .card-titulo{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--azul-c);margin-bottom:12px;}
+.card-lit p{font-size:15px;line-height:1.76;color:var(--txt);margin-bottom:8px;}
+
+/* BADGE */
+.badge-row{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;}
+.badge-azul{background:var(--azul-bg);color:var(--azul-m);border:1.5px solid var(--azul-borda);}
+.badge-ouro{background:var(--ouro-bg);color:#7A5A00;border:1.5px solid var(--ouro-borda);}
+.badge-verm{background:var(--verm-bg);color:var(--verm);border:1.5px solid var(--verm-borda);}
+.badge-verde{background:var(--verde-bg);color:var(--verde);border:1.5px solid var(--verde-borda);}
+
+/* DESTAQUE INLINE */
+.dest{background:#FFF3CD;padding:1px 5px;border-radius:3px;font-weight:700;color:#5A3A00;}
+.dest-azul{background:var(--azul-bg);padding:1px 5px;border-radius:3px;font-weight:700;color:var(--azul-m);}
+.dest-verde{background:var(--verde-bg);padding:1px 5px;border-radius:3px;font-weight:700;color:#1A3A1A;}
+.dest-verm{background:var(--verm-bg);padding:1px 5px;border-radius:3px;font-weight:700;color:var(--verm);}
+
+/* SEPARADOR */
+.sep{display:flex;align-items:center;gap:18px;margin:38px 0;}
+.sep::before,.sep::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--borda),transparent);}
+.sep-inner{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cinza-c);letter-spacing:.22em;text-transform:uppercase;}
+
+/* VOLTAR */
+.voltar{display:flex;justify-content:flex-end;margin:46px 0 0;padding-top:22px;border-top:1px solid var(--borda);}
+.voltar a{display:inline-flex;align-items:center;gap:7px;background:var(--azul-bg);border:2px solid var(--azul-borda);border-radius:7px;padding:9px 22px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--azul-m);text-decoration:none;transition:all .2s;}
+.voltar a:hover{background:var(--azul-c);color:#fff;}
+
+/* PRINT */
+@media print{
+  @page{margin:1.5cm;}
+  body{background:#fff;font-size:12pt;line-height:1.75;}
+  .page{box-shadow:none;max-width:100%;margin:0;background:#fff;}
+  .cover{min-height:auto;padding:30pt 0;}
+  .voltar{display:none;}
+  .espcex-box::before{display:none;}
+  .tabela-wrap{overflow:visible;}
+  .grid2,.grid3{grid-template-columns:1fr;gap:6pt;}
+}
+@media(max-width:600px){
+  body{font-size:15px;}
+  h2{font-size:18px;}
+  h3{font-size:16px;}
+  .espcex-box::before{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ══════════════ CAPA ══════════════ -->
+<div class="cover" id="topo">
+  <!-- Ícone principal -->
+  <div style="position:relative;margin-bottom:18px;">
+    <div class="c-ico">📚</div>
+    <div style="position:absolute;top:-8px;right:-18px;font-size:22px;">⭐</div>
+  </div>
+  <!-- Série -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:.38em;text-transform:uppercase;color:rgba(184,134,11,.7);margin-bottom:6px;position:relative;">GUIA PREPARATÓRIO CAPITÃO VALDIR</div>
+  <!-- Concurso -->
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:22px;position:relative;">EsPCEx · Concurso de Admissão</div>
+  <!-- Método -->
+  <div style="font-family:'Playfair Display',serif;font-size:13px;font-style:italic;color:rgba(255,255,255,.38);margin-bottom:6px;position:relative;letter-spacing:.08em;">Método Prático para Aprovação</div>
+  <!-- Título principal -->
+  <div class="c-tit">LIVRO-TEXTO DE</div>
+  <div class="c-mat">LITERATURA</div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:36px;position:relative;">Escola Preparatória de Cadetes do Exército</div>
+  <!-- Linha decorativa -->
+  <div class="c-linha"></div>
+
+  <!-- Rodapé institucional -->
+  <div class="c-rod">Série Preparatória · Literatura · EsPCEx — Guia Capitão Valdir · guiapreparatoriocapvaldir.blogspot.com</div>
+</div>
+
+<!-- ══════════════ SUMÁRIO ══════════════ -->
+<div class="sumario" id="sumario">
+  <div class="sum-titulo">Sumário</div>
+
+  <div class="sum-item"><a href="#linha-tempo">
+    <span class="sum-num">⏱</span>
+    <span class="sum-nome"><b>Linha do Tempo Geral das Escolas Literárias</b></span>
+  </a></div>
+
+  <div class="sum-item"><a href="#mod01">
+    <span class="sum-num">01</span>
+    <span class="sum-nome"><b>Fundamentos Literários e Versificação</b></span>
+    <span class="sum-q">4+ questões</span>
+  </a></div>
+  <div class="sum-sub">Gêneros · Linguagem poética · Elementos da narrativa · <strong>Versificação completa · Tipos de rima · Redondilha maior e menor · Decassílabo · Soneto</strong></div>
+
+  <div class="sum-item"><a href="#mod02">
+    <span class="sum-num">02</span>
+    <span class="sum-nome"><b>Trovadorismo</b></span>
+    <span class="sum-q">1 questão</span>
+  </a></div>
+  <div class="sum-sub">Cantigas de amor, amigo e escárnio · Cancioneiros · Dom Dinis</div>
+
+  <div class="sum-item"><a href="#mod03">
+    <span class="sum-num">03</span>
+    <span class="sum-nome"><b>Humanismo</b></span>
+    <span class="sum-q">contexto</span>
+  </a></div>
+  <div class="sum-sub">Gil Vicente · Autos · Cronistas · Teocentrismo → Antropocentrismo</div>
+
+  <div class="sum-item"><a href="#mod04">
+    <span class="sum-num">04</span>
+    <span class="sum-nome"><b>Classicismo</b></span>
+    <span class="sum-q">1 questão</span>
+  </a></div>
+  <div class="sum-sub">Camões · Os Lusíadas · Epopeia · Sonetos clássicos</div>
+
+  <div class="sum-item"><a href="#mod05">
+    <span class="sum-num">05</span>
+    <span class="sum-nome"><b>Quinhentismo Brasileiro</b></span>
+    <span class="sum-q">1 questão</span>
+  </a></div>
+  <div class="sum-sub">Carta de Pero Vaz de Caminha · Literatura de informação · Jesuítas</div>
+
+  <div class="sum-item"><a href="#mod06">
+    <span class="sum-num">06</span>
+    <span class="sum-nome"><b>Barroco</b></span>
+    <span class="sum-q">2 questões</span>
+  </a></div>
+  <div class="sum-sub">Gregório de Matos · Pe. Antônio Vieira · Dualismo · Antítese · Cultismo · Conceptismo</div>
+
+  <div class="sum-item"><a href="#mod07">
+    <span class="sum-num">07</span>
+    <span class="sum-nome"><b>Arcadismo</b></span>
+    <span class="sum-q">1 questão</span>
+  </a></div>
+  <div class="sum-sub">Gonzaga · Carpe diem · Locus amoenus · Aurea mediocritas · Inutilia truncat</div>
+
+  <div class="sum-item"><a href="#mod08">
+    <span class="sum-num">08</span>
+    <span class="sum-nome"><b>Romantismo</b></span>
+    <span class="sum-q">3 questões</span>
+  </a></div>
+  <div class="sum-sub">Gonçalves Dias · Castro Alves · Álvares de Azevedo · José de Alencar · 3 fases</div>
+
+  <div class="sum-item"><a href="#mod09">
+    <span class="sum-num">09</span>
+    <span class="sum-nome"><b>Realismo e Naturalismo</b></span>
+    <span class="sum-q">8 questões</span>
+  </a></div>
+  <div class="sum-sub">Machado de Assis · Aluísio Azevedo · Dom Casmurro · O Cortiço · Narrador não confiável</div>
+
+  <div class="sum-item"><a href="#mod10">
+    <span class="sum-num">10</span>
+    <span class="sum-nome"><b>Parnasianismo</b></span>
+    <span class="sum-q">6 questões</span>
+  </a></div>
+  <div class="sum-sub">Olavo Bilac · "Profissão de Fé" · Arte pela arte · Ourives · "Os Sapos" de Bandeira</div>
+
+  <div class="sum-item"><a href="#mod11">
+    <span class="sum-num">11</span>
+    <span class="sum-nome"><b>Simbolismo</b></span>
+    <span class="sum-q">4 questões</span>
+  </a></div>
+  <div class="sum-sub">Cruz e Sousa (drama racial + angústia metafísica) · Alphonsus · "Ismália" · Sinestesia</div>
+
+  <div class="sum-item"><a href="#mod12">
+    <span class="sum-num">12</span>
+    <span class="sum-nome"><b>Pré-Modernismo</b></span>
+    <span class="sum-q">6 questões</span>
+  </a></div>
+  <div class="sum-sub">Euclides da Cunha · Lima Barreto · Monteiro Lobato · Augusto dos Anjos (dualismo ciência × fé)</div>
+
+  <div class="sum-item"><a href="#mod13">
+    <span class="sum-num">13</span>
+    <span class="sum-nome"><b>Vanguardas Europeias</b></span>
+    <span class="sum-q">contexto</span>
+  </a></div>
+  <div class="sum-sub">Futurismo · Cubismo · Dadaísmo · Surrealismo · Semana de 1922</div>
+
+  <div class="sum-item"><a href="#mod14">
+    <span class="sum-num">14</span>
+    <span class="sum-nome"><b>Modernismo Brasileiro</b></span>
+    <span class="sum-q">8 questões</span>
+  </a></div>
+  <div class="sum-sub">Mário de Andrade · Oswald · Bandeira · Drummond · <strong>Cecília Meireles (formas fixas)</strong> · Guimarães Rosa · 3 gerações</div>
+</div>
+
+<!-- ══════════════ LINHA DO TEMPO ══════════════ -->
+<div class="chapter" id="linha-tempo">
+  <div class="ch-header">
+    <div class="ch-num">PANORAMA GERAL</div>
+    <div class="ch-titulo">Linha do Tempo das Escolas Literárias</div>
+    <div class="ch-periodo">Das origens medievais ao Modernismo · Portugal e Brasil · Séc. XII ao Séc. XX</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>Por que dominar a linha do tempo?</h3>
+    <p>A EsPCEx frequentemente exige que o candidato <strong>situe cronologicamente</strong> uma escola, um autor ou uma obra. Conhecer as datas-marco, os períodos de transição e as obras inaugurais é diferencial decisivo. Use este panorama como referência permanente.</p>
+  </div>
+
+  <div class="linha-tempo">
+    <div class="lt-titulo">Escolas Literárias — Portugal e Brasil</div>
+    <div class="lt-sub">Marcos cronológicos · Autores centrais · Obras inaugurais</div>
+    <div class="lt-rail">
+
+      <div class="lt-item">
+        <div class="lt-dot ouro"></div>
+        <div class="lt-periodo">Séc. XII — 1418</div>
+        <div class="lt-escola">Trovadorismo</div>
+        <div class="lt-desc">Poesia medieval galego-portuguesa. Cantigas de amor (eu-lírico masculino), amigo (eu-lírico feminino) e escárnio/maldizer (sátira). Cancioneiros. Dom Dinis — o trovador-rei.</div>
+        <div class="lt-link">→ Módulo 02</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot"></div>
+        <div class="lt-periodo">1418 — 1527</div>
+        <div class="lt-escola">Humanismo</div>
+        <div class="lt-desc">Transição medieval–renascentista. Gil Vicente (teatro — autos, farsas). Fernão Lopes (cronística). Teocentrismo cedendo espaço ao antropocentrismo.</div>
+        <div class="lt-link">→ Módulo 03</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot ouro"></div>
+        <div class="lt-periodo">1527 — 1580 (Portugal) · 1500 — 1601 (Brasil)</div>
+        <div class="lt-escola">Classicismo / Quinhentismo Brasileiro</div>
+        <div class="lt-desc">Portugal: Luís de Camões — <em>Os Lusíadas</em> (1572), epopeia, 10 cantos, oitava-rima. Sonetos petrarquistas. Brasil: Carta de Pero Vaz de Caminha (1500), Pe. Anchieta (jesuítas, tupi).</div>
+        <div class="lt-link">→ Módulos 04 e 05</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot"></div>
+        <div class="lt-periodo">1601 — 1768</div>
+        <div class="lt-escola">Barroco</div>
+        <div class="lt-desc">Dualismo, antítese, hipérbole. Cultismo (forma) e conceptismo (ideias). Brasil: Gregório de Matos ("Boca do Inferno"), Pe. Antônio Vieira (sermões). Marco: <em>Prosopopeia</em> (1601).</div>
+        <div class="lt-link">→ Módulo 06</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot ouro"></div>
+        <div class="lt-periodo">1768 — 1836</div>
+        <div class="lt-escola">Arcadismo (Neoclassicismo)</div>
+        <div class="lt-desc">Razão, carpe diem, locus amoenus, aurea mediocritas, inutilia truncat. Cláudio Manuel da Costa (marco: <em>Obras</em>, 1768), Tomás Antônio Gonzaga (<em>Marília de Dirceu</em>), Basílio da Gama (<em>O Uruguai</em>).</div>
+        <div class="lt-link">→ Módulo 07</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot"></div>
+        <div class="lt-periodo">1836 — 1881</div>
+        <div class="lt-escola">Romantismo</div>
+        <div class="lt-desc">Subjetivismo, indianismo, condoreirismo, ultrarromantismo. Marco: <em>Suspiros Poéticos</em> (1836). Gonçalves Dias, Castro Alves, Álvares de Azevedo, José de Alencar. 3 fases/gerações.</div>
+        <div class="lt-link">→ Módulo 08</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot ouro"></div>
+        <div class="lt-periodo">1881 — 1902</div>
+        <div class="lt-escola">Realismo / Naturalismo</div>
+        <div class="lt-desc">Marco: <em>Memórias Póstumas de Brás Cubas</em> (1881). Machado de Assis (ironia, narrador não confiável, psicologia). Aluísio Azevedo (<em>O Cortiço</em>, 1890 — determinismo naturalista).</div>
+        <div class="lt-link">→ Módulo 09</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot"></div>
+        <div class="lt-periodo">1882 — 1922</div>
+        <div class="lt-escola">Parnasianismo / Simbolismo</div>
+        <div class="lt-desc">Parnasianismo: arte pela arte, perfeição formal, Olavo Bilac, Raimundo Correia. Simbolismo: musicalidade, sinestesia, inconsciente — Cruz e Sousa (<em>Broquéis</em>, 1893), Alphonsus de Guimaraens.</div>
+        <div class="lt-link">→ Módulos 10 e 11</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot ouro"></div>
+        <div class="lt-periodo">1902 — 1922</div>
+        <div class="lt-escola">Pré-Modernismo</div>
+        <div class="lt-desc">Transição sem ruptura formal. Marco: <em>Os Sertões</em> (1902). Euclides da Cunha, Lima Barreto, Monteiro Lobato, Augusto dos Anjos (dualismo científico × religioso).</div>
+        <div class="lt-link">→ Módulo 12</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot verde"></div>
+        <div class="lt-periodo">1909 — 1922</div>
+        <div class="lt-escola">Vanguardas Europeias</div>
+        <div class="lt-desc">Futurismo (Marinetti, 1909), Cubismo, Dadaísmo, Surrealismo, Expressionismo. Influência direta na Semana de Arte Moderna (São Paulo, fevereiro de 1922).</div>
+        <div class="lt-link">→ Módulo 13</div>
+      </div>
+
+      <div class="lt-item">
+        <div class="lt-dot ouro"></div>
+        <div class="lt-periodo">1922 — contemporâneo</div>
+        <div class="lt-escola">Modernismo Brasileiro — 3 Gerações</div>
+        <div class="lt-desc"><strong>1ª (1922–1930):</strong> Mário de Andrade, Oswald, Manuel Bandeira — ruptura, humor, verso livre. <strong>2ª (1930–1945):</strong> Drummond, Cecília Meireles (formas fixas!), Graciliano, Rachel, Jorge Amado. <strong>3ª (1945–):</strong> Guimarães Rosa, Clarice Lispector, Rubem Braga.</div>
+        <div class="lt-link">→ Módulo 14</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 01 ══════════════ -->
+<div class="chapter" id="mod01">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 01</div>
+    <div class="ch-titulo">Fundamentos Literários e Versificação</div>
+    <div class="ch-periodo">Gêneros · Linguagem Poética · Elementos da Narrativa · Versificação Completa · Tipos de Rima</div>
+    <div class="ch-qcount">🎯 Base de todas as questões de Literatura da EsPCEx</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>Por que este módulo é o alicerce?</h3>
+    <p>Sem dominar os conceitos deste módulo, questões de <em>todos</em> os outros módulos ficam mais difíceis. A EsPCEx cobra: (1) classificação dos gêneros; (2) identificação de figuras de linguagem em textos literários; (3) análise formal de poemas — metro, tipo de rima, forma (soneto ou não); e (4) distinção entre linguagem literária e não literária. A <strong>versificação</strong> — contar sílabas e classificar rimas — é especialmente cobrada quando a prova apresenta poemas de Cecília Meireles, Camões ou Augusto dos Anjos.</p>
+  </div>
+
+  <h2>1.1 Os Três Gêneros Literários</h2>
+
+  <p>A divisão dos gêneros literários remonta a Aristóteles (<em>Poética</em>, séc. IV a.C.) e foi sistematizada como base de toda análise literária. Cereja e Magalhães apresentam os gêneros em evolução histórica — mostrando que ao longo dos séculos eles se <strong>hibridizaram e se multiplicaram</strong> sem perder seus traços fundamentais. Abaurre e Pontara partem dos gêneros para fundamentar a <strong>competência leitora</strong>: identificar o gênero orienta o contrato de leitura.</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Gênero</th><th>Voz dominante</th><th>Foco</th><th>Subgêneros</th><th>Exemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Lírico</td><td>Eu-lírico (sujeito poético)</td><td>Expressão subjetiva de emoções. Função emotiva predominante.</td><td>Soneto, ode, elegia, haiku, poema em prosa</td><td>Sonetos de Camões; Drummond</td></tr>
+        <tr><td>Épico / Narrativo</td><td>Narrador (1ª ou 3ª pessoa)</td><td>Narração de fatos e ações de personagens em tempo e espaço.</td><td>Epopeia, romance, conto, novela, fábula, crônica</td><td><em>Os Lusíadas</em>; <em>Dom Casmurro</em></td></tr>
+        <tr><td>Dramático</td><td>Personagens (diálogo direto)</td><td>Encenação — sem narrador. Ação realizada pela fala e conflito.</td><td>Tragédia, comédia, tragicomédia, auto, farsa</td><td>Autos de Gil Vicente</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-atencao">
+    <div class="box-titulo">⚠️ Armadilhas de gênero — Todas já caíram na EsPCEx</div>
+    <ul>
+      <li><strong>Gênero dramático ≠ apenas tragédia.</strong> Abrange tragédia, comédia, tragicomédia, auto e farsa. Afirmativa "o gênero dramático compreende somente tragédias" é <span class="dest-verm">ERRADA</span>.</li>
+      <li><strong>Gênero épico ≠ apenas verso.</strong> O épico/narrativo inclui prosa (romance, conto, novela). "O épico é exclusivamente em verso" é <span class="dest-verm">ERRADA</span>.</li>
+      <li><strong>No gênero dramático não há narrador</strong> — a ação é encenada pelas personagens em diálogo. "Narrador onisciente no gênero dramático" é erro clássico.</li>
+      <li><strong>Lírico ≠ necessariamente em verso.</strong> O poema em prosa é lírico sem versos regulares.</li>
+      <li><strong>Gênero lírico ≠ subjetivo apenas no Romantismo.</strong> A subjetividade é característica estrutural do lírico em todas as épocas.</li>
+    </ul>
+  </div>
+
+  <h2>1.2 Linguagem Literária × Linguagem Não Literária</h2>
+
+  <p>Abaurre e Pontara fundamentam a distinção a partir das <strong>funções da linguagem</strong> de Roman Jakobson. Na linguagem literária, a <span class="dest">função poética</span> está em primeiro plano: a mensagem chama atenção para si mesma — sua forma, ritmo, escolha de palavras, ambiguidades. Na linguagem não literária, a <span class="dest-azul">função referencial</span> predomina: o texto quer transmitir informação objetiva, sem ambiguidade.</p>
+
+  <div class="grid2">
+    <div class="card-lit">
+      <div class="card-titulo">📖 Linguagem Literária</div>
+      <p><strong>Conotativa:</strong> palavras em sentido figurado, plural e sugestivo.</p>
+      <p><strong>Plurissignificação:</strong> múltiplos sentidos possíveis para o mesmo signo.</p>
+      <p><strong>Autorreferência:</strong> o texto chama atenção para sua própria forma — ritmo, sons, construção.</p>
+      <p><strong>Função poética predominante.</strong> Pode também acionar as funções emotiva, conativa e metalinguística.</p>
+    </div>
+    <div class="card-lit">
+      <div class="card-titulo">📰 Linguagem Não Literária</div>
+      <p><strong>Denotativa:</strong> palavras em sentido próprio, direto e unívoco.</p>
+      <p><strong>Monossignificação:</strong> busca precisão e ausência de ambiguidade.</p>
+      <p><strong>Transparência:</strong> o texto "desaparece" para que a mensagem chegue limpa ao receptor.</p>
+      <p><strong>Função referencial predominante.</strong> Exemplos: texto científico, jornalístico, técnico.</p>
+    </div>
+  </div>
+
+  <h2>1.3 Figuras de Linguagem Essenciais</h2>
+
+  <p>A EsPCEx frequentemente apresenta trechos literários e pede a identificação da figura de linguagem predominante. As mais cobradas são as que aparecem com destaque nos módulos específicos — antítese no Barroco, sinestesia no Simbolismo, ironia no Realismo, hipérbole no Romantismo.</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Figura</th><th>Definição objetiva</th><th>Exemplo canônico</th><th>Escola associada</th></tr></thead>
+      <tbody>
+        <tr><td>Metáfora</td><td>Comparação implícita sem "como". Um termo substitui outro por semelhança.</td><td>"Minha terra tem palmeiras" (pátria = terra)</td><td>Todas</td></tr>
+        <tr><td>Comparação (Símile)</td><td>Comparação explícita com "como", "tal qual", "assim como".</td><td>"Bello como um verso" — Bilac</td><td>Parnasianismo</td></tr>
+        <tr><td>Metonímia</td><td>Substituição por contiguidade: parte/todo, autor/obra, causa/efeito.</td><td>"Ler Machado" = ler as obras de Machado</td><td>Todas</td></tr>
+        <tr><td>Antítese</td><td>Oposição de ideias contrárias no mesmo contexto.</td><td>"Vida e morte", "luz e sombra"</td><td>Barroco (central)</td></tr>
+        <tr><td>Paradoxo</td><td>Afirmação aparentemente contraditória que revela verdade profunda.</td><td>"Vivo sem viver em mim" — Camões</td><td>Barroco, Classicismo</td></tr>
+        <tr><td>Hipérbole</td><td>Exagero intencional para intensificar uma ideia.</td><td>"Chorei rios de lágrimas"</td><td>Romantismo (forte)</td></tr>
+        <tr><td>Ironia</td><td>Diz o contrário do que se quer significar, com intenção crítica.</td><td>"O defunto autor" Brás Cubas — Machado</td><td>Realismo (central)</td></tr>
+        <tr><td>Eufemismo</td><td>Suavização de uma ideia desagradável.</td><td>"Passou desta para melhor" (morreu)</td><td>Todas</td></tr>
+        <tr><td>Sinestesia</td><td>Mistura de sensações de diferentes sentidos num enunciado.</td><td>"O perfume de sua voz" (olfato + audição)</td><td>Simbolismo (central)</td></tr>
+        <tr><td>Aliteração</td><td>Repetição de sons consonantais para efeito sonoro.</td><td>"Vozes veladas, veludosas vozes" — Cruz e Sousa</td><td>Simbolismo</td></tr>
+        <tr><td>Assonância</td><td>Repetição de sons vocálicos para criar musicalidade.</td><td>"Meu coração tem cansaço" — sons em "a"</td><td>Simbolismo, Romantismo</td></tr>
+        <tr><td>Anáfora</td><td>Repetição de palavra(s) no início de versos ou orações consecutivas.</td><td>"Naquele tempo... / Naquele tempo..." — Drummond</td><td>Modernismo</td></tr>
+        <tr><td>Polissíndeto</td><td>Repetição de conjunções coordenativas (e, ou, mas...).</td><td>"E fez... e disse... e acrescentou..." — Machado</td><td>Realismo</td></tr>
+        <tr><td>Elipse</td><td>Omissão de termo subentendido pelo contexto.</td><td>"Na varanda, a espera [era] longa."</td><td>Todas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>1.4 Elementos da Narrativa — Mapa Completo</h2>
+
+  <p>Cereja e Magalhães organizam os elementos da narrativa em dois grupos: <strong>estruturais</strong> (narrador, foco narrativo, personagens, enredo) e <strong>cenográficos</strong> (tempo e espaço). A EsPCEx cobra especialmente o <em>foco narrativo</em> — tipos de narrador — e a distinção entre personagens redondos e planos, frequente em questões sobre Machado de Assis.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Mapa dos Elementos da Narrativa</div>
+    <ul>
+      <li><strong>Narrador-personagem (1ª pessoa):</strong> participa da história; visão limitada ao que viveu e sentiu. Exemplo máximo: Brás Cubas e Bentinho (Dom Casmurro) de Machado — narradores não confiáveis.</li>
+      <li><strong>Narrador observador (3ª pessoa):</strong> externo à história; pode ser onisciente (sabe tudo, inclusive pensamentos), onisciente seletivo (acompanha um personagem) ou observador neutro (só o que vê de fora).</li>
+      <li><strong>Personagem redondo:</strong> complexo, contraditório, mutável ao longo da narrativa — Capitu, Brás Cubas.</li>
+      <li><strong>Personagem plano:</strong> tipo fixo, previsível, sem desenvolvimento — figurantes, tipos sociais.</li>
+      <li><strong>Enredo:</strong> apresentação → conflito → clímax → desfecho. Pode ser linear (cronológico) ou não linear (com flashbacks e antecipações).</li>
+      <li><strong>Tempo cronológico:</strong> linear, segue a ordem dos eventos. <strong>Tempo psicológico:</strong> fluxo de consciência, analepse (flashback — retorno ao passado), prolepse (flash-forward — antecipação).</li>
+      <li><strong>Espaço físico:</strong> o cenário concreto. <strong>Espaço social:</strong> o ambiente socioeconômico e cultural que condiciona os personagens — central no Naturalismo (determinismo).</li>
+    </ul>
+  </div>
+
+  <h2>1.5 Versificação — O Que a EsPCEx Cobra em Detalhe</h2>
+
+  <p>A versificação é a técnica de composição dos versos. Abaurre e Pontara ensinam que a análise formal de um poema começa pela <strong>contagem de sílabas poéticas</strong> — que difere da contagem gramatical por obedecer a fenômenos como a <em>sinalefa</em> (fusão de vogais entre palavras) e a regra de que a contagem vai até a <strong>última sílaba tônica do verso</strong>.</p>
+
+  <div class="box-atencao">
+    <div class="box-titulo">⚠️ Regra de ouro — Como contar sílabas poéticas</div>
+    <p>Conte as sílabas do verso e <strong>pare na última sílaba tônica</strong>. Ignore tudo o que vier depois dela.</p>
+    <ul>
+      <li>Verso termina em palavra <strong>oxítona</strong> (tônica na última): conta normalmente. Ex.: "Vou cantá" → 4 sílabas.</li>
+      <li>Verso termina em palavra <strong>paroxítona</strong> (tônica na penúltima): a sílaba final átona não conta. Ex.: "can-ta-va" → tônica em "ta" = conta até "ta".</li>
+      <li>Verso termina em <strong>proparoxítona</strong>: as duas últimas sílabas átonas não contam.</li>
+      <li><strong>Sinalefa:</strong> quando um verso termina com vogal e o próximo começa com vogal, as duas se fundem em uma só sílaba poética na contagem.</li>
+    </ul>
+  </div>
+
+  <h3>Classificação dos Versos pelo Número de Sílabas Poéticas</h3>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Nome do verso</th><th>Nº de sílabas</th><th>Uso típico</th><th>Exemplo de identificação</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Redondilha menor</strong></td><td>5 sílabas</td><td>Poesia popular medieval, cantigas trovadorescas</td><td>"Vai-e-vem / da ma-ré" = 5</td></tr>
+        <tr><td><strong>Redondilha maior</strong></td><td>7 sílabas</td><td>Poesia popular, lírica romântica, <strong>Cecília Meireles</strong></td><td>"De-se-jo u-ma fo-to-grá-fi-a" → tônica em "grá" = 7ª sílaba = redondilha maior</td></tr>
+        <tr><td><strong>Decassílabo</strong></td><td>10 sílabas</td><td>Soneto clássico (Camões), épico (<em>Os Lusíadas</em>), Parnasianismo</td><td>Verso padrão de Camões e Olavo Bilac</td></tr>
+        <tr><td><strong>Alexandrino</strong></td><td>12 sílabas</td><td>Poesia clássica francesa, alguns parnasianos</td><td>Raro na EsPCEx; aparece em Bilac avançado</td></tr>
+        <tr><td><strong>Verso branco</strong></td><td>regular (sem rima)</td><td>Poesia com metro mas sem rima — Romantismo tardio</td><td>Metro fixo + sem rima</td></tr>
+        <tr><td><strong>Verso livre</strong></td><td>variável (sem metro nem rima)</td><td>Modernismo — liberdade total de forma</td><td>Drummond, Bandeira (fase madura)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Tipos de Rima — Classificação pelo Esquema de Disposição</h3>
+
+  <p>Rima é a identidade ou semelhança de sons no final dos versos. A EsPCEx cobra especialmente a classificação pelo <strong>esquema de letras</strong>, onde a mesma letra = mesmo som de rima.</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Tipo de Rima</th><th>Esquema</th><th>Explicação</th><th>Ocorrência</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Emparelhada</strong></td><td>AABB</td><td>Versos rimam dois a dois, consecutivamente. O 1º rima com o 2º; o 3º com o 4º.</td><td>Poesia popular, algumas cantigas</td></tr>
+        <tr><td><strong>Alternada</strong> (cruzada)</td><td>ABAB</td><td>Versos rimam de forma intercalada. O 1º rima com o 3º; o 2º com o 4º.</td><td>Muito frequente — Romantismo, Modernismo</td></tr>
+        <tr><td><strong>Interpolada</strong> (abrangente)</td><td>ABBA</td><td>A rima externa envolve a rima interna. O 1º rima com o 4º; o 2º com o 3º.</td><td>Quartetos do soneto clássico (Camões)</td></tr>
+        <tr><td><strong>Misturada</strong></td><td>ABBA + ABAB</td><td>Combinação de mais de um esquema no mesmo poema.</td><td>"Encomenda" de Cecília Meireles</td></tr>
+        <tr><td><strong>Verso branco</strong></td><td>sem rima</td><td>Metro regular, mas sem rima.</td><td>Alguns poemas românticos</td></tr>
+        <tr><td><strong>Verso livre</strong></td><td>sem rima nem metro</td><td>Liberdade formal total — Modernismo.</td><td>Bandeira, Drummond</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>O Soneto — Forma Mais Cobrada</h3>
+
+  <p>O soneto é a forma poética mais cobrada nas provas da EsPCEx. Introduzido em Portugal por Sá de Miranda no séc. XVI, trabalhado com maestria por Camões e presente até Augusto dos Anjos no séc. XX, o soneto exige <strong>obrigatoriamente 14 versos</strong>.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Anatomia do Soneto — Decorar para nunca errar</div>
+    <ul>
+      <li><strong>14 versos = 2 quartetos + 2 tercetos</strong> — essa é a definição. Se o poema tiver 12 ou 16 versos, NÃO é soneto.</li>
+      <li><strong>Metro clássico:</strong> decassílabo (10 sílabas poéticas). Mas pode variar.</li>
+      <li><strong>Quartetos:</strong> esquema ABBA ABBA (interpolada) — padrão clássico.</li>
+      <li><strong>Tercetos:</strong> esquema CDC DCD ou CDE CDE — mais variável.</li>
+      <li><strong>Movimento semântico:</strong> quartetos apresentam o tema → tercetos desenvolvem e concluem com a <em>volta</em> (inversão ou conclusão surpreendente).</li>
+      <li><strong>Atenção:</strong> Cecília Meireles escreveu sonetos sendo modernista — forma fixa ≠ antimodernismo. Mas "Encomenda" (3 quartetos = 12 versos) NÃO é soneto.</li>
+    </ul>
+  </div>
+
+  <div class="exemplo">
+    <div class="ex-titulo">Aplicação prática — "Encomenda" de Cecília Meireles (EsPCEx 2022)</div>
+    <p><strong>Análise completa do poema:</strong></p>
+    <p>Estrutura: 3 estrofes de 4 versos cada = <strong>12 versos no total → NÃO É SONETO</strong> (soneto exige 14 versos = 2 quartetos + 2 tercetos).</p>
+    <p>Metro: conte "De-se-jo u-ma fo-to-grá-fi-a" → 1(De) 2(se) 3(jo) 4(u) 5(ma) 6(fo) 7(to) — tônica em "grá" = 7ª posição = <strong>redondilha maior</strong> (NÃO decassílabo, que seria 10 sílabas).</p>
+    <p>Rimas: "fotografia"(A) / "esta"(B) / "ria"(A) / "festa"(B) → esquema ABAB = <strong>rima alternada</strong>. Na 2ª estrofe: "sombria"(A) / "testa"(B) / "empresta"(B) / "sabedoria"(A) → ABBA = <strong>interpolada</strong>. O poema mistura os dois esquemas.</p>
+    <p><strong>Antítese cobrada pela EsPCEx:</strong> na 2ª estrofe, "testa sombria" (escuridão, tristeza) × "derrame luz na minha testa" (claridade) — essa é a antítese que a banca testou como afirmativa II (CORRETA).</p>
+    <p><strong>Armadilha da afirmativa V:</strong> "optou-se pela construção em versos brancos" → ERRADA. Cecília usa rimas. Ser modernista não impõe abandono da rima — Cecília escolheu conscientemente manter formas métricas.</p>
+  </div>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este módulo</div>
+    <h4>Gêneros, versificação e análise formal de poemas</h4>
+    <p>A banca usa dois modelos: (1) afirmativas sobre gêneros pedindo a "correta" ou "incorreta" — o erro plantado é sempre restringir um gênero a uma só forma; (2) poema completo com afirmativas sobre versificação — metro, tipo de rima, forma (soneto?), figuras de linguagem. O candidato que não sabe contar sílabas e classificar rimas perde pontos certos.</p>
+    <div class="frag">"Quanto aos aspectos da linguagem poética presentes no poema 'Encomenda', de Cecília Meireles: I – A composição do poema é feita em forma de soneto. [ERRADA — 12 versos] II – Na segunda estrofe, o eu poético lança mão da antítese. [CORRETA] III – Optou-se pela composição em redondilhas maiores. [CORRETA — 7 sílabas] IV – Há emprego de rima alternada e de rima interpolada. [CORRETA] V – Optou-se pela construção em versos brancos. [ERRADA — há rimas]" <cite>EsPCEx 2022 — Gabarito: A (afirmativas II e IV corretas)</cite></div>
+    <p><strong>Chave de resolução:</strong> saber que 12 versos ≠ soneto; que 7 sílabas = redondilha maior; que ser modernista não elimina rimas. Esses três conhecimentos simples resolvem a questão.</p>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 02 ══════════════ -->
+<div class="chapter" id="mod02">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 02</div>
+    <div class="ch-titulo">Trovadorismo</div>
+    <div class="ch-periodo">Séc. XII — 1418 · Poesia Medieval Galego-Portuguesa</div>
+    <div class="ch-qcount">🎯 1 questão EsPCEx neste módulo</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a EsPCEx cobra?</h3>
+    <p>Tipos de cantiga (amor, amigo, escárnio/maldizer), cancioneiros medievais e Dom Dinis como trovador-rei. A armadilha mais comum é usar o termo "autos" (que pertence ao Humanismo/Gil Vicente) no contexto do Trovadorismo.</p>
+  </div>
+
+  <h2>2.1 Contexto Histórico</h2>
+  <p>O Trovadorismo surgiu na Europa feudal medieval (séc. XII–XIV), originado na Provença (sul da França) e expandido pela Península Ibérica. Em Portugal e Galiza desenvolveu-se em <strong>língua galego-portuguesa</strong> — língua comum às duas regiões. Abaurre e Pontara destacam que a poesia trovadoresca era <strong>performada</strong> — cantada com acompanhamento musical em cortes e festividades. Cereja e Magalhães situam o Trovadorismo na hierarquia feudal: a <em>vassalagem amorosa</em> das cantigas de amor reproduz no plano amoroso a relação vassalo–senhor.</p>
+
+  <h2>2.2 Os Três Tipos de Cantiga</h2>
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Tipo</th><th>Eu-lírico</th><th>Tema central</th><th>Origem</th><th>Traço formal</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cantiga de Amor</strong></td><td>Masculino (trovador)</td><td>Amor não correspondido pela dama idealizada. <em>Coita d'amor</em>. Vassalagem amorosa. A dama é distante e perfeita.</td><td>Provençal</td><td>Tom elevado, linguagem culta, vocabulário cortês.</td></tr>
+        <tr><td><strong>Cantiga de Amigo</strong></td><td>Feminino (jovem apaixonada)</td><td>Saudade do amado ausente. Confidência à natureza (rio, mar, árvores), à mãe ou às irmãs. Paralelismo formal.</td><td>Ibérica (popular)</td><td>Paralelismo — repetição com variação em estrofes alternadas. Tom mais simples e popular.</td></tr>
+        <tr><td><strong>Cantiga de Escárnio</strong></td><td>Variável</td><td>Sátira indireta, com duplo sentido — crítica velada a pessoas ou costumes.</td><td>Provençal + ibérica</td><td>Ironia, ambiguidade, linguagem mais elaborada.</td></tr>
+        <tr><td><strong>Cantiga de Maldizer</strong></td><td>Variável</td><td>Sátira direta e explícita — crítica aberta, sem disfarce, às vezes vulgar.</td><td>Provençal + ibérica</td><td>Tom jocoso, direto, às vezes grosseiro.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Os Três Cancioneiros — Para memorizar</div>
+    <ul>
+      <li><strong>Cancioneiro da Ajuda:</strong> o mais antigo; contém principalmente cantigas de amor.</li>
+      <li><strong>Cancioneiro da Biblioteca Nacional</strong> (Colocci-Brancuti): o mais completo; reúne todos os tipos.</li>
+      <li><strong>Cancioneiro da Vaticana:</strong> preservado no Vaticano; cantigas de amor e de amigo.</li>
+    </ul>
+  </div>
+
+  <h2>2.3 Dom Dinis — O Trovador-Rei</h2>
+  <p>Dom Dinis (1261–1325), rei de Portugal, é o trovador mais cobrado nas provas. Compôs mais de 130 cantigas — de amor e de amigo — com qualidade literária excepcional. Além da poesia, fundou a Universidade de Lisboa e oficializou o português como língua do Estado. <strong>Para a EsPCEx: Dom Dinis = Trovadorismo = poesia lírica medieval galego-portuguesa.</strong></p>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>Cantigas, Cancioneiros e Dom Dinis</h4>
+    <p>A questão típica apresenta características das cantigas e pede para identificar o tipo correto. A principal armadilha é usar o termo <strong>"autos"</strong> — que pertence ao Humanismo (Gil Vicente) — como se fosse sinônimo de cantigas trovadorescas.</p>
+    <div class="frag">"C) A cantiga de amor é uma forma poética em que o eu-lírico masculino expressa seu sofrimento pela dama idealizada, seguindo a convenção da vassalagem amorosa provençal." <cite>EsPCEx — Gabarito: C</cite></div>
+    <p><strong>Para nunca errar:</strong> cantiga de amor = eu masculino + dama idealizada + vassalagem + origem provençal. Cantiga de amigo = eu feminino + saudade do amado + paralelismo formal. Coletâneas = Cancioneiros (nunca "autos").</p>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 03 ══════════════ -->
+<div class="chapter" id="mod03">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 03</div>
+    <div class="ch-titulo">Humanismo</div>
+    <div class="ch-periodo">Séc. XV · 1418 — 1527 · Transição Medieval–Renascentista</div>
+    <div class="ch-qcount">⚠️ Baixa incidência isolada — estude como contexto e como suporte para Gil Vicente</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O Humanismo como ponte obrigatória</h3>
+    <p>O Humanismo conecta o Trovadorismo ao Classicismo. Gil Vicente é o principal nome e aparece frequentemente em questões que pedem a identificação da escola literária de determinado texto dramático. Foque na transição <span class="dest-azul">teocentrismo → antropocentrismo</span> e nas características do teatro vicentino.</p>
+  </div>
+
+  <h2>3.1 Contexto: Renascimento e Antropocentrismo</h2>
+  <p>O Humanismo europeu (séc. XIV–XVI) foi impulsionado pelo <strong>Renascimento</strong>: redescoberta da Antiguidade greco-latina, valorização da razão humana, expansão marítima e emergência da burguesia. A transição fundamental é do <span class="dest">teocentrismo medieval</span> (Deus no centro do universo e de toda explicação) para o <span class="dest-azul">antropocentrismo renascentista</span> (o ser humano como medida de todas as coisas). Em Portugal, o período coincide com as Grandes Navegações (Vasco da Gama, 1498; Cabral, 1500).</p>
+
+  <h2>3.2 Gil Vicente — O Pai do Teatro Português</h2>
+  <p>Gil Vicente (c. 1465–1536) criou mais de 40 peças — autos, farsas e moralidades — escritas em português e espanhol. Cereja e Magalhães destacam que o teatro vicentino combina o <strong>popular e o erudito</strong>, a <strong>crítica social e moral</strong> e o <strong>sagrado e o profano</strong>. Abaurre e Pontara enfatizam que Gil Vicente usou o teatro como instrumento de crítica ao clero hipócrita, à nobreza decadente e aos costumes da época — antecipando em séculos a crítica social que o Realismo faria de modo sistemático.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Obras centrais de Gil Vicente</div>
+    <ul>
+      <li><strong>Auto da Barca do Inferno (1517):</strong> personagens mortas (fidalgo, frade, judeu, sapateiro...) são julgadas pelo diabo ao morrer. Crítica moral ao clero e à nobreza. Alegoria medieval com humor e ironia.</li>
+      <li><strong>Auto da Barca do Purgatório</strong> e <strong>Auto da Barca da Glória:</strong> formam a trilogia das Barcas.</li>
+      <li><strong>Farsa de Inês Pereira:</strong> crítica ao casamento e aos valores sociais — a protagonista prefere um marido tolo que possa dominar.</li>
+      <li><strong>Auto da Índia:</strong> mulher que trai o marido enquanto ele está nas Índias — humor e crítica aos costumes.</li>
+    </ul>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 04 ══════════════ -->
+<div class="chapter" id="mod04">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 04</div>
+    <div class="ch-titulo">Classicismo</div>
+    <div class="ch-periodo">1527 — 1580 · Portugal · Renascimento Literário</div>
+    <div class="ch-qcount">🎯 1 questão EsPCEx — foco em Camões e Os Lusíadas</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a EsPCEx cobra?</h3>
+    <p>O foco é <em>Os Lusíadas</em> de Camões — gênero (epopeia), estrutura (10 cantos, oitava-rima), o papel do maravilhoso mitológico e a glorificação de Portugal. Questões pedem para identificar características do Classicismo ou para analisar fragmentos de Camões.</p>
+  </div>
+
+  <h2>4.1 O Classicismo e o Ideal Renascentista</h2>
+  <p>O Classicismo marca a chegada do Renascimento à literatura portuguesa. As características centrais, segundo Cereja e Magalhães: <strong>equilíbrio e harmonia</strong> (razão sobre emoção); <strong>universalismo</strong>; <strong>imitação dos clássicos greco-latinos</strong> (Virgílio, Horácio); <strong>antropocentrismo</strong>; e <strong>perfeição formal</strong> — o soneto petrarquista e a epopeia virgiliana.</p>
+
+  <div class="grid2">
+    <div class="card-lit">
+      <div class="card-titulo">🏛️ Características do Classicismo</div>
+      <p>• Equilíbrio razão–emoção</p>
+      <p>• Imitação dos clássicos greco-latinos</p>
+      <p>• Universalismo e antropocentrismo</p>
+      <p>• Perfeição formal — soneto decassílabo</p>
+      <p>• Temas: amor cortês, glória, morte, heroísmo</p>
+    </div>
+    <div class="card-lit">
+      <div class="card-titulo">📜 Formas do Classicismo</div>
+      <p>• <strong>Soneto:</strong> 14 versos decassílabos, forma lírica máxima</p>
+      <p>• <strong>Epopeia:</strong> poema narrativo longo sobre feitos heroicos coletivos</p>
+      <p>• <strong>Éclogas / Bucólicas:</strong> poesia pastoril</p>
+      <p>• <strong>Odes e Elegias:</strong> lírica de influência greco-latina</p>
+    </div>
+  </div>
+
+  <h2>4.2 Luís de Camões — O Gênio Maior</h2>
+  <p>Luís de Camões (c. 1524–1580) é o maior nome das letras portuguesas. Sua obra abrange <strong>lírica</strong> (sonetos, redondilhas, odes) e <strong>épico</strong> (<em>Os Lusíadas</em>). Abaurre e Pontara destacam que em Camões convivem dois mundos em tensão: o <span class="dest">ideal renascentista</span> (glória, razão, perfeição) e a <span class="dest-azul">melancolia existencial</span> (efemeridade da beleza, desencontro amoroso, tragédia do destino). Essa tensão é visível especialmente nos sonetos: "Transforma-se o amador na cousa amada" expressa a fusão mística com a amada; "Amor é fogo que arde sem se ver" lista paradoxos do amor com vocabulário barroco antes do Barroco.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Os Lusíadas — Estrutura completa para a EsPCEx</div>
+    <ul>
+      <li><strong>Gênero:</strong> épico / epopeia</li>
+      <li><strong>Forma:</strong> 10 cantos em oitava-rima (estâncias de 8 versos decassílabos — esquema ABABABCC)</li>
+      <li><strong>Tema principal:</strong> viagem de Vasco da Gama à Índia (1497–1499) como pretexto para celebrar toda a história heroica de Portugal</li>
+      <li><strong>Maravilhoso:</strong> deuses greco-romanos interferem nos destinos — Vênus protege os portugueses; Baco os tenta impedir. Esse maravilhoso é <strong>mitológico</strong> (não cristão) — armadilha frequente da banca.</li>
+      <li><strong>Estrutura clássica:</strong> proposição (anúncio do tema) → invocação (pedido às Musas) → dedicatória (ao rei Dom Sebastião) → narração → epílogo</li>
+      <li><strong>Episódio mais famoso:</strong> Inês de Castro (Canto III) — amor trágico e política</li>
+      <li><strong>Episódio mais cobrado:</strong> Adamastor (Canto V) — gigante mitológico que representa os perigos do Cabo das Tormentas; símbolo da resistência da natureza ao avanço humano</li>
+    </ul>
+  </div>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>Os Lusíadas e a epopeia clássica</h4>
+    <p>A banca apresenta um fragmento de <em>Os Lusíadas</em> e pede identificação de características da epopeia ou do Classicismo. O erro mais comum nas alternativas: afirmar que o maravilhoso é cristão (é <strong>mitológico greco-romano</strong>) ou que o tema central é exclusivamente a viagem (é a <strong>glorificação de toda a história de Portugal</strong>).</p>
+    <div class="frag">"Os Lusíadas pertence ao gênero épico porque: D) narra feitos heroicos de um povo por meio de um poema extenso, com intervenção do elemento maravilhoso mitológico e celebração da grandeza nacional." <cite>EsPCEx — Gabarito: D</cite></div>
+    <p>Alternativa incorreta clássica: "o maravilhoso em Os Lusíadas é cristão, com santos e anjos interferindo na jornada" → ERRADA. O maravilhoso de Camões usa os deuses greco-romanos — Vênus, Baco, Júpiter — não santos cristãos.</p>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 05 ══════════════ -->
+<div class="chapter" id="mod05">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 05</div>
+    <div class="ch-titulo">Quinhentismo Brasileiro</div>
+    <div class="ch-periodo">1500 — 1601 · Literatura de Informação e Catequese</div>
+    <div class="ch-qcount">🎯 1 questão EsPCEx — foco na Carta de Caminha</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a EsPCEx cobra?</h3>
+    <p>O foco é a <strong>Carta de Pero Vaz de Caminha</strong> — contexto, características e importância histórico-literária. Questões podem apresentar fragmentos da Carta e pedir identificação de características ou do período.</p>
+  </div>
+
+  <h2>5.1 A Literatura de Informação</h2>
+  <p>O Quinhentismo brasileiro não é um movimento literário no sentido estrito — é o conjunto de textos produzidos por navegadores, viajantes, cronistas e jesuítas que registraram o Brasil recém-descoberto. Cereja e Magalhães o dividem em: <strong>literatura de informação</strong> (cartas, relatos, crônicas) e <strong>literatura de catequese</strong> (textos jesuíticos para evangelizar índios).</p>
+
+  <h2>5.2 A Carta de Pero Vaz de Caminha</h2>
+  <p>A Carta (escrita em 1º de maio de 1500, endereçada ao rei Dom Manuel I) é o <strong>"certidão de nascimento" da literatura brasileira</strong>. Caminha era escrivão da frota de Cabral e registrou com minúcia o primeiro contato entre portugueses e indígenas. Seu valor literário: qualidade descritiva, sensibilidade ao registrar o "outro" indígena e uso expressivo do português quinhentista.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Carta de Caminha — Características para a EsPCEx</div>
+    <ul>
+      <li><strong>Gênero:</strong> carta oficial / relato epistolar (não é ficção, não é poesia)</li>
+      <li><strong>Propósito primário:</strong> informar o rei Dom Manuel sobre as terras e os povos encontrados — propósito informativo/administrativo, não literário</li>
+      <li><strong>Valor literário (secundário):</strong> qualidade descritiva, expressividade, sensibilidade ao descrever o índio e a natureza</li>
+      <li><strong>Tom:</strong> deslumbramento com a terra fértil e com a natureza exuberante; curiosidade cultural genuína; visão do índio como ser inocente (proto-indianismo)</li>
+      <li><strong>Linguagem:</strong> português quinhentista — arcaico, mas expressivo e relativamente simples para o padrão culto da época</li>
+    </ul>
+  </div>
+
+  <h2>5.3 Os Jesuítas e a Literatura de Catequese</h2>
+  <p>O Padre José de Anchieta (1534–1597) é o maior representante da catequese literária. Escreveu poemas, autos teatrais, gramática da língua tupi e textos religiosos para catequizar os indígenas. Sua obra em tupi é pioneira: primeira literatura produzida em língua indígena no Brasil. <strong>Para a EsPCEx: Anchieta = jesuíta = catequese = literatura em tupi.</strong></p>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>A Carta de Pero Vaz de Caminha</h4>
+    <p>A banca pode apresentar um fragmento da Carta e pedir identificação do gênero, do propósito ou das características. A armadilha mais comum: afirmar que a Carta tem <strong>propósito literário primário</strong> — é falso. O propósito é informativo/administrativo. Mas possui valor literário inegável. Outra armadilha: afirmar que Caminha "criou" ficção sobre os índios — é falso; ele descreveu o que viu.</p>
+    <div class="frag">"A Carta de Pero Vaz de Caminha é considerada o documento inicial da literatura brasileira porque: C) trata-se do primeiro texto escrito em território brasileiro com valor literário, descrevendo de modo expressivo a terra e os povos encontrados." <cite>EsPCEx — Gabarito: C</cite></div>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 06 ══════════════ -->
+<div class="chapter" id="mod06">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 06</div>
+    <div class="ch-titulo">Barroco</div>
+    <div class="ch-periodo">1601 — 1768 · Conflito, Dualismo e Exuberância Formal</div>
+    <div class="ch-qcount">🎯 2 questões EsPCEx neste módulo</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a EsPCEx cobra?</h3>
+    <p>A EsPCEx cobra o Barroco em dois eixos: (1) as <strong>características gerais</strong> — dualismo, antítese, hipérbole, cultismo, conceptismo; e (2) os <strong>autores centrais</strong> — Gregório de Matos (poesia) e Pe. Antônio Vieira (sermão/prosa). Questões frequentemente apresentam fragmentos para análise de figuras de linguagem barrocas.</p>
+  </div>
+
+  <h2>6.1 O Barroco — Tensão como Estética</h2>
+  <p>O Barroco (séc. XVII – início do séc. XVIII) nasce do conflito histórico entre a fé cristã e o racionalismo renascentista, entre o espiritual e o carnal, entre a vida e a morte. Cereja e Magalhães o definem como a estética do <strong>excesso e do contraste</strong>: onde o Classicismo buscava equilíbrio, o Barroco explora a tensão. Abaurre e Pontara destacam que o Barroco é inseparável da <strong>Contrarreforma</strong>: a Igreja Católica usou a arte barroca como instrumento de persuasão religiosa — daí o uso de imagens fortes, emoções intensas e teatralidade.</p>
+
+  <div class="grid2">
+    <div class="card-lit">
+      <div class="card-titulo">✍️ Cultismo (Gongorismo)</div>
+      <p>Nível da <strong>forma</strong>: linguagem rebuscada, vocabulário erudito, hipérbatos (inversão sintática), latinismos, jogos sonoros. Exuberância na expressão — choca pelo ornamento excessivo. O nome vem do poeta espanhol Luís de Góngora.</p>
+    </div>
+    <div class="card-lit">
+      <div class="card-titulo">🧠 Conceptismo (Quevedismo)</div>
+      <p>Nível das <strong>ideias</strong>: raciocínios engenhosos, argumentos surpreendentes, paradoxos, jogos de conceitos e antíteses. O sermão de Pe. Antônio Vieira é o exemplo máximo. O nome vem do poeta espanhol Francisco de Quevedo.</p>
+    </div>
+  </div>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Características do Barroco — Resumo para a EsPCEx</div>
+    <ul>
+      <li><strong>Dualismo:</strong> tensão permanente entre pares opostos — vida/morte, carne/espírito, fé/razão, amor/ódio, beleza/decadência.</li>
+      <li><strong>Antítese:</strong> figura de linguagem central — pares de opostos no mesmo verso ou frase.</li>
+      <li><strong>Hipérbole:</strong> exagero expressivo para intensificar o sentimento ou o horror.</li>
+      <li><strong>Paradoxo:</strong> afirmações aparentemente contraditórias que revelam verdades profundas. Exemplo: "morro de amor, pois amor me mata" — vida e morte simultaneamente.</li>
+      <li><strong>Efemeridade:</strong> <em>memento mori</em> (lembra-te de que morrerás) — a vida é breve, tudo passa, a morte é certa.</li>
+      <li><strong>Hipérbato:</strong> inversão da ordem sintática normal da frase para criar efeito de estranhamento e refinamento.</li>
+    </ul>
+  </div>
+
+  <h2>6.2 Gregório de Matos — O "Boca do Inferno"</h2>
+  <p>Gregório de Matos (1636–1696) é o maior poeta barroco brasileiro. Seu apelido, "Boca do Inferno", vem de sua poesia satírica feroz contra a sociedade colonial baiana. Sua obra divide-se em: poesia <strong>sacra</strong> (reflexão religiosa, arrependimento, diálogo com Deus); poesia <strong>lírica</strong> (amor, melancolia, efemeridade); e poesia <strong>satírica</strong> (crítica corrosiva ao clero corrupto, à nobreza hipócrita, aos costumes coloniais). As características barrocas permeiam todas as vertentes: o dualismo pecado/redenção na sacra; a antítese amor/dor na lírica; a hipérbole e a ironia na satírica.</p>
+
+  <div class="trecho-lit">
+    "Nasce o Sol, e não dura mais que um dia,<br>
+    Depois da Luz se segue a noite escura,<br>
+    Em tristes sombras morre a formosura,<br>
+    Em contínuas tristezas a alegria."
+    <cite>— Gregório de Matos — Dualismo barroco: luz/sombra, formosura/morte, alegria/tristeza. Antítese em cada verso.</cite>
+  </div>
+
+  <h2>6.3 Pe. Antônio Vieira — O Sermão como Arte</h2>
+  <p>O Padre Antônio Vieira (1608–1697) é o maior prosador do Barroco lusófono. Seus sermões são obras-primas de <strong>conceptismo</strong>: argumentação engenhosa, domínio da retórica clássica, uso de analogias bíblicas surpreendentes e defesa apaixonada dos índios e dos cristãos-novos. O <em>Sermão da Sexagésima</em> (1655) é o mais estudado: nele Vieira discute a pregação eficaz — por que a palavra de Deus não faz efeito nos homens? A resposta é um tratado de retórica disfarçado de reflexão religiosa. O <em>Sermão pelo Bom Sucesso das Armas de Portugal contra as de Holanda</em> mostra Vieira em diálogo direto e dramático com Deus — uma ousadia conceptista rara.</p>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>Dualismo barroco e Pe. Antônio Vieira</h4>
+    <p>A EsPCEx apresenta fragmentos de poesia barroca e pede para identificar <strong>quais características do Barroco estão presentes</strong>. O foco é: antítese, dualismo, efemeridade, hipérbole. Para Vieira: a banca apresenta fragmentos de sermão e pede identificação do uso da <strong>argumentação conceptista</strong> — lógica engenhosa a serviço da persuasão religiosa.</p>
+    <div class="frag">"O trecho pertence a uma obra do Barroco. A principal característica barroca presente é: E) O dualismo entre o espiritual e o carnal, expresso pela antítese entre vida e morte no mesmo verso." <cite>EsPCEx — Gabarito: E</cite></div>
+    <p><strong>Distinção essencial para a prova:</strong> Cultismo = exuberância da FORMA (como se diz). Conceptismo = engenhosidade das IDEIAS (o que se pensa). Gregório de Matos usa os dois. Vieira é fundamentalmente conceptista.</p>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 07 ══════════════ -->
+<div class="chapter" id="mod07">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 07</div>
+    <div class="ch-titulo">Arcadismo (Neoclassicismo)</div>
+    <div class="ch-periodo">1768 — 1836 · Razão, Simplicidade e Ilustração</div>
+    <div class="ch-qcount">🎯 1 questão EsPCEx neste módulo</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a EsPCEx cobra?</h3>
+    <p>A EsPCEx testa o conhecimento das <strong>características gerais do Arcadismo</strong> e dos principais autores brasileiros — especialmente Tomás Antônio Gonzaga (<em>Marília de Dirceu</em>). Questões frequentemente pedem para identificar as características do movimento ou para distingui-lo do Barroco (que antecede) e do Romantismo (que sucede).</p>
+  </div>
+
+  <h2>7.1 O Arcadismo e o Iluminismo</h2>
+  <p>O Arcadismo (ou Neoclassicismo) surge no século XVIII sob a influência do <strong>Iluminismo</strong> europeu — a crença na razão, na ciência e no progresso como guias da humanidade. Em literatura, o Arcadismo reage contra o excessivo ornamento barroco e propõe um retorno à clareza, à simplicidade e à harmonia clássica. Cereja e Magalhães destacam que o Arcadismo afirma valores modernos (razão, liberdade, natureza) por meio de formas clássicas (odes, éclogas, sonetos). O nome "Arcádia" vem de uma região grega idealizada como paraíso pastoril — os poetas adotavam pseudônimos pastoris (Gonzaga = Dirceu; Cláudio = Glauceste Satúrnio).</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Princípio Árcade</th><th>Tradução livre</th><th>Expressão literária</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Inutilia truncat</strong></td><td>"Corta o inútil"</td><td>Eliminar o excesso e a ornamentação desnecessária do Barroco. Linguagem simples e direta.</td></tr>
+        <tr><td><strong>Carpe diem</strong></td><td>"Aproveita o dia"</td><td>Viver plenamente o presente antes da morte inevitável. Convite ao amor e ao prazer simples.</td></tr>
+        <tr><td><strong>Locus amoenus</strong></td><td>"Lugar aprazível"</td><td>A natureza como cenário ideal: campos, rios, sombra, pastorinhas. Fuga da cidade e da corte.</td></tr>
+        <tr><td><strong>Aurea mediocritas</strong></td><td>"Áurea mediocridade"</td><td>Ideal da vida simples, longe da ambição e do luxo. Preferência pela vida campestre.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Árcades Brasileiros — Os Quatro que a EsPCEx cobra</div>
+    <ul>
+      <li><strong>Cláudio Manuel da Costa (1729–1789):</strong> pioneiro do Arcadismo brasileiro. <em>Obras</em> (1768) — marco inicial. Sonetos com melancolia e saudade da Europa — mistura de traços barrocos com a nova estética árcade.</li>
+      <li><strong>Tomás Antônio Gonzaga (1744–1810):</strong> o mais popular. <em>Marília de Dirceu</em> — coletânea de liras amorosas dedicadas à amada. Preso pela Inconfidência Mineira e degredado para Moçambique. Exemplo máximo do carpe diem árcade.</li>
+      <li><strong>Basílio da Gama (1741–1795):</strong> <em>O Uruguai</em> (1769) — epopeia sobre a guerra guaranítica. Importante por incorporar o elemento indianista, antecipando o Romantismo.</li>
+      <li><strong>Santa Rita Durão (1722–1784):</strong> <em>Caramuru</em> — epopeia sobre Diogo Álvares Correia (Caramuru), náufrago português adotado pelos índios.</li>
+    </ul>
+  </div>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>Características gerais do Arcadismo — Armadilhas de confusão</h4>
+    <p>A EsPCEx apresenta afirmativas sobre o Arcadismo pedindo a "correta" ou apresenta um fragmento de poesia árcade pedindo identificação de características. As armadilhas são duas:</p>
+    <p><strong>Armadilha 1:</strong> confundir o carpe diem árcade (aproveitar o presente com <em>simplicidade</em> e serenidade) com a angústia existencial barroca (que também fala da morte, mas com drama e excesso emocional). No Arcadismo, a morte é aceita serenamente; no Barroco, provoca angústia e conflito interior.</p>
+    <p><strong>Armadilha 2:</strong> confundir o indianismo árcade (Basílio da Gama — índio como personagem épico, guerreiro) com o indianismo romântico (Gonçalves Dias — índio como herói nacional idealizado, símbolo da identidade do Brasil).</p>
+    <div class="frag">"Sobre o Arcadismo, assinale a alternativa CORRETA: C) O ideal do carpe diem, a valorização da vida simples no campo e a rejeição ao excesso barroco são características centrais do Arcadismo." <cite>EsPCEx — Gabarito: C</cite></div>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 08 ══════════════ -->
+<div class="chapter" id="mod08">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 08</div>
+    <div class="ch-titulo">Romantismo</div>
+    <div class="ch-periodo">1836 — 1881 · Subjetivismo, Nação e Idealização</div>
+    <div class="ch-qcount">🎯 3 questões EsPCEx neste módulo</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a EsPCEx cobra?</h3>
+    <p>A EsPCEx cobra os três grandes eixos do Romantismo: o <strong>Indianismo</strong> (Gonçalves Dias — poesia; José de Alencar — romance), o <strong>Condoreirismo</strong> (Castro Alves) e o <strong>Ultrarromantismo / mal do século</strong> (Álvares de Azevedo). Questões apresentam fragmentos poéticos para análise ou pedem associação autor × fase × características. A prova 2024 cobrou especificamente afirmativas sobre o Romantismo com armadilhas bem elaboradas.</p>
+  </div>
+
+  <h2>8.1 O Romantismo — Emoção e Identidade Nacional</h2>
+  <p>O Romantismo chega ao Brasil com <em>Suspiros Poéticos e Saudades</em> de Gonçalves de Magalhães (1836) e representa o projeto de construção da <strong>identidade nacional brasileira</strong> pós-Independência (1822). Cereja e Magalhães destacam que o Romantismo tem um programa político explícito: inventar um passado heroico (o índio como antepassado nobre), celebrar a natureza tropical e afirmar a independência cultural do Brasil. Abaurre e Pontara ressaltam que o Romantismo rompe com o racionalismo árcade e coloca a <strong>emoção, a subjetividade e a imaginação</strong> no centro da criação literária.</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Fase / Corrente</th><th>Período</th><th>Características centrais</th><th>Autores</th><th>Obras</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1ª Geração — Indianismo</strong></td><td>1836–1855</td><td>Índio como herói nacional idealizado. Exaltação da natureza e da pátria. Otimismo e ufanismo patriótico.</td><td>Gonçalves Dias, José de Alencar</td><td>"I-Juca Pirama", "Canção do Exílio"; <em>O Guarani</em>, <em>Iracema</em></td></tr>
+        <tr><td><strong>2ª Geração — Ultrarromantismo / Mal do século</strong></td><td>1853–1870</td><td>Egotismo, tédio existencial (<em>spleen</em>), amor impossível, morte como solução, fuga da realidade. Influência de Byron.</td><td>Álvares de Azevedo, Casimiro de Abreu, Fagundes Varela</td><td><em>Lira dos Vinte Anos</em>; "Meus Oito Anos"</td></tr>
+        <tr><td><strong>3ª Geração — Condoreirismo</strong></td><td>1870–1881</td><td>Poesia engajada socialmente. Combate à escravidão e ao Império. Oratória grandiosa. A metáfora do condor (ave que voa alto) = o poeta que se eleva sobre o mundo.</td><td>Castro Alves, Sousândrade</td><td>"Navio Negreiro", "Vozes d'África"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>8.2 Gonçalves Dias — O Indianismo Poético</h2>
+  <p>Antônio Gonçalves Dias (1823–1864) é o maior poeta do Romantismo brasileiro. Mestiço, criou uma poesia indianista de excepcional beleza formal, combinando o metro clássico europeu com temáticas e imagens indígenas. A "Canção do Exílio" (1843) é o poema mais famoso do Romantismo — e também o mais parodiado, inclusive por Oswald de Andrade no Modernismo. O "I-Juca Pirama" é seu poema épico-indianista mais denso: narra um guerreiro timbira capturado pelos Tupis, que chora diante da morte para não deixar o pai só — e por isso é expulso da tribo, pois um guerreiro não pode chorar antes de morrer.</p>
+
+  <div class="trecho-lit">
+    "Minha terra tem palmeiras,<br>
+    Onde canta o sabiá;<br>
+    As aves que aqui gorjeiam,<br>
+    Não gorjeiam como lá."
+    <cite>— Gonçalves Dias, "Canção do Exílio" (1843) — saudade da pátria; natureza tropical como símbolo nacional; metro de redondilha maior (7 sílabas).</cite>
+  </div>
+
+  <h2>8.3 Álvares de Azevedo — O Ultrarromantismo</h2>
+  <p>Manuel Antônio Álvares de Azevedo (1831–1852) é o maior representante do ultrarromantismo brasileiro. Morreu aos 20 anos, e sua obra é marcada pelo <em>spleen</em> (tédio existencial), pelo amor impossível pela mulher idealizada, pela atração pela morte e pela noite, e pela ironia que às vezes dissolve o drama em humor. <em>Lira dos Vinte Anos</em> é sua obra central — uma coletânea que oscila entre o desespero mais profundo e o humor corrosivo, mostrando que o "mal do século" tinha também um lado lúcido e autocrítico.</p>
+
+  <h2>8.4 Castro Alves — O Condor da Abolição</h2>
+  <p>Antônio Frederico de Castro Alves (1847–1871) é o maior poeta condoreirista e o "Poeta dos Escravos". Sua poesia é grandiloquente, oratória e apaixonadamente engajada contra a escravidão. O "Navio Negreiro" (1869) é sua obra máxima: uma visão horrorizada do tráfico de escravos narrada com imagens vívidas e lirismo grandioso. A EsPCEx cobrou Castro Alves junto com Sousândrade como representantes de poetas que "escreveram sobre o horror da escravidão e outros temas sociais, inspirados por princípios libertários de Victor Hugo" — a afirmativa estava correta.</p>
+
+  <h2>8.5 José de Alencar — O Romance Indianista e Urbano</h2>
+  <p>José de Alencar (1829–1877) é o maior romancista do Romantismo. Sua obra divide-se em: romances <strong>indianistas</strong> (<em>O Guarani</em>, <em>Iracema</em>, <em>Ubirajara</em>); romances <strong>urbanos</strong> (<em>Lucíola</em>, <em>Senhora</em> — crítica aos casamentos por interesse); e romances <strong>regionalistas</strong> (<em>O Sertanejo</em>). <em>Iracema</em> (1865) é particularmente rica: o nome "Iracema" é anagrama de "América" e a personagem representa a fusão das raças — índia + branco = o brasileiro. Abaurre e Pontara enfatizam que o romance indianista de Alencar não é histórico nem realista: é um <strong>mito fundador</strong> da nação brasileira — a narrativa de origem que todo povo precisa.</p>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>Questão 2024 — Afirmativas sobre o Romantismo</h4>
+    <p>A prova 2024 apresentou cinco afirmativas sobre o Romantismo. Veja como analisar cada uma:</p>
+    <ul>
+      <li><strong>I — "A expressão das emoções, subjetivismo e originalidade definem os princípios do Romantismo."</strong> → CORRETA. São exatamente os pilares do movimento.</li>
+      <li><strong>II — "O autor romântico explora figuras de linguagem e jogos de palavras para dar à literatura riqueza visual da pintura e escultura."</strong> → ERRADA. Isso é característica do <em>Parnasianismo</em> (arte pela arte, poesia como escultura em palavras — Bilac). O Romântico explora emoções, não plasticidade visual.</li>
+      <li><strong>III — "A 2ª geração é marcada pela imagem de um herói que defende valores como honestidade, amor e direito à liberdade."</strong> → ERRADA. A 2ª geração é o <em>ultrarromantismo</em> — egotismo, pessimismo, amor impossível, morte. O herói que defende valores incorruptíveis é da 1ª geração (indianismo).</li>
+      <li><strong>IV — "O desejo de dar um caráter científico à obra literária define as condições de produção dos romances românticos."</strong> → ERRADA. O caráter científico é do <em>Naturalismo</em> (Zola, Aluísio Azevedo). O Romantismo rejeita o racionalismo científico.</li>
+      <li><strong>V — "Poetas como Castro Alves e Sousândrade, inspirados por princípios libertários de Victor Hugo, escreveram sobre o horror da escravidão e outros temas sociais."</strong> → CORRETA. 3ª geração condoreirista, influenciada pelo romantismo social de Hugo.</li>
+    </ul>
+    <div class="frag">"Pela análise das afirmativas, conclui-se que estão corretas: A) I, III e V. — ERRADO. Gabarito: A) I e V." <cite>EsPCEx 2024 — Gabarito: A (I e V corretas)</cite></div>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 09 ══════════════ -->
+<div class="chapter" id="mod09">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 09</div>
+    <div class="ch-titulo">Realismo e Naturalismo</div>
+    <div class="ch-periodo">1881 — 1902 · Objetividade, Crítica Social e Determinismo</div>
+    <div class="ch-qcount">🎯 8 questões EsPCEx — módulo mais cobrado do período clássico</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>Por que este módulo tem 8 questões?</h3>
+    <p>Machado de Assis é o autor mais cobrado em toda a prova de Português da EsPCEx — não apenas em Literatura. A banca explora múltiplos ângulos: ironia, narrador não confiável, psicologia dos personagens, oposição ao Romantismo, e trechos para análise direta. Dominar Machado é decisivo para uma nota alta.</p>
+  </div>
+
+  <h2>9.1 O Contexto da Virada Realista</h2>
+  <p>O Realismo chega ao Brasil com <em>Memórias Póstumas de Brás Cubas</em> de Machado de Assis (1881) — o marco inaugural do movimento. O Realismo surge como <strong>reação ao excesso emocional do Romantismo</strong> e reflete o clima intelectual do séc. XIX: positivismo (Comte), darwinismo (Darwin), cientificismo. Cereja e Magalhães distinguem dois movimentos paralelos: o <strong>Realismo</strong> — foco na análise psicológica, na crítica social irônica, na observação objetiva da burguesia — e o <strong>Naturalismo</strong> — mais radical, aplicando o método experimental de Zola: o ser humano como produto do meio e da hereditariedade.</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Dimensão</th><th>Realismo (Machado)</th><th>Naturalismo (Aluísio)</th></tr></thead>
+      <tbody>
+        <tr><td>Foco</td><td>Análise psicológica, ironia fina, crítica à hipocrisia da burguesia</td><td>Determinismo biológico e ambiental; classes populares e ambientes degradados</td></tr>
+        <tr><td>Narrador</td><td>1ª pessoa não confiável, irônico, introspectivo — o leitor deve desconfiar</td><td>3ª pessoa "científica", observador distante, tom de relatório</td></tr>
+        <tr><td>Personagens</td><td>Complexos, ambíguos, psicologicamente ricos e contraditórios</td><td>Movidos por instintos e pulsões, dominados pelo meio e pela hereditariedade</td></tr>
+        <tr><td>Ambiente</td><td>Salões e interiores da burguesia carioca — espaço social refinado</td><td>Cortiços, ambientes degradados — o espaço determina o comportamento</td></tr>
+        <tr><td>Técnica central</td><td>Ironia, metalinguagem, narrador não confiável, intertextualidade</td><td>Animalização das personagens, vocabulário "científico", descrição detalhada do ambiente</td></tr>
+        <tr><td>Obra central</td><td><em>Memórias Póstumas de Brás Cubas</em> (1881); <em>Dom Casmurro</em> (1899); <em>Quincas Borba</em> (1891)</td><td><em>O Cortiço</em> (1890); <em>O Mulato</em> (1881)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>9.2 Machado de Assis — O Mestre da Ironia</h2>
+  <p>Joaquim Maria Machado de Assis (1839–1908) é universalmente considerado o maior escritor brasileiro. Filho de um pintor mulato e de uma lavadeira portuguesa, subiu socialmente pelo talento literário e pela autodidaxia. Sua obra divide-se em duas fases: a <strong>fase romântica</strong> (antes de 1880, mais convencional) e a <strong>fase realista</strong> (após 1880, com as obras-primas). A mudança de fase é marcada por <em>Memórias Póstumas de Brás Cubas</em> — o narrador é um defunto que escreve suas memórias "do outro lado", com a liberdade irônica de quem nada tem a perder.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 As Cinco Técnicas de Machado — Decorar para a EsPCEx</div>
+    <ul>
+      <li><strong>1. Narrador não confiável:</strong> o narrador machadiano (Brás Cubas, Bentinho) não é objetivo — mente, omite, racionaliza, se contradiz. O leitor deve sempre ler nas entrelinhas. Em Dom Casmurro, nunca saberemos com certeza se Capitu traiu ou não — o narrador é parcial.</li>
+      <li><strong>2. Ironia:</strong> dizer o contrário do que parece; criticar sem declarar abertamente; frustrar as expectativas do leitor romântico. A ironia machadiana é fina — nunca gritada.</li>
+      <li><strong>3. Metalinguagem:</strong> o narrador fala sobre sua própria escrita, interpela o leitor diretamente, comenta sua narrativa. Brás Cubas escreve um "livro que não tem leitor no mundo dos vivos".</li>
+      <li><strong>4. Psicologia dos personagens:</strong> Machado analisa a hipocrisia, a ambição, a vaidade e os mecanismos de autoengano da burguesia. Os personagens se enganam a si mesmos e ao leitor.</li>
+      <li><strong>5. Intertextualidade e paródia:</strong> referências explícitas a Shakespeare, Sterne, Pascal; paródia da linguagem sentimental romântica — como na cena dos "olhos de ressaca" de Capitu.</li>
+    </ul>
+  </div>
+
+  <div class="trecho-lit">
+    "Retórica dos namorados, dá-me uma comparação exata e poética para dizer o que foram aqueles olhos de Capitu. Não me acode imagem capaz de dizer, sem quebra da dignidade do estilo, o que eles foram e me fizeram. Olhos de ressaca? Vá, de ressaca."
+    <cite>— Machado de Assis, Dom Casmurro (1899) — ironia realista: o narrador convoca a "retórica romântica" só para abandoná-la pela imagem prosaica da ressaca. A paródia do Romantismo está completa.</cite>
+  </div>
+
+  <h2>9.3 Aluísio Azevedo e o Naturalismo</h2>
+  <p>Aluísio Azevedo (1857–1913) é o principal representante do Naturalismo brasileiro. Em <em>O Cortiço</em> (1890), o cortiço carioca é tratado como um <strong>organismo vivo</strong> que determina o comportamento de seus habitantes: o meio físico e social degrada as pessoas, como num laboratório zoológico à la Zola. As personagens são descritas com vocabulário quase científico — atributos físicos que revelam sua natureza instintiva. A personagem "Rita Baiana" é o exemplo mais célebre: sua dança é descrita com vocabulário de animalização que mostra a influência do determinismo darwinista.</p>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>Machado de Assis — Múltiplas abordagens nas provas</h4>
+    <p>A EsPCEx usa quatro abordagens para Machado: (1) análise da ironia em fragmento específico; (2) identificação do narrador não confiável; (3) distinção Realismo × Romantismo; (4) característica típica da literatura realista machadiana. A prova 2024 usou o conto "A causa secreta" e a prova 2025 usou a crônica "Machado e Abel" de Bandeira.</p>
+    <div class="frag">"Pode-se afirmar que está presente a seguinte característica típica da literatura realista de Machado de Assis: A) Introspecção psicológica e uma temática voltada para a falsidade do casamento, marcado pela traição." <cite>EsPCEx 2024 — Gabarito: A</cite></div>
+    <p><strong>Armadilha clássica:</strong> a alternativa que afirma que Machado faz <em>idealização romântica</em> da mulher — sempre <span class="dest-verm">ERRADA</span>. Machado <em>ironiza e parodia</em> a linguagem sentimental romântica. Ele não idealiza — ele observa, analisa e expõe a hipocrisia. Outra armadilha: afirmar que Machado usa determinismo biológico e ambiental — isso é do <em>Naturalismo</em> (Aluísio), não de Machado.</p>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 10 ══════════════ -->
+<div class="chapter" id="mod10">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 10</div>
+    <div class="ch-titulo">Parnasianismo</div>
+    <div class="ch-periodo">1882 — 1922 · Arte pela Arte · Perfeição Formal</div>
+    <div class="ch-qcount">🎯 6 questões EsPCEx neste módulo</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>Por que o Parnasianismo é tão cobrado?</h3>
+    <p>Com 6 questões, é o módulo de poesia mais cobrado. A EsPCEx explora: (1) identificação de características parnasianas em fragmentos; (2) análise da "Profissão de Fé" de Olavo Bilac (metáfora do ourives); (3) a distinção Parnasianismo × Simbolismo × Modernismo; e (4) o poema "Os Sapos" de Manuel Bandeira como crítica modernista ao Parnasianismo.</p>
+  </div>
+
+  <h2>10.1 O Parnasianismo — Culto à Forma</h2>
+  <p>O Parnasianismo surge na França (segunda metade do séc. XIX) e chega ao Brasil no final do século. O nome vem do <em>Parnaso</em> — montanha sagrada das Musas na mitologia grega. A proposta central é a <strong>"arte pela arte"</strong> (<em>l'art pour l'art</em>): a poesia não deve ter propósito moral, político ou emocional — deve ser bela em si mesma, como uma escultura perfeita. Cereja e Magalhães descrevem o Parnasianismo como reação ao subjetivismo emocional do Romantismo: onde o romântico extravasava sentimentos, o parnasiano trabalha com frieza artesanal a perfeição do verso.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Características do Parnasianismo — Seis pilares</div>
+    <ul>
+      <li><strong>Arte pela arte:</strong> poesia sem compromisso moral, político ou emocional — bela por si mesma.</li>
+      <li><strong>Perfeição formal:</strong> versificação rigorosa, metros fixos (decassílabo, alexandrino), rimas ricas e raras.</li>
+      <li><strong>Objetividade e impassibilidade:</strong> o poeta não deixa transparecer emoções pessoais — descreve de fora, como um escultor.</li>
+      <li><strong>Vocabulário culto e raro:</strong> uso de termos técnicos, eruditos, neologismos de origem latina ou grega, em busca da palavra exata (<em>mot juste</em>).</li>
+      <li><strong>Temas greco-latinos:</strong> mitologia, antiguidade clássica, ideal de beleza atemporal — temas "nobres" e distantes do cotidiano.</li>
+      <li><strong>Poesia descritiva:</strong> descrição de objetos, esculturas, paisagens clássicas — a arte como tema da arte.</li>
+    </ul>
+  </div>
+
+  <h2>10.2 A "Profissão de Fé" de Olavo Bilac — O Manifesto Parnasiano</h2>
+  <p>Olavo Bilac (1865–1918) é o maior nome do Parnasianismo brasileiro. Sua "Profissão de Fé" é o manifesto estético do movimento: o poema usa a metáfora do <strong>ourives</strong> (artesão que trabalha metais preciosos) para descrever o trabalho do poeta parnasiano — paciência, precisão, polimento, busca da perfeição. O poeta parnasiano é um <em>artesão</em> da palavra: trabalha o verso como o ourives trabalha o ouro, aparando arestas, polindo superfícies, descartando o imperfeito.</p>
+
+  <div class="trecho-lit">
+    "Longe do estéril turbilhão da rua,<br>
+    Beneditino, escrevo! O ambiente;<br>
+    Não é agora nem o presente..."
+    <cite>— Olavo Bilac, "Profissão de Fé" — isolamento do poeta, trabalho artesanal monacal (beneditino = monge), busca da perfeição fora do mundo cotidiano. A poesia requer recolhimento, não inspiração.</cite>
+  </div>
+
+  <h2>10.3 Os Três Pilares do Parnasianismo Brasileiro</h2>
+  <p>O Parnasianismo brasileiro se sustenta em três nomes: <strong>Olavo Bilac</strong> (o mais popular, "príncipe dos poetas"), <strong>Raimundo Correia</strong> (1860–1911 — conhecido pelo pessimismo filosófico e pela musicalidade; "As Pombas" é seu poema mais estudado) e <strong>Alberto de Oliveira</strong> (1857–1937 — premiado como o maior poeta brasileiro de sua época, hoje menos lido).</p>
+
+  <h2>10.4 "Os Sapos" de Manuel Bandeira — A Crítica Modernista</h2>
+  <p>O Modernismo, ao eclodir em 1922, teve no Parnasianismo seu principal alvo de crítica. Manuel Bandeira escreveu "Os Sapos" — poema satírico que ridiculariza os parnasianos (chamados de "sapos" que coaxam em latim, que rimam "Petrarca" com "tarca" e se preocupam com a forma enquanto ignoram a vida). A EsPCEx frequentemente usa esse poema para explorar o confronto entre os dois movimentos. <strong>Atenção: "Os Sapos" é de Manuel Bandeira — NÃO de Drummond</strong>, erro que já apareceu em alternativas incorretas da prova.</p>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>"Profissão de Fé" e a crítica modernista</h4>
+    <p>A banca usa três abordagens: (1) fragmento da "Profissão de Fé" pedindo identificação da metáfora do ourives e da estética parnasiana; (2) análise de outro poema de Bilac ou Raimundo Correia identificando características formais; (3) "Os Sapos" de Bandeira pedindo identificação da crítica ao Parnasianismo.</p>
+    <div class="frag">"No soneto 'Profissão de Fé', Olavo Bilac usa a metáfora do ourives para expressar: C) o trabalho paciente e artesanal do poeta parnasiano na busca da perfeição formal, comparando o verso à escultura em metal precioso." <cite>EsPCEx — Gabarito: C</cite></div>
+    <p><strong>Distinção essencial Parnasianismo × Simbolismo:</strong> Parnasianismo = objetividade + arte pela arte + beleza exterior. Simbolismo = subjetividade + sugestão + musicalidade + inconsciente. São contemporâneos mas opostos em essência.</p>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 11 ══════════════ -->
+<div class="chapter" id="mod11">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 11</div>
+    <div class="ch-titulo">Simbolismo</div>
+    <div class="ch-periodo">1893 — 1922 · Musicalidade, Subconsciente e Sinestesia</div>
+    <div class="ch-qcount">🎯 4 questões EsPCEx neste módulo</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a EsPCEx cobra?</h3>
+    <p>Quatro eixos principais: (1) <strong>Cruz e Sousa</strong> — drama racial, angústia metafísica, identificação do autor por descrição (EsPCEx 2025); (2) <strong>"Ismália"</strong> de Alphonsus — análise de características simbolistas; (3) a <strong>sinestesia</strong> como recurso central; e (4) a distinção Parnasianismo × Simbolismo. Esses quatro eixos cobrem todas as questões do módulo.</p>
+  </div>
+
+  <h2>11.1 O Simbolismo — Além do Visível</h2>
+  <p>O Simbolismo surge na França na segunda metade do séc. XIX, tendo como precursor Charles Baudelaire (<em>As Flores do Mal</em>, 1857) e como manifesto o artigo de Jean Moréas (1886). No Brasil, o marco é <em>Broquéis</em> de Cruz e Sousa (1893). O Simbolismo reage ao Parnasianismo (objetividade, forma exterior) e propõe uma poesia do <strong>invisível e do subconsciente</strong>: o que não pode ser dito diretamente deve ser <em>sugerido</em> por meio de símbolos, imagens, musicalidade e sinestesias. Abaurre e Pontara destacam que o Simbolismo antecipa o interesse pelo inconsciente que Freud formalizaria décadas depois na psicanálise.</p>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Característica</th><th>Parnasianismo</th><th>Simbolismo</th></tr></thead>
+      <tbody>
+        <tr><td>Proposta central</td><td>Arte pela arte — beleza formal objetiva e visível</td><td>Sugestão do invisível — experiência espiritual e subconsciente</td></tr>
+        <tr><td>Linguagem</td><td>Precisa, objetiva, vocabulário raro mas definido</td><td>Vaga, sugestiva, ambígua — musicalidade prevalece sobre clareza</td></tr>
+        <tr><td>Tom</td><td>Impassível, frio, artesanal</td><td>Místico, onírico, angustiado, espiritualizado</td></tr>
+        <tr><td>Figuras centrais</td><td>Metáfora descritiva, perífrase</td><td><strong>Sinestesia</strong>, símbolo, aliteração, assonância</td></tr>
+        <tr><td>Temas</td><td>Natureza clássica, objetos, mitologia</td><td>Morte, espiritualidade, subconsciente, devaneio, infinito</td></tr>
+        <tr><td>Forma</td><td>Rígida, metro fixo, rimas ricas</td><td>Musicalidade irregular, rimas raras, versos sugestivos</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>11.2 Cruz e Sousa — O "Dante Negro"</h2>
+  <p>João da Cruz e Sousa (1861–1898) é o maior poeta simbolista brasileiro e uma das vozes mais originais de toda a literatura em língua portuguesa. Filho de escravos libertos de Santa Catarina, sofreu discriminação racial sistemática durante toda a vida — foi impedido de exercer cargos públicos, de publicar em periódicos de prestígio, de se casar com quem amava. Sua poesia une a <strong>angústia existencial e o sofrimento racial</strong> à técnica simbolista de alto refinamento. Abaurre e Pontara destacam que em Cruz e Sousa a busca pela transcendência espiritual tem uma dimensão extra além do simbolismo europeu: é também uma fuga da condição racial opressiva. Cereja e Magalhães o comparam a Antero de Quental (poeta português) e Augusto dos Anjos pela profundidade filosófica e angústia metafísica.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Cruz e Sousa — Perfil completo para identificação na EsPCEx</div>
+    <ul>
+      <li><strong>Escola:</strong> Simbolismo — marco com <em>Broquéis</em> (1893) e <em>Missal</em> (1893 — poemas em prosa)</li>
+      <li><strong>Drama pessoal — chave para identificação:</strong> filho de escravos libertos; racismo sistemático ao longo da vida; angústia que mistura sofrimento existencial e sofrimento racial</li>
+      <li><strong>Temas centrais:</strong> transcendência espiritual, desejo de fugir da realidade material e integrar-se ao cosmo, angústia metafísica, sofrimento existencial profundo</li>
+      <li><strong>Características formais:</strong> aliteração intensa, musicalidade obsessiva, sinestesia, vocabulário raro e evocativo</li>
+      <li><strong>Apelidos:</strong> "Dante Negro" e "Cisne Negro"</li>
+      <li><strong>Questão EsPCEx 2025:</strong> a banca descreveu Cruz e Sousa sem nomear — "juntamente com Antero de Quental e Augusto dos Anjos... investigação filosófica e angústia metafísica... drama racial e pessoal" — e pediu que o candidato identificasse o autor. Gabarito: Cruz e Sousa.</li>
+    </ul>
+  </div>
+
+  <div class="trecho-lit">
+    "Vozes veladas, veludosas vozes,<br>
+    Volúpias dos violões, vozes veladas,<br>
+    Vagam nos velhos vórtices velozes<br>
+    Dos ventos, vivas, vãs, vulcanizadas."
+    <cite>— Cruz e Sousa, "Violões que choram" — aliteração em V: recurso simbolista de musicalidade onomatopaica. O som do verso imita o som do violão.</cite>
+  </div>
+
+  <h2>11.3 Alphonsus de Guimaraens e "Ismália"</h2>
+  <p>Alphonsus de Guimaraens (1870–1921) é o segundo grande nome do Simbolismo brasileiro. Sua poesia é marcada pelo misticismo católico, pela presença constante da morte e da figura feminina idealizada. "Ismália" é o poema mais cobrado da EsPCEx no Simbolismo: narra uma jovem que, em devaneio místico, tenta alcançar a lua (o espiritual) e o sol (o terreno) e acaba morrendo — símbolo do conflito entre o divino e o humano. Características simbolistas evidentes: musicalidade, ambiguidade, símbolo (lua = espiritualidade), atmosfera onírica e melancólica.</p>
+
+  <h2>11.4 Sinestesia — A Figura Central do Simbolismo</h2>
+  <p>A sinestesia é a mistura de sensações de diferentes sentidos num mesmo enunciado. É a figura de linguagem <em>por excelência</em> do Simbolismo — inspirada pela ideia de Baudelaire em "Correspondances" de que o mundo sensível é uma floresta de símbolos que se correspondem entre si: perfumes, cores e sons comunicam-se sinestesicamente. Para a EsPCEx: identificar sinestesia = identificar Simbolismo.</p>
+
+  <div class="box-dica">
+    <div class="box-titulo">💡 Como identificar sinestesia com segurança</div>
+    <p>A sinestesia sempre mistura <strong>dois sentidos diferentes</strong> num mesmo sintagma. Pergunte: que sentido está na função de sujeito/agente? Que sentido está na função de objeto/resultado? Se os dois são de sentidos diferentes (audição + visão, olfato + audição, tato + visão etc.), é sinestesia.</p>
+    <ul>
+      <li>"O perfume de sua voz" = olfato + audição → <strong>sinestesia</strong></li>
+      <li>"Silêncio colorido" = audição + visão → <strong>sinestesia</strong></li>
+      <li>"O sabor das palavras" = gustação + audição → <strong>sinestesia</strong></li>
+      <li>"A luz quente do sol" = visão + tato → <strong>sinestesia</strong></li>
+      <li>"A música suave" = audição + tato → <strong>sinestesia</strong></li>
+    </ul>
+  </div>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra este tema</div>
+    <h4>"Ismália", Cruz e Sousa e a sinestesia simbolista</h4>
+    <p>A EsPCEx usa três abordagens: (1) poema "Ismália" com análise de características simbolistas (musicalidade, misticismo, símbolo lua); (2) fragmento de Cruz e Sousa com identificação de aliteração ou sinestesia; (3) <strong>descrição de Cruz e Sousa pedindo identificação do autor</strong> — como na prova 2025.</p>
+    <div class="frag">"Juntamente com o poeta português Antero de Quental e o pré-modernista Augusto dos Anjos, apresenta uma das poéticas de maior profundidade em língua portuguesa... Além disso, certas posturas verificadas em sua poesia — o desejo de fugir da realidade, de transcender a matéria... — parecem originar-se não apenas do sentimento de opressão e mal-estar produzido pelo capitalismo, mas também do drama racial e pessoal que o autor vivia. Assinale a alternativa que nomeia o autor descrito: C) Cruz e Sousa." <cite>EsPCEx 2025 — Gabarito: C</cite></div>
+    <p><strong>Para nunca confundir:</strong> Cruz e Sousa = Simbolismo + drama racial + angústia metafísica. Augusto dos Anjos = Pré-Modernismo + vocabulário científico + dualismo ciência × fé. São contemporâneos mas de escolas diferentes.</p>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 12 ══════════════ -->
+<div class="chapter" id="mod12">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 12</div>
+    <div class="ch-titulo">Pré-Modernismo</div>
+    <div class="ch-periodo">1902 — 1922 · Transição e Crítica Social</div>
+    <div class="ch-qcount">🎯 6 questões EsPCEx neste módulo</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>O que a EsPCEx cobra?</h3>
+    <p>Com 6 questões, este é um dos módulos mais densos. A EsPCEx explora: Euclides da Cunha (<em>Os Sertões</em>), Lima Barreto (crítica social), Monteiro Lobato (Jeca Tatu), e especialmente <strong>Augusto dos Anjos</strong> — o dualismo racionalismo científico × religiosidade, cobrado diretamente com análise de poema na prova 2024. O tema recorrente é também a <strong>definição do Pré-Modernismo</strong> como transição sem coesão estética.</p>
+  </div>
+
+  <h2>12.1 O Pré-Modernismo — Uma Geração de Transição</h2>
+  <p>O Pré-Modernismo (1902–1922) não é um movimento literário organizado com proposta estética comum. É um período de <strong>transição e tensão</strong>: os autores já não se satisfazem com o Parnasianismo, o Simbolismo ou o Realismo — mas ainda não têm os instrumentos estéticos da ruptura modernista. O que os une é a <strong>crítica social</strong>, a atenção às margens da sociedade brasileira (o sertão, os pobres, os excluídos) e uma linguagem que começa a se afastar dos padrões cultos europeus. Cereja e Magalhães destacam que o Pré-Modernismo preparou o terreno para 1922: sem <em>Os Sertões</em>, sem Lima Barreto, sem Lobato, a Semana de Arte Moderna teria menos substância crítica.</p>
+
+  <div class="box-atencao">
+    <div class="box-titulo">⚠️ Armadilha clássica da EsPCEx sobre o Pré-Modernismo</div>
+    <p>A banca planta frequentemente a afirmativa: <strong>"O Pré-Modernismo representa um movimento literário coeso, com manifesto definido e proposta estética comum a todos seus representantes."</strong> Isso é <span class="dest-verm">FALSO</span>. O Pré-Modernismo é uma geração de transição — sem coesão estética, sem manifesto, sem escola organizada. O que une esses autores é apenas o período cronológico e a crítica social. A alternativa correta sempre nega essa coesão.</p>
+  </div>
+
+  <h2>12.2 Euclides da Cunha — Os Sertões</h2>
+  <p>Euclides da Cunha (1866–1909) publicou <em>Os Sertões</em> em 1902 — marco inaugural do Pré-Modernismo. A obra narra a <strong>Guerra de Canudos</strong> (1896–1897) — o conflito entre o exército brasileiro e o grupo de sertanejos liderado pelo beato Antônio Conselheiro no sertão da Bahia. Euclides foi repórter de guerra e transformou o relato jornalístico numa obra monumental de literatura, sociologia e história. A estrutura divide-se em três partes: <strong>A Terra</strong> (geografia do sertão — determinismo geográfico), <strong>O Homem</strong> (o sertanejo e sua formação racial) e <strong>A Luta</strong> (o conflito armado). A frase mais famosa: "O sertanejo é, antes de tudo, um forte" — paradoxal porque esses "fortes" foram massacrados.</p>
+
+  <h2>12.3 Lima Barreto — O Quixote das Margens</h2>
+  <p>Afonso Henriques de Lima Barreto (1881–1922) é o mais combativo dos pré-modernistas. Mulato, pobre, alcoólatra e marginalizado pela sociedade letrada de sua época, usou a literatura para criticar com ironia corrosiva o preconceito racial, a burocracia estéril e a hipocrisia da Belle Époque carioca. <em>Triste Fim de Policarpo Quaresma</em> (1915) é sua obra mais importante: um idealista patriota que vai sendo destruído pelas instituições que tentava melhorar — alegoria amarga da frustração republicana brasileira.</p>
+
+  <h2>12.4 Monteiro Lobato — O Jeca Tatu e a Crítica Rural</h2>
+  <p>José Bento Monteiro Lobato (1882–1948) ficou mais conhecido pelas histórias do Sítio do Picapau Amarelo, mas sua importância no Pré-Modernismo vem da criação do personagem <strong>Jeca Tatu</strong> — o caipira preguiçoso e atrasado que seria, segundo Lobato, o retrato real do homem rural brasileiro (em oposição ao índio idealizado do Romantismo). Lobato depois reviu sua posição: o Jeca não é preguiçoso por natureza, mas por doença (ancilostomíase) e abandono do Estado — uma crítica social disfarçada inicialmente de estereótipo.</p>
+
+  <h2>12.5 Augusto dos Anjos — O Dualismo Ciência × Fé</h2>
+  <p>Augusto dos Anjos (1884–1914) é um caso único na literatura brasileira. Esteticamente usa formas clássicas (sonetos, décimas com metro rigoroso), mas com temática radicalmente sombria — decomposição da matéria, morte, niilismo, angústia existencial. Seu único livro, <em>Eu</em> (1912), usa vocabulário científico (protoplasma, vermiculações, anátema, efêmero) em poemas de forma clássica — criando um efeito único de horror intelectualizado. Cereja e Magalhães destacam que a originalidade de Augusto dos Anjos está na tensão entre dois mundos em conflito: o <strong>racionalismo científico positivista</strong> (que nega Deus e o espírito) e a <strong>religiosidade</strong> que persiste no íntimo do poeta — uma dualidade que a EsPCEx cobrou diretamente na prova 2024.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Augusto dos Anjos — Perfil completo para a EsPCEx</div>
+    <ul>
+      <li><strong>Período:</strong> Pré-Modernismo (1902–1922)</li>
+      <li><strong>Obra central:</strong> <em>Eu</em> (1912) — único livro publicado em vida</li>
+      <li><strong>Forma:</strong> soneto, décima — forma clássica rigorosa (NÃO é parnasiano — a temática é oposta ao ideal de beleza parnasiana)</li>
+      <li><strong>Dualidade central cobrada pela EsPCEx:</strong> racionalismo científico (influência do positivismo e do darwinismo) × religiosidade interior — o poeta nega Deus racionalmente, mas o busca existencialmente</li>
+      <li><strong>Vocabulário característico:</strong> termos científicos e filosóficos em contexto poético — protoplasma, vermiculações, anátema, efêmero, crisálida</li>
+      <li><strong>Temas:</strong> morte, decomposição da matéria, niilismo, angústia existencial, sofrimento</li>
+      <li><strong>Não confundir com Cruz e Sousa:</strong> Cruz e Sousa é Simbolismo + drama racial. Augusto dos Anjos é Pré-Modernismo + vocabulário científico + dualismo ciência × fé.</li>
+    </ul>
+  </div>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra Augusto dos Anjos</div>
+    <h4>Questão 2024 — Poema "A árvore da serra"</h4>
+    <p>A EsPCEx 2024 apresentou o soneto "A árvore da serra" e pediu para identificar a característica que melhor define a poesia de Augusto dos Anjos. As alternativas foram cuidadosamente construídas para confundir cada escola literária:</p>
+    <ul>
+      <li><strong>A) "A dramatização evidente no soneto representa a dualidade presente na alma do poeta entre o racionalismo de base científica e a religiosidade que persistia em seu íntimo."</strong> → <span class="dest-verde">CORRETA</span> — captura exatamente o dualismo central de Augusto dos Anjos.</li>
+      <li><strong>B) "A natureza no soneto ilustra a busca do indivíduo pelo esforço acolhedor, pelo lugar ameno."</strong> → ERRADA — locus amoenus é característica do <em>Arcadismo</em>.</li>
+      <li><strong>C) "Afirma uma crença no progresso da humanidade, no triunfo do belo."</strong> → ERRADA — Augusto dos Anjos é pessimista; crença no progresso é do <em>Parnasianismo/Positivismo</em>.</li>
+      <li><strong>D) "Os versos são repletos de sinestesias e hipérbatos que valorizam uma experiência sensorial."</strong> → ERRADA — sinestesia é característica central do <em>Simbolismo</em>.</li>
+      <li><strong>E) "Apresenta visão antropocêntrica ao recuperar modelos da Antiguidade Clássica."</strong> → ERRADA — antropocentrismo clássico é do <em>Classicismo/Renascimento</em>.</li>
+    </ul>
+    <div class="frag">"Assinale a única alternativa que caracteriza a poesia de Augusto dos Anjos: A) A dramatização evidente no soneto representa a dualidade presente na alma do poeta entre o racionalismo de base científica e a religiosidade que persistia em seu íntimo." <cite>EsPCEx 2024 — Gabarito: A</cite></div>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 13 ══════════════ -->
+<div class="chapter" id="mod13">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 13</div>
+    <div class="ch-titulo">Vanguardas Europeias</div>
+    <div class="ch-periodo">1909 — 1922 · Contexto Internacional da Semana de Arte Moderna</div>
+    <div class="ch-qcount">⚠️ Contexto para o Módulo 14 — estude como suporte</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>Por que as Vanguardas importam para a EsPCEx?</h3>
+    <p>As Vanguardas raramente aparecem em questões isoladas. Mas compreendê-las é fundamental para entender o que motivou a Semana de Arte Moderna de 1922 e o Modernismo brasileiro. Questões sobre o Módulo 14 podem exigir que o candidato relacione o Modernismo brasileiro com suas influências europeias.</p>
+  </div>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Vanguarda</th><th>Origem / Data</th><th>Proposta central</th><th>Influência no Brasil</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Futurismo</strong></td><td>Itália, 1909 (Marinetti)</td><td>Glorificação da velocidade, da máquina, da violência. Destruição do passado e dos museus.</td><td>Oswald de Andrade leu Marinetti em Paris. Influência na ruptura com o passado literário.</td></tr>
+        <tr><td><strong>Cubismo</strong></td><td>França, 1907 (Picasso)</td><td>Fragmentação e múltiplos pontos de vista simultâneos. Desconstrução da forma.</td><td>Influência na poesia visual e fragmentação da narrativa modernista.</td></tr>
+        <tr><td><strong>Dadaísmo</strong></td><td>Suíça, 1916 (Tzara)</td><td>Anti-arte. Negação de todos os valores estéticos. Absurdo como resposta à Primeira Guerra.</td><td>Influência no humor nonsense e na ironia de Oswald de Andrade.</td></tr>
+        <tr><td><strong>Surrealismo</strong></td><td>França, 1924 (Breton)</td><td>Valorização do inconsciente, dos sonhos, do automatismo psíquico.</td><td>Influência na poesia da 2ª Geração (Murilo Mendes) e na prosa de Clarice Lispector.</td></tr>
+        <tr><td><strong>Expressionismo</strong></td><td>Alemanha, 1905</td><td>Expressão exacerbada das emoções internas. Distorção da realidade pela subjetividade.</td><td>Influência na ficção intensa da 3ª Geração modernista.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="box-dica">
+    <div class="box-titulo">💡 O essencial para a EsPCEx — Apenas uma associação obrigatória</div>
+    <p>Memorize: <strong>Futurismo = velocidade + máquina + Marinetti + 1909</strong>. É a vanguarda mais citada em questões. As demais aparecem como contexto para o Modernismo brasileiro. A Semana de Arte Moderna de 1922 foi inspirada pelas vanguardas, mas não foi uma cópia: os modernistas brasileiros queriam uma arte simultaneamente universal e profundamente <em>brasileira</em>.</p>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ MÓDULO 14 ══════════════ -->
+<div class="chapter" id="mod14">
+  <div class="ch-header">
+    <div class="ch-num">MÓDULO 14</div>
+    <div class="ch-titulo">Modernismo Brasileiro</div>
+    <div class="ch-periodo">1922 — contemporâneo · Semana de Arte Moderna e as Três Gerações</div>
+    <div class="ch-qcount">🎯 8 questões EsPCEx — o módulo mais cobrado de toda a prova</div>
+  </div>
+
+  <div class="intro-clara">
+    <h3>Por que o Modernismo é o módulo mais importante?</h3>
+    <p>Com 8 questões, é o módulo de maior peso. A banca cobra: a Semana de 1922 e seus participantes; as três gerações e seus autores; análise de poemas de Bandeira, Drummond e outros; Cecília Meireles e suas formas fixas dentro do Modernismo; o romance nordestino; Guimarães Rosa; a crônica de Rubem Braga; e a oposição Modernismo × Parnasianismo. Nenhum módulo exige mais horas de estudo.</p>
+  </div>
+
+  <h2>14.1 A Semana de Arte Moderna de 1922</h2>
+  <p>A <strong>Semana de Arte Moderna</strong> realizou-se nos dias 13, 15 e 17 de fevereiro de 1922, no Teatro Municipal de São Paulo, em comemoração ao centenário da Independência do Brasil. Foi uma série de apresentações de música, poesia, artes plásticas e conferências que chocou o público conservador e marcou oficialmente o início do Modernismo brasileiro. Cereja e Magalhães destacam que a Semana não foi espontânea — foi planejada e tinha um programa: <strong>destruir o academismo parnasiano, libertar a arte brasileira dos modelos europeus do séc. XIX e criar uma arte simultaneamente moderna e profundamente nacional</strong>.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 A Semana de 1922 — Dados para memorizar</div>
+    <ul>
+      <li><strong>Datas:</strong> 13, 15 e 17 de fevereiro de 1922</li>
+      <li><strong>Local:</strong> Teatro Municipal de São Paulo</li>
+      <li><strong>Contexto:</strong> Centenário da Independência do Brasil (1822–1922)</li>
+      <li><strong>Organizadores principais:</strong> Mário de Andrade, Oswald de Andrade, Di Cavalcanti (artes plásticas), Menotti del Picchia</li>
+      <li><strong>Reação do público:</strong> vaias, protestos, incompreensão — a ruptura foi chocante para o público acostumado ao academismo parnasiano</li>
+      <li><strong>Manifestos posteriores:</strong> "Pau-Brasil" (Oswald, 1924) e "Antropofagia" (Oswald, 1928)</li>
+    </ul>
+  </div>
+
+  <h2>14.2 As Três Gerações Modernistas — Tabela Completa</h2>
+
+  <div class="tabela-wrap">
+    <table>
+      <thead><tr><th>Geração</th><th>Período</th><th>Características</th><th>Autores centrais</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1ª Geração</strong> (Fase heroica)</td><td>1922–1930</td><td>Ruptura formal com o Parnasianismo; humor e irreverência; verso livre; linguagem coloquial; nacionalismo crítico; experimentação radical. O "não" antes do "sim".</td><td>Mário de Andrade, Oswald de Andrade, Manuel Bandeira, Menotti del Picchia</td></tr>
+        <tr><td><strong>2ª Geração</strong> (Fase de consolidação)</td><td>1930–1945</td><td>Maior seriedade e aprofundamento filosófico; romance regional nordestino; poesia engajada social e existencial; <strong>Cecília Meireles mantém formas fixas</strong> — caso único no Modernismo.</td><td>Carlos Drummond de Andrade, Cecília Meireles, Jorge Amado, Graciliano Ramos, Rachel de Queiroz, José Lins do Rego, Érico Veríssimo</td></tr>
+        <tr><td><strong>3ª Geração</strong> (Pós-Modernismo)</td><td>1945–</td><td>Busca pelo universal, intimismo, inovação linguística radical, prosa introspectiva. O regionalismo se transforma em metáfora universal.</td><td>João Guimarães Rosa, Clarice Lispector, Rubem Braga, João Cabral de Melo Neto</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>14.3 Mário de Andrade — A Inteligência do Modernismo</h2>
+  <p>Mário de Andrade (1893–1945) é o principal teórico e organizador do Modernismo. Sua obra maior é <em>Macunaíma</em> (1928) — "herói sem nenhum caráter" que representa o povo brasileiro em toda sua mistura racial e cultural. <em>Macunaíma</em> é uma <strong>rapsódia</strong> — texto que mistura gêneros, estilos, lendas indígenas, expressões populares e erudição modernista. Não é um romance no sentido convencional, não é um conto, não é uma epopeia — é um gênero híbrido criado por Mário para dar forma literária à identidade plural do Brasil.</p>
+
+  <h2>14.4 Oswald de Andrade — A Irreverência Antropofágica</h2>
+  <p>Oswald de Andrade (1890–1954) é o mais provocador dos modernistas. Seus manifestos são seus textos mais importantes: o "Manifesto da Poesia Pau-Brasil" (1924) propõe que o Brasil exporte sua originalidade cultural como exportou o pau-brasil — matéria-prima genuína; o "Manifesto Antropófago" (1928) propõe <em>devorar</em> a cultura europeia — assim como os índios Tupinambás devoravam seus inimigos para incorporar sua força. A Antropofagia é a metáfora perfeita da relação do Brasil com a cultura europeia: não copiar nem rejeitar, mas <em>digerir e transformar</em>.</p>
+
+  <h2>14.5 Manuel Bandeira — O Poeta do Cotidiano</h2>
+  <p>Manuel Bandeira (1886–1968) é o poeta mais amado do Modernismo brasileiro. Sua poesia parte do cotidiano — a rua, a infância, o corpo doente (tuberculose que o acompanhou toda a vida), a cidade — e eleva o prosaico à dignidade da arte. Sua contribuição fundamental: mostrar que o trivial, o coloquial e o autobiográfico são matéria poética legítima. O poema "Evocação do Recife" (EsPCEx 2025) defende explicitamente o uso do <strong>português falado no Brasil</strong> como língua literária — "a língua errada do povo / Língua certa do povo" — proposta central da 1ª geração modernista.</p>
+
+  <div class="trecho-lit">
+    "Estou farto do lirismo comedido<br>
+    Do lirismo bem comportado<br>
+    Do lirismo funcionário público<br>
+    com livro de ponto expediente protocolo e manifestações de apreço ao Sr. diretor"
+    <cite>— Manuel Bandeira, "Poética" — ruptura explícita com a poesia acadêmica/parnasiana; verso livre sem pontuação; linguagem coloquial irônica; o "lirismo funcionário público" = o Parnasianismo.</cite>
+  </div>
+
+  <h2>14.6 Carlos Drummond de Andrade — A Pedra no Caminho</h2>
+  <p>Carlos Drummond de Andrade (1902–1987) é o maior poeta brasileiro do séc. XX. Sua poesia percorre três fases: (1) <strong>fase gauche e individual</strong> — sentimento de inadaptação ao mundo ("No meio do caminho tinha uma pedra"); (2) <strong>fase social e engajada</strong> (anos 1940–50) — antifascismo, humanismo coletivo; (3) <strong>fase filosófico-existencial</strong> — reflexão sobre morte, amor, memória. A "pedra" do poema "No meio do caminho" (1928) é um símbolo multifacetado: os obstáculos da vida, a resistência do mundo ao indivíduo, a persistência da memória.</p>
+
+  <h2>14.7 Cecília Meireles — A Poeta das Formas Fixas no Modernismo</h2>
+  <p>Cecília Meireles (1901–1964) é a maior poeta da 2ª Geração modernista e um dos casos mais singulares de toda a literatura brasileira. Sua singularidade fundamental: <strong>sendo modernista, manteve formas métricas fixas</strong> — metros regulados, rimas, estrofes organizadas — enquanto a maioria dos modernistas adotava o verso livre. Abaurre e Pontara explicam que essa escolha não é conservadorismo, mas uma opção estética consciente: Cecília usa a forma clássica como contraponto à fluidez e à melancolia de seu conteúdo — o tempo que passa, a memória, a saudade, a efemeridade da vida. Cereja e Magalhães destacam que sua poesia transita entre o <strong>lirismo intimista</strong>, o <strong>misticismo</strong> e a <strong>reflexão filosófica</strong>, com musicalidade impecável que a aproxima do Simbolismo.</p>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Cecília Meireles — Perfil completo para a EsPCEx</div>
+    <ul>
+      <li><strong>Geração:</strong> 2ª Geração do Modernismo (1930–1945)</li>
+      <li><strong>Paradoxo fundamental:</strong> modernista que manteve formas fixas (metro, rima, estrofes regulares) — o que a distingue de Drummond e Bandeira</li>
+      <li><strong>Temas centrais:</strong> efemeridade do tempo, memória e saudade, espiritualidade, infância perdida, solidão, morte como libertação</li>
+      <li><strong>Forma predominante:</strong> redondilha maior (7 sílabas), soneto, quadras — sempre com musicalidade rigorosa</li>
+      <li><strong>Influência do Simbolismo:</strong> musicalidade, sugestão, atmosfera melancólica — mas mais clara e menos hermética que Cruz e Sousa</li>
+      <li><strong>Obra mais cobrada:</strong> <em>Vaga Música</em> (1942) — contém "Encomenda"</li>
+      <li><strong>Outra obra importante:</strong> <em>Romanceiro da Inconfidência</em> (1953) — poesia épico-lírica sobre Tiradentes e a Inconfidência Mineira</li>
+    </ul>
+  </div>
+
+  <h3>Análise Completa de "Encomenda" — O Poema mais Cobrado da EsPCEx</h3>
+  <p>"Encomenda" é uma meditação sobre identidade, tempo e o desejo de ser lembrado de forma particular. O eu-lírico pede ao fotógrafo que registre não apenas a aparência, mas a essência — o sorriso eterno, a ruga que confere sabedoria, a ausência de cenários artificiais. A imagem final — "ponha uma cadeira vazia" — é a mais carregada: a cadeira vazia simboliza a ausência, o espaço deixado pela morte, o vazio que permanece quando a pessoa parte.</p>
+
+  <div class="trecho-lit">
+    "Desejo uma fotografia<br>
+    como esta — o senhor vê? — como esta:<br>
+    em que para sempre me ria<br>
+    como um vestido de eterna festa.<br><br>
+    Como tenho a testa sombria,<br>
+    derrame luz na minha testa.<br>
+    Deixe esta ruga, que me empresta<br>
+    um certo ar de sabedoria.<br><br>
+    Não meta fundos de floresta<br>
+    nem de arbitrária fantasia...<br>
+    Não... Neste espaço que ainda resta,<br>
+    ponha uma cadeira vazia."
+    <cite>— Cecília Meireles, "Encomenda" (In: Vaga Música, 1942)</cite>
+  </div>
+
+  <div class="box-resumo">
+    <div class="box-titulo">📋 Análise formal de "Encomenda" — Para nunca errar na EsPCEx</div>
+    <ul>
+      <li><strong>Estrutura:</strong> 3 estrofes de 4 versos cada = <strong>12 versos no total → NÃO É SONETO</strong> (soneto = 14 versos obrigatoriamente)</li>
+      <li><strong>Metro:</strong> "De-se-jo u-ma fo-to-grá-fi-a" → tônica em "grá" = 7ª posição = <strong>redondilha maior</strong> (NÃO decassílabo)</li>
+      <li><strong>Rimas:</strong> 1ª estrofe ABAB (alternada); 2ª estrofe ABBA (interpolada) → o poema mistura os dois esquemas</li>
+      <li><strong>Antítese na 2ª estrofe:</strong> "testa sombria" (escuridão) × "derrame luz" (claridade) — figura cobrada pela EsPCEx como afirmativa CORRETA</li>
+      <li><strong>Tom modernista:</strong> coloquialidade ("o senhor vê?"), diálogo direto, tema cotidiano (uma fotografia) elevado à reflexão existencial</li>
+      <li><strong>Paradoxo da forma:</strong> o poema usa formas métricas fixas (metro + rimas) dentro do Modernismo — isso é a marca singular de Cecília</li>
+    </ul>
+  </div>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra Cecília Meireles — Questão completa de 2022</div>
+    <h4>As cinco afirmativas sobre "Encomenda" — Gabarito comentado</h4>
+    <div class="frag">"I – A composição do poema é feita em forma de soneto. → ERRADA: 12 versos ≠ soneto (soneto = 14 versos = 2 quartetos + 2 tercetos). II – Na segunda estrofe, o eu poético lança mão da antítese. → CORRETA: 'testa sombria' × 'derrame luz'. III – Na construção dos versos, optou-se pela composição em redondilhas maiores. → CORRETA: 7 sílabas poéticas por verso. IV – Como recurso de musicalidade, há o emprego de rima alternada e de rima interpolada. → CORRETA: ABAB na 1ª estrofe + ABBA na 2ª. V – Tendo em vista se tratar de um poema do Modernismo brasileiro, optou-se pela construção em versos brancos. → ERRADA: há rimas — ser modernista NÃO obriga usar versos brancos." <cite>EsPCEx 2022 — Gabarito: A (afirmativas II e IV corretas)</cite></div>
+    <p><strong>Síntese das três armadilhas desta questão:</strong> (1) 12 versos ≠ soneto; (2) 7 sílabas = redondilha maior, não decassílabo; (3) modernista com rimas ≠ impossibilidade — Cecília escolheu manter formas fixas. Quem sabe esses três pontos acerta a questão.</p>
+  </div>
+
+  <h2>14.8 A 2ª Geração — Romance Nordestino</h2>
+  <p>A 2ª Geração modernista (anos 1930) produziu o grande romance brasileiro do séc. XX — especialmente o <strong>romance nordestino</strong>. Os principais: <strong>Graciliano Ramos</strong> (<em>Vidas Secas</em>, 1938 — família de retirantes; linguagem seca e dura como o sertão nordestino); <strong>Rachel de Queiroz</strong> (<em>O Quinze</em>, 1930 — a primeira mulher a ingressar na Academia Brasileira de Letras); <strong>José Lins do Rego</strong> (<em>Fogo Morto</em> — ciclo da cana-de-açúcar); <strong>Jorge Amado</strong> (<em>Capitães da Areia</em> — meninos de rua em Salvador). Todos compartilham: realismo social, foco nas classes populares, denúncia das condições de vida no Nordeste, linguagem acessível. <strong>Para a EsPCEx: romance nordestino = 2ª geração + realismo social + seca + nordeste + denúncia.</strong></p>
+
+  <h2>14.9 Guimarães Rosa — O Sertão como Metáfora Universal</h2>
+  <p>João Guimarães Rosa (1908–1967) é o maior inovador da prosa brasileira do séc. XX. <em>Grande Sertão: Veredas</em> (1956) é sua obra-prima: um longo monólogo do jagunço Riobaldo sobre o sertão mineiro, o pacto com o diabo e a natureza do mal. A linguagem de Guimarães Rosa é radicalmente criativa — neologismos, arcaísmos, regionalismos, sintaxe inventada. Abaurre e Pontara destacam que o regionalismo de Guimarães Rosa transcende o local: o sertão é metáfora do mundo, e as questões dos jagunços são questões universais da existência. Isso distingue Guimarães Rosa do romance nordestino da 2ª geração: onde Graciliano denuncia, Guimarães Rosa filosofa. A EsPCEx 2022 cobrou exatamente isso — fragmento de <em>Grande Sertão</em> com a frase "O sertão está em toda a parte" e alternativa correta afirmando a dimensão universal do regionalismo roseano.</p>
+
+  <h2>14.10 Rubem Braga — A Crônica como Arte</h2>
+  <p>Rubem Braga (1913–1990) é o maior cronista brasileiro. A crônica é o gênero literário que Braga elevou à categoria de arte maior: textos curtos, publicados em jornais, que partem de um fato cotidiano para uma reflexão lírica ou filosófica. O estilo de Braga é marcado pela <strong>precisão vocabular</strong> — cada advérbio, cada conjunção é escolhida com o cuidado de um poeta. A EsPCEx já cobrou o uso de uma palavra específica em uma crônica de Braga, testando se o candidato percebia seu valor expressivo no contexto.</p>
+
+  <div class="espcex-box">
+    <div class="espcex-box-titulo">Como a EsPCEx cobra o Modernismo — Seis abordagens</div>
+    <h4>Resumo das abordagens das provas 2022, 2023, 2024 e 2025</h4>
+    <ul>
+      <li><strong>1. Associação autor × geração:</strong> "Drummond e Cecília Meireles = 2ª geração; Guimarães Rosa e Clarice = 3ª geração".</li>
+      <li><strong>2. Análise de poema modernista:</strong> fragmento de Bandeira ou Drummond com identificação das características — verso livre, prosaico, coloquial.</li>
+      <li><strong>3. Evocação do Recife (Bandeira — EsPCEx 2025):</strong> uso do português coloquial como língua literária legítima = proposta da 1ª geração.</li>
+      <li><strong>4. Manuel Bandeira no Modernismo (EsPCEx 2025):</strong> mesmo sem postura radical, tornou-se um dos mais importantes da 1ª fase — posição intermediária singular.</li>
+      <li><strong>5. Grande Sertão (EsPCEx 2022):</strong> regionalismo universal — o sertão como metáfora do mundo.</li>
+      <li><strong>6. Cecília Meireles e formas fixas (EsPCEx 2022):</strong> modernista que manteve metro e rimas — as três armadilhas da questão "Encomenda".</li>
+    </ul>
+    <div class="frag">"Nesse poema [Evocação do Recife], evidencia-se a consolidação da seguinte proposta da primeira geração do Modernismo brasileiro: B) Usar o português falado no Brasil, defendendo-o como língua literária." <cite>EsPCEx 2025 — Gabarito: B</cite></div>
+    <div class="frag">"Sobre Manuel Bandeira, assinale a alternativa correta: C) Mesmo sem apresentar, em relação à cultura do passado, a postura radical da maioria dos jovens rebeldes, Bandeira tornou-se um dos três mais importantes escritores da primeira fase do movimento modernista, além de um dos pontos mais altos da poesia lírica nacional." <cite>EsPCEx 2025 — Gabarito: C</cite></div>
+  </div>
+
+  <div class="box-atencao">
+    <div class="box-titulo">⚠️ Armadilhas do Modernismo — Tudo que já caiu na EsPCEx</div>
+    <ul>
+      <li><strong>Cecília Meireles usa formas fixas (metro + rima)</strong> sendo modernista da 2ª geração. Ser modernista NÃO significa abandono obrigatório da forma.</li>
+      <li><strong>"Encomenda" NÃO é soneto</strong> — tem 12 versos (3 quartetos), não 14.</li>
+      <li><strong>Redondilha maior = 7 sílabas</strong> (NÃO decassílabo = 10 sílabas).</li>
+      <li><strong>"Os Sapos" é de Manuel Bandeira</strong> — não de Drummond. Alternativa errada já plantou essa confusão.</li>
+      <li><strong>Modernismo ≠ apenas ruptura formal.</strong> Tem também um projeto nacional de repensar a identidade brasileira.</li>
+      <li><strong>Oswald de Andrade ≠ Mário de Andrade.</strong> Oswald = irreverência + paródia + Antropofagia. Mário = teoria + <em>Macunaíma</em> + musicologia + rigor intelectual.</li>
+      <li><strong>"Macunaíma" é uma rapsódia</strong> — não romance convencional, não conto, não epopeia.</li>
+      <li><strong>Guimarães Rosa é 3ª geração</strong> — não é romance nordestino da 2ª geração (Graciliano, Rachel, Jorge Amado).</li>
+      <li><strong>Cruz e Sousa = Simbolismo</strong> (drama racial + angústia metafísica). Não confundir com Pré-Modernismo.</li>
+    </ul>
+  </div>
+
+  <div class="voltar"><a href="#sumario">↑ Voltar ao Sumário</a></div>
+</div>
+
+<!-- ══════════════ RODAPÉ ══════════════ -->
+<div style="background:var(--azul-esc);color:rgba(255,255,255,.5);text-align:center;padding:36px var(--mg);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;line-height:2.2;">
+  <div style="color:var(--azul-v);font-size:15px;font-weight:700;margin-bottom:8px;font-family:'Playfair Display',serif;letter-spacing:.04em;">GUIA PREPARATÓRIO CAPITÃO VALDIR</div>
+  <div>LIVRO-TEXTO DE LITERATURA · EsPCEx · EDIÇÃO ATUALIZADA</div>
+  <div style="margin-top:8px;">Baseado em Cereja &amp; Magalhães — <em>Português: linguagens</em></div>
+  <div>e Abaurre &amp; Pontara — <em>Português: contexto, interlocução e sentido</em></div>
+  <div style="margin-top:12px;color:rgba(255,255,255,.22);font-size:10px;">14 Módulos · Linha do Tempo · Versificação Completa · Cecília Meireles · Questões Comentadas das Provas 2022–2025</div>
+  <div style="margin-top:6px;color:rgba(255,255,255,.18);font-size:10px;">Material didático de preparação · Uso exclusivo para estudo · EsPCEx — Escola Preparatória de Cadetes do Exército</div>
+</div>
+
+</div><!-- /page -->
+</body>
+</html>
