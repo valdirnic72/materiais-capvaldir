@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EsPCEx — Português · Foco no que Mais Cai + Dicas de Ouro (2021–2025)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --lj:#BF4A00;--lj-l:#F57F17;--lj-d:#993300;--lj-bg:#FFF3E0;--lj-xbg:#FFF8F0;
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-l:#43A047;--verde-bg:#E8F5E9;--verde-xbg:#F1F8F1;
+  --ouro:#B8860B;--ouro-l:#D4A017;--ouro-bg:#FFF9E6;
+  --azul:#0D47A1;--azul-l:#1565C0;--azul-bg:#E3F2FD;
+  --verm:#B71C1C;--verm-l:#C62828;--verm-bg:#FFEBEE;
+  --cinza:#37474F;--cinza-l:#546E7A;--cinza-bg:#ECEFF1;
+  --roxo:#4A148C;--roxo-l:#6A1B9A;--roxo-bg:#F3E5F5;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;min-width:0;word-break:break-word;overflow-wrap:break-word;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:15px;background:#1A2530;color:var(--texto);display:flex;flex-direction:column;}
+
+/* ── DECK ── */
+.deck{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+
+/* ── NAV BAR ── */
+.nav{background:#111C24;padding:7px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--lj-l);}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;padding:5px 14px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);}
+.nbtn:disabled{opacity:.25;cursor:default;}
+.pw{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--lj-l);border-radius:2px;transition:width .35s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.7);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.38);white-space:nowrap;}
+.khint{font-size:10px;color:rgba(255,255,255,.22);white-space:nowrap;}
+
+/* ── TOPBAR ── */
+.topbar{padding:11px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:180px;background:linear-gradient(to right,transparent,rgba(0,0,0,.18));pointer-events:none;}
+.tb-lj{background:linear-gradient(135deg,var(--lj-d),var(--lj));border-bottom:3px solid var(--lj-l);}
+.tb-verde{background:var(--verde);border-bottom:3px solid var(--verde-l);}
+.tb-azul{background:var(--azul);border-bottom:3px solid #42A5F5;}
+.tb-verm{background:var(--verm);border-bottom:3px solid #EF9A9A;}
+.tb-cinza{background:var(--cinza);border-bottom:3px solid #90A4AE;}
+.tb-roxo{background:var(--roxo);border-bottom:3px solid #CE93D8;}
+.topbar-left{display:flex;flex-direction:column;gap:1px;}
+.topbar-tag{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(15px,2.2vw,22px);font-weight:800;color:white;line-height:1.1;letter-spacing:.01em;}
+.topbar-sub{font-size:12px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:36px;font-weight:800;color:rgba(255,255,255,.18);flex-shrink:0;line-height:1;}
+
+/* ── SCROLL BODY ── */
+.sb{flex:1;overflow-y:auto;padding:16px 22px 50px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+
+/* ── SLIDE FOOTER ── */
+.slide-footer{position:absolute;bottom:0;left:0;right:0;height:36px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;backdrop-filter:blur(4px);}
+.sfbtn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--lj-d);letter-spacing:.04em;padding:3px 10px;border-radius:5px;transition:all .2s;}
+.sfbtn:hover{background:var(--lj-bg);}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.s2{grid-column:span 2;}
+
+/* ── CARD ── */
+.card{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:10px 14px;display:flex;align-items:center;gap:9px;border-bottom:1.5px solid var(--borda);}
+.card-head.lj{background:var(--lj-bg);border-color:#FFCC80;}
+.card-head.verde{background:var(--verde-bg);border-color:#A5D6A7;}
+.card-head.azul{background:var(--azul-bg);border-color:#90CAF9;}
+.card-head.verm{background:var(--verm-bg);border-color:#EF9A9A;}
+.card-head.cinza{background:var(--cinza-bg);border-color:#B0BEC5;}
+.card-head.roxo{background:var(--roxo-bg);border-color:#CE93D8;}
+.card-head.ouro{background:var(--ouro-bg);border-color:#F9D878;}
+.card-head-icon{font-size:18px;flex-shrink:0;}
+.card-head-title{font-size:13.5px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:12px 14px;flex:1;}
+
+/* ── ITEM ── */
+.item{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:14px;flex-shrink:0;margin-top:1px;line-height:1.55;}
+.it{font-size:13.5px;line-height:1.62;color:var(--texto);}
+.it b{font-weight:700;color:var(--lj-d);}
+.it .ko{color:var(--verm-l);font-weight:700;}
+.it .ok{color:var(--verde-m);font-weight:700;}
+
+/* ── ALERTA ── */
+.alerta{border-radius:9px;padding:10px 14px;margin-bottom:11px;display:flex;gap:10px;align-items:flex-start;}
+.alerta:last-child{margin-bottom:0;}
+.alerta.lj{background:var(--lj-bg);border-left:4px solid var(--lj-l);}
+.alerta.verde{background:var(--verde-bg);border-left:4px solid var(--verde-l);}
+.alerta.verm{background:var(--verm-bg);border-left:4px solid var(--verm-l);}
+.alerta.azul{background:var(--azul-bg);border-left:4px solid var(--azul-l);}
+.alerta.cinza{background:var(--cinza-bg);border-left:4px solid var(--cinza-l);}
+.alerta.roxo{background:var(--roxo-bg);border-left:4px solid var(--roxo-l);}
+.alerta.ouro{background:var(--ouro-bg);border-left:4px solid var(--ouro-l);}
+.alerta-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.alerta.lj    .alerta-title{color:var(--lj-d);}
+.alerta.verde .alerta-title{color:var(--verde);}
+.alerta.verm  .alerta-title{color:var(--verm-l);}
+.alerta.azul  .alerta-title{color:var(--azul-l);}
+.alerta.cinza .alerta-title{color:var(--cinza);}
+.alerta.roxo  .alerta-title{color:var(--roxo-l);}
+.alerta.ouro  .alerta-title{color:var(--ouro);}
+.alerta-text{font-size:13.5px;line-height:1.62;color:var(--texto);}
+.alerta-text b{font-weight:700;}
+
+/* ── VS BOXES ── */
+.vs-wrap{display:flex;gap:7px;align-items:stretch;margin-bottom:8px;}
+.vs-e{flex:1;background:var(--verm-bg);border:1.5px solid #EF9A9A;border-radius:7px;padding:8px 12px;}
+.vs-c{flex:1;background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:7px;padding:8px 12px;}
+.vs-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.vs-e .vs-lbl{color:var(--verm-l);}
+.vs-c .vs-lbl{color:var(--verde-m);}
+.vs-txt{font-size:13.5px;line-height:1.5;color:var(--texto);}
+.vs-arrow{display:flex;align-items:center;font-size:15px;color:var(--cinza-l);flex-shrink:0;}
+
+/* ── TABELA ── */
+.tabela-ref{width:100%;border-collapse:collapse;font-size:13px;}
+.tabela-ref th{background:var(--lj);color:white;padding:7px 11px;text-align:left;font-family:'Sora',sans-serif;font-weight:700;font-size:12px;letter-spacing:.02em;}
+.tabela-ref td{padding:6px 11px;border-bottom:1px solid var(--borda);vertical-align:top;}
+.tabela-ref tr:last-child td{border-bottom:none;}
+.tabela-ref tr:nth-child(even) td{background:var(--fundo);}
+.tabela-ref .ok{color:var(--verde-m);font-weight:700;}
+.tabela-ref .ko{color:var(--verm-l);font-weight:700;}
+
+/* ── MAPA DE QUESTÕES (qmap) ── */
+.qmap{display:flex;flex-direction:column;gap:7px;}
+.qrow{background:white;border:1.5px solid var(--borda);border-radius:9px;display:flex;align-items:stretch;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.qrow-num{width:50px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:white;}
+.qrow-info{flex:1;padding:8px 13px;}
+.qrow-title{font-size:13.5px;font-weight:700;color:var(--texto);margin-bottom:2px;}
+.qrow-desc{font-size:12px;line-height:1.5;color:var(--sub);}
+.qrow-badge{padding:7px 13px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:85px;background:rgba(0,0,0,.02);border-left:1px solid var(--borda);}
+.qrow-badge-pct{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;line-height:1;}
+.qrow-badge-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);margin-top:2px;white-space:nowrap;}
+.qrow-badge-bar{width:65px;height:3px;background:rgba(0,0,0,.08);border-radius:2px;margin-top:4px;}
+.qrow-badge-fill{height:100%;border-radius:2px;}
+
+/* ── DICAS DE OURO (LARANJA) ── */
+.ouro-section-header{background:linear-gradient(135deg,#993300 0%,#F57F17 50%,#993300 100%);border-radius:10px;padding:13px 18px;margin-bottom:13px;display:flex;align-items:center;gap:13px;color:white;box-shadow:0 4px 18px rgba(245,127,23,.45);}
+.ouro-medal{font-size:34px;flex-shrink:0;}
+.ouro-header-text h2{font-family:'Sora',sans-serif;font-size:18px;font-weight:800;}
+.ouro-header-text p{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:2px;}
+
+.dica-ouro{background:white;border:2px solid var(--lj-l);border-radius:10px;margin-bottom:11px;overflow:hidden;box-shadow:0 2px 10px rgba(245,127,23,.15);}
+.dica-ouro:last-child{margin-bottom:0;}
+.dica-ouro-head{background:linear-gradient(90deg,var(--lj-d),var(--lj-l));padding:7px 14px;display:flex;align-items:center;gap:9px;}
+.dica-ouro-num{background:rgba(255,255,255,.22);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:12px;font-weight:800;color:white;flex-shrink:0;}
+.dica-ouro-titulo{font-family:'Sora',sans-serif;font-size:13.5px;font-weight:800;color:white;letter-spacing:.01em;flex:1;}
+.dica-ouro-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:rgba(255,255,255,.18);color:white;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.dica-ouro-body{padding:12px 15px;}
+.dica-ouro-txt{font-size:13.5px;line-height:1.65;color:var(--texto);margin-bottom:8px;}
+.dica-ouro-txt b{color:var(--lj-d);font-weight:700;}
+.dica-ouro-exemplo{background:var(--lj-bg);border-left:3px solid var(--lj-l);border-radius:0 7px 7px 0;padding:8px 13px;font-size:13px;line-height:1.6;color:var(--cinza);margin-top:8px;}
+
+/* ── REGRA SIM/NÃO/ATENÇÃO ── */
+.regra-box{background:white;border:1.5px solid var(--borda);border-radius:9px;padding:13px 15px;margin-bottom:10px;}
+.regra-titulo{font-family:'Sora',sans-serif;font-size:14px;font-weight:800;color:var(--lj-d);margin-bottom:9px;}
+.regra-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.regra-sim{background:var(--verde-bg);border:1.5px solid #A5D6A7;border-radius:7px;padding:9px 12px;}
+.regra-nao{background:var(--verm-bg);border:1.5px solid #EF9A9A;border-radius:7px;padding:9px 12px;}
+.regra-duvida{background:var(--lj-bg);border:1.5px solid #FFCC80;border-radius:7px;padding:9px 12px;}
+.regra-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
+.regra-sim   .regra-label{color:var(--verde-m);}
+.regra-nao   .regra-label{color:var(--verm-l);}
+.regra-duvida .regra-label{color:var(--lj-d);}
+.regra-items{font-size:12.5px;line-height:1.75;color:var(--texto);}
+
+/* ── CAPA ── */
+.capa-slide{flex:1;background:linear-gradient(160deg,#0B1A0D 0%,#1B5E20 38%,#0A2E10 72%,#040C05 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;gap:12px;overflow-y:auto;position:relative;}
+.capa-slide::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 55px,rgba(255,255,255,.012) 55px,rgba(255,255,255,.012) 56px);pointer-events:none;}
+.capa-titulo{font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:white;text-align:center;letter-spacing:.02em;line-height:1.1;text-transform:uppercase;}
+.capa-subtitulo{font-family:'Sora',sans-serif;font-size:clamp(12px,1.8vw,16px);font-weight:600;color:rgba(255,255,255,.62);text-align:center;letter-spacing:.04em;text-transform:uppercase;}
+.capa-linha{width:75px;height:3px;background:#D4A017;border-radius:2px;}
+.capa-stats{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin:4px 0;}
+.capa-stat{text-align:center;}
+.capa-stat-n{font-family:'Sora',sans-serif;font-size:30px;font-weight:800;color:#D4A017;display:block;line-height:1;}
+.capa-stat-l{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.42);display:block;margin-top:2px;}
+.capa-btn{background:linear-gradient(135deg,#B8860B,#D4A017);color:#3B2500;border:none;font-family:'Sora',sans-serif;font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:11px 40px;border-radius:8px;cursor:pointer;transition:all .2s;box-shadow:0 5px 18px rgba(184,134,11,.5);}
+.capa-btn:hover{transform:scale(1.04);box-shadow:0 8px 26px rgba(184,134,11,.65);}
+.capa-badge{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);border-radius:25px;padding:3px 15px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.capa-lp-badge{background:linear-gradient(135deg,rgba(184,134,11,.3),rgba(184,134,11,.12));border:1.5px solid rgba(212,160,23,.38);border-radius:10px;padding:9px 20px;text-align:center;max-width:500px;}
+.capa-lp-titulo{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:#FFCC80;letter-spacing:.04em;text-transform:uppercase;}
+.capa-lp-sub{font-size:12.5px;color:rgba(255,255,255,.6);margin-top:3px;}
+
+/* ── SUMÁRIO ── */
+.sumario-section-titulo{font-family:'Sora',sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--lj-d);padding:8px 14px;background:var(--lj-bg);border-left:4px solid var(--lj-l);border-radius:0 7px 7px 0;margin-bottom:8px;cursor:pointer;}
+.sumario-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:5px;}
+.sumario-item:hover{border-color:var(--lj-l);background:var(--lj-xbg);transform:translateX(3px);}
+.sumario-item-num{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:var(--lj-d);flex-shrink:0;min-width:30px;}
+.sumario-item-txt{flex:1;}
+.sumario-item-nome{font-size:13.5px;font-weight:700;color:var(--texto);}
+.sumario-item-desc{font-size:11.5px;color:var(--sub);}
+.sumario-item-arrow{font-size:16px;color:var(--lj-l);}
+
+/* ── FREQUÊNCIA PILL ── */
+.fpill{display:inline-block;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;padding:2px 9px;border-radius:20px;margin-left:6px;vertical-align:middle;}
+.fpill.a{background:var(--verm-bg);color:var(--verm-l);}
+.fpill.m{background:var(--lj-bg);color:var(--lj-d);}
+.fpill.b{background:var(--cinza-bg);color:var(--cinza);}
+
+/* ── RESP (resposta da questão) ── */
+.resp{background:var(--lj-bg);border-left:3px solid var(--lj-l);border-radius:0 7px 7px 0;padding:7px 12px;font-size:12.5px;font-weight:700;color:var(--lj-d);margin-top:7px;}
+
+/* ── ANALOGY ── */
+.ana{background:var(--lj-bg);border:1.5px dashed var(--lj-l);border-radius:7px;padding:8px 12px;margin-top:8px;display:flex;gap:7px;align-items:flex-start;}
+.ana-text{font-size:13px;line-height:1.55;color:var(--cinza);font-style:italic;}
+
+/* ── SECÇÃO DE COVER ── */
+.sec-cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;gap:16px;}
+.sec-cover-icon{font-size:58px;line-height:1;}
+.sec-cover-title{font-family:'Sora',sans-serif;font-size:clamp(24px,4vw,42px);font-weight:800;text-align:center;letter-spacing:.02em;line-height:1.1;text-transform:uppercase;color:white;}
+.sec-cover-sub{font-size:clamp(13px,1.8vw,17px);text-align:center;color:rgba(255,255,255,.65);letter-spacing:.03em;}
+.sec-cover-line{width:70px;height:3px;border-radius:2px;}
+.sec-cover-btn{font-family:'Sora',sans-serif;font-size:14px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:11px 38px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;margin-top:8px;color:white;}
+.sec-cover-btn:hover{transform:scale(1.04);}
+
+/* ── APRESENTAÇÃO / BIO ── */
+.apres-capa{background:linear-gradient(135deg,var(--lj-d),var(--lj));border-radius:12px;padding:22px 24px;margin-bottom:14px;color:white;position:relative;overflow:hidden;}
+.apres-capa::before{content:'';position:absolute;right:-30px;top:-30px;width:150px;height:150px;background:rgba(255,255,255,.06);border-radius:50%;}
+.apres-titulo{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;position:relative;}
+.apres-sub{font-size:13px;color:rgba(255,255,255,.82);line-height:1.65;position:relative;}
+.metodo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:14px;}
+.metodo-step{background:white;border-radius:10px;padding:14px;text-align:center;border:2px solid var(--borda);box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.metodo-step:nth-child(1){border-top:4px solid var(--azul-l);}
+.metodo-step:nth-child(2){border-top:4px solid var(--lj-l);}
+.metodo-step:nth-child(3){border-top:4px solid var(--ouro-l);}
+.metodo-step:nth-child(4){border-top:4px solid var(--verm-l);}
+.metodo-icon{font-size:26px;margin-bottom:7px;}
+.metodo-num{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--sub);margin-bottom:3px;text-transform:uppercase;}
+.metodo-nome{font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:var(--texto);}
+.metodo-desc{font-size:11.5px;line-height:1.5;color:var(--sub);margin-top:4px;}
+.bio-card{background:white;border:1.5px solid var(--borda);border-radius:12px;padding:16px 18px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.bio-header{display:flex;align-items:center;gap:14px;margin-bottom:12px;padding-bottom:12px;border-bottom:1.5px solid var(--borda);}
+.bio-avatar{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--lj-d),var(--lj-l));display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;border:3px solid var(--lj-l);}
+.bio-name{font-family:'Sora',sans-serif;font-size:19px;font-weight:800;color:var(--lj-d);}
+.bio-cargo{font-size:12px;color:var(--sub);margin-top:2px;}
+.bio-formacao{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;}
+.bio-item{display:flex;gap:9px;align-items:flex-start;}
+.bio-item-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+.bio-item-txt{font-size:12.5px;line-height:1.55;color:var(--texto);}
+.bio-item-txt b{font-weight:700;color:var(--lj-d);}
+.bio-exp{background:var(--lj-bg);border-radius:8px;padding:10px 13px;}
+.bio-exp-title{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--lj-d);margin-bottom:8px;}
+.bio-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.bio-exp-item{display:flex;gap:7px;align-items:flex-start;background:white;border-radius:7px;padding:7px 10px;border:1px solid #FFCC80;}
+.bio-exp-item-icon{font-size:14px;flex-shrink:0;}
+.bio-exp-item-txt{font-size:12px;line-height:1.45;color:var(--texto);}
+.citacao-final{background:linear-gradient(135deg,var(--lj-d),var(--lj));border-radius:10px;padding:15px 20px;margin-top:13px;text-align:center;position:relative;overflow:hidden;}
+.citacao-final::before{content:'"';font-family:'Sora',sans-serif;font-size:90px;color:rgba(255,255,255,.07);position:absolute;top:-18px;left:10px;line-height:1;}
+.citacao-txt{font-family:'Sora',sans-serif;font-size:14px;font-weight:600;font-style:italic;color:white;line-height:1.6;position:relative;}
+.citacao-autor{font-size:12px;color:rgba(255,255,255,.65);margin-top:7px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+
+/* ── BLOCO ESTRUTURA ── */
+.bloco-wrap{display:flex;flex-direction:column;gap:9px;margin-bottom:14px;}
+.bloco{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.bloco-header{display:flex;align-items:stretch;}
+.bloco-num{min-width:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 8px;color:white;font-family:'Sora',sans-serif;flex-shrink:0;}
+.bloco-num-q{font-size:17px;font-weight:800;line-height:1;}
+.bloco-num-label{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.8;margin-top:2px;}
+.bloco-info{flex:1;padding:10px 14px;border-left:1px solid rgba(0,0,0,.08);}
+.bloco-title{font-size:13.5px;font-weight:800;color:var(--texto);margin-bottom:3px;}
+.bloco-desc{font-size:12px;line-height:1.55;color:var(--sub);}
+.bloco-pct{padding:10px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:1px solid var(--borda);min-width:60px;background:rgba(0,0,0,.02);flex-shrink:0;}
+.bloco-pct-n{font-family:'Sora',sans-serif;font-size:21px;font-weight:800;line-height:1;}
+.bloco-pct-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);margin-top:2px;}
+.bloco-temas{padding:8px 14px 10px;border-top:1px solid var(--borda);display:flex;flex-wrap:wrap;gap:5px;}
+.tema-pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+
+/* ── RESPONSIVO ── */
+@media(max-width:768px){
+  .g2,.g3,.g4{grid-template-columns:1fr !important;gap:10px;}
+  .s2{grid-column:span 1 !important;}
+  .sb{padding:12px 14px 50px;}
+  .card-head{padding:8px 12px;}
+  .card-body{padding:10px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tabela-ref{font-size:12px;min-width:320px;}
+  .qrow{flex-direction:column;}
+  .qrow-num{width:100%;height:36px;font-size:14px;}
+  .qrow-badge{border-left:none;border-top:1px solid var(--borda);flex-direction:row;min-width:auto;justify-content:flex-start;gap:10px;padding:6px 13px;}
+  .qrow-badge-bar{width:80px;}
+  .regra-grid{grid-template-columns:1fr !important;}
+  .ntitle{display:none;}
+  .metodo-grid{grid-template-columns:1fr 1fr !important;}
+  .bio-formacao,.bio-exp-grid{grid-template-columns:1fr !important;}
+  .bloco-header{flex-wrap:wrap;}
+}
+@media(max-width:480px){
+  .it,.alerta-text,.dica-ouro-txt{font-size:13px;}
+  .capa-titulo{font-size:22px !important;}
+  .nbtn{font-size:9px;padding:5px 8px;}
+  .topbar{padding:9px 14px;}
+  .metodo-grid{grid-template-columns:1fr 1fr !important;gap:8px;}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ═══ CAPA ═══ -->
+<div class="slide active" data-title="Capa" id="slide-0">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(212,160,23,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#D4A017;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(212,160,23,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">FOCO NO QUE MAIS CAI
+e DICAS DE OURO</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA PREPARATÓRIA DE CADETES DO EXÉRCITO</div>
+  <button onclick="goTo(1)" style="background:linear-gradient(135deg,#B8860B,#D4A017);color:#3B2500;border:none;font-family:'Sora',sans-serif;font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:11px 40px;border-radius:8px;cursor:pointer;transition:all .2s;box-shadow:0 5px 18px rgba(184,134,11,.5);">COMEÇAR AGORA →</button>
+  <div style="font-size:11px;color:rgba(255,255,255,.28);text-align:center;">← → teclado · swipe celular</div>
+</div>
+</div>
+
+<!-- ═══ SLIDE 01 — APRESENTAÇÃO CAPITÃO VALDIR ═══ -->
+<div class="slide" data-title="Apresentação — Capitão Valdir" id="slide-apres">
+  <div class="topbar tb-lj">
+    <div class="topbar-left">
+      <span class="topbar-tag">EsPCEx · Português 2021–2025</span>
+      <span class="topbar-title">APRESENTAÇÃO</span>
+      <span class="topbar-sub">Quem elaborou este material e por que ele funciona</span>
+    </div>
+    <div class="topbar-right">01</div>
+  </div>
+  <div class="sb">
+    <div class="apres-capa">
+      <div class="apres-titulo">Bem-vindo ao material que vai mudar seu desempenho em Português</div>
+      <div class="apres-sub">Este não é mais um resumo genérico de gramática. É o resultado da análise detalhada de 5 provas reais da EsPCEx (2021–2025), identificando exatamente o que cai, como cai e como o candidato é induzido ao erro. Com método certo, você chega à prova sabendo o que esperar — e isso faz toda a diferença.</div>
+    </div>
+
+    <div class="metodo-grid">
+      <div class="metodo-step">
+        <div class="metodo-icon">📊</div>
+        <div class="metodo-num">PASSO 1</div>
+        <div class="metodo-nome">MAPEAR</div>
+        <div class="metodo-desc">Analisar o que caiu em 5 provas e hierarquizar por frequência real.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">🎯</div>
+        <div class="metodo-num">PASSO 2</div>
+        <div class="metodo-nome">FOCAR</div>
+        <div class="metodo-desc">Estudar primeiro o que apareceu com maior frequência nas provas analisadas — priorizando o que é mais recorrente.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">⚠️</div>
+        <div class="metodo-num">PASSO 3</div>
+        <div class="metodo-nome">BLINDAR</div>
+        <div class="metodo-desc">Identificar e memorizar as armadilhas recorrentes para não cair nelas.</div>
+      </div>
+      <div class="metodo-step">
+        <div class="metodo-icon">🏆</div>
+        <div class="metodo-num">PASSO 4</div>
+        <div class="metodo-nome">ACERTAR</div>
+        <div class="metodo-desc">Aplicar o método na prova com segurança — eliminando alternativas erradas sistematicamente.</div>
+      </div>
+    </div>
+
+    <div class="alerta lj" style="margin-bottom:13px;">
+      <div class="alerta-icon">💬</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Mensagem do Capitão Valdir</div>
+        <div class="alerta-text">O candidato inexperiente estuda tudo e não sabe o que realmente cai. O candidato estratégico estuda o que tem <b>maior probabilidade de aparecer</b> e domina esses tópicos com profundidade. Este material foi construído para você ser estratégico. <b>Use o Mapa de Frequência (slide 04) como seu guia principal.</b></div>
+      </div>
+    </div>
+
+    <div class="bio-card">
+      <div class="bio-header">
+        <div class="bio-avatar">🎖️</div>
+        <div>
+          <div class="bio-name">CAPITÃO VALDIR</div>
+          <div class="bio-cargo">Capitão da Reserva · Quadro Complementar de Oficiais (QCO) · Exército Brasileiro</div>
+        </div>
+      </div>
+      <div class="bio-formacao">
+        <div class="bio-item">
+          <div class="bio-item-icon">🎓</div>
+          <div class="bio-item-txt"><b>Licenciado em Letras</b><br>Universidade Estadual de Campinas — UNICAMP</div>
+        </div>
+        <div class="bio-item">
+          <div class="bio-item-icon">⭐</div>
+          <div class="bio-item-txt"><b>Formado e Pós-graduado pela EsAEx (atual ESFCEx)</b><br>Área: Magistério — Português</div>
+        </div>
+        <div class="bio-item">
+          <div class="bio-item-icon">📋</div>
+          <div class="bio-item-txt"><b>Aprovado na EsPCEx / ESFCEx</b><br>Fez a prova. Passou. Sabe exatamente o que a banca cobra.</div>
+        </div>
+        <div class="bio-item">
+          <div class="bio-item-icon">📚</div>
+          <div class="bio-item-txt"><b>Especialista em Ensino Militar</b><br>Duas décadas formando e aprovando candidatos no Exército Brasileiro.</div>
+        </div>
+      </div>
+      <div class="bio-exp">
+        <div class="bio-exp-title">▸ Experiência Docente no Exército Brasileiro</div>
+        <div class="bio-exp-grid">
+          <div class="bio-exp-item"><div class="bio-exp-item-icon">🏫</div><div class="bio-exp-item-txt"><b>Colégio Militar de Fortaleza</b></div></div>
+          <div class="bio-exp-item"><div class="bio-exp-item-icon">🏫</div><div class="bio-exp-item-txt"><b>Colégio Militar de Manaus</b></div></div>
+          <div class="bio-exp-item"><div class="bio-exp-item-icon">⚔️</div><div class="bio-exp-item-txt"><b>Escola de Aperfeiçoamento de Sargentos das Armas</b></div></div>
+          <div class="bio-exp-item"><div class="bio-exp-item-icon">✈️</div><div class="bio-exp-item-txt"><b>Centro de Instrução de Aviação do Exército</b></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="citacao-final">
+      <div class="citacao-txt">"Não existe candidato sem talento. Existe candidato sem método. Este material é o seu método."</div>
+      <div class="citacao-autor">— Capitão Valdir</div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <button class="sfbtn" onclick="goTo(0)">⬆ Início</button>
+    <span style="color:var(--borda)">|</span>
+    <button class="sfbtn" onclick="goTo(2)">📋 Sumário</button>
+    <span style="color:var(--borda)">|</span>
+    <button class="sfbtn" onclick="goTo(3)">Próximo →</button>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 02 — SUMÁRIO ═══ -->
+<div class="slide" data-title="Sumário — Navegação" id="slide-1">
+  <div class="topbar tb-lj">
+    <div class="topbar-left">
+      <span class="topbar-tag">EsPCEx · Português 2021–2025</span>
+      <span class="topbar-title">SUMÁRIO</span>
+      <span class="topbar-sub">Clique para ir direto ao conteúdo</span>
+    </div>
+    <div class="topbar-right">02</div>
+  </div>
+  <div class="sb">
+    <div class="alerta lj" style="margin-bottom:14px;">
+      <div class="alerta-icon">🗺️</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Como navegar</div>
+        <div class="alerta-text">Clique em qualquer item para ir direto àquela seção. Use as setas ← → do teclado ou os botões da barra inferior. Em celular, deslize para os lados. O botão <b>📋 Sumário</b> aparece em todos os slides para você voltar aqui a qualquer momento.</div>
+      </div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="sumario-section-titulo" onclick="goTo(1)" style="cursor:pointer;">👤 Apresentação (slide 01)</div>
+        <div class="sumario-item" onclick="goTo(1)"><div class="sumario-item-num">01</div><div class="sumario-item-txt"><div class="sumario-item-nome">Capitão Valdir — Quem sou</div><div class="sumario-item-desc">Formação, método e experiência docente</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-section-titulo" style="margin-top:11px;">📊 Análise Geral (slides 03–05)</div>
+        <div class="sumario-item" onclick="goTo(3)"><div class="sumario-item-num">03</div><div class="sumario-item-txt"><div class="sumario-item-nome">Estrutura da Prova de LP</div><div class="sumario-item-desc">Como a prova é dividida — explicação clara</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(4)"><div class="sumario-item-num">04</div><div class="sumario-item-txt"><div class="sumario-item-nome">Mapa de Frequência</div><div class="sumario-item-desc">🔴🟠🟡 O que apareceu com maior frequência nas 5 provas</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(5)"><div class="sumario-item-num">05</div><div class="sumario-item-txt"><div class="sumario-item-nome">Textos-Base e Previsão 2026</div><div class="sumario-item-desc">Padrão dos gêneros e o que esperar</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-section-titulo" style="margin-top:11px;">📖 Interpretação (slides 06–07)</div>
+        <div class="sumario-item" onclick="goTo(6)"><div class="sumario-item-num">06</div><div class="sumario-item-txt"><div class="sumario-item-nome">Inferência, Tese e Argumento</div><div class="sumario-item-desc">Método em 5 passos + exemplos reais</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(7)"><div class="sumario-item-num">07</div><div class="sumario-item-txt"><div class="sumario-item-nome">Terminologia Técnica e Dados</div><div class="sumario-item-desc">Q1–Q4 de 2021 comentadas</div></div><div class="sumario-item-arrow">→</div></div>
+      </div>
+      <div>
+        <div class="sumario-section-titulo">⚙️ Gramática (slides 08–11)</div>
+        <div class="sumario-item" onclick="goTo(8)"><div class="sumario-item-num">08</div><div class="sumario-item-txt"><div class="sumario-item-nome">Classes de Palavras + Hibridismo</div><div class="sumario-item-desc">Q5–Q6 de 2021 · as mais pegadinhas</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(9)"><div class="sumario-item-num">09</div><div class="sumario-item-txt"><div class="sumario-item-nome">Divisão Silábica + Conjunções</div><div class="sumario-item-desc">Prefixos e o "e" adversativo</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(10)"><div class="sumario-item-num">10</div><div class="sumario-item-txt"><div class="sumario-item-nome">Sintaxe — Vozes, Predicativo, Funções</div><div class="sumario-item-desc">Q10–Q13 de 2021 · alta frequência</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(11)"><div class="sumario-item-num">11</div><div class="sumario-item-txt"><div class="sumario-item-nome">Modos Verbais + Crase</div><div class="sumario-item-desc">Imperativo/Subjuntivo + fusões da crase</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-section-titulo" style="margin-top:11px;">📜 Literatura (slides 12–14)</div>
+        <div class="sumario-item" onclick="goTo(12)"><div class="sumario-item-num">12</div><div class="sumario-item-txt"><div class="sumario-item-nome">Machado de Assis + Realismo</div><div class="sumario-item-desc">Ironia, crítica ao Romantismo</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(13)"><div class="sumario-item-num">13</div><div class="sumario-item-txt"><div class="sumario-item-nome">Períodos Literários × Contexto Histórico</div><div class="sumario-item-desc">Associações corretas e erradas</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(14)"><div class="sumario-item-num">14</div><div class="sumario-item-txt"><div class="sumario-item-nome">Classicismo, Simbolismo e Modernismo</div><div class="sumario-item-desc">Camões, Baudelaire, sinestesia</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-section-titulo" style="margin-top:11px;">🥇 Síntese Final (slide 15)</div>
+        <div class="sumario-item" onclick="goTo(15)"><div class="sumario-item-num">15</div><div class="sumario-item-txt"><div class="sumario-item-nome">Dicas de Ouro Finais + Top 10 Armadilhas</div><div class="sumario-item-desc">Síntese completa para o dia da prova</div></div><div class="sumario-item-arrow">→</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(0)">⬆ Início</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(1)">← Apresentação</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(3)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 03 — ESTRUTURA DA PROVA ═══ -->
+<div class="slide" data-title="Estrutura da Prova de LP" id="slide-2">
+  <div class="topbar tb-lj">
+    <div class="topbar-left">
+      <span class="topbar-tag">Análise Geral · 2021–2025</span>
+      <span class="topbar-title">COMO A PROVA É FEITA</span>
+      <span class="topbar-sub">20 questões com padrão histórico identificado — pode variar; use como referência de estudo</span>
+    </div>
+    <div class="topbar-right">03</div>
+  </div>
+  <div class="sb">
+    <div class="alerta lj" style="margin-bottom:14px;">
+      <div class="alerta-icon">📌</div>
+      <div class="alerta-content">
+        <div class="alerta-title">O que significa "20 questões em 4 blocos"?</div>
+        <div class="alerta-text">A banca não anuncia os blocos oficialmente, mas ao analisar 5 anos de prova, o Capitão Valdir identificou que, <em>na maioria das provas</em>, as questões seguem um padrão <b>aproximado</b>: as primeiras 4 tendem a testar leitura de texto, as seguintes tendem a abordar morfologia e depois sintaxe, e as últimas — em torno de 5 ou 6 — costumam tratar de literatura. A banca pode alterar essa distribuição a qualquer momento, mas <b>conhecer o padrão histórico ajuda a direcionar o estudo</b>.</div>
+      </div>
+    </div>
+
+    <div class="bloco-wrap">
+      <div class="bloco">
+        <div class="bloco-header">
+          <div class="bloco-num" style="background:var(--azul-l);">
+            <div class="bloco-num-q">Q1–4</div>
+            <div class="bloco-num-label">4 questões</div>
+          </div>
+          <div class="bloco-info">
+            <div class="bloco-title">📖 Interpretação de Texto</div>
+            <div class="bloco-desc">A banca apresenta um texto longo (literário ou jornalístico) e faz 4 perguntas sobre ele. Você precisa entender o que o autor quer dizer, identificar a ideia central, localizar informações e compreender o sentido de palavras no contexto.</div>
+          </div>
+          <div class="bloco-pct" style="color:var(--azul-l);">
+            <div class="bloco-pct-n" style="color:var(--azul-l);">20%</div>
+            <div class="bloco-pct-l">da prova</div>
+          </div>
+        </div>
+        <div class="bloco-temas">
+          <span class="tema-pill" style="background:var(--azul-bg);color:var(--azul-l);">Ideia central do texto</span>
+          <span class="tema-pill" style="background:var(--azul-bg);color:var(--azul-l);">Sentido de palavras</span>
+          <span class="tema-pill" style="background:var(--azul-bg);color:var(--azul-l);">Localização de informação</span>
+          <span class="tema-pill" style="background:var(--azul-bg);color:var(--azul-l);">Inferência (o que está implícito)</span>
+        </div>
+      </div>
+
+      <div class="bloco">
+        <div class="bloco-header">
+          <div class="bloco-num" style="background:var(--lj);">
+            <div class="bloco-num-q">Q5–9</div>
+            <div class="bloco-num-label">5 questões</div>
+          </div>
+          <div class="bloco-info">
+            <div class="bloco-title">⚙️ Morfologia e Semântica</div>
+            <div class="bloco-desc">Questões sobre como as palavras são formadas, a que classe pertencem (substantivo, adjetivo, pronome…) e o que significam. A banca sempre usa frases do próprio texto-base — não palavras isoladas.</div>
+          </div>
+          <div class="bloco-pct">
+            <div class="bloco-pct-n" style="color:var(--lj);">25%</div>
+            <div class="bloco-pct-l">da prova</div>
+          </div>
+        </div>
+        <div class="bloco-temas">
+          <span class="tema-pill" style="background:var(--lj-bg);color:var(--lj-d);">Classe gramatical no contexto</span>
+          <span class="tema-pill" style="background:var(--lj-bg);color:var(--lj-d);">Formação de palavras (hibridismo)</span>
+          <span class="tema-pill" style="background:var(--lj-bg);color:var(--lj-d);">Divisão silábica</span>
+          <span class="tema-pill" style="background:var(--lj-bg);color:var(--lj-d);">Conjunções e seu valor</span>
+          <span class="tema-pill" style="background:var(--lj-bg);color:var(--lj-d);">Concordância verbal</span>
+        </div>
+      </div>
+
+      <div class="bloco">
+        <div class="bloco-header">
+          <div class="bloco-num" style="background:var(--roxo-l);">
+            <div class="bloco-num-q">Q10–14</div>
+            <div class="bloco-num-label">5 questões</div>
+          </div>
+          <div class="bloco-info">
+            <div class="bloco-title">🔗 Sintaxe e Morfossintaxe</div>
+            <div class="bloco-desc">Questões sobre como as palavras se relacionam dentro da frase. Você precisa saber identificar o sujeito, o predicado, o tipo de oração, a voz verbal e a função das palavras — sempre aplicado a frases do texto.</div>
+          </div>
+          <div class="bloco-pct">
+            <div class="bloco-pct-n" style="color:var(--roxo-l);">25%</div>
+            <div class="bloco-pct-l">da prova</div>
+          </div>
+        </div>
+        <div class="bloco-temas">
+          <span class="tema-pill" style="background:var(--roxo-bg);color:var(--roxo-l);">Tipos de oração subordinada</span>
+          <span class="tema-pill" style="background:var(--roxo-bg);color:var(--roxo-l);">Voz passiva</span>
+          <span class="tema-pill" style="background:var(--roxo-bg);color:var(--roxo-l);">Predicativo do sujeito</span>
+          <span class="tema-pill" style="background:var(--roxo-bg);color:var(--roxo-l);">Modos verbais</span>
+          <span class="tema-pill" style="background:var(--roxo-bg);color:var(--roxo-l);">Crase e preposição</span>
+        </div>
+      </div>
+
+      <div class="bloco">
+        <div class="bloco-header">
+          <div class="bloco-num" style="background:var(--verde-m);">
+            <div class="bloco-num-q">Q15–20</div>
+            <div class="bloco-num-label">6 questões</div>
+          </div>
+          <div class="bloco-info">
+            <div class="bloco-title">📜 Literatura Brasileira e Portuguesa</div>
+            <div class="bloco-desc">O maior bloco da prova. Você precisa reconhecer estilos literários por trechos, identificar autores, associar escolas ao período histórico e analisar figuras de linguagem. <b>Machado de Assis esteve presente em todas as 5 provas analisadas.</b></div>
+          </div>
+          <div class="bloco-pct">
+            <div class="bloco-pct-n" style="color:var(--verde-m);">30%</div>
+            <div class="bloco-pct-l">da prova</div>
+          </div>
+        </div>
+        <div class="bloco-temas">
+          <span class="tema-pill" style="background:var(--verde-bg);color:var(--verde-m);">Machado de Assis — ironia</span>
+          <span class="tema-pill" style="background:var(--verde-bg);color:var(--verde-m);">Identificar escola por trecho</span>
+          <span class="tema-pill" style="background:var(--verde-bg);color:var(--verde-m);">Escola × contexto histórico</span>
+          <span class="tema-pill" style="background:var(--verde-bg);color:var(--verde-m);">Figuras de linguagem</span>
+          <span class="tema-pill" style="background:var(--verde-bg);color:var(--verde-m);">Os Lusíadas / Simbolismo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dica-ouro">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">💡</div>
+        <div class="dica-ouro-titulo">Dica do Capitão Valdir — Por onde começar?</div>
+        <div class="dica-ouro-tag">ESTRATÉGIA</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">Com base nas provas analisadas, literatura costuma representar <b>cerca de 30% das questões</b>. Se você dominar Machado de Assis, Os Lusíadas e as associações escola × contexto histórico, terá uma base sólida para a maioria dessas questões — lembrando que a banca pode sempre variar o enfoque. <b>Comece pelos slides de literatura</b> se ainda não conhece esses assuntos.</div>
+        <div class="dica-ouro-exemplo">Ordem sugerida de estudo (baseada no histórico): Literatura → Interpretação → Morfologia → Sintaxe. Invista mais tempo nos tópicos de maior recorrência histórica — mas não negligencie nenhum bloco.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(2)">← Anterior</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(4)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 03 — MAPA DE FREQUÊNCIA ═══ -->
+<div class="slide" data-title="Mapa de Frequência por Tópico" id="slide-3">
+  <div class="topbar tb-lj">
+    <div class="topbar-left">
+      <span class="topbar-tag">Análise Geral · 2021–2025</span>
+      <span class="topbar-title">MAPA DE FREQUÊNCIA</span>
+      <span class="topbar-sub">O que apareceu nas 5 provas analisadas — use como guia, não como garantia</span>
+    </div>
+    <div class="topbar-right">03</div>
+  </div>
+  <div class="sb">
+    <div class="alerta lj" style="margin-bottom:14px;">
+      <div class="alerta-icon">📖</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Como ler este mapa</div>
+        <div class="alerta-text"><b>🔴 Alta Recorrência</b> = apareceu em 4 ou 5 das provas analisadas. Priorize esses tópicos no estudo. <b>🟠 Recorrência Significativa</b> = apareceu em cerca de 3 provas. Vale muito dedicar atenção. <b>🟡 Aparição Pontual</b> = apareceu em 1 ou 2 provas. Estude se tiver tempo após dominar os anteriores. <em>Atenção: a banca pode sempre cobrar qualquer tópico do edital.</em></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px;">
+      <div class="card-head lj" style="border-radius:8px 8px 0 0;border:1.5px solid #FFCC80;border-bottom:none;"><div class="card-head-icon">📖</div><div class="card-head-title" style="color:var(--lj-d);font-size:12px;text-transform:uppercase;letter-spacing:.06em;">Interpretação de Texto</div></div>
+      <div style="background:white;border:1.5px solid var(--borda);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;">
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--verm-l);">🔴</div>
+          <div class="qrow-info"><div class="qrow-title">Inferência de tese e argumento central</div><div class="qrow-desc">Identificar o que o texto afirma, recomenda ou critica — presente em todas as 5 provas analisadas</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verm-l);">5/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verm-l);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--verm-l);">🔴</div>
+          <div class="qrow-info"><div class="qrow-title">Sentido de palavra/expressão no contexto</div><div class="qrow-desc">Acepção, polissemia — nunca o sentido dicionarizado fora do texto</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verm-l);">5/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verm-l);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--lj);">🟠</div>
+          <div class="qrow-info"><div class="qrow-title">Localização de informação explícita</div><div class="qrow-desc">Dado estatístico, fonte, autoria — atenção à diferença entre quem diz e quem publicou</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--lj);">4/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:80%;background:var(--lj);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;">
+          <div class="qrow-num" style="background:var(--ouro-l);">🟡</div>
+          <div class="qrow-info"><div class="qrow-title">Inferência de terminologia técnica (glossário)</div><div class="qrow-desc">Texto não-literário com glossário — Q1 da prova 2021 (ambiente obesogênico)</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--ouro);">2/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:40%;background:var(--ouro-l);"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px;">
+      <div class="card-head lj" style="border-radius:8px 8px 0 0;border:1.5px solid #FFCC80;border-bottom:none;"><div class="card-head-icon">⚙️</div><div class="card-head-title" style="color:var(--lj-d);font-size:12px;text-transform:uppercase;letter-spacing:.06em;">Gramática — Morfologia e Sintaxe</div></div>
+      <div style="background:white;border:1.5px solid var(--borda);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;">
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--verm-l);">🔴</div>
+          <div class="qrow-info"><div class="qrow-title">Orações subordinadas (substantivas e adjetivas)</div><div class="qrow-desc">Restritiva × explicativa; completiva nominal × objetiva indireta</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verm-l);">5/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verm-l);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--verm-l);">🔴</div>
+          <div class="qrow-info"><div class="qrow-title">Voz passiva analítica, sintética e reduzida</div><div class="qrow-desc">Particípio com "por" = sempre passiva — identificação no contexto</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verm-l);">5/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verm-l);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--verm-l);">🔴</div>
+          <div class="qrow-info"><div class="qrow-title">Valor semântico de conjunções no contexto</div><div class="qrow-desc">"e" adversativo, "pois" causal × explicativo, "como" conformativo</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verm-l);">5/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verm-l);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--verm-l);">🔴</div>
+          <div class="qrow-info"><div class="qrow-title">Classes de palavras no contexto</div><div class="qrow-desc">Pronome demonstrativo × artigo × adjetivo — identificar pela função na frase</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verm-l);">5/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verm-l);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--lj);">🟠</div>
+          <div class="qrow-info"><div class="qrow-title">Modos verbais — imperativo e subjuntivo</div><div class="qrow-desc">Imperativo 3ª pessoa = subjuntivo presente. "Demo" vs "daremos" vs "demos"</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--lj);">4/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:80%;background:var(--lj);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--lj);">🟠</div>
+          <div class="qrow-info"><div class="qrow-title">Crase — regras, exceções e teste da troca</div><div class="qrow-desc">Fusão preposição+artigo. Teste: substitua o feminino por masculino (ao/a o)</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--lj);">4/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:80%;background:var(--lj);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--lj);">🟠</div>
+          <div class="qrow-info"><div class="qrow-title">Formação de palavras — hibridismo e prefixação</div><div class="qrow-desc">Latim+Grego = hibridismo. Teste das formas intermediárias para parassíntese</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--lj);">4/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:80%;background:var(--lj);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;">
+          <div class="qrow-num" style="background:var(--ouro-l);">🟡</div>
+          <div class="qrow-info"><div class="qrow-title">Divisão silábica com prefixos</div><div class="qrow-desc">sub-ur-ba-no (não su-bur-ba-no). Prefixo terminado em consoante + vogal = consoante fica com radical</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--ouro);">3/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:60%;background:var(--ouro-l);"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card-head lj" style="border-radius:8px 8px 0 0;border:1.5px solid #FFCC80;border-bottom:none;"><div class="card-head-icon">📜</div><div class="card-head-title" style="color:var(--lj-d);font-size:12px;text-transform:uppercase;letter-spacing:.06em;">Literatura</div></div>
+      <div style="background:white;border:1.5px solid var(--borda);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;">
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--verm-l);">🔴</div>
+          <div class="qrow-info"><div class="qrow-title">Machado de Assis — ironia e crítica ao Romantismo</div><div class="qrow-desc">Narrador não-confiável, metaficção, simulação de sofrimento romântico</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verm-l);">5/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verm-l);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--verm-l);">🔴</div>
+          <div class="qrow-info"><div class="qrow-title">Identificação de escola literária por trecho</div><div class="qrow-desc">Classicismo, Romantismo, Realismo, Simbolismo, Modernismo — pela forma e temática</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verm-l);">5/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verm-l);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;border-bottom:1px solid var(--borda);">
+          <div class="qrow-num" style="background:var(--lj);">🟠</div>
+          <div class="qrow-info"><div class="qrow-title">Associação escola × contexto histórico</div><div class="qrow-desc">Romantismo=Rev.Industrial; Barroco=Contrarreforma; Arcadismo=Iluminismo</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--lj);">4/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:80%;background:var(--lj);"></div></div></div>
+        </div>
+        <div class="qrow" style="border-radius:0;border:none;">
+          <div class="qrow-num" style="background:var(--lj);">🟠</div>
+          <div class="qrow-info"><div class="qrow-title">Sinestesia, figuras de linguagem em poemas</div><div class="qrow-desc">Simbolismo: mistura de campos sensoriais (Baudelaire — Correspondências, 2021)</div></div>
+          <div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--lj);">3/5</div><div class="qrow-badge-label">provas</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:60%;background:var(--lj);"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(2)">← Anterior</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(4)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 04 — TEXTOS-BASE E PREVISÃO ═══ -->
+<div class="slide" data-title="Textos-Base e Previsão 2026" id="slide-4">
+  <div class="topbar tb-lj">
+    <div class="topbar-left">
+      <span class="topbar-tag">Análise Geral · 2021–2025</span>
+      <span class="topbar-title">TEXTOS-BASE E PREVISÃO</span>
+      <span class="topbar-sub">Padrão dos gêneros e o que esperar em 2026</span>
+    </div>
+    <div class="topbar-right">04</div>
+  </div>
+  <div class="sb">
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-head lj"><div class="card-head-icon">📚</div><div class="card-head-title">Textos-Base das Provas 2021–2025</div></div>
+      <div class="card-body" style="padding:0;overflow-x:auto;">
+        <table class="tabela-ref">
+          <thead><tr><th>Ano</th><th>Texto / Obra</th><th>Autor / Fonte</th><th>Gênero</th><th>Habilidade exigida</th></tr></thead>
+          <tbody>
+            <tr><td><b>2021</b></td><td>E a indústria de alimentos na pandemia?</td><td>BMJ / abeso.org.br</td><td>Editorial científico</td><td>Inferência de termo técnico, dado estatístico, distinção fonte×autor</td></tr>
+            <tr><td><b>2022</b></td><td>Assiste à demolição</td><td>Carlos Drummond de Andrade</td><td>Crônica literária</td><td>Tom melancólico, ironia, sentido de palavras literárias</td></tr>
+            <tr><td><b>2023</b></td><td>Grande Sertão: Veredas (trecho)</td><td>João Guimarães Rosa</td><td>Romance regional</td><td>Linguagem não-convencional, neologismos, sentido contextual</td></tr>
+            <tr><td><b>2024</b></td><td>No princípio eram as árvores</td><td>Irene Vallejo</td><td>Ensaio cultural</td><td>Hipótese × fato, referências históricas e etimológicas</td></tr>
+            <tr><td><b>2025</b></td><td>Machado e Abel</td><td>Manuel Bandeira</td><td>Crônica memorialística</td><td>Ironia machadiana, metaliteratura, caráter de personagem</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="alerta lj">
+        <div class="alerta-icon">🔄</div>
+        <div class="alerta-content">
+          <div class="alerta-title">Padrão da banca (2021–2025)</div>
+          <div class="alerta-text">Nas provas analisadas, a banca <b>alternou</b> entre texto literário e não-literário — esse padrão pode se manter ou mudar. 2021 = editorial científico. 2022–2023–2025 = texto literário. 2024 = ensaio cultural. O texto não-literário exige <b>mais precisão de leitura</b> e menos sensibilidade estética.</div>
+        </div>
+      </div>
+      <div class="alerta azul">
+        <div class="alerta-icon">🔮</div>
+        <div class="alerta-content">
+          <div class="alerta-title">O que esperar em 2026</div>
+          <div class="alerta-text">Alta probabilidade de <b>texto literário</b> (crônica, conto ou trecho de romance). Autores prováveis: Eça de Queirós, Lima Barreto, Clarice Lispector ou Rubem Braga. Prepare-se também para <b>ensaio ou divulgação científica</b> — padrão de 2021 e 2024.</div>
+        </div>
+      </div>
+    </div>
+    <div class="dica-ouro" style="margin-top:14px;">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">💡</div>
+        <div class="dica-ouro-titulo">Método de leitura para qualquer texto-base</div>
+        <div class="dica-ouro-tag">5 PASSOS</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="g2">
+          <div>
+            <div class="item"><div class="dot">1️⃣</div><div class="it"><b>Leia o título e a fonte primeiro</b> — definem o gênero e o propósito antes de ler o texto.</div></div>
+            <div class="item"><div class="dot">2️⃣</div><div class="it"><b>Identifique a tese central</b> — geralmente está no 1º ou último parágrafo.</div></div>
+            <div class="item"><div class="dot">3️⃣</div><div class="it"><b>Marque dados e estatísticas</b> — a banca cobra localização exata (27% em 2021).</div></div>
+          </div>
+          <div>
+            <div class="item"><div class="dot">4️⃣</div><div class="it"><b>Anote o que o texto afirma vs. o que recomenda</b> — a alternativa errada mistura os dois.</div></div>
+            <div class="item"><div class="dot">5️⃣</div><div class="it"><b>Leia o glossário antes das questões</b> — em textos científicos, ele é chave para a Q1.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(3)">← Anterior</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(5)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 05 — INTERPRETAÇÃO: INFERÊNCIA E TESE ═══ -->
+<div class="slide" data-title="Interpretação — Inferência e Tese" id="slide-5">
+  <div class="topbar tb-azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo A · Interpretação de Texto</span>
+      <span class="topbar-title">INFERÊNCIA E TESE</span>
+      <span class="topbar-sub">O que o texto afirma é diferente do que ele recomenda ou critica</span>
+    </div>
+    <div class="topbar-right">05</div>
+  </div>
+  <div class="sb">
+    <div class="g2" style="margin-bottom:14px;">
+      <div class="alerta verm">
+        <div class="alerta-icon">⚠️</div>
+        <div class="alerta-content">
+          <div class="alerta-title">Armadilha principal</div>
+          <div class="alerta-text">A alternativa errada mais comum <b>copia literalmente</b> o texto ou <b>extrapola</b> além do que está escrito. A certa sempre <b>parafraseia e aprofunda</b> o sentido sem contradizer o texto.</div>
+        </div>
+      </div>
+      <div class="alerta verde">
+        <div class="alerta-icon">✅</div>
+        <div class="alerta-content">
+          <div class="alerta-title">Regra de ouro</div>
+          <div class="alerta-text"><b>"Divide a culpa" ≠ "é a principal culpada".</b> Leia com exatidão cirúrgica. A banca escolhe palavras com cuidado e cobra se você as leu com o mesmo cuidado.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dica-ouro" style="margin-bottom:11px;">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">1</div>
+        <div class="dica-ouro-titulo">Questão de tese: o texto afirma, recomenda ou critica?</div>
+        <div class="dica-ouro-tag">ALTA FREQUÊNCIA</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">Prova 2021, Q2 — "Segundo o editorial do BMJ, a indústria de alimentos..." A tese real: <b>"divide a culpa"</b> pelos casos graves de Covid-19 — não é culpa exclusiva, e sim parcial.</div>
+        <div class="vs-wrap">
+          <div class="vs-e"><div class="vs-lbl">❌ Errado (alternativa E)</div><div class="vs-txt">"É a <b>principal</b> culpada... pois muita gente passou a estocar ultraprocessados" — exagera e mistura causa com consequência</div></div>
+          <div class="vs-arrow">→</div>
+          <div class="vs-c"><div class="vs-lbl">✅ Certo (alternativa B)</div><div class="vs-txt">"É responsável, <b>em parte</b>, pelos casos mais graves... já que continua a promover produtos ultraprocessados" — reflete o "divide a culpa" do texto</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dica-ouro">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">2</div>
+        <div class="dica-ouro-titulo">Dado estatístico: quem tem 27% mais risco? (2021, Q3)</div>
+        <div class="dica-ouro-tag">LOCALIZAÇÃO</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">O texto diz: "A probabilidade de uma pessoa com <b>obesidade severa</b> morrer de Covid-19 chega a ser 27% maior do que a de indivíduos com <b>obesidade grau 1</b> (IMC entre 30 e 34,9)." A pergunta é: quem tem MAIS risco?</div>
+        <div class="vs-wrap">
+          <div class="vs-e"><div class="vs-lbl">❌ Inversão clássica (alt. A)</div><div class="vs-txt">Obesidade grau 1 em comparação com severa — inverte a direção do risco</div></div>
+          <div class="vs-arrow">→</div>
+          <div class="vs-c"><div class="vs-lbl">✅ Certo (alt. D)</div><div class="vs-txt">Obesidade severa em comparação com obesidade grau 1 — quem tem severa tem 27% a mais</div></div>
+        </div>
+        <div class="resp">→ GABARITO: D — obesidade severa tem mais risco que grau 1, não o contrário</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(4)">← Anterior</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(6)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 06 — TERMINOLOGIA TÉCNICA ═══ -->
+<div class="slide" data-title="Terminologia Técnica e Glossário" id="slide-6">
+  <div class="topbar tb-azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo A · Interpretação de Texto</span>
+      <span class="topbar-title">TERMINOLOGIA TÉCNICA</span>
+      <span class="topbar-sub">Quando o texto tem glossário — leia ANTES das questões</span>
+    </div>
+    <div class="topbar-right">06</div>
+  </div>
+  <div class="sb">
+    <div class="dica-ouro" style="margin-bottom:11px;">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">3</div>
+        <div class="dica-ouro-titulo">"Ambiente obesogênico" — inferência pelo glossário + contexto (2021, Q1)</div>
+        <div class="dica-ouro-tag">TEXTO NÃO-LITERÁRIO</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">O glossário define: <b>"Obesogênicos contribuem para o ganho de peso sem que o indivíduo tenha consciência."</b> O contexto: indústria promove ultraprocessados ricos em açúcar e gordura. A definição correta combina os dois.</div>
+        <table class="tabela-ref" style="margin-top:8px;">
+          <thead><tr><th>Alternativa</th><th>Por que errada?</th></tr></thead>
+          <tbody>
+            <tr><td>[A] "melhores condições financeiras"</td><td class="ko">Não é sobre renda — extrapolação</td></tr>
+            <tr><td>[B] "mais de 60% da pop. acima do peso"</td><td class="ko">É um dado do texto, não a definição do conceito</td></tr>
+            <tr><td>[C] "estocar alimentos em guerras"</td><td class="ko">Situação específica citada, não a definição</td></tr>
+            <tr><td class="ok">[D] "favorece maior ingestão de alimentos pobres em nutrientes, ricos em açúcares e gorduras"</td><td class="ok">✅ Combina glossário + contexto — definição abrangente e correta</td></tr>
+            <tr><td>[E] "causas ligadas à genética"</td><td class="ko">O texto não associa o conceito à genética</td></tr>
+          </tbody>
+        </table>
+        <div class="resp">→ GABARITO: D — nunca escolha a alternativa que repete apenas um dado numérico como se fosse a definição do conceito</div>
+      </div>
+    </div>
+
+    <div class="dica-ouro">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">4</div>
+        <div class="dica-ouro-titulo">Localização de fonte: quem publicou o editorial? (2021, Q4)</div>
+        <div class="dica-ouro-tag">DISTINÇÃO FONTE × AUTOR</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">O texto afirma: <b>"O editorial da edição de 10 de junho do British Medical Journal, assinado por professores da Queen Mary University of London"</b>. Três entidades aparecem: a publicação (BMJ), os autores (Queen Mary) e a plataforma de dados (OpenSAFELY).</div>
+        <div class="g3" style="margin-top:8px;gap:8px;">
+          <div class="regra-nao"><div class="regra-label">Autores</div><div class="regra-items">Queen Mary University of London — quem <b>escreveu</b></div></div>
+          <div class="regra-nao"><div class="regra-label">Plataforma de dados</div><div class="regra-items">OpenSAFELY — fonte do dado estatístico de 27%</div></div>
+          <div class="regra-sim"><div class="regra-label">Publicação ✅</div><div class="regra-items">British Medical Journal — onde o editorial foi <b>publicado</b></div></div>
+        </div>
+        <div class="resp">→ GABARITO: E — British Medical Journal é a publicação. A questão cobra se você distingue quem escreveu de onde foi publicado.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(5)">← Anterior</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(7)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 07 — CLASSES + HIBRIDISMO ═══ -->
+<div class="slide" data-title="Classes de Palavras + Hibridismo" id="slide-7">
+  <div class="topbar tb-lj">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo B · Gramática — Morfologia</span>
+      <span class="topbar-title">CLASSES + HIBRIDISMO</span>
+      <span class="topbar-sub">Q5 e Q6 da prova 2021 — as mais pegadinhas de morfologia</span>
+    </div>
+    <div class="topbar-right">07</div>
+  </div>
+  <div class="sb">
+    <div class="dica-ouro" style="margin-bottom:11px;">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">5</div>
+        <div class="dica-ouro-titulo">Classes de palavras: "maior" e "essa" não são substantivos (2021, Q5)</div>
+        <div class="dica-ouro-tag">ALTA FREQUÊNCIA</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">Trecho: <b>"As mortes por Covid-19 dão a pista de que essa é a maior causa que elas poderiam abraçar no momento"</b>. Quais são os substantivos?</div>
+        <div class="g2" style="margin:8px 0;">
+          <div>
+            <div class="item"><div class="dot">✅</div><div class="it"><b>mortes</b> — nomeia ação/evento</div></div>
+            <div class="item"><div class="dot">✅</div><div class="it"><b>Covid-19</b> — nome próprio = substantivo</div></div>
+            <div class="item"><div class="dot">✅</div><div class="it"><b>pista</b> — nomeia coisa concreta</div></div>
+            <div class="item"><div class="dot">✅</div><div class="it"><b>causa / momento</b> — nomeiam conceitos</div></div>
+          </div>
+          <div>
+            <div class="item"><div class="dot">❌</div><div class="it"><b>maior</b> — adjetivo comparativo (qualifica "causa")</div></div>
+            <div class="item"><div class="dot">❌</div><div class="it"><b>essa</b> — pronome demonstrativo (substitui "causa" mencionada)</div></div>
+          </div>
+        </div>
+        <div class="ana"><div class="ana-text">💡 Teste rápido: coloque um artigo antes. "A maior" funciona, mas maior ainda é adjetivo. "A essa" não funciona — essa já é pronome, não aceita artigo.</div></div>
+        <div class="resp">→ GABARITO: D — Covid-19 / pista / causa / momento</div>
+      </div>
+    </div>
+
+    <div class="dica-ouro">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">6</div>
+        <div class="dica-ouro-titulo">Hibridismo: radicais de origens diferentes (2021, Q6)</div>
+        <div class="dica-ouro-tag">FORMAÇÃO DE PALAVRAS</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt"><b>Hibridismo</b> = palavra formada por radicais de <b>línguas de origem diferentes</b> (latim + grego, grego + árabe etc.). "Obesogênico" = <i>obeso</i> (latim) + <i>-gênico</i> (grego).</div>
+        <table class="tabela-ref" style="margin:8px 0;">
+          <thead><tr><th>Palavra</th><th>Radical 1</th><th>Radical 2</th><th>Hibridismo?</th></tr></thead>
+          <tbody>
+            <tr><td><b>televisão</b></td><td>tele- (grego)</td><td>visão (latim)</td><td class="ok">✅ Sim</td></tr>
+            <tr><td><b>antivírus</b></td><td>anti- (grego)</td><td>vírus (latim)</td><td class="ok">✅ Sim</td></tr>
+            <tr><td><b>automóvel</b></td><td>auto- (grego)</td><td>móvel (latim)</td><td class="ok">✅ Sim</td></tr>
+            <tr><td><b>ultraprocessado</b></td><td>ultra- (latim)</td><td>processado (latim)</td><td class="ko">❌ Não</td></tr>
+            <tr><td><b>pandemia</b></td><td>pan- (grego)</td><td>demos (grego)</td><td class="ko">❌ Não</td></tr>
+            <tr><td><b>confinamento</b></td><td>con- (latim)</td><td>fim+mento (latim)</td><td class="ko">❌ Não</td></tr>
+          </tbody>
+        </table>
+        <div class="resp">→ GABARITO: C — televisão (tele- grego + visão latim) = hibridismo como "obesogênico"</div>
+      </div>
+    </div>
+
+    <div class="citacao-final" style="margin-top:0;">
+      <div class="citacao-txt">"Morfologia sem contexto não existe na EsPCEx. A banca nunca pede a classe de uma palavra no dicionário — ela pede a classe dentro da frase. Sempre leia o trecho inteiro antes de responder."</div>
+      <div class="citacao-autor">— Capitão Valdir</div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(6)">← Anterior</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(8)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 08 — DIVISÃO SILÁBICA + CONJUNÇÕES ═══ -->
+<div class="slide" data-title="Divisão Silábica + Conjunções" id="slide-8">
+  <div class="topbar tb-lj">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo B · Gramática — Morfologia</span>
+      <span class="topbar-title">SÍLABAS + CONJUNÇÕES</span>
+      <span class="topbar-sub">Prefixos que confundem e o "e" que significa "mas"</span>
+    </div>
+    <div class="topbar-right">08</div>
+  </div>
+  <div class="sb">
+    <div class="dica-ouro" style="margin-bottom:11px;">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">7</div>
+        <div class="dica-ouro-titulo">Divisão silábica com prefixos — a regra do sub- (2021, Q7)</div>
+        <div class="dica-ouro-tag">ORTOGRAFIA</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt"><b>Regra:</b> quando o prefixo termina em consoante e o radical começa por <b>vogal</b>, a consoante fica com o radical (não com o prefixo).</div>
+        <table class="tabela-ref" style="margin:8px 0;">
+          <thead><tr><th>Palavra</th><th>Divisão CORRETA</th><th>Erro comum</th></tr></thead>
+          <tbody>
+            <tr><td><b>suburbano</b></td><td class="ok">sub-ur-ba-no ✅</td><td class="ko">su-bur-ba-no ✗</td></tr>
+            <tr><td><b>interurbano</b></td><td class="ok">in-ter-ur-ba-no ✅</td><td class="ko">in-te-rur-ba-no ✗</td></tr>
+            <tr><td><b>subestimado</b></td><td class="ok">sub-es-ti-ma-do ✅</td><td class="ko">su-bes-ti-ma-do ✗</td></tr>
+            <tr><td><b>sublocar</b></td><td class="ok">sub-lo-car ✅</td><td class="ko">su-blo-car ✗</td></tr>
+            <tr><td><b>subumano</b></td><td class="ok">sub-u-ma-no ✅</td><td class="ko">su-bu-ma-no ✗</td></tr>
+          </tbody>
+        </table>
+        <div class="resp">→ GABARITO Q7 (2021): B — sub-ur-ba-no é a única divisão correta entre as alternativas apresentadas</div>
+      </div>
+    </div>
+
+    <div class="dica-ouro">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">8</div>
+        <div class="dica-ouro-titulo">O "e" adversativo — quando "e" significa "mas" (2021, Q8)</div>
+        <div class="dica-ouro-tag">SEMÂNTICA</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">A conjunção <b>"e"</b> parece sempre aditiva, mas no contexto pode ser <b>adversativa</b> (= mas, porém) quando introduz resultado <b>contrário à expectativa</b>.</div>
+        <div class="vs-wrap">
+          <div class="vs-e"><div class="vs-lbl">"e" ADITIVO (soma ações)</div><div class="vs-txt">"O editorial cita dados <b>e</b> razões para a associação" → soma dois objetos iguais</div></div>
+          <div class="vs-arrow">→</div>
+          <div class="vs-c"><div class="vs-lbl">"e" ADVERSATIVO (resultado oposto)</div><div class="vs-txt">"Quis dizer mais alguma coisa <b>e</b> não pôde" → queria falar, mas não conseguiu</div></div>
+        </div>
+        <div class="dica-ouro-exemplo">🧪 Teste: substitua o "e" por "mas". Se o sentido se mantiver → adversativo. "Quis dizer e não pôde" → "Quis dizer, <b>mas</b> não pôde" ✅ funciona = adversativo.</div>
+        <div class="resp">→ GABARITO Q8 (2021): C — "quiseram mostrar responsabilidade social, e deram tiros que saíram pela culatra" — tentaram algo positivo mas o resultado foi negativo = mesmo valor de "Quis dizer… e não pôde"</div>
+      </div>
+    </div>
+
+    <div class="citacao-final">
+      <div class="citacao-txt">"A conjunção 'e' é a armadilha mais elegante da EsPCEx. O candidato despreparado enxerga adição onde há oposição. Treine o olhar: quando a segunda oração frustra a primeira, o 'e' é adversativo — independente da aparência."</div>
+      <div class="citacao-autor">— Capitão Valdir</div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(7)">← Anterior</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(9)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 09 — SINTAXE: VOZES, PREDICATIVO, FUNÇÕES ═══ -->
+<div class="slide" data-title="Sintaxe — Vozes, Predicativo, Funções" id="slide-9">
+  <div class="topbar tb-roxo">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo B · Gramática — Sintaxe</span>
+      <span class="topbar-title">VOZES · PREDICATIVO · FUNÇÕES</span>
+      <span class="topbar-sub">Q10–Q13 da prova 2021 — alta frequência em todas as provas</span>
+    </div>
+    <div class="topbar-right">09</div>
+  </div>
+  <div class="sb">
+    <div class="dica-ouro" style="margin-bottom:11px;">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">9</div>
+        <div class="dica-ouro-titulo">Voz passiva reduzida de particípio (2021, Q11)</div>
+        <div class="dica-ouro-tag">VOZES DO VERBO</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">Trecho: <b>"O editorial… assinado por professores da Queen Mary University"</b>. O "assinado por" = particípio passivo + agente com "por" → voz passiva. Mesmo sem o verbo "ser", a estrutura é passiva.</div>
+        <div class="g3" style="margin:8px 0;gap:8px;">
+          <div class="regra-nao"><div class="regra-label">❌ Reflexiva</div><div class="regra-items">Sujeito faz a ação sobre si mesmo — "o editorial se assinou" ✗</div></div>
+          <div class="regra-nao"><div class="regra-label">❌ Ativa</div><div class="regra-items">Sujeito pratica a ação — o editorial não assina ninguém ✗</div></div>
+          <div class="regra-sim"><div class="regra-label">✅ Passiva</div><div class="regra-items">Sujeito sofre a ação; agente = "por professores"</div></div>
+        </div>
+        <div class="resp">→ GABARITO: B — voz passiva (analítica reduzida de particípio)</div>
+      </div>
+    </div>
+
+    <div class="dica-ouro" style="margin-bottom:11px;">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">10</div>
+        <div class="dica-ouro-titulo">Predicativo do sujeito — não confundir com CN (2021, Q12)</div>
+        <div class="dica-ouro-tag">SINTAXE</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">Trecho: <b>"A crítica do editorial é mesmo cortante."</b> O verbo "é" é de ligação → "cortante" atribui qualidade ao sujeito "A crítica" → <b>predicativo do sujeito</b>.</div>
+        <div class="vs-wrap">
+          <div class="vs-e"><div class="vs-lbl">❌ Complemento nominal</div><div class="vs-txt">CN completa um <b>nome</b> (subst. abstrato) com preposição. "Tem necessidade <b>de algo</b>" — precisa de preposição</div></div>
+          <div class="vs-arrow">→</div>
+          <div class="vs-c"><div class="vs-lbl">✅ Predicativo do sujeito</div><div class="vs-txt">Adjunto ao sujeito via verbo de ligação (ser, estar, ficar, parecer…). Sem preposição obrigatória</div></div>
+        </div>
+        <div class="resp">→ GABARITO: C — predicativo do sujeito</div>
+      </div>
+    </div>
+
+    <div class="dica-ouro">
+      <div class="dica-ouro-head">
+        <div class="dica-ouro-num">11</div>
+        <div class="dica-ouro-titulo">Completiva nominal × Objetiva indireta (2021, Q13)</div>
+        <div class="dica-ouro-tag">SUBORDINADAS</div>
+      </div>
+      <div class="dica-ouro-body">
+        <div class="dica-ouro-txt">Ambas usam preposição + que. A diferença: <b>completiva nominal</b> completa um <b>nome</b> (subst. abstrato ou adjetivo). <b>Objetiva indireta</b> completa um <b>verbo</b> transitivo indireto.</div>
+        <div class="vs-wrap">
+          <div class="vs-e"><div class="vs-lbl">Objetiva Indireta</div><div class="vs-txt">"Lembraram-se <b>de que o confinamento piorou</b>" → complementa o verbo "lembrar-se" (VTI)</div></div>
+          <div class="vs-arrow">→</div>
+          <div class="vs-c"><div class="vs-lbl">✅ Completiva Nominal</div><div class="vs-txt">"Fica claro <b>que a indústria divide</b>" → complementa o adjetivo "claro" = mesmo que: "Fica a impressão <b>de que</b> as amostras..."</div></div>
+        </div>
+        <div class="resp">→ GABARITO: B — "que a indústria divide a culpa" completa o adjetivo "claro" = completiva nominal, igual à oração do enunciado</div>
+      </div>
+    </div>
+
+    <div class="alerta lj">
+      <div class="alerta-icon">🎖️</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Dica do Capitão Valdir — Sintaxe em 3 perguntas</div>
+        <div class="alerta-text">Quando uma questão pede a classificação de uma oração, faça estas três perguntas em ordem: <b>1. Há verbo de ligação antes?</b> → pode ser predicativo. <b>2. Há agente com "por"?</b> → é voz passiva. <b>3. A oração completa um nome ou um verbo?</b> → define se é completiva nominal ou objetiva indireta. Três perguntas, maioria das questões de sintaxe resolvidas.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(8)">← Anterior</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(10)">Próximo →</button></div>
+</div>
+
+
+<!-- ═══ SLIDE FIM — CONTEÚDO BLOQUEADO ═══ -->
+<div class="slide" data-title="Conteúdo Completo — Módulos Seguintes" id="s-fim">
+  <div class="topbar" style="background:linear-gradient(135deg,#1a1a2e,#16213e);border-bottom:3px solid #4a4a8a;">
+    <div class="topbar-left">
+      <div class="topbar-tag" style="color:rgba(255,255,255,.45);">Guia Preparatório Capitão Valdir</div>
+      <div class="topbar-title" style="color:white;">🔒 Conteúdo Completo — Módulos Seguintes</div>
+      <div class="topbar-sub" style="color:rgba(255,255,255,.6);">Acesso ao material integral · Slides seguintes</div>
+    </div>
+    <div class="topbar-right" style="color:rgba(255,255,255,.15);">🔒</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);overflow-y:auto;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:18px;padding:36px 24px;max-width:520px;width:100%;text-align:center;">
+
+      <div style="font-size:64px;line-height:1;filter:drop-shadow(0 4px 18px rgba(0,0,0,.5));">🔒</div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#ffffff;line-height:1.25;">
+        Conteúdo Completo<br>— Módulos Seguintes
+      </div>
+
+      <div style="width:50px;height:3px;background:#D4A017;border-radius:2px;"></div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:400;color:rgba(255,255,255,.75);line-height:1.7;max-width:400px;">
+        Para ter acesso ao material completo, entre em contato com o <strong style="color:#D4A017;">Guia Preparatório Capitão Valdir</strong>.
+      </div>
+
+      <a href="mailto:guiaprepcapvaldir@gmail.com"
+         style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#B8860B,#D4A017);color:#1a0e00;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:14px 28px;border-radius:10px;text-decoration:none;box-shadow:0 4px 20px rgba(212,160,23,.35);letter-spacing:.02em;margin-top:4px;">
+        📧 Quero Acesso ao Material Completo
+      </a>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:rgba(212,160,23,.65);letter-spacing:.06em;">
+        guiaprepcapvaldir@gmail.com
+      </div>
+
+      <div style="width:100%;height:1px;background:rgba(255,255,255,.08);margin:4px 0;"></div>
+
+      <button onclick="goTo(0)" style="background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:8px 22px;border-radius:7px;cursor:pointer;letter-spacing:.03em;">
+        ⬆ Voltar à Capa
+      </button>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- NAV BAR -->
+<div class="nav">
+  <button class="nbtn" id="btn-prev" onclick="prev()" disabled>← Anterior</button>
+  <div class="pw"><div class="pb" id="prog"></div></div>
+  <div class="ntitle" id="ntitle">Início</div>
+  <div class="ncnt" id="ncnt"></div>
+  <button class="nbtn" id="btn-next" onclick="next()">Próximo →</button>
+  <div class="khint" id="khint">← → teclado · swipe celular</div>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let cur=0;
+const total=slides.length;
+function goTo(n){
+  if(n<0||n>=total)return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  const p=cur;cur=n;
+  setTimeout(()=>slides[p].classList.remove('out'),370);
+  slides[cur].classList.add('active');
+  const sb=slides[cur].querySelector('.sb');
+  if(sb)sb.scrollTop=0;
+  upd();
+}
+function next(){if(cur<total-1)goTo(cur+1);}
+function prev(){if(cur>0)goTo(cur-1);}
+function upd(){
+  document.getElementById('btn-prev').disabled=cur===0;
+  document.getElementById('btn-next').disabled=cur===total-1;
+  document.getElementById('prog').style.width=((cur+1)/total*100)+'%';
+  document.getElementById('ncnt').textContent=(cur+1)+' / '+total;
+  document.getElementById('ntitle').textContent=slides[cur].dataset.title||'';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();next();}
+  if(e.key==='ArrowLeft'){e.preventDefault();prev();}
+});
+let tx=0;
+document.getElementById('deck').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.getElementById('deck').addEventListener('touchend',e=>{
+  const dx=tx-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>45)dx>0?next():prev();
+},{passive:true});
+(function(){
+  const isMobile=window.innerWidth<=768||('ontouchstart' in window);
+  const khint=document.getElementById('khint');
+  if(isMobile&&khint)khint.style.display='none';
+  document.getElementById('ncnt').textContent='1 / '+slides.length;
+})();
+upd();
+</script>
+</body>
+</html>

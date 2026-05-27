@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESA/CFGS — Português · Foco no que Mais Cai + Dicas de Ouro (2022–2025)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vd:#1B5E20;--vdm:#2E7D32;--vdl:#43A047;--vdbg:#E8F5E9;--vdxbg:#F1F8F1;
+  --ouro:#B8860B;--ourol:#D4A017;--ourobg:#FFF9E6;
+  --azul:#0D47A1;--azull:#1565C0;--azulbg:#E3F2FD;
+  --verm:#B71C1C;--verml:#C62828;--vermbg:#FFEBEE;
+  --cinza:#37474F;--cinzal:#546E7A;--cinzabg:#ECEFF1;
+  --roxo:#4A148C;--roxol:#6A1B9A;--roxobg:#F3E5F5;
+  --lj:#BF4A00;--ljl:#F57F17;--ljd:#993300;--ljbg:#FFF3E0;--ljxbg:#FFF8F0;
+  --branco:#FFFFFF;--fundo:#F4F6F9;--borda:#DDE3E9;
+  --texto:#1A2530;--sub:#546E7A;
+}
+*{margin:0;padding:0;box-sizing:border-box;min-width:0;word-break:break-word;overflow-wrap:break-word;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'Sora',sans-serif;font-size:15px;background:#1A2530;color:var(--texto);display:flex;flex-direction:column;}
+
+/* ── DECK ── */
+.deck{flex:1;position:relative;overflow:hidden;}
+.slide{position:absolute;inset:0;background:var(--branco);display:flex;flex-direction:column;opacity:0;pointer-events:none;transform:translateX(55px);transition:opacity .35s cubic-bezier(.4,0,.2,1),transform .35s cubic-bezier(.4,0,.2,1);}
+.slide.active{opacity:1;pointer-events:all;transform:translateX(0);}
+.slide.out{opacity:0;transform:translateX(-55px);}
+
+/* ── NAV BAR ── */
+.nav{background:#111C24;padding:7px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;border-top:2px solid var(--vdl);}
+.nbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);color:white;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:.07em;padding:5px 14px;border-radius:5px;cursor:pointer;transition:all .2s;white-space:nowrap;text-transform:uppercase;}
+.nbtn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);}
+.nbtn:disabled{opacity:.25;cursor:default;}
+.pw{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;}
+.pb{height:100%;background:var(--vdl);border-radius:2px;transition:width .35s;}
+.ntitle{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.7);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ncnt{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.38);white-space:nowrap;}
+.khint{font-size:10px;color:rgba(255,255,255,.22);white-space:nowrap;}
+
+/* ── TOPBAR ── */
+.topbar{padding:11px 22px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;overflow:hidden;}
+.topbar::after{content:'';position:absolute;right:0;top:0;bottom:0;width:180px;background:linear-gradient(to right,transparent,rgba(0,0,0,.18));pointer-events:none;}
+.tb-vd{background:linear-gradient(135deg,var(--vd),var(--vdm));border-bottom:3px solid var(--vdl);}
+.tb-azul{background:var(--azul);border-bottom:3px solid #42A5F5;}
+.tb-verm{background:var(--verm);border-bottom:3px solid #EF9A9A;}
+.tb-cinza{background:var(--cinza);border-bottom:3px solid #90A4AE;}
+.tb-roxo{background:var(--roxo);border-bottom:3px solid #CE93D8;}
+.tb-ouro{background:#7A4500;border-bottom:3px solid var(--ourol);}
+.topbar-left{display:flex;flex-direction:column;gap:1px;}
+.topbar-tag{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);}
+.topbar-title{font-family:'Sora',sans-serif;font-size:clamp(15px,2.2vw,22px);font-weight:800;color:white;line-height:1.1;letter-spacing:.01em;}
+.topbar-sub{font-size:12px;font-weight:400;color:rgba(255,255,255,.7);margin-top:1px;}
+.topbar-right{font-family:'Sora',sans-serif;font-size:36px;font-weight:800;color:rgba(255,255,255,.18);flex-shrink:0;line-height:1;}
+
+/* ── SCROLL BODY ── */
+.sb{flex:1;overflow-y:auto;padding:16px 22px 50px;background:var(--fundo);scrollbar-width:thin;scrollbar-color:var(--borda) transparent;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--borda);border-radius:3px;}
+
+/* ── SLIDE FOOTER ── */
+.slide-footer{position:absolute;bottom:0;left:0;right:0;height:36px;background:rgba(255,255,255,.96);border-top:1px solid var(--borda);display:flex;align-items:center;justify-content:center;gap:8px;backdrop-filter:blur(4px);}
+.sfbtn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;color:var(--vd);letter-spacing:.04em;padding:3px 10px;border-radius:5px;transition:all .2s;}
+.sfbtn:hover{background:var(--vdbg);}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;}
+.s2{grid-column:span 2;}
+
+/* ── CARD ── */
+.card{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 7px rgba(0,0,0,.06);}
+.card-head{padding:10px 14px;display:flex;align-items:center;gap:9px;border-bottom:1.5px solid var(--borda);}
+.card-head.vd{background:var(--vdbg);border-color:#A5D6A7;}
+.card-head.azul{background:var(--azulbg);border-color:#90CAF9;}
+.card-head.verm{background:var(--vermbg);border-color:#EF9A9A;}
+.card-head.cinza{background:var(--cinzabg);border-color:#B0BEC5;}
+.card-head.roxo{background:var(--roxobg);border-color:#CE93D8;}
+.card-head.ouro{background:var(--ourobg);border-color:#F9D878;}
+.card-head-icon{font-size:18px;flex-shrink:0;}
+.card-head-title{font-size:13.5px;font-weight:700;color:var(--texto);flex:1;line-height:1.3;}
+.card-body{padding:12px 14px;flex:1;}
+
+/* ── ITEM ── */
+.item{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start;}
+.item:last-child{margin-bottom:0;}
+.dot{font-size:14px;flex-shrink:0;margin-top:1px;line-height:1.55;}
+.it{font-size:13.5px;line-height:1.62;color:var(--texto);}
+.it b{font-weight:700;color:var(--vdm);}
+.it .ko{color:var(--verml);font-weight:700;}
+.it .ok{color:var(--vdm);font-weight:700;}
+
+/* ── ALERTA ── */
+.alerta{border-radius:9px;padding:10px 14px;margin-bottom:11px;display:flex;gap:10px;align-items:flex-start;}
+.alerta:last-child{margin-bottom:0;}
+.alerta.vd{background:var(--vdbg);border-left:4px solid var(--vdl);}
+.alerta.verm{background:var(--vermbg);border-left:4px solid var(--verml);}
+.alerta.azul{background:var(--azulbg);border-left:4px solid var(--azull);}
+.alerta.cinza{background:var(--cinzabg);border-left:4px solid var(--cinzal);}
+.alerta.roxo{background:var(--roxobg);border-left:4px solid var(--roxol);}
+.alerta.ouro{background:var(--ourobg);border-left:4px solid var(--ourol);}
+.alerta-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alerta-content{flex:1;}
+.alerta-title{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:3px;}
+.alerta.vd    .alerta-title{color:var(--vd);}
+.alerta.verm  .alerta-title{color:var(--verml);}
+.alerta.azul  .alerta-title{color:var(--azull);}
+.alerta.cinza .alerta-title{color:var(--cinza);}
+.alerta.roxo  .alerta-title{color:var(--roxol);}
+.alerta.ouro  .alerta-title{color:var(--ouro);}
+.alerta-text{font-size:13.5px;line-height:1.62;color:var(--texto);}
+.alerta-text b{font-weight:700;}
+
+/* ── CAPA ── */
+.capa-slide{flex:1;background:linear-gradient(160deg,#030A04 0%,#1B5E20 40%,#0A2E10 70%,#030A04 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;gap:12px;overflow-y:auto;position:relative;}
+.capa-slide::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 55px,rgba(255,255,255,.012) 55px,rgba(255,255,255,.012) 56px);pointer-events:none;}
+.capa-titulo{font-family:'Sora',sans-serif;font-size:clamp(22px,4vw,40px);font-weight:800;color:white;text-align:center;letter-spacing:.02em;line-height:1.05;text-transform:uppercase;}
+.capa-subtitulo{font-family:'Sora',sans-serif;font-size:clamp(12px,1.8vw,16px);font-weight:600;color:rgba(255,255,255,.62);text-align:center;letter-spacing:.04em;text-transform:uppercase;}
+.capa-linha{width:75px;height:3px;background:var(--vdl);border-radius:2px;}
+.capa-stats{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin:4px 0;}
+.capa-stat{text-align:center;}
+.capa-stat-n{font-family:'Sora',sans-serif;font-size:30px;font-weight:800;color:#D4A017;display:block;line-height:1;}
+.capa-stat-l{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.42);display:block;margin-top:2px;}
+.capa-btn{background:linear-gradient(135deg,#B8860B,#D4A017);color:#3B2500;border:none;font-family:'Sora',sans-serif;font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:11px 40px;border-radius:8px;cursor:pointer;transition:all .2s;box-shadow:0 5px 18px rgba(184,134,11,.5);}
+.capa-btn:hover{transform:scale(1.04);box-shadow:0 8px 26px rgba(184,134,11,.65);}
+.capa-badge{background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.14);border-radius:25px;padding:3px 15px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.capa-lp-badge{background:linear-gradient(135deg,rgba(184,134,11,.3),rgba(184,134,11,.12));border:1.5px solid rgba(212,160,23,.38);border-radius:10px;padding:9px 20px;text-align:center;max-width:500px;}
+.capa-lp-titulo{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:#A5D6A7;letter-spacing:.04em;text-transform:uppercase;}
+.capa-lp-sub{font-size:12.5px;color:rgba(255,255,255,.6);margin-top:3px;}
+
+/* ── SUMÁRIO ── */
+.sumario-section-titulo{font-family:'Sora',sans-serif;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--vd);padding:8px 14px;background:var(--vdbg);border-left:4px solid var(--vdl);border-radius:0 7px 7px 0;margin-bottom:8px;cursor:pointer;}
+.sumario-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:white;border:1.5px solid var(--borda);border-radius:8px;cursor:pointer;transition:all .2s;margin-bottom:5px;}
+.sumario-item:hover{border-color:var(--vdl);background:var(--vdxbg);transform:translateX(3px);}
+.sumario-item-num{font-family:'Sora',sans-serif;font-size:15px;font-weight:800;color:var(--vd);flex-shrink:0;min-width:30px;}
+.sumario-item-txt{flex:1;}
+.sumario-item-nome{font-size:13.5px;font-weight:700;color:var(--texto);}
+.sumario-item-desc{font-size:11.5px;color:var(--sub);}
+.sumario-item-arrow{font-size:16px;color:var(--vdl);}
+
+/* ── FREQUÊNCIA PILL ── */
+.fpill{display:inline-block;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;padding:2px 9px;border-radius:20px;margin-left:6px;vertical-align:middle;}
+.fpill.a{background:var(--vermbg);color:var(--verml);}
+.fpill.m{background:var(--ourobg);color:var(--ouro);}
+.fpill.b{background:var(--cinzabg);color:var(--cinza);}
+
+/* ── QMAP ── */
+.qmap{display:flex;flex-direction:column;gap:7px;}
+.qrow{background:white;border:1.5px solid var(--borda);border-radius:9px;display:flex;align-items:stretch;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.qrow-num{width:50px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:16px;font-weight:800;color:white;}
+.qrow-info{flex:1;padding:8px 13px;}
+.qrow-title{font-size:13.5px;font-weight:700;color:var(--texto);margin-bottom:2px;}
+.qrow-desc{font-size:12px;line-height:1.5;color:var(--sub);}
+.qrow-badge{padding:7px 13px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:85px;background:rgba(0,0,0,.02);border-left:1px solid var(--borda);}
+.qrow-badge-pct{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;line-height:1;}
+.qrow-badge-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);margin-top:2px;white-space:nowrap;}
+.qrow-badge-bar{width:65px;height:3px;background:rgba(0,0,0,.08);border-radius:2px;margin-top:4px;}
+.qrow-badge-fill{height:100%;border-radius:2px;}
+
+/* ── DICAS DE OURO ── */
+.ouro-section-header{background:linear-gradient(135deg,var(--vd) 0%,var(--vdl) 50%,var(--vd) 100%);border-radius:10px;padding:13px 18px;margin-bottom:13px;display:flex;align-items:center;gap:13px;color:white;box-shadow:0 4px 18px rgba(67,160,71,.45);}
+.ouro-medal{font-size:34px;flex-shrink:0;}
+.ouro-header-text h2{font-family:'Sora',sans-serif;font-size:18px;font-weight:800;}
+.ouro-header-text p{font-size:12.5px;color:rgba(255,255,255,.75);margin-top:2px;}
+.dica-ouro{background:white;border:2px solid var(--vdl);border-radius:10px;margin-bottom:11px;overflow:hidden;box-shadow:0 2px 10px rgba(67,160,71,.15);}
+.dica-ouro:last-child{margin-bottom:0;}
+.dica-ouro-head{background:linear-gradient(90deg,var(--vd),var(--vdl));padding:7px 14px;display:flex;align-items:center;gap:9px;}
+.dica-ouro-num{background:rgba(255,255,255,.22);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:12px;font-weight:800;color:white;flex-shrink:0;}
+.dica-ouro-titulo{font-family:'Sora',sans-serif;font-size:13.5px;font-weight:800;color:white;letter-spacing:.01em;flex:1;}
+.dica-ouro-tag{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:rgba(255,255,255,.18);color:white;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+.dica-ouro-body{padding:12px 15px;}
+.dica-ouro-txt{font-size:13.5px;line-height:1.65;color:var(--texto);margin-bottom:8px;}
+.dica-ouro-txt b{color:var(--vd);font-weight:700;}
+.dica-ouro-exemplo{background:var(--vdbg);border-left:3px solid var(--vdl);border-radius:0 7px 7px 0;padding:8px 13px;font-size:13px;line-height:1.6;color:var(--cinza);margin-top:8px;}
+
+/* ── BLOCO ESTRUTURA ── */
+.bloco-wrap{display:flex;flex-direction:column;gap:9px;margin-bottom:14px;}
+.bloco{background:white;border:1.5px solid var(--borda);border-radius:10px;overflow:hidden;box-shadow:0 1px 5px rgba(0,0,0,.05);}
+.bloco-header{display:flex;align-items:stretch;}
+.bloco-num{min-width:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px 8px;color:white;font-family:'Sora',sans-serif;flex-shrink:0;}
+.bloco-num-q{font-size:17px;font-weight:800;line-height:1;}
+.bloco-num-label{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.8;margin-top:2px;}
+.bloco-info{flex:1;padding:10px 14px;border-left:1px solid rgba(0,0,0,.08);}
+.bloco-title{font-size:13.5px;font-weight:800;color:var(--texto);margin-bottom:3px;}
+.bloco-desc{font-size:12px;line-height:1.55;color:var(--sub);}
+.bloco-pct{padding:10px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:1px solid var(--borda);min-width:60px;background:rgba(0,0,0,.02);flex-shrink:0;}
+.bloco-pct-n{font-family:'Sora',sans-serif;font-size:21px;font-weight:800;line-height:1;}
+.bloco-pct-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--sub);margin-top:2px;}
+.bloco-temas{padding:8px 14px 10px;border-top:1px solid var(--borda);display:flex;flex-wrap:wrap;gap:5px;}
+.tema-pill{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap;}
+
+/* ── APRESENTAÇÃO ── */
+.apres-capa{background:linear-gradient(135deg,var(--vd),var(--vdl));border-radius:12px;padding:22px 24px;margin-bottom:14px;color:white;position:relative;overflow:hidden;}
+.apres-capa::before{content:'';position:absolute;right:-30px;top:-30px;width:150px;height:150px;background:rgba(255,255,255,.06);border-radius:50%;}
+.apres-titulo{font-family:'Sora',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;position:relative;}
+.apres-sub{font-size:13px;color:rgba(255,255,255,.82);line-height:1.65;position:relative;}
+.bio-card{background:white;border:1.5px solid var(--borda);border-radius:12px;padding:16px 18px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.06);}
+.bio-header{display:flex;align-items:center;gap:14px;margin-bottom:12px;padding-bottom:12px;border-bottom:1.5px solid var(--borda);}
+.bio-avatar{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--vd),var(--vdl));display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;border:3px solid var(--vdl);}
+.bio-name{font-family:'Sora',sans-serif;font-size:19px;font-weight:800;color:var(--vd);}
+.bio-cargo{font-size:12px;color:var(--sub);margin-top:2px;}
+.bio-formacao{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:11px;}
+.bio-item{display:flex;gap:9px;align-items:flex-start;}
+.bio-item-icon{font-size:15px;flex-shrink:0;margin-top:1px;}
+.bio-item-txt{font-size:12.5px;line-height:1.55;color:var(--texto);}
+.bio-item-txt b{font-weight:700;color:var(--vd);}
+.bio-exp{background:var(--vdbg);border-radius:8px;padding:10px 13px;}
+.bio-exp-title{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--vd);margin-bottom:8px;}
+.bio-exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+.bio-exp-item{display:flex;gap:7px;align-items:flex-start;background:white;border-radius:7px;padding:7px 10px;border:1px solid #A5D6A7;}
+.bio-exp-item-icon{font-size:14px;flex-shrink:0;}
+.bio-exp-item-txt{font-size:12px;line-height:1.45;color:var(--texto);}
+.citacao-final{background:linear-gradient(135deg,var(--vd),var(--vdl));border-radius:10px;padding:15px 20px;margin-top:13px;text-align:center;position:relative;overflow:hidden;}
+.citacao-final::before{content:'"';font-family:'Sora',sans-serif;font-size:90px;color:rgba(255,255,255,.07);position:absolute;top:-18px;left:10px;line-height:1;}
+.citacao-txt{font-family:'Sora',sans-serif;font-size:14px;font-weight:600;font-style:italic;color:white;line-height:1.6;position:relative;}
+.citacao-autor{font-size:12px;color:rgba(255,255,255,.65);margin-top:7px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;}
+
+/* ── TABELA ── */
+.tabela-ref{width:100%;border-collapse:collapse;font-size:13px;}
+.tabela-ref th{background:var(--vd);color:white;padding:7px 11px;text-align:left;font-family:'Sora',sans-serif;font-weight:700;font-size:12px;letter-spacing:.02em;}
+.tabela-ref td{padding:6px 11px;border-bottom:1px solid var(--borda);vertical-align:top;}
+.tabela-ref tr:last-child td{border-bottom:none;}
+.tabela-ref tr:nth-child(even) td{background:var(--fundo);}
+.tabela-ref .ok{color:var(--vdm);font-weight:700;}
+.tabela-ref .ko{color:var(--verml);font-weight:700;}
+
+/* ── VS BOXES ── */
+.vs-wrap{display:flex;gap:7px;align-items:stretch;margin-bottom:8px;}
+.vs-e{flex:1;background:var(--vermbg);border:1.5px solid #EF9A9A;border-radius:7px;padding:8px 12px;}
+.vs-c{flex:1;background:var(--vdbg);border:1.5px solid #A5D6A7;border-radius:7px;padding:8px 12px;}
+.vs-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+.vs-e .vs-lbl{color:var(--verml);}
+.vs-c .vs-lbl{color:var(--vdm);}
+.vs-txt{font-size:13.5px;line-height:1.5;color:var(--texto);}
+.vs-arrow{display:flex;align-items:center;font-size:15px;color:var(--cinzal);flex-shrink:0;}
+
+/* ── RESPONSIVO ── */
+@media(max-width:768px){
+  .g2,.g3{grid-template-columns:1fr !important;gap:10px;}
+  .s2{grid-column:span 1 !important;}
+  .sb{padding:12px 14px 50px;}
+  .card-head{padding:8px 12px;}
+  .card-body{padding:10px 12px;overflow-x:auto;}
+  .tabela-ref{font-size:12px;min-width:320px;}
+  .qrow{flex-direction:column;}
+  .qrow-num{width:100%;height:36px;font-size:14px;}
+  .qrow-badge{border-left:none;border-top:1px solid var(--borda);flex-direction:row;min-width:auto;justify-content:flex-start;gap:10px;padding:6px 13px;}
+  .qrow-badge-bar{width:80px;}
+  .ntitle{display:none;}
+  .bio-formacao,.bio-exp-grid{grid-template-columns:1fr !important;}
+  .bloco-header{flex-wrap:wrap;}
+}
+@media(max-width:480px){
+  .it,.alerta-text,.dica-ouro-txt{font-size:13px;}
+  .capa-titulo{font-size:22px !important;}
+  .nbtn{font-size:9px;padding:5px 8px;}
+  .topbar{padding:9px 14px;}
+}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+<!-- ═══ SLIDE 01 — CAPA ═══ -->
+<div class="slide active" data-title="Capa" id="slide-0">
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 24px 40px;text-align:center;height:100%;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);">
+  <div style="font-size:66px;line-height:1;">🎖️</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(14px,2vw,18px);font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.1em;text-transform:uppercase;">Guia Preparatório Capitão Valdir</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,15px);font-weight:600;color:rgba(212,160,23,.8);letter-spacing:.1em;text-transform:uppercase;">Método Prático para Aprovação</div>
+  <div style="width:60px;height:3px;background:#D4A017;border-radius:2px;margin:4px 0;"></div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1.4vw,14px);font-weight:700;color:rgba(212,160,23,.7);letter-spacing:.18em;text-transform:uppercase;">LÍNGUA PORTUGUESA</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(28px,5.5vw,48px);font-weight:800;color:#ffffff;line-height:1.15;text-transform:uppercase;text-align:center;margin:8px 0;">FOCO NO QUE MAIS CAI
+e DICAS DE OURO</div>
+  <div style="font-family:'Sora',sans-serif;font-size:clamp(12px,1.6vw,16px);font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;margin-top:8px;">ESCOLA DE SARGENTOS DAS ARMAS — CFGS</div>
+  <button onclick="goTo(1)" style="background:linear-gradient(135deg,#B8860B,#D4A017);color:#3B2500;border:none;font-family:'Sora',sans-serif;font-size:15px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:11px 40px;border-radius:8px;cursor:pointer;transition:all .2s;box-shadow:0 5px 18px rgba(184,134,11,.5);">COMEÇAR AGORA →</button>
+  <div style="font-size:11px;color:rgba(255,255,255,.28);text-align:center;">← → teclado · swipe celular</div>
+</div>
+</div>
+
+<!-- ═══ SLIDE 02 — APRESENTAÇÃO ═══ -->
+<div class="slide" data-title="Capitão Valdir — Quem sou">
+  <div class="topbar tb-vd">
+    <div class="topbar-left">
+      <span class="topbar-tag">ESA · CFGS · Língua Portuguesa 2022–2025</span>
+      <span class="topbar-title">APRESENTAÇÃO</span>
+      <span class="topbar-sub">Método, formação e experiência docente</span>
+    </div>
+    <div class="topbar-right">02</div>
+  </div>
+  <div class="sb">
+    <div class="apres-capa">
+      <div class="apres-titulo">🎖️ Por que este material?</div>
+      <div class="apres-sub">A ESA/CFGS é uma das provas militares mais disputadas do Brasil. Em Língua Portuguesa, a banca possui padrões claros e repetitivos — mas poucos candidatos aprendem a reconhecê-los. Este guia nasce da análise sistemática das <b>quatro provas de 2022 a 2025</b>, reunindo 56 questões em um único bloco de conteúdo para que você saiba exatamente onde concentrar seu estudo.</div>
+    </div>
+
+    <div class="bio-card">
+      <div class="bio-header">
+        <div class="bio-avatar">🎖️</div>
+        <div>
+          <div class="bio-name">Capitão Valdir</div>
+          <div class="bio-cargo">Especialista em Concursos Militares · Professor de Língua Portuguesa</div>
+        </div>
+      </div>
+      <div class="bio-formacao">
+        <div class="bio-item">
+          <div class="bio-item-icon">🎓</div>
+          <div class="bio-item-txt"><b>Licenciado em Letras</b><br>Habilitação em Língua Portuguesa e Literatura Brasileira.</div>
+        </div>
+        <div class="bio-item">
+          <div class="bio-item-icon">⚔️</div>
+          <div class="bio-item-txt"><b>Carreira Militar de Longa Data</b><br>Dois décadas ensinando seus alunos e preparando candidatos.</div>
+        </div>
+        <div class="bio-item">
+          <div class="bio-item-icon">📋</div>
+          <div class="bio-item-txt"><b>Aprovado na ESA/CFGS</b><br>Fez a prova. Passou. Sabe o que a banca cobra de verdade.</div>
+        </div>
+        <div class="bio-item">
+          <div class="bio-item-icon">📚</div>
+          <div class="bio-item-txt"><b>Referência: Cunha &amp; Cintra</b><br>"Nova Gramática do Português Contemporâneo" — a obra adotada pela banca ESA.</div>
+        </div>
+      </div>
+      <div class="bio-exp">
+        <div class="bio-exp-title">▸ Experiência Docente no Exército Brasileiro</div>
+        <div class="bio-exp-grid">
+          <div class="bio-exp-item"><div class="bio-exp-item-icon">🏫</div><div class="bio-exp-item-txt"><b>Colégio Militar de Fortaleza</b></div></div>
+          <div class="bio-exp-item"><div class="bio-exp-item-icon">🏫</div><div class="bio-exp-item-txt"><b>Colégio Militar de Manaus</b></div></div>
+          <div class="bio-exp-item"><div class="bio-exp-item-icon">⚔️</div><div class="bio-exp-item-txt"><b>Escola de Aperfeiçoamento de Sargentos das Armas</b></div></div>
+          <div class="bio-exp-item"><div class="bio-exp-item-icon">✈️</div><div class="bio-exp-item-txt"><b>Centro de Instrução de Aviação do Exército</b></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="citacao-final">
+      <div class="citacao-txt">"Não existe candidato sem talento. Existe candidato sem método. Este material é o seu método."</div>
+      <div class="citacao-autor">— Capitão Valdir</div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <button class="sfbtn" onclick="goTo(0)">⬆ Início</button>
+    <span style="color:var(--borda)">|</span>
+    <button class="sfbtn" onclick="goTo(2)">📋 Sumário</button>
+    <span style="color:var(--borda)">|</span>
+    <button class="sfbtn" onclick="goTo(3)">Próximo →</button>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 03 — SUMÁRIO ═══ -->
+<div class="slide" data-title="Sumário — Navegação">
+  <div class="topbar tb-vd">
+    <div class="topbar-left">
+      <span class="topbar-tag">ESA · CFGS · Português 2022–2025</span>
+      <span class="topbar-title">SUMÁRIO</span>
+      <span class="topbar-sub">Clique para ir direto ao conteúdo</span>
+    </div>
+    <div class="topbar-right">03</div>
+  </div>
+  <div class="sb">
+    <div class="alerta vd" style="margin-bottom:14px;">
+      <div class="alerta-icon">🗺️</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Como navegar</div>
+        <div class="alerta-text">Clique em qualquer item para ir direto àquela seção. Use as setas ← → do teclado ou os botões da barra inferior. Em celular, deslize para os lados. O botão <b>📋 Sumário</b> aparece em todos os slides para você voltar aqui a qualquer momento.</div>
+      </div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="sumario-section-titulo" onclick="goTo(1)">👤 Apresentação (slide 02)</div>
+        <div class="sumario-item" onclick="goTo(1)"><div class="sumario-item-num">02</div><div class="sumario-item-txt"><div class="sumario-item-nome">Capitão Valdir — Quem sou</div><div class="sumario-item-desc">Formação, método e experiência docente</div></div><div class="sumario-item-arrow">→</div></div>
+
+        <div class="sumario-section-titulo" style="margin-top:11px;">📊 Análise Geral (slides 04–06)</div>
+        <div class="sumario-item" onclick="goTo(3)"><div class="sumario-item-num">04</div><div class="sumario-item-txt"><div class="sumario-item-nome">Como a Prova de LP é Feita</div><div class="sumario-item-desc">14 questões — estrutura, blocos e padrão histórico 2022–2025</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(4)"><div class="sumario-item-num">05</div><div class="sumario-item-txt"><div class="sumario-item-nome">Mapa de Frequência Unificado</div><div class="sumario-item-desc">🔴🟡🟢 O que mais caiu nas 4 provas (2022–2025) — 56 questões</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(5)"><div class="sumario-item-num">06</div><div class="sumario-item-txt"><div class="sumario-item-nome">Textos-Base e Previsão 2026</div><div class="sumario-item-desc">Padrão dos gêneros nos 4 anos e o que esperar</div></div><div class="sumario-item-arrow">→</div></div>
+
+        <div class="sumario-section-titulo" style="margin-top:11px;">📖 Interpretação (slides 07–08)</div>
+        <div class="sumario-item" onclick="goTo(6)"><div class="sumario-item-num">07</div><div class="sumario-item-txt"><div class="sumario-item-nome">Interpretação de Textos — Método</div><div class="sumario-item-desc">Estratégia + questões reais das 4 provas (2022–2025)</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(7)"><div class="sumario-item-num">08</div><div class="sumario-item-txt"><div class="sumario-item-nome">Análise Sintática e Morfossintaxe</div><div class="sumario-item-desc">Orações subordinadas · Adjunto · Predicativo</div></div><div class="sumario-item-arrow">→</div></div>
+      </div>
+      <div>
+        <div class="sumario-section-titulo">⚙️ Gramática (slides 09–11)</div>
+        <div class="sumario-item" onclick="goTo(8)"><div class="sumario-item-num">09</div><div class="sumario-item-txt"><div class="sumario-item-nome">Classes de Palavras + Semântica</div><div class="sumario-item-desc">Morfologia · Formação · Pronomes · Polissemia</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(9)"><div class="sumario-item-num">10</div><div class="sumario-item-txt"><div class="sumario-item-nome">Concordância e Regência Verbal</div><div class="sumario-item-desc">"Haver" impessoal · "onde" · regência culta</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(10)"><div class="sumario-item-num">11</div><div class="sumario-item-txt"><div class="sumario-item-nome">Verbos: Tempos, Modos, Locuções</div><div class="sumario-item-desc">Pretérito composto · Imperfeito · Impessoais</div></div><div class="sumario-item-arrow">→</div></div>
+
+        <div class="sumario-section-titulo" style="margin-top:11px;">📜 Literatura (slides 12–14)</div>
+        <div class="sumario-item" onclick="goTo(11)"><div class="sumario-item-num">12</div><div class="sumario-item-txt"><div class="sumario-item-nome">Escolas Literárias — 4 Anos de Provas</div><div class="sumario-item-desc">Arcadismo · Realismo · Simbolismo · Romantismo · Modernismo</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(12)"><div class="sumario-item-num">13</div><div class="sumario-item-txt"><div class="sumario-item-nome">Versificação, Gêneros e Intertextualidade</div><div class="sumario-item-desc">Soneto · Redondilha maior · Épico vs Lírico</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(13)"><div class="sumario-item-num">14</div><div class="sumario-item-txt"><div class="sumario-item-nome">Figuras de Linguagem + Tipos Textuais</div><div class="sumario-item-desc">Antítese · Elipse · Argumentativo · Tirinha</div></div><div class="sumario-item-arrow">→</div></div>
+
+        <div class="sumario-section-titulo" style="margin-top:11px;">🥇 Síntese Final (slides 15–17)</div>
+        <div class="sumario-item" onclick="goTo(14)"><div class="sumario-item-num">15</div><div class="sumario-item-txt"><div class="sumario-item-nome">Dicas de Ouro — 14 Gatilhos Automáticos</div><div class="sumario-item-desc">Os padrões que a banca ESA mais repete</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(15)"><div class="sumario-item-num">16</div><div class="sumario-item-txt"><div class="sumario-item-nome">Análise Final · Reta Final · Mensagem</div><div class="sumario-item-desc">5 erros eliminatórios · cronograma · mensagem</div></div><div class="sumario-item-arrow">→</div></div>
+        <div class="sumario-item" onclick="goTo(16)" style="border-color:#42A5F5;background:var(--azulbg);"><div class="sumario-item-num" style="color:var(--azull);">17</div><div class="sumario-item-txt"><div class="sumario-item-nome">📋 56 Questões Comentadas — 4 Provas (2022–2025)</div><div class="sumario-item-desc">Bloco único integrado · 2022 · 2023 · 2024 · 2025 · gabaritos</div></div><div class="sumario-item-arrow">→</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(0)">⬆ Início</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(1)">← Apresentação</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(3)">Próximo →</button></div>
+</div>
+
+<!-- ═══ SLIDE 04 — ESTRUTURA DA PROVA ═══ -->
+<div class="slide" data-title="Como a Prova de LP é Feita">
+  <div class="topbar tb-vd">
+    <div class="topbar-left">
+      <span class="topbar-tag">Análise Geral · ESA 2022–2025</span>
+      <span class="topbar-title">COMO A PROVA DE LP É FEITA</span>
+      <span class="topbar-sub">14 questões em 3 blocos — padrão histórico de 4 anos (56 questões)</span>
+    </div>
+    <div class="topbar-right">04</div>
+  </div>
+  <div class="sb">
+    <div class="alerta vd" style="margin-bottom:14px;">
+      <div class="alerta-icon">📌</div>
+      <div class="alerta-content">
+        <div class="alerta-title">A prova de LP da ESA/CFGS</div>
+        <div class="alerta-text">São <b>14 questões</b> de Língua Portuguesa dentro de uma prova de <b>50 questões</b> (área Geral). A banca ESA tem padrão próprio, com referência explícita a <b>Cunha &amp; Cintra — Nova Gramática do Português Contemporâneo</b>. O conteúdo abrange interpretação de textos, gramática normativa e literatura brasileira. A análise unificada das <b>4 provas de 2022 a 2025</b> (56 questões no total) confirma que a banca repete os mesmos tópicos ano após ano — use isso a seu favor.</div>
+      </div>
+    </div>
+
+    <div class="bloco-wrap">
+      <div class="bloco">
+        <div class="bloco-header">
+          <div class="bloco-num" style="background:var(--azull);">
+            <div class="bloco-num-q">Q1–4</div>
+            <div class="bloco-num-label">~4 questões</div>
+          </div>
+          <div class="bloco-info">
+            <div class="bloco-title">📖 Interpretação de Texto</div>
+            <div class="bloco-desc">A banca apresenta 1 ou 2 textos longos (poesia, artigo, tirinha, conto) e faz perguntas sobre ideia central, função da linguagem, intertextualidade e sentido de palavras no contexto. Em 2025, o bloco incluiu questões sobre texto jornalístico (Pelé no Exército) e tirinha do Armandinho.</div>
+          </div>
+          <div class="bloco-pct">
+            <div class="bloco-pct-n" style="color:var(--azull);">29%</div>
+            <div class="bloco-pct-l">da prova LP</div>
+          </div>
+        </div>
+        <div class="bloco-temas">
+          <span class="tema-pill" style="background:var(--azulbg);color:var(--azull);">Ideia central do texto</span>
+          <span class="tema-pill" style="background:var(--azulbg);color:var(--azull);">Pressuposição e subentendido</span>
+          <span class="tema-pill" style="background:var(--azulbg);color:var(--azull);">Sentido contextual de palavras</span>
+          <span class="tema-pill" style="background:var(--azulbg);color:var(--azull);">Humor em tirinha</span>
+          <span class="tema-pill" style="background:var(--azulbg);color:var(--azull);">Intertextualidade</span>
+        </div>
+      </div>
+
+      <div class="bloco">
+        <div class="bloco-header">
+          <div class="bloco-num" style="background:var(--roxol);">
+            <div class="bloco-num-q">Q5–9</div>
+            <div class="bloco-num-label">~5 questões</div>
+          </div>
+          <div class="bloco-info">
+            <div class="bloco-title">⚙️ Gramática Normativa</div>
+            <div class="bloco-desc">Questões sobre análise sintática, morfossintaxe, classes de palavras, verbos (tempos, modos, locuções), concordância, regência e semântica. A banca usa frases retiradas dos próprios textos-base. Nas 4 provas analisadas (2022–2025), questões de sintaxe e verbos foram as mais cobradas em todos os anos.</div>
+          </div>
+          <div class="bloco-pct">
+            <div class="bloco-pct-n" style="color:var(--roxol);">36%</div>
+            <div class="bloco-pct-l">da prova LP</div>
+          </div>
+        </div>
+        <div class="bloco-temas">
+          <span class="tema-pill" style="background:var(--roxobg);color:var(--roxol);">Tipos de oração subordinada</span>
+          <span class="tema-pill" style="background:var(--roxobg);color:var(--roxol);">Adjunto adnominal vs complemento nominal</span>
+          <span class="tema-pill" style="background:var(--roxobg);color:var(--roxol);">Verbo impessoal</span>
+          <span class="tema-pill" style="background:var(--roxobg);color:var(--roxol);">Locução verbal — tempo composto</span>
+          <span class="tema-pill" style="background:var(--roxobg);color:var(--roxol);">Pronome relativo "onde"</span>
+          <span class="tema-pill" style="background:var(--roxobg);color:var(--roxol);">Função sintática do pronome relativo</span>
+        </div>
+      </div>
+
+      <div class="bloco">
+        <div class="bloco-header">
+          <div class="bloco-num" style="background:var(--vdm);">
+            <div class="bloco-num-q">Q10–14</div>
+            <div class="bloco-num-label">~5 questões</div>
+          </div>
+          <div class="bloco-info">
+            <div class="bloco-title">📜 Literatura Brasileira</div>
+            <div class="bloco-desc">O bloco mais denso e com maior variação. Cobre identificação de escola literária por trecho, características estéticas, gêneros literários, versificação, figuras de linguagem e tipos textuais. Nas 4 provas: Romantismo (2022/23), Arcadismo, Realismo, Ufanismo, Soneto (2024) e Cruz e Sousa — Simbolismo (2025).</div>
+          </div>
+          <div class="bloco-pct">
+            <div class="bloco-pct-n" style="color:var(--vdm);">36%</div>
+            <div class="bloco-pct-l">da prova LP</div>
+          </div>
+        </div>
+        <div class="bloco-temas">
+          <span class="tema-pill" style="background:var(--vdbg);color:var(--vdm);">Identificar escola por trecho</span>
+          <span class="tema-pill" style="background:var(--vdbg);color:var(--vdm);">Características estéticas de movimentos</span>
+          <span class="tema-pill" style="background:var(--vdbg);color:var(--vdm);">Gêneros: épico, lírico, dramático</span>
+          <span class="tema-pill" style="background:var(--vdbg);color:var(--vdm);">Versificação do soneto</span>
+          <span class="tema-pill" style="background:var(--vdbg);color:var(--vdm);">Ufanismo × Utopia × Crítica</span>
+          <span class="tema-pill" style="background:var(--vdbg);color:var(--vdm);">Figuras: antítese · elipse</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="alerta ouro">
+      <div class="alerta-icon">⚠️</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Atenção — A banca ESA pode alterar a ordem dos blocos</div>
+        <div class="alerta-text">A distribuição acima é o padrão histórico observado nas 4 provas de 2022 a 2025. A banca pode inverter ou misturar os blocos. O que não muda são os <b>tópicos cobrados</b> — confirmados pela análise de 56 questões. Use este padrão como referência de estudo, não como regra absoluta da prova.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(2)">← Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(4)">Mapa de Freq. →</button></div>
+</div>
+
+<!-- ═══ SLIDE 05 — MAPA DE FREQUÊNCIA ═══ -->
+<div class="slide" data-title="Mapa de Frequência — 2024 e 2025">
+  <div class="topbar tb-vd">
+    <div class="topbar-left">
+      <span class="topbar-tag">Análise Geral · ESA 2022–2025 · 56 Questões</span>
+      <span class="topbar-title">MAPA DE FREQUÊNCIA — 4 ANOS</span>
+      <span class="topbar-sub">O que mais caiu nas 4 provas (2022–2025) — priorize o 🔴</span>
+    </div>
+    <div class="topbar-right">05</div>
+  </div>
+  <div class="sb">
+    <div class="alerta vd" style="margin-bottom:13px;">
+      <div class="alerta-icon">🗓️</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Base de análise — bloco unificado</div>
+        <div class="alerta-text">Provas analisadas: <b>ESA/CFGS 2022 (out. 2022)</b>, <b>ESA/CFGS 2023 (8 out. 2023)</b>, <b>ESA/CFGS 2024 (set. 2024)</b> e <b>ESA/CFGS 2025 (set. 2025)</b>, área Geral, Tipo A. Total: <b>56 questões de LP</b>. 🔴 = cobrado em 3–4 provas | 🟡 = cobrado em 2 provas | 🟢 = cobrado em 1 prova</div>
+      </div>
+    </div>
+
+    <div class="qmap">
+      <div class="qrow"><div class="qrow-num" style="background:var(--verml);">📖</div><div class="qrow-info"><div class="qrow-title">Análise sintática — tipos de oração subordinada <span class="fpill a">🔴 Alta</span></div><div class="qrow-desc">2022: oração adverbial concessiva ("embora"). 2023: adverbial final / concessiva ("para que" / "embora"). 2024: "estar pronto para corrigir" — adverbial final reduzida de infinitivo. 2025: "que a disciplina… foram os principais ensinamentos" — objetiva direta. <b>Cobrado em todas as 4 provas.</b></div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verml);">100%</div><div class="qrow-badge-label">4 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verml);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:var(--verml);">📜</div><div class="qrow-info"><div class="qrow-title">Escola literária — identificar por trecho <span class="fpill a">🔴 Alta</span></div><div class="qrow-desc">2022: Modernismo. 2023: Romantismo (subjetivismo + indianismo). 2024: Arcadismo (Caramuru) + Realismo (Machado). 2025: Simbolismo (Cruz e Sousa). Padrão consolidado: a banca apresenta um trecho e pede a escola. <b>Cobrado em todas as 4 provas.</b></div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verml);">100%</div><div class="qrow-badge-label">4 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verml);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:var(--verml);">⚙️</div><div class="qrow-info"><div class="qrow-title">Morfossintaxe — adjunto adnominal vs predicativo <span class="fpill a">🔴 Alta</span></div><div class="qrow-desc">2023: função de termo sublinhado (adjunto vs complemento nominal). 2024: análise de "do além desse monte" — adjunto adverbial vs complemento nominal. 2025: "de areia" (adjunto adnominal) e "um gênio" (predicativo do sujeito). Questão de alta dificuldade — cobrada em 3 das 4 provas.</div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verml);">100%</div><div class="qrow-badge-label">4 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verml);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:var(--verml);">🔤</div><div class="qrow-info"><div class="qrow-title">Verbo — tempos, modos e locuções <span class="fpill a">🔴 Alta</span></div><div class="qrow-desc">2022: modo subjuntivo e correlação de tempos. 2023: verbo "adequar" (defectivo) e regência. 2024: elipse verbal (Quincas Borba); modo subjuntivo. 2025: "havia voado" — M-Q-P composto; "Amanhecia" — impessoal; "inspirando" — forma nominal. <b>Cobrado em todas as 4 provas.</b></div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verml);">100%</div><div class="qrow-badge-label">4 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verml);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:var(--verml);">🃏</div><div class="qrow-info"><div class="qrow-title">Tirinha — análise de humor e tipo textual <span class="fpill a">🔴 Alta</span></div><div class="qrow-desc">2022: Recruta Zero — tipo textual. 2023: tipologia do texto informativo (PNI). 2024: Calvin &amp; Haroldo — argumentativo/persuasivo. 2025: Armandinho — humor no "Devo ser um gênio!". Padrão: tirinha ou texto de humor como base para tipo textual. <b>Cobrado em todas as 4 provas.</b></div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verml);">100%</div><div class="qrow-badge-label">4 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:100%;background:var(--verml);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:var(--ourol);">📚</div><div class="qrow-info"><div class="qrow-title">Gêneros literários e versificação <span class="fpill m">🟡 Média</span></div><div class="qrow-desc">2024: Soneto de Fidelidade (Vinicius) — métricas, rimas e tipo de soneto. Gênero lírico vs épico vs dramático. 2025: versificação do Simbolismo (Cruz e Sousa). Padrão: a banca adora perguntar se o soneto é "decassílabo" ou "redondilha maior". Dominando a métrica, você ganha pontos fáceis.</div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--ourol);">50%</div><div class="qrow-badge-label">2 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:50%;background:var(--ourol);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:var(--ourol);">🔗</div><div class="qrow-info"><div class="qrow-title">Pronome relativo — uso e função sintática <span class="fpill a">🔴 Alta</span></div><div class="qrow-desc">2022: pronome relativo em contexto literário. 2023: "onde" com antecedente abstrato (regra da norma culta). 2024: "lo" em "ajudá-lo" — objeto direto. 2025: "onde realizou um voo" — adjunto adverbial. A ESA cobra o uso de "onde" há pelo menos 4 anos seguidos. <b>Nunca use "onde" com antecedente abstrato.</b></div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verml);">100%</div><div class="qrow-badge-label">4 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:50%;background:var(--ourol);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:var(--ourol);">🎨</div><div class="qrow-info"><div class="qrow-title">Figuras de linguagem e recursos expressivos <span class="fpill m">🟡 Média</span></div><div class="qrow-desc">2022: metáfora e ironia em contexto literário. 2023: intertextualidade. 2024: Elipse verbal — vírgula em "Ao vencido, ódio; ao vencedor, as batatas" (Machado). 2025: Sinestesia e musicalidade no Simbolismo (Cruz e Sousa). Figuras cobradas em 3 das 4 provas.</div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--verml);">75%</div><div class="qrow-badge-label">3 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:50%;background:var(--ourol);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:#43A047;">📝</div><div class="qrow-info"><div class="qrow-title">Formação de palavras / Morfologia <span class="fpill m">🟡 Média</span></div><div class="qrow-desc">2023: prefixação, sufixação e parassíntese — processos de formação. 2024: "completamente" — sufixo adverbial ("-mente" = derivação sufixal, não parassíntese). Cobrado em 2 das 4 provas; pode voltar em 2026!</div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--ourol);">50%</div><div class="qrow-badge-label">2 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:50%;background:#43A047;"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:var(--ourol);">📐</div><div class="qrow-info"><div class="qrow-title">Concordância verbal e nominal <span class="fpill m">🟡 Média</span></div><div class="qrow-desc">2022: concordância com sujeito composto. 2023: sujeito composto posposto ao verbo + concordância de adjetivo. Padrão: "haver" impessoal sempre singular; coletivos. Cobrado em 2 das 4 provas — pode retornar.</div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:var(--ourol);">50%</div><div class="qrow-badge-label">2 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:50%;background:var(--ourol);"></div></div></div></div>
+
+      <div class="qrow"><div class="qrow-num" style="background:#43A047;">🏛️</div><div class="qrow-info"><div class="qrow-title">Pontuação e acentuação <span class="fpill b">🟢 Baixa</span></div><div class="qrow-desc">2022: uso de vírgula em orações intercaladas. 2023: acentuação — oxítonas, paroxítonas e proparoxítonas (Q15 Itatiaia). Cobrado em 2 das 4 provas; menor frequência recente, mas consta do edital.</div></div><div class="qrow-badge"><div class="qrow-badge-pct" style="color:#43A047;">50%</div><div class="qrow-badge-label">2 de 4</div><div class="qrow-badge-bar"><div class="qrow-badge-fill" style="width:50%;background:#43A047;"></div></div></div></div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(3)">← Estrutura</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(5)">Textos-Base →</button></div>
+</div>
+
+<!-- ═══ SLIDE 06 — TEXTOS-BASE E PREVISÃO ═══ -->
+<div class="slide" data-title="Textos-Base e Previsão 2026">
+  <div class="topbar tb-azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">Análise Geral · ESA 2022–2025</span>
+      <span class="topbar-title">TEXTOS-BASE E PREVISÃO 2026</span>
+      <span class="topbar-sub">Padrão dos gêneros — o que a banca gosta de usar</span>
+    </div>
+    <div class="topbar-right">06</div>
+  </div>
+  <div class="sb">
+    <div class="alerta azul" style="margin-bottom:13px;">
+      <div class="alerta-icon">📌</div>
+      <div class="alerta-content">
+        <div class="alerta-title">O padrão dos textos-base ESA</div>
+        <div class="alerta-text">A banca ESA usa textos com temática <b>patriótica, militar ou histórica</b>. Nas 4 provas de 2022 a 2025, os textos incluíram poesias militares, textos jornalísticos, trechos literários clássicos (Machado de Assis, Cruz e Sousa, Caramuru) e tirinhas. Praticamente todos os textos fazem referência ao Brasil ou ao Exército.</div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:13px;">
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">📄</div><div class="card-head-title">Textos usados — Prova 2024</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">🎵</span><div class="it"><b>Canção do Expedicionário</b> — De Almeida &amp; Rossi (1944). Poesia patriótica. Gerou questões de escola literária, antítese, morfossintaxe e análise sintática.</div></div>
+          <div class="item"><span class="dot">📝</span><div class="it"><b>"Sargento do Exército Brasileiro: responsabilidades e desafios"</b> — EBLOG. Texto jornalístico institucional. Questões de interpretação e oração subordinada.</div></div>
+          <div class="item"><span class="dot">📖</span><div class="it"><b>Quincas Borba</b> — Machado de Assis. Trecho do romance realista. Questão de escola literária e elipse verbal.</div></div>
+          <div class="item"><span class="dot">🎵</span><div class="it"><b>"Canto de Regresso à Pátria"</b> (Oswald) e <b>"Canção do Exílio"</b> (Gonçalves Dias) — para questão de ufanismo nacionalista.</div></div>
+          <div class="item"><span class="dot">⚔️</span><div class="it"><b>Caramuru — Canto I</b> (Santa Rita Durão) — para identificação do Arcadismo.</div></div>
+          <div class="item"><span class="dot">😄</span><div class="it"><b>Tirinhas Calvin &amp; Haroldo</b> e <b>Recruta Zero</b> — questões de tipo textual e morfologia.</div></div>
+          <div class="item"><span class="dot">💌</span><div class="it"><b>Soneto de Fidelidade</b> (Vinicius de Moraes) — versificação e gênero lírico.</div></div>
+          <div class="item"><span class="dot">📕</span><div class="it"><b>"Uma amizade sincera"</b> — Clarice Lispector. Questão de pronome reflexivo.</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">📄</div><div class="card-head-title">Textos usados — Prova 2025</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">⚽</span><div class="it"><b>"Soldado Nascimento: a passagem de Pelé pelo Exército Brasileiro"</b> — CMSE. Texto jornalístico. Gerou questões de oração subordinada objetiva direta e morfossintaxe.</div></div>
+          <div class="item"><span class="dot">😄</span><div class="it"><b>Tirinha Armandinho</b> (Alexandre Beck) — questão de humor e morfossintaxe ("de areia" e "um gênio").</div></div>
+          <div class="item"><span class="dot">🏎️</span><div class="it"><b>"FAB homenageia Ayrton Senna"</b> — Agência FAB. Texto jornalístico. Questões de pressuposição, verbo impessoal, locução verbal, pronome relativo e tempo verbal.</div></div>
+          <div class="item"><span class="dot">🎵</span><div class="it"><b>"Canção Sargento Max Wolff Filho"</b> — Figueiredo &amp; Toniolo (2021). Poesia institucional. Questão de estratégia textual e classe de palavras.</div></div>
+          <div class="item"><span class="dot">📜</span><div class="it"><b>Antífona</b> — Cruz e Sousa. Poema simbolista. Características estéticas do Simbolismo.</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it"><b>Obra fundadora do Simbolismo</b> — Missal e Broquéis (Cruz e Sousa). Questão histórico-literária.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head vd"><div class="card-head-icon">🔮</div><div class="card-head-title">Previsão ESA 2026 — O que esperar</div></div>
+      <div class="card-body">
+        <div class="g2">
+          <div>
+            <div class="item"><span class="dot">🔴</span><div class="it"><b>Texto jornalístico militar:</b> artigo ou notícia sobre militar, herói ou evento histórico do EB. Questões de interpretação, pressuposição e oração subordinada.</div></div>
+            <div class="item"><span class="dot">🔴</span><div class="it"><b>Tirinha Recruta Zero:</b> cobre morfologia ou função sintática. Ponto favorável: a banca repete este gênero há anos.</div></div>
+            <div class="item"><span class="dot">🔴</span><div class="it"><b>Poesia patriótica:</b> hino, canção militar ou poema. Questões de escola literária, figuras e versificação.</div></div>
+          </div>
+          <div>
+            <div class="item"><span class="dot">🟡</span><div class="it"><b>Trecho literário clássico:</b> Machado de Assis ou Modernismo. Alta chance de retornar em 2026 após aparecer em 2024.</div></div>
+            <div class="item"><span class="dot">🟡</span><div class="it"><b>Simbolismo ou Parnasianismo:</b> após Cruz e Sousa em 2025, o Parnasianismo (Olavo Bilac) é candidato forte para 2026.</div></div>
+            <div class="item"><span class="dot">🟢</span><div class="it"><b>Romantismo ou Barroco:</b> baixa frequência recente, mas consta do edital. Estude as escolas do séc. XIX por segurança.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(4)">← Mapa Freq.</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(6)">Interpretação →</button></div>
+</div>
+
+<!-- ═══ SLIDE 07 — INTERPRETAÇÃO DE TEXTOS ═══ -->
+<div class="slide" data-title="Interpretação de Textos — Método + Questões">
+  <div class="topbar tb-azul">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo A · ESA/CFGS · Interpretação</span>
+      <span class="topbar-title">INTERPRETAÇÃO DE TEXTOS</span>
+      <span class="topbar-sub">Estratégia em 5 passos + questões reais 2024 e 2025</span>
+    </div>
+    <div class="topbar-right">07</div>
+  </div>
+  <div class="sb">
+    <div class="alerta azul" style="margin-bottom:13px;">
+      <div class="alerta-icon">💡</div>
+      <div class="alerta-content">
+        <div class="alerta-title">O padrão das questões de interpretação da ESA</div>
+        <div class="alerta-text">A banca usa dois formatos: <b>"é INCORRETO afirmar"</b> (você elimina o que distorce o texto) e <b>"depreende-se que"</b> (você identifica o que está implícito). Em 2025, apareceu pela primeira vez a questão de <b>pressuposição</b> — o que o texto supõe antes de afirmar. Preste atenção a advérbios de tempo como "ainda" e "até hoje".</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:11px;">
+      <div class="card-head vd"><div class="card-head-icon">📋</div><div class="card-head-title">Método em 5 passos para questões de interpretação</div></div>
+      <div class="card-body">
+        <div class="item"><span class="dot">1️⃣</span><div class="it"><b>Leia o enunciado ANTES do texto.</b> Ele revela o que a banca quer. Se pede "é INCORRETO afirmar", você sabe que 4 alternativas reproduzem o texto.</div></div>
+        <div class="item"><span class="dot">2️⃣</span><div class="it"><b>Sublinhe o tema central</b> no primeiro e no último parágrafo. A ideia principal quase sempre aparece nessas posições.</div></div>
+        <div class="item"><span class="dot">3️⃣</span><div class="it"><b>Desconfie de alternativas que usam exatamente as palavras do texto.</b> A banca coloca essas como "distratores" — elas parecem corretas mas repetem o texto sem interpretar.</div></div>
+        <div class="item"><span class="dot">4️⃣</span><div class="it"><b>Atenção a generalizações.</b> Palavras como "sempre", "nunca", "todos", "nenhum" costumam tornar uma alternativa incorreta — a menos que o texto use exatamente esse grau.</div></div>
+        <div class="item"><span class="dot">5️⃣</span><div class="it"><b>Pressuposição:</b> o que o texto assume sem dizer? Ex.: "o melhor piloto que <i>já passou</i> pela categoria" pressupõe que Senna <b>não está mais</b> na categoria — e que ainda pode ser o melhor.</div></div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">📰</div><div class="card-head-title">Questão-modelo: Texto Sargento EB (2024)</div></div>
+        <div class="card-body">
+          <div style="background:var(--fundo);border:1.5px solid var(--borda);border-radius:7px;padding:10px 13px;font-size:13px;font-style:italic;color:var(--cinza);margin-bottom:10px;">"Ao sargento, cabe conhecer muito bem sua profissão e, principalmente, seus subordinados. Deve comunicar-se eficazmente e estar sempre pronto para corrigir com sereno rigor."</div>
+          <div class="item"><span class="dot">❌</span><div class="it"><span class="it ko">INCORRETA (gabarito ESA-2024):</span> "O sargento deve <b>exigir</b> profissionalismo de seus subordinados <b>por meio do cumprimento de suas ordens</b>." → Distorce: o texto fala em <b>exemplo</b>, não em exigência via ordens.</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><span class="it ok">Corretas:</span> Atribuir responsabilidades = fortalecer a instituição; pleno entendimento dos níveis de comando é essencial; estar próximo ao subordinado = fundamental.</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head azul"><div class="card-head-icon">🏎️</div><div class="card-head-title">Questão-modelo: Pressuposição Senna (2025)</div></div>
+        <div class="card-body">
+          <div style="background:var(--fundo);border:1.5px solid var(--borda);border-radius:7px;padding:10px 13px;font-size:13px;font-style:italic;color:var(--cinza);margin-bottom:10px;">"…que fazem com que muitos especialistas o considerem, <b>até hoje</b>, o melhor piloto que <b>já passou</b> pela categoria."</div>
+          <div class="item"><span class="dot">🔑</span><div class="it"><b>"Até hoje"</b> = a consideração persiste no presente → Senna ainda é considerado o melhor.</div></div>
+          <div class="item"><span class="dot">🔑</span><div class="it"><b>"Que já passou"</b> = pressupõe que Senna não está mais na Fórmula 1 (ele faleceu em 1994).</div></div>
+          <div class="item"><span class="dot">✅</span><div class="it"><span class="it ok">Gabarito (D):</span> "Ayrton Senna é considerado <b>ainda</b> o melhor piloto que passou pela categoria." — capta os dois pressupostos.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(5)">← Textos</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(7)">Sintaxe →</button></div>
+</div>
+
+<!-- ═══ SLIDE 08 — ANÁLISE SINTÁTICA ═══ -->
+<div class="slide" data-title="Análise Sintática e Morfossintaxe">
+  <div class="topbar tb-roxo" style="background:var(--roxo);border-bottom:3px solid #CE93D8;">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo B · ESA/CFGS · Gramática Normativa</span>
+      <span class="topbar-title">ANÁLISE SINTÁTICA E MORFOSSINTAXE</span>
+      <span class="topbar-sub">Orações subordinadas · Adjunto adnominal · Predicativo · Pronome relativo</span>
+    </div>
+    <div class="topbar-right">08</div>
+  </div>
+  <div class="sb">
+    <div class="alerta roxo" style="margin-bottom:12px;">
+      <div class="alerta-icon">⚠️</div>
+      <div class="alerta-content">
+        <div class="alerta-title">O maior campo minado da prova ESA</div>
+        <div class="alerta-text">Análise sintática apareceu nas duas provas (2024 e 2025) com questões de alta dificuldade. A banca adora confundir <b>classe morfológica</b> com <b>função sintática</b> — são coisas diferentes! "de areia" é adjunto adnominal (função) formado por substantivo (classe). Nunca misture.</div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="card">
+        <div class="card-head roxo"><div class="card-head-icon">🔗</div><div class="card-head-title">Orações Subordinadas — ESA cobra direto</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">📌</span><div class="it"><b>Subst. Objetiva Direta:</b> "Pelé disse <span style="color:var(--roxol);">que a disciplina foram os principais ensinamentos</span>" — completa verbo transitivo direto (disse o quê?).</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it"><b>Adverbial Final reduzida de infinitivo:</b> "…<span style="color:var(--roxol);">para corrigir com sereno rigor</span>" — exprime finalidade + infinitivo + sem conjunção explícita.</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it"><b>Adjetiva Restritiva reduzida:</b> "6º GACosM, <span style="color:var(--roxol);">localizado em Santos</span>" — particípio + restringe o antecedente.</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it"><b>Completiva Nominal:</b> completa <b>nome</b> abstrato (substantivo ou adjetivo) com preposição.</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head roxo"><div class="card-head-icon">🔍</div><div class="card-head-title">Adjunto vs Complemento — diferença crítica</div></div>
+        <div class="card-body">
+          <div class="vs-wrap">
+            <div class="vs-c"><div class="vs-lbl">✅ Adjunto Adnominal</div><div class="vs-txt">Modifica um substantivo. Sem preposição obrigatória. Pode ser retirado. <b>Ex.:</b> "caixinha <b>de areia</b>" — o substantivo "caixinha" não exige este complemento.</div></div>
+            <div class="vs-arrow">↔</div>
+            <div class="vs-e"><div class="vs-lbl">❌ Complemento Nominal</div><div class="vs-txt">Completa um nome (subs. abstrato ou adj.) que <b>exige</b> preposição. <b>Ex.:</b> "necessidade <b>de estudo</b>" — o substantivo "necessidade" exige complemento.</div></div>
+          </div>
+          <div class="item"><span class="dot">💡</span><div class="it"><b>Teste ESA:</b> retire o termo e veja se o nome "fica incompleto". Se sim → complemento nominal. Se não → adjunto adnominal.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head vd"><div class="card-head-icon">📚</div><div class="card-head-title">Questões Reais — ESA 2024 e 2025</div></div>
+      <div class="card-body">
+        <div class="g2">
+          <div>
+            <div style="background:var(--vermbg);border-left:3px solid var(--verml);border-radius:0 7px 7px 0;padding:8px 12px;margin-bottom:8px;">
+              <div style="font-size:10.5px;font-weight:800;color:var(--verml);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">ESA 2024 — Q16 · Morfossintaxe</div>
+              <div style="font-size:13px;color:var(--texto);">Trecho: <i>"Venho do além desse monte"</i>. Gabarito: <b>"além desse monte" é adjunto adverbial</b>. "do além" funciona como nome (substantivado), sendo núcleo do sintagma. "desse" não é complemento nominal — é adjunto adnominal.</div>
+            </div>
+            <div style="background:var(--vdbg);border-left:3px solid var(--vdl);border-radius:0 7px 7px 0;padding:8px 12px;">
+              <div style="font-size:10.5px;font-weight:800;color:var(--vd);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">ESA 2024 — Q19 · Oração Subordinada</div>
+              <div style="font-size:13px;color:var(--texto);">Trecho: <i>"estar sempre pronto para corrigir com sereno rigor"</i>. Gabarito: <b>oração subordinada adverbial final reduzida de infinitivo</b>. A conjunção "para" + infinitivo = finalidade = adverbial final.</div>
+            </div>
+          </div>
+          <div>
+            <div style="background:var(--vermbg);border-left:3px solid var(--verml);border-radius:0 7px 7px 0;padding:8px 12px;margin-bottom:8px;">
+              <div style="font-size:10.5px;font-weight:800;color:var(--verml);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">ESA 2025 — Q19 · Morfossintaxe</div>
+              <div style="font-size:13px;color:var(--texto);">Trecho: I "caixinha <b>de areia</b>" e II "devo ser <b>um gênio</b>". Gabarito: <b>adjunto adnominal e predicativo do sujeito</b>. "de areia" modifica "caixinha" (adj. adnom.). "um gênio" é o predicativo do sujeito "eu".</div>
+            </div>
+            <div style="background:var(--vdbg);border-left:3px solid var(--vdl);border-radius:0 7px 7px 0;padding:8px 12px;">
+              <div style="font-size:10.5px;font-weight:800;color:var(--vd);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">ESA 2025 — Q24 · Pronome Relativo</div>
+              <div style="font-size:13px;color:var(--texto);">Trecho: <i>"onde realizou um voo no supersônico"</i>. Gabarito: <b>adjunto adverbial</b>. O pronome relativo "onde" exerce a função de adjunto adverbial de lugar na oração que encabeça.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(6)">← Interpretação</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(8)">Classes →</button></div>
+</div>
+
+<!-- ═══ SLIDE 09 — CLASSES DE PALAVRAS E SEMÂNTICA ═══ -->
+<div class="slide" data-title="Classes de Palavras + Semântica + Pronomes">
+  <div class="topbar tb-ouro">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo B · ESA/CFGS · Gramática Normativa</span>
+      <span class="topbar-title">CLASSES DE PALAVRAS · SEMÂNTICA · PRONOMES</span>
+      <span class="topbar-sub">Morfologia · Formação · Polissemia · Pronome reflexivo · 2024–2025</span>
+    </div>
+    <div class="topbar-right">09</div>
+  </div>
+  <div class="sb">
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="card">
+        <div class="card-head ouro"><div class="card-head-icon">🔤</div><div class="card-head-title">Formação de Palavras — ESA 2024</div></div>
+        <div class="card-body">
+          <div class="item"><span class="dot">🔴</span><div class="it"><b>"completamente":</b> formada por derivação <b>sufixal</b>. O sufixo "-mente" forma advérbio a partir do adjetivo "completa". <span class="it ok">Possui um sufixo adverbial</span> ← gabarito ESA-2024.</div></div>
+          <div class="item"><span class="dot">❌</span><div class="it"><b>Erros comuns:</b> "é composta por dois afixos" (não — só tem sufixo); "possui prefixo de origem grega" (falso); "derivação parassintética" (falso — parassíntese = prefixo + sufixo simultaneamente).</div></div>
+          <div class="item"><span class="dot">💡</span><div class="it"><b>Parassíntese:</b> prefixo + sufixo adicionados ao mesmo tempo. Ex.: <b>en</b>riquecer (e-s-v-a-z-i-a-r nenhuma das etapas é palavra). "completamente" não é parassíntese!</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head ouro"><div class="card-head-icon">🔁</div><div class="card-head-title">Polissemia — ESA 2025</div></div>
+        <div class="card-body">
+          <div style="background:var(--fundo);border:1.5px solid var(--borda);border-radius:7px;padding:9px 12px;font-size:13px;font-style:italic;color:var(--cinza);margin-bottom:9px;">Contexto: "no <b>próximo</b> mês, haverá aula." A banca pediu o sentido que <b>NÃO substitui</b> a palavra.</div>
+          <div class="item"><span class="dot">✅</span><div class="it">Sentidos de "próximo" no contexto de tempo: <b>seguinte</b>, <b>subsequente</b>, <b>contíguo</b> (o que vem logo depois), <b>seguinte</b>.</div></div>
+          <div class="item"><span class="dot">❌</span><div class="it"><b>Gabarito (não substitui):</b> <b>"anterior"</b> ou <b>"pretérito"</b> — o oposto de próximo no contexto temporal. Palavras que indicam o passado não substituem "próximo mês".</div></div>
+          <div class="item"><span class="dot">💡</span><div class="it">Questão de polissemia: teste cada alternativa substituindo no contexto. A que "não cabe" é o gabarito.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-head roxo"><div class="card-head-icon">🔄</div><div class="card-head-title">Pronomes — ESA 2024: reflexivo vs apassivador</div></div>
+      <div class="card-body">
+        <div class="g2">
+          <div>
+            <div style="background:var(--vermbg);border-left:3px solid var(--verml);border-radius:0 7px 7px 0;padding:8px 12px;margin-bottom:8px;">
+              <div style="font-size:10.5px;font-weight:800;color:var(--verml);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Questão ESA-2024 — "mas tornávamo-nos inquietos"</div>
+              <div style="font-size:13px;color:var(--texto);">O primeiro "nos" em "tornávamo-<b>nos</b> inquietos": o verbo "tornar-se" é <b>pronominal reflexivo</b> — o sujeito pratica e recebe a ação ao mesmo tempo. Gabarito: <b>pronome reflexivo</b>.</div>
+            </div>
+          </div>
+          <div>
+            <div class="item"><span class="dot">📌</span><div class="it"><b>Pronome apassivador (se):</b> "Vendem-se casas" = "Casas são vendidas". Voz passiva sintética.</div></div>
+            <div class="item"><span class="dot">📌</span><div class="it"><b>Pronome reflexivo (se/me/te/nos/vos):</b> sujeito = objeto. "Ele se feriu" = ele feriu a si mesmo.</div></div>
+            <div class="item"><span class="dot">📌</span><div class="it"><b>Índice de indeterminação (se):</b> "Precisa-se de profissionais." Sujeito indeterminado.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head vd"><div class="card-head-icon">🔍</div><div class="card-head-title">Classe de palavras em contexto — ESA 2025</div></div>
+      <div class="card-body">
+        <div class="item"><span class="dot">📌</span><div class="it"><b>"legado"</b> na Canção Sargento Max Wolff (ESA-2025): classe = <b>substantivo</b>. Função = <b>objeto direto</b> ("Deixou… o legado"). A banca cobra tanto a classe quanto a função na mesma questão.</div></div>
+        <div class="item"><span class="dot">📌</span><div class="it"><b>Substantivos abstratos</b> formam "complemento nominal" quando exigem preposição. Ex.: "necessidade <i>de</i> treinamento". Compare com adj. adnominal: "caderno <i>de</i> exercícios" → não exigido.</div></div>
+        <div class="item"><span class="dot">💡</span><div class="it">Regra rápida: <b>classe</b> = o que a palavra É (substantivo, adjetivo, advérbio…). <b>Função</b> = o que ela FAZ na oração (sujeito, objeto, adjunto…). Nunca confunda!</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(7)">← Sintaxe</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(9)">Verbos →</button></div>
+</div>
+
+<!-- ═══ SLIDE 10 — VERBOS: TEMPOS, MODOS, IMPESSOAIS ═══ -->
+<div class="slide" data-title="Verbos — Tempos, Modos e Impessoais">
+  <div class="topbar tb-roxo" style="background:var(--roxo);border-bottom:3px solid #CE93D8;">
+    <div class="topbar-left">
+      <span class="topbar-tag">Módulo B · ESA/CFGS · Gramática Normativa</span>
+      <span class="topbar-title">VERBOS — TEMPOS, MODOS E IMPESSOAIS</span>
+      <span class="topbar-sub">Pretérito M-Q-P composto · Verbo impessoal · Forma nominal · ESA 2025</span>
+    </div>
+    <div class="topbar-right">10</div>
+  </div>
+  <div class="sb">
+    <div class="alerta roxo" style="margin-bottom:12px;">
+      <div class="alerta-icon">🔑</div>
+      <div class="alerta-content">
+        <div class="alerta-title">Destaque ESA 2025: 3 questões sobre verbos em 1 prova!</div>
+        <div class="alerta-text">Em 2025, a banca cobrou: <b>locução verbal</b> (pretérito mais-que-perfeito composto), <b>verbo impessoal</b> (amanhecer/anoitecer/chover) e <b>forma nominal</b> (gerúndio). São tópicos distintos mas conexos — dominar todos é essencial para a prova de 2026.</div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:12px;">
+      <div class="card">
+        <div class="card-head roxo"><div class="card-head-icon">⏰</div><div class="card-head-title">Locução Verbal — ESA 2025: Q23</div></div>
+        <div class="card-body">
+          <div style="background:var(--fundo);border:1.5px solid var(--borda);border-radius:7px;padding:9px 12px;font-size:13px;font-style:italic;color:var(--cinza);margin-bottom:9px;">"Em 1987, Ayrton Senna já <b>havia voado</b> nas asas da FAB."</div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Gabarito: Pretérito mais-que-perfeito composto</b> — 3ª pessoa do singular. Formação: verbo auxiliar "haver" no imperfeito do indicativo (<i>havia</i>) + particípio (<i>voado</i>).</div></div>
+          <div class="item"><span class="dot">📌</span><div class="it">Indica ação passada <b>anterior</b> a outra ação passada. "Já havia voado" = voou antes de outro evento passado.</div></div>
+          <table class="tabela-ref" style="margin-top:8px;">
+            <tr><th>Tempo</th><th>Formação</th><th>Exemplo</th></tr>
+            <tr><td>Pretérito Perfeito Composto</td><td>ter/haver (pres.) + particípio</td><td>tem voado</td></tr>
+            <tr><td><b>M-Q-P Composto</b></td><td><b>ter/haver (imp.) + particípio</b></td><td><b>havia voado ✔</b></td></tr>
+            <tr><td>Fut. do Pretérito Composto</td><td>ter/haver (fut. pret.) + particípio</td><td>teria voado</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head verm"><div class="card-head-icon">☀️</div><div class="card-head-title">Verbos Impessoais — ESA 2025: Q22</div></div>
+        <div class="card-body">
+          <div style="background:var(--fundo);border:1.5px solid var(--borda);border-radius:7px;padding:9px 12px;font-size:13px;font-style:italic;color:var(--cinza);margin-bottom:9px;">"<b>Amanhecia</b> dentro das instalações do Esquadrão Jaguar."</div>
+          <div class="item"><span class="dot">✅</span><div class="it"><b>Gabarito: verbo impessoal</b> — não possui sujeito. "Amanhecer", "anoitecer", "chover", "haver" (existir), "fazer" (clima) são os verbos impessoais clássicos do edital ESA.</div></div>
+          <div class="item"><span class="dot">❌</span><div class="it"><b>Não confundir com:</b> "inspirando brasileiros" (gerúndio = forma nominal, mas <i>tem</i> sujeito implícito); "decolavam" (verbo pessoal, sujeito = Dois Mirage III).</div></div>
+          <div class="item"><span class="dot">💡</span><div class="it">Teste: tente encontrar o sujeito. Se for impossível sem distorcer o sentido → <b>verbo impessoal</b>.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head vd"><div class="card-head-icon">📋</div><div class="card-head-title">Elipse Verbal com Vírgula — ESA 2024: Q20</div></div>
+      <div class="card-body">
+        <div style="background:var(--fundo);border:1.5px solid var(--borda);border-radius:7px;padding:9px 12px;font-size:13px;font-style:italic;color:var(--cinza);margin-bottom:9px;">"Ao vencido, ódio ou compaixão; ao vencedor, as batatas." (Machado de Assis)</div>
+        <div class="g2">
+          <div>
+            <div class="item"><span class="dot">✅</span><div class="it"><b>Gabarito:</b> A vírgula após "vencido" e após "vencedor" marca a <b>elipse do verbo "cabem"</b> (ou "cabe"). Estrutura completa: "Ao vencido, <i>cabem</i> ódio ou compaixão; ao vencedor, <i>cabem</i> as batatas."</div></div>
+            <div class="item"><span class="dot">📌</span><div class="it">Elipse = omissão de um termo <b>recuperável pelo contexto</b>. A vírgula sinaliza essa omissão na frase.</div></div>
+          </div>
+          <div>
+            <div class="item"><span class="dot">❌</span><div class="it"><b>Não confundir com:</b> "A paz, nesse caso, é a destruição" — aqui a vírgula isola adjunto adverbial, não indica elipse.</div></div>
+            <div class="item"><span class="dot">❌</span><div class="it">"…mas, rigorosamente, não há morte" — vírgula isolando advérbio de modo. Sem elipse verbal.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><button class="sfbtn" onclick="goTo(2)">📋 Sumário</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(8)">← Classes</button><span style="color:var(--borda)">|</span><button class="sfbtn" onclick="goTo(10)">Literatura →</button></div>
+</div>
+
+
+<!-- ═══ SLIDE FIM — CONTEÚDO BLOQUEADO ═══ -->
+<div class="slide" data-title="Conteúdo Completo — Módulos Seguintes" id="s-fim">
+  <div class="topbar" style="background:linear-gradient(135deg,#1a1a2e,#16213e);border-bottom:3px solid #4a4a8a;">
+    <div class="topbar-left">
+      <div class="topbar-tag" style="color:rgba(255,255,255,.45);">Guia Preparatório Capitão Valdir</div>
+      <div class="topbar-title" style="color:white;">🔒 Conteúdo Completo — Módulos Seguintes</div>
+      <div class="topbar-sub" style="color:rgba(255,255,255,.6);">Acesso ao material integral · Slides seguintes</div>
+    </div>
+    <div class="topbar-right" style="color:rgba(255,255,255,.15);">🔒</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0;background:linear-gradient(160deg,#0A1C12 0%,#111C24 60%,#0D1820 100%);overflow-y:auto;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:18px;padding:36px 24px;max-width:520px;width:100%;text-align:center;">
+
+      <div style="font-size:64px;line-height:1;filter:drop-shadow(0 4px 18px rgba(0,0,0,.5));">🔒</div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#ffffff;line-height:1.25;">
+        Conteúdo Completo<br>— Módulos Seguintes
+      </div>
+
+      <div style="width:50px;height:3px;background:#D4A017;border-radius:2px;"></div>
+
+      <div style="font-family:'Sora',sans-serif;font-size:14px;font-weight:400;color:rgba(255,255,255,.75);line-height:1.7;max-width:400px;">
+        Para ter acesso ao material completo, entre em contato com o <strong style="color:#D4A017;">Guia Preparatório Capitão Valdir</strong>.
+      </div>
+
+      <a href="mailto:guiaprepcapvaldir@gmail.com"
+         style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#B8860B,#D4A017);color:#1a0e00;font-family:'Sora',sans-serif;font-size:14px;font-weight:800;padding:14px 28px;border-radius:10px;text-decoration:none;box-shadow:0 4px 20px rgba(212,160,23,.35);letter-spacing:.02em;margin-top:4px;">
+        📧 Quero Acesso ao Material Completo
+      </a>
+
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:rgba(212,160,23,.65);letter-spacing:.06em;">
+        guiaprepcapvaldir@gmail.com
+      </div>
+
+      <div style="width:100%;height:1px;background:rgba(255,255,255,.08);margin:4px 0;"></div>
+
+      <button onclick="goTo(0)" style="background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);font-family:'Sora',sans-serif;font-size:12px;font-weight:600;padding:8px 22px;border-radius:7px;cursor:pointer;letter-spacing:.03em;">
+        ⬆ Voltar à Capa
+      </button>
+
+    </div>
+  </div>
+</div>
+
+</div><!-- /deck -->
+
+<!-- NAV BAR -->
+<div class="nav">
+  <button class="nbtn" id="btn-prev" onclick="prev()" disabled>← Anterior</button>
+  <div class="pw"><div class="pb" id="prog"></div></div>
+  <div class="ntitle" id="ntitle">Início</div>
+  <div class="ncnt" id="ncnt"></div>
+  <button class="nbtn" id="btn-next" onclick="next()">Próximo →</button>
+  <div class="khint" id="khint">← → teclado · swipe celular</div>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let cur=0;
+const total=slides.length;
+function goTo(n){
+  if(n<0||n>=total)return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('out');
+  const p=cur;cur=n;
+  setTimeout(()=>slides[p].classList.remove('out'),370);
+  slides[cur].classList.add('active');
+  const sb=slides[cur].querySelector('.sb');
+  if(sb)sb.scrollTop=0;
+  upd();
+}
+function next(){if(cur<total-1)goTo(cur+1);}
+function prev(){if(cur>0)goTo(cur-1);}
+function upd(){
+  document.getElementById('btn-prev').disabled=cur===0;
+  document.getElementById('btn-next').disabled=cur===total-1;
+  document.getElementById('prog').style.width=((cur+1)/total*100)+'%';
+  document.getElementById('ncnt').textContent=(cur+1)+' / '+total;
+  document.getElementById('ntitle').textContent=slides[cur].dataset.title||'';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();next();}
+  if(e.key==='ArrowLeft'){e.preventDefault();prev();}
+});
+let tx=0;
+document.getElementById('deck').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.getElementById('deck').addEventListener('touchend',e=>{
+  const dx=tx-e.changedTouches[0].clientX;
+  if(Math.abs(dx)>45)dx>0?next():prev();
+},{passive:true});
+(function(){
+  const isMobile=window.innerWidth<=768||('ontouchstart' in window);
+  const khint=document.getElementById('khint');
+  if(isMobile&&khint)khint.style.display='none';
+  document.getElementById('ncnt').textContent='1 / '+slides.length;
+})();
+upd();
+</script>
+</body>
+</html>
